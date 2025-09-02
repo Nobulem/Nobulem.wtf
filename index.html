@@ -3,9 +3,10 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Developers — nobulem.wtf</title>
-  <meta name="description" content="Terms of Service for nobulem.wtf">
+  <title>nobulem.wtf — Free Scripts Hub</title>
+  <meta name="description" content="nobulem.wtf — Quality. scripts hub. Bold. Fast. Clean.">
   <style>
+    /* ---------- Base / Theme ---------- */
     :root{
       --bg: #0b0b0b;
       --bg-2: #111;
@@ -25,17 +26,39 @@
       margin:0;
       background: radial-gradient(1200px 1200px at 10% 20%, #171717 0%, var(--bg) 50%) fixed;
       color:var(--text);
-      font: 700 15px/1.6 ui-sans-serif, -apple-system, system-ui, Segoe UI, Roboto, Helvetica, Arial;
+      font: 700 15px/1.6 ui-sans-serif, -apple-system, system-ui, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
       letter-spacing:.2px;
       overflow-x:hidden;
-      cursor: default; /* keep default cursor visible */
+      cursor: auto;
     }
     h1,h2,h3,h4,strong,b{font-weight:800; margin:0 0 .6rem}
     p{margin:0 0 1rem; color:var(--muted)}
     a{color:var(--text); text-decoration:none; font-weight:800}
     .container{width:min(1150px, 92vw); margin-inline:auto}
 
-    /* Blobs */
+    /* ---------- Flashlight (faint glowing circle following mouse in background) ---------- */
+    .flashlight {
+      position: fixed;
+      left: 50%;
+      top: 50%;
+      width: 420px;
+      height: 420px;
+      pointer-events: none;
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 0; /* behind content (content sections use z-index:1) */
+      background: radial-gradient(circle at 50% 40%,
+        rgba(255,255,255,0.10) 0%,
+        rgba(255,255,255,0.06) 20%,
+        rgba(255,255,255,0.02) 40%,
+        transparent 65%);
+      filter: blur(42px) saturate(120%);
+      mix-blend-mode: screen;
+      transition: width 220ms ease, height 220ms ease, opacity 220ms ease;
+      opacity: 0.95;
+    }
+
+    /* ---------- Fancy glow blobs ---------- */
     .blob{
       position:fixed; inset:auto auto 10% -10%;
       width:55vw; height:55vw; pointer-events:none; z-index:0;
@@ -50,7 +73,7 @@
       50%{transform:translate3d(2rem,-1.5rem,0) scale(1.06)}
     }
 
-    /* Navbar */
+    /* ---------- Top Nav ---------- */
     .nav{
       position:sticky; top:0; z-index:50;
       backdrop-filter:saturate(140%) blur(10px);
@@ -58,167 +81,985 @@
       border-bottom:1px solid var(--line);
     }
     .nav .row{display:flex; align-items:center; gap:16px; padding:14px 0}
-    .brand{display:flex; align-items:center; gap:10px; font-size:22px; letter-spacing:.3px}
+    .brand{
+      display:flex; align-items:center; gap:10px; font-size:22px; letter-spacing:.3px;
+    }
     .brand .dot{width:10px; height:10px; border-radius:999px; background:#fff; box-shadow:0 0 16px #fff}
     .links{margin-left:auto; display:flex; gap:18px; flex-wrap:wrap}
     .links a{opacity:.9}
     .links a:hover{opacity:1; transform:translateY(-1px)}
+    .cta{
+      margin-left:10px; background:#fff; color:#000; padding:10px 16px; border-radius:999px;
+      box-shadow:var(--shadow); border:2px solid #fff; transition:transform var(--speed);
+    }
+    .cta:hover{transform:translateY(-2px) scale(1.02)}
 
-    /* Hero Section */
-    .hero {
-      position: relative;
-      z-index: 1;
-      padding: 96px 0 56px;
-      text-align: center;
+    /* ---------- Hero ---------- */
+    .hero{
+      position:relative; z-index:1; padding:96px 0 56px; text-align:center;
     }
-    .eyebrow {
-      color: #eaeaea;
-      text-transform: uppercase;
-      font-size: 13px;
-      letter-spacing: .24em;
+    .eyebrow{color:#eaeaea; text-transform:uppercase; font-size:13px; letter-spacing:.24em}
+    .title{font-size: clamp(42px, 7vw, 76px); line-height:1.04; margin:.6rem 0 .8rem}
+    .subtitle{font-size: clamp(16px, 2.2vw, 20px); color:var(--muted)}
+    .chips{display:flex; gap:10px; justify-content:center; flex-wrap:wrap; margin:22px 0 28px}
+    .chip{
+      border:1px solid var(--line); background:linear-gradient(180deg,#121212,#0e0e0e);
+      padding:10px 14px; border-radius:999px; box-shadow: inset 0 0 0 1px rgba(255,255,255,.03);
     }
-    .title {
-      font-size: clamp(42px, 7vw, 76px);
-      line-height: 1.04;
-      margin: .6rem 0 .8rem;
+    .actions{display:flex; gap:14px; justify-content:center; flex-wrap:wrap}
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center; gap:10px;
+      padding:14px 20px; border-radius:12px; border:2px solid #fff; cursor:pointer; transition:transform var(--speed), background var(--speed), color var(--speed);
+      box-shadow:var(--shadow);
     }
-    .subtitle {
-      font-size: clamp(16px, 2.2vw, 20px);
-      color: var(--muted);
+    .btn.primary{background:#fff; color:#000}
+    .btn.ghost{background:transparent}
+    .btn:hover{transform:translateY(-2px)}
+    .ribbon{
+      margin:22px auto 0; width:fit-content; padding:8px 14px; border-radius:999px;
+      border:1px dashed #2e2e2e; color:#fefefe; background:rgba(255,255,255,.04)
     }
 
-    /* Content Section */
-    section {
-      position: relative;
-      z-index: 1;
-      padding: 70px 0;
-      border-top: 1px solid var(--line);
+    /* ---------- Sections ---------- */
+    section{position:relative; z-index:1; padding:70px 0; border-top:1px solid var(--line)}
+    .grid{display:grid; gap:18px}
+    .cards{grid-template-columns:repeat(4,1fr)}
+    .card{
+      background:linear-gradient(180deg,#161616,#111); border:1px solid var(--line);
+      border-radius:var(--radius); padding:22px; box-shadow:var(--shadow); min-height:160px; position:relative; overflow:hidden;
     }
-    .tos-content {
-      background: linear-gradient(180deg, #161616, #111);
+    .card .icon{font-size:20px; margin-bottom:8px}
+    .note{font-size:13px; text-transform:uppercase; letter-spacing:.2em; color:#eaeaea}
+    .muted{color:var(--muted)}
+    .two{grid-template-columns:repeat(2,1fr)}
+    .three{grid-template-columns:repeat(3,1fr)}
+    .center{text-align:center}
+
+    /* ---------- Game Cards ---------- */
+    .game-card {
+      background: linear-gradient(180deg,#161616,#111);
       border: 1px solid var(--line);
       border-radius: var(--radius);
+      overflow: hidden;
       box-shadow: var(--shadow);
-      padding: 30px;
-      max-width: 900px;
-      margin: auto;
-      line-height: 1.8;
+      transition: transform 0.3s ease;
     }
-    .tos-content h2 {
-      margin-top: 30px;
+    
+    .game-card:hover {
+      transform: translateY(-5px);
+    }
+    
+    .game-image {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+    }
+    
+    .game-content {
+      padding: 16px;
+    }
+    
+    .game-id {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 8px;
     }
 
-    footer {
-      border-top: 1px solid var(--line);
-      padding: 26px 0 60px;
+    /* ---------- Executor Cards ---------- */
+    .executor-card {
+      background: linear-gradient(180deg,#161616,#111);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 20px;
+      box-shadow: var(--shadow);
+      transition: transform 0.3s ease;
+    }
+    
+    .executor-card:hover {
+      transform: translateY(-5px);
+    }
+    
+    .executor-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+    
+    .executor-name {
+      font-size: 18px;
+      font-weight: 800;
+    }
+    
+    .executor-version {
+      font-size: 12px;
       color: var(--muted);
+      background: rgba(255,255,255,0.1);
+      padding: 4px 8px;
+      border-radius: 12px;
+    }
+    
+    .executor-details {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-top: 15px;
+    }
+    
+    .executor-detail {
+      font-size: 13px;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    
+    .support-badge {
+      display: inline-block;
+      padding: 4px 8px;
+      border-radius: 12px;
+      font-size: 12px;
+      font-weight: 700;
+    }
+    
+    .support-excellent {
+      background: linear-gradient(90deg, #00b09b, #96c93d);
+    }
+    
+    .support-good {
+      background: linear-gradient(90deg, #a8ff78, #78ffd6);
+    }
+    
+    .support-limited {
+      background: linear-gradient(90deg, #ff5e62, #ff9966);
+    }
+    
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      display: inline-block;
+    }
+    
+    .status-working {
+      background: #00b09b;
+    }
+    
+    .status-detected {
+      background: #ff5e62;
+    }
+
+    /* ---------- Stats ---------- */
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 15px;
+      margin-bottom: 30px;
+    }
+    
+    .stat-card {
+      background: linear-gradient(180deg,#161616,#111);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 20px;
       text-align: center;
     }
+    
+    .stat-number {
+      font-size: 32px;
+      font-weight: 800;
+      margin-bottom: 5px;
+    }
+    
+    .stat-label {
+      font-size: 14px;
+      color: var(--muted);
+    }
 
-    /* Spotlight Effect */
-    .spotlight {
-      position: fixed;
-      width: 400px;
-      height: 400px;
-      background: radial-gradient(circle, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0) 70%);
-      pointer-events: none;
+    /* ---------- Search ---------- */
+    .search-box {
+      background: linear-gradient(180deg,#161616,#111);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 15px;
+      margin-bottom: 30px;
+    }
+    
+    .search-input {
+      width: 100%;
+      background: transparent;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 12px 15px;
+      color: var(--text);
+      font-size: 16px;
+    }
+    
+    .search-input:focus {
+      outline: none;
+      border-color: #fff;
+    }
+    
+    .filter-tabs {
+      display: flex;
+      gap: 10px;
+      margin-top: 15px;
+      flex-wrap: wrap;
+    }
+    
+    .filter-tab {
+      padding: 8px 15px;
+      border-radius: 20px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid var(--line);
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    .filter-tab.active {
+      background: #fff;
+      color: #000;
+    }
+
+    /* ---------- Typing Animation ---------- */
+    .typing-container {
+      display: inline-block;
+      position: relative;
+    }
+    
+    .typing-text {
+      display: inline-block;
+      overflow: hidden;
+      white-space: nowrap;
+      border-right: 3px solid #fff;
+      animation: typing 3.5s steps(40, end), blink-caret 0.75s step-end infinite;
+    }
+    
+    @keyframes typing {
+      from { width: 0 }
+      to { width: 100% }
+    }
+    
+    @keyframes blink-caret {
+      from, to { border-color: transparent }
+      50% { border-color: #fff }
+    }
+    
+    .typing-delete {
+      animation: typing-delete 1s steps(40, end), blink-caret 0.75s step-end infinite;
+    }
+    
+    @keyframes typing-delete {
+      from { width: 100% }
+      to { width: 0 }
+    }
+
+    /* ---------- Additional Animations ---------- */
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    
+    @keyframes slideInUp {
+      from { transform: translateY(50px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+    
+    @keyframes slideInLeft {
+      from { transform: translateX(-50px); opacity: 0; }
+      to { transform: translateX(0); opacity: 1; }
+    }
+    
+    @keyframes slideInRight {
+      from { transform: translateX(50px); opacity: 0; }
+      to { transform: translateX(0); opacity: 1; }
+    }
+    
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+      100% { transform: scale(1); }
+    }
+    
+    @keyframes glow {
+      0% { box-shadow: 0 0 5px rgba(255,255,255,0.3); }
+      50% { box-shadow: 0 0 20px rgba(255,255,255,0.6); }
+      100% { box-shadow: 0 0 5px rgba(255,255,255,0.3); }
+    }
+    
+    @keyframes rotate {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+    
+    @keyframes bounce {
+      0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+      40% { transform: translateY(-20px); }
+      60% { transform: translateY(-10px); }
+    }
+    
+    .animate-fadeIn {
+      animation: fadeIn 1s ease forwards;
+    }
+    
+    .animate-slideInUp {
+      animation: slideInUp 0.8s ease forwards;
+    }
+    
+    .animate-slideInLeft {
+      animation: slideInLeft 0.8s ease forwards;
+    }
+    
+    .animate-slideInRight {
+      animation: slideInRight 0.8s ease forwards;
+    }
+    
+    .animate-pulse {
+      animation: pulse 2s infinite;
+    }
+    
+    .animate-glow {
+      animation: glow 2s infinite;
+    }
+    
+    .animate-rotate {
+      animation: rotate 4s linear infinite;
+    }
+    
+    .animate-bounce {
+      animation: bounce 2s infinite;
+    }
+    
+    .animation-delay-1 {
+      animation-delay: 0.2s;
+    }
+    
+    .animation-delay-2 {
+      animation-delay: 0.4s;
+    }
+    
+    .animation-delay-3 {
+      animation-delay: 0.6s;
+    }
+    
+    .animation-delay-4 {
+      animation-delay: 0.8s;
+    }
+
+    /* ---------- Pricing ---------- */
+    .pricing{
+      display:grid; grid-template-columns:repeat(3,1fr); gap:18px;
+    }
+    .plan{
+      background:linear-gradient(180deg,#161616,#111); border:1px solid var(--line);
+      border-radius:var(--radius); padding:26px; box-shadow:var(--shadow)
+    }
+    .plan h3{font-size:26px}
+    .price{font-size:42px; margin:.4rem 0 1rem}
+    .plan ul{list-style:none; padding:0; margin:0 0 1.2rem}
+    .plan li{padding:8px 0; border-bottom:1px dashed #2b2b2b}
+    .plan .btn{width:100%}
+
+    /* Reviews */
+    .reviews {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+      margin-top: 24px;
+    }
+    
+    .review-card {
+      background: linear-gradient(180deg,#161616,#111);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 20px;
+      box-shadow: var(--shadow);
+    }
+    
+    .review-text {
+      font-style: italic;
+      margin-bottom: 12px;
+    }
+    
+    .reviewer {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    .review-avatar {
+      width: 30px;
+      height: 30px;
       border-radius: 50%;
-      mix-blend-mode: screen;
-      transform: translate(-50%, -50%) scale(1);
-      z-index: 9999; /* above all content */
+      background: #333;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+    }
+    
+    /* Developer Cards */
+    .dev-card {
+      text-align: center;
+      padding: 20px;
+    }
+    
+    .dev-avatar {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      margin: 0 auto 15px;
+      overflow: hidden;
+      border: 3px solid var(--line);
+      transition: all 0.3s ease;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+    
+    .dev-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    
+    .dev-card:hover .dev-avatar {
+      transform: scale(1.05);
+      border-color: #fff;
+    }
+    
+    /* Coming Soon Animation */
+    .coming-soon {
+      text-align: center;
+      padding: 60px 20px;
+    }
+    
+    .pulse-text {
+      animation: pulse 2s infinite;
+      font-size: 32px;
+      margin-bottom: 20px;
+    }
+    
+    .loader {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin: 30px 0;
+    }
+    
+    .loader-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: #fff;
+      animation: bounce 1.5s infinite ease-in-out;
+    }
+    
+    .loader-dot:nth-child(2) {
+      animation-delay: 0.2s;
+    }
+    
+    .loader-dot:nth-child(3) {
+      animation-delay: 0.4s;
+    }
+
+    /* ---------- Footer ---------- */
+    footer{
+      border-top:1px solid var(--line); padding:26px 0 60px; color:var(--muted); text-align:center
+    }
+
+    /* ---------- Enter / Scroll Animations ---------- */
+    .reveal{opacity:0; transform:translateY(16px); transition:opacity var(--speed) ease, transform var(--speed) ease}
+    .reveal.in{opacity:1; transform:translateY(0)}
+    .pulse{animation:pulse 2.4s ease-in-out infinite}
+    @keyframes pulse{
+      0%,100%{box-shadow:0 0 0 0 rgba(255,255,255,.35)}
+      50%{box-shadow:0 0 0 14px rgba(255,255,255,0)}
+    }
+
+    /* ---------- Responsive ---------- */
+    @media (max-width: 980px){
+      .cards{grid-template-columns:repeat(2,1fr)}
+      .pricing{grid-template-columns:1fr}
+      .two,.three{grid-template-columns:1fr}
+      .links{display:none}
+      .reviews {grid-template-columns: 1fr;}
+      .stats {grid-template-columns: repeat(2, 1fr);}
+    }
+    
+    @media (max-width: 768px) {
+      body {
+        cursor: auto;
+      }
+      
+      .stats {grid-template-columns: 1fr;}
     }
   </style>
 </head>
 <body>
-  <!-- Background blobs -->
   <div class="blob"></div>
   <div class="blob b2"></div>
 
-  <!-- Navbar -->
+  <div class="flashlight" aria-hidden="true"></div>
+
   <nav class="nav">
     <div class="container row">
       <div class="brand">
         <span class="dot"></span>
-        <a href="/" aria-label="nobulem.wtf">nobulem.wtf</a>
+        <a href="#home" aria-label="nobulem.wtf">nobulem.wtf</a>
       </div>
       <div class="links">
-        <a href="/">Home</a>
-        <a href="/#executors">Executors</a>
-        <a href="/#games">Games</a>
-        <a href="/#scripts">Scripts</a>
-        <a href="/#pricing">Pricing</a>
-        <a href="/#reviews">Reviews</a>
-        <a href="/#developers">Developers</a>
-        <a href="/TOS">Terms</a>
+        <a href="">Home</a>
+        <a href="https://nobulem.wtf/executors">Executors</a>
+        <a href="games">Games</a>
+        <a href="scripts">Scripts</a>
+        <a href="showcases">Showcases</a>
+        <a href="pricing">Pricing</a>
+        <a href="reviews">Reviews</a>
+        <a href="developers">Developers</a>
+        <a href="tos">Terms</a>
       </div>
     </div>
   </nav>
 
-  <!-- Hero -->
-  <header class="hero container">
-    <div class="eyebrow"></div>
-    <h1 class="title">Our Developers</h1>
-    <p class="subtitle">A full introduction of nobulem.wtf Development team.</p>
+  <header id="home" class="hero container">
+    <div class="eyebrow reveal">undetectability • smooth • fast</div>
+    <h1 class="title reveal typing-container">
+      <span id="typing-text" class="typing-text">nobulem.wtf — Quality.</span>
+    </h1>
+    <p class="subtitle reveal">multiple game support • regular updates • top-quality scripts • no bugs</p>
+    <div class="chips reveal">
+      <div class="chip">Free Forever</div>
+      <div class="chip">Open Community</div>
+      <div class="chip">Secure & Fast</div>
+    </div>
+    <div class="actions reveal">
+      <a class="btn primary pulse" href="#free">Get Started — Free</a>
+      <a class="btn ghost" href="#showcases">See Showcases</a>
+    </div>
+    <div class="ribbon reveal">Join today!</div>
   </header>
 
-  <!-- Development Content -->
-  <section>
-    <div class="container tos-content">
-      <p>Welcome to <strong>nobulem.wtf</strong>. Developer team you will learn a few thing about us and what we do</p>
-
-      <h2>@CobaltDragon299</h2>
-      <p>CobaltDragon299 has been working on coding for 6+ years, and if you look at his showcase videos on our Discord server, you will see how great his scripts are. That's why he is one of the reasons Nobulem is the way it is today. If it weren't for him, our scripts wouldn't be as reliable as they are now . He has worked on so many projects before, and he has always been better than the last. His projects will always be great, and that is why you should use Nobulem.wtf today!</p>
-
-      <h2>@LordLoaf</h2>
-      <p>HE IS THE FUCKING LORDLOAF U BUMS THE BEST MOBILE TSB PLAYER EVER AND HE IS JUST DADDY SO U BETTER PUT RESPECT ON HIS NAME AND BETTER BOW DOWN WHENEVER HE BREATHES NEAR U</p>
-
-      <h2>@Quicksy</h2>
-      <p>Quicksy Head Manager if u have any questions abt executors he is the guy for sure.</p>
-
-      <h2>@Ace</h2>
-      <p>Ace is the reason you are even reading this right now on the site so yeah.</p>
-
-      <h2>@violentsnake23</h2>
-      <p>violentsnake23 is just a chill guy who trys helping out with questions about the script which you urself can ask in our disord server by opening a support ticket.</p>
-
-      <p style="margin-top:30px;color:var(--muted);font-size:14px;">Last updated: September 2025</p>
+  <section id="why">
+    <div class="container">
+      <h2 class="center reveal">Why Choose <span style="text-decoration:underline;">nobulem.wtf</span>?</h2>
+      <p class="center muted reveal" style="margin-bottom:24px">Built by developers for players. Fast, safe, and completely free.</p>
+      <div class="grid cards">
+        <div class="card reveal animate-slideInLeft">
+          <div class="icon">🛡️</div>
+          <h3>Stable & Secure</h3>
+          <p>Hardened loaders, minimal permissions, and sanity checks for a smoother experience.</p>
+        </div>
+        <div class="card reveal animate-slideInUp">
+          <div class="icon">⚡</div>
+          <h3>Weekly Updates</h3>
+          <p>Rapid patches and new game support added constantly to keep you rolling.</p>
+        </div>
+        <div class="card reveal animate-slideInUp animation-delay-1">
+          <div class="icon">👥</div>
+          <h3>Active Community</h3>
+          <p>Join our Discord to get help, share showcases, and request new features.</p>
+        </div>
+        <div class="card reveal animate-slideInRight">
+          <div class="icon">💬</div>
+          <h3>Customer First</h3>
+          <p>Feedback drives the roadmap. If you need it, we prioritize it.</p>
+        </div>
+      </div>
     </div>
   </section>
 
-  <!-- Footer -->
+  <section id="games">
+    <div class="container">
+      <h2 class="reveal">Supported Games</h2>
+      
+      <div class="stats reveal">
+        <div class="stat-card animate-fadeIn">
+          <div class="stat-number">28</div>
+          <div class="stat-label">Total Games</div>
+        </div>
+        <div class="stat-card animate-fadeIn animation-delay-1">
+          <div class="stat-number">726</div>
+          <div class="stat-label">Total Features</div>
+        </div>
+      </div>
+      
+      <div class="search-box reveal">
+        <input type="text" class="search-input" placeholder="Search games or features...">
+      </div>
+      
+      <p class="muted reveal">Feature lists are summarized. Some games may have additional features not listed.</p>
+      <p class="muted reveal">Showing <strong>28 of 28</strong> games</p>
+      
+      <div class="grid three" style="margin-top:18px">
+        <div class="game-card reveal animate-slideInLeft">
+          <img src="https://tr.rbxcdn.com/180DAY-078e71f7babd821f5bb362c460fc0fd9/768/432/Image/Webp/noFilter" alt="Untitled Boxing Game" class="game-image">
+          <div class="game-content">
+            <h3>Untitled Boxing Game</h3>
+            <p>Training helpers, stat analyzers, clean overlays.</p>
+            <div class="game-id"># 13423334817</div>
+          </div>
+        </div>
+        
+        <div class="game-card reveal animate-slideInUp">
+          <img src="https://tr.rbxcdn.com/180DAY-a5173e243710a4393e582089e8f4a773/768/432/Image/Webp/noFilter" alt="Project Power" class="game-image">
+          <div class="game-content">
+            <h3>Project Power</h3>
+            <p>Smooth UI, auto-farm, QoL toggles.</p>
+            <div class="game-id"># 34329168147</div>
+          </div>
+        </div>
+        
+        <div class="game-card reveal animate-slideInRight">
+          <img src="https://tr.rbxcdn.com/180DAY-643b9b9285f3bd9b63cf392db12a4d87/768/432/Image/Webp/noFilter" alt="99 Nights in a Forest" class="game-image">
+          <div class="game-content">
+            <h3>99 Nights in a Forest</h3>
+            <p>Resource ESP, pathing helper, smart alerts.</p>
+            <div class="game-id"># 15080383724</div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="grid three" style="margin-top:18px">
+        <div class="game-card reveal animate-slideInLeft animation-delay-1">
+          <div class="game-content">
+            <h3>Phantom Forces</h3>
+            <p>Combat enhancements, ESP, aim assistance.</p>
+            <div class="game-id"># 255143477</div>
+          </div>
+        </div>
+        
+        <div class="game-card reveal animate-slideInUp animation-delay-1">
+          <div class="game-content">
+            <h3>Attack on Titan Revolution</h3>
+            <p>Movement hacks, Titan detection, gear enhancements.</p>
+            <div class="game-id"># 13372988636</div>
+          </div>
+        </div>
+        
+        <div class="game-card reveal animate-slideInRight animation-delay-1">
+          <div class="game-content">
+            <h3>Rivals</h3>
+            <p>Auto-parry, combo prediction, stat tracking.</p>
+            <div class="game-id"># 17425397962</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="scripts">
+    <div class="container">
+      <h2 class="center reveal">Scripts</h2>
+      <div class="coming-soon">
+        <div class="pulse-text reveal">🚀 Amazing Scripts Coming Soon!</div>
+        <p class="muted reveal">We're working hard to bring you the best scripts for your favorite games.</p>
+        <div class="loader">
+          <div class="loader-dot"></div>
+          <div class="loader-dot"></div>
+          <div class="loader-dot"></div>
+        </div>
+        <p class="reveal">Stay tuned for updates!</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="showcases">
+    <div class="container">
+      <h2 class="reveal">Showcases</h2>
+      <p class="muted reveal">A few quick peeks from the community.</p>
+      <div class="grid two" style="margin-top:18px">
+        <div class="card reveal"><h3>Combat Demo</h3><p>Animated hit indicators + clean HUD.</p></div>
+        <div class="card reveal"><h3>Automation Suite</h3><p>Task chains with live progress + safe throttle.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="pricing">
+    <div class="container">
+      <h2 class="center reveal">Pricing</h2>
+      <p class="center muted reveal" style="margin-bottom:24px">Choose the plan that works best for you</p>
+      <div class="pricing">
+        <div class="plan reveal">
+          <h3>Free Tier</h3>
+          <div class="price">$0</div>
+          <ul>
+            <li>Basic scripts access</li>
+            <li>Two checkpoints (key) every 12 hours</li>
+            <li>Community support</li>
+            <li>Standard updates</li>
+          </ul>
+          <a class="btn primary" href="#free">Use For Free</a>
+        </div>
+        <div class="plan reveal">
+          <h3>Premium</h3>
+          <div class="price">$5</div>
+          <ul>
+            <li>All scripts unlocked</li>
+            <li>Unlimited checkpoints</li>
+            <li>Priority support</li>
+            <li>Early access to new scripts</li>
+            <li>Custom script requests</li>
+            <li>Lifetime access</li>
+          </ul>
+          <a class="btn primary" href="#free">Get Premium</a>
+        </div>
+        <div class="plan reveal">
+          <h3>Enterprise</h3>
+          <div class="price">Custom</div>
+          <ul>
+            <li>Custom builds</li>
+            <li>Dedicated help</li>
+            <li>White-label solutions</li>
+            <li>SLA-ish vibes</li>
+          </ul>
+          <a class="btn primary" href="#free">Contact Us</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="reviews">
+    <div class="container">
+      <h2 class="center reveal">User Reviews</h2>
+      <p class="center muted reveal" style="margin-bottom:24px">See what our users are saying</p>
+      
+      <div class="reviews">
+        <div class="review-card reveal">
+          <div class="review-text">
+            "This is the best script hub I've ever used! The auto farm is perfect and completely undetected. Highly recommend!"
+          </div>
+          <div class="reviewer">
+            <div class="review-avatar">J</div>
+            <div>JohnRoblox</div>
+          </div>
+        </div>
+        
+        <div class="review-card reveal">
+          <div class="review-text">
+            "The auto kill feature works flawlessly. I've been using it for weeks without any issues. Worth every penny for premium!"
+          </div>
+          <div class="reviewer">
+            <div class="review-avatar">S</div>
+            <div>ScriptMaster</div>
+          </div>
+        </div>
+        
+        <div class="review-card reveal">
+          <div class="review-text">
+            "I was skeptical at first, but this hub is truly undetectable. The scripts are well-made and regularly updated. 10/10!"
+          </div>
+          <div class="reviewer">
+            <div class="review-avatar">G</div>
+            <div>GamerPro</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="developers">
+    <div class="container">
+      <h2 class="center reveal">Development Team</h2>
+      <p class="center muted reveal" style="margin-bottom:24px">The talented people behind nobulem.wtf</p>
+      
+           <div class="grid three" style="margin-top:18px">
+        <div class="card dev-card reveal">
+          <div class="dev-avatar">
+            <img src="https://cdn.discordapp.com/avatars/1408786756941250715/74cdc383bd86939c8c69ce710ca1ad09.webp?size=1024" alt="@CobaltDragon299">
+          </div>
+          <h3>@CobaltDragon299</h3>
+          <p>Main Script Developer</p>
+        </div>
+        
+        <div class="card dev-card reveal">
+          <div class="dev-avatar">
+            <img src="https://cdn.discordapp.com/avatars/1222510318165692451/ac92cfe503ef5ff97a5a78a510a87f14.webp?size=1024" alt="@LordLoaff">
+          </div>
+          <h3>@LordLoaff</h3>
+          <p>Instructor</p>
+        </div>
+        
+        <div class="card dev-card reveal">
+          <div class="dev-avatar">
+            <img src="https://cdn.discordapp.com/avatars/969854525198458891/0df69e81565038a1222357b268660c50.webp?size=1024" alt="@Quicksy">
+          </div>
+          <h3>@Quicksy</h3>
+          <p>Head Manager</p>
+        </div>
+        
+        <div class="card dev-card reveal">
+          <div class="dev-avatar">
+            <img src="https://cdn.discordapp.com/avatars/1030140568640176218/30233ae8bf656a64de9ba826518d7688.webp?size=1024" alt="@Ace">
+          </div>
+          <h3>@Ace</h3>
+          <p>Site Developer</p>
+        </div>
+        
+        <div class="card dev-card reveal">
+          <div class="dev-avatar">
+            <img src="https://images-ext-1.discordapp.net/external/aVKHiFpUTGB34OVTvGxrrAZmuRZFmdL3B3fUagblgLQ/%3Fsize%3D1024/https/cdn.discordapp.com/avatars/1129062752795762819/72f909da293d19719ffcf8d695fa75d8.webp?format=webp&width=950&height=950" alt="@violentsnake23">
+          </div>
+          <h3>@violentsnake23</h3>
+          <p>Ticket Support</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <section id="free">
+    <div class="container">
+      <h2 class="center reveal">2025</h2>
+      <p class="center muted reveal">Built with care. Optimized for speed. Always bold. Always free.</p>
+      <div class="grid two" style="margin-top:18px">
+        <div class="card reveal"><h3>Open & Transparent</h3><p>No hidden paywalls. No keys. Clear changelogs.</p></div>
+        <div class="card reveal"><h3>Community Roadmap</h3><p>Vote on features, submit ideas, and watch them ship.</p></div>
+      </div>
+    </div>
+  </section>
+
   <footer>
-    &copy; 2025 nobulem.wtf. All rights reserved.
+    <div class="container">
+      <div style="margin-bottom:10px"><strong>nobulem.wtf</strong> — undetected</div>
+      <div>© <span id="year"></span> nobulem.wtf • All rights reserved • nobulem.wtf • Home • Executors • Games • Scripts • Showcases • Pricing • Reviews • Developers • Terms</div>
+    </div>
   </footer>
 
-  <!-- Spotlight Effect -->
-  <div class="spotlight"></div>
   <script>
-    const spotlight = document.querySelector('.spotlight');
+    // year
+    document.getElementById('year').textContent = new Date().getFullYear();
 
-    let mouseX = 0, mouseY = 0;
-    let currentX = 0, currentY = 0;
-    const speed = 0.1; // smaller = smoother
+    // reveal on scroll
+    const io = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{
+        if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+      })
+    }, {threshold:.12});
+    document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
 
-    document.addEventListener('mousemove', (e) => {
-      mouseX = e.clientX;
-      mouseY = e.clientY;
+    // smooth anchor fix for iOS/Edge (optional enhancement)
+    document.querySelectorAll('a[href^="#"]').forEach(a=>{
+      a.addEventListener('click', e=>{
+        const id = a.getAttribute('href').slice(1);
+        const el = document.getElementById(id);
+        if(el){
+          e.preventDefault();
+          window.scrollTo({top: el.getBoundingClientRect().top + window.scrollY - 70, behavior:'smooth'});
+        }
+      });
     });
+    
+    // Flashlight / faint glowing circle follow mouse (background)
+    (function() {
+      const flashlight = document.querySelector('.flashlight');
+      if(!flashlight) return;
 
-    function animate() {
-      currentX += (mouseX - currentX) * speed;
-      currentY += (mouseY - currentY) * speed;
+      let mouseX = window.innerWidth / 2;
+      let mouseY = window.innerHeight / 2;
+      let currentX = mouseX;
+      let currentY = mouseY;
+      let lastMoveTime = 0;
 
-      // Slight scaling for dynamic feel
-      const scale = 1 + Math.min(Math.abs(mouseX - currentX), Math.abs(mouseY - currentY)) / 1000;
+      // update size slightly on move speed to give subtle "flashlight" feel
+      function updateSize(dx, dy) {
+        const speed = Math.min(60, Math.hypot(dx, dy));
+        const size = 420 + Math.min(200, speed * 3);
+        flashlight.style.width = `${size}px`;
+        flashlight.style.height = `${size}px`;
+      }
 
-      spotlight.style.left = `${currentX}px`;
-      spotlight.style.top = `${currentY}px`;
-      spotlight.style.transform = `translate(-50%, -50%) scale(${scale})`;
+      document.addEventListener('mousemove', (e) => {
+        lastMoveTime = Date.now();
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+      });
 
+      function lerp(a, b, n) { return (1 - n) * a + n * b; }
+
+      function animate() {
+        const dx = mouseX - currentX;
+        const dy = mouseY - currentY;
+        currentX = lerp(currentX, mouseX, 0.18);
+        currentY = lerp(currentY, mouseY, 0.18);
+
+        // position (keep behind content)
+        flashlight.style.left = currentX + 'px';
+        flashlight.style.top = currentY + 'px';
+
+        updateSize(dx, dy);
+
+        requestAnimationFrame(animate);
+      }
+
+      // start with center
+      flashlight.style.left = (window.innerWidth/2) + 'px';
+      flashlight.style.top = (window.innerHeight/2) + 'px';
       requestAnimationFrame(animate);
-    }
 
-    animate();
+      // subtle fade when idle
+      let idleTimer = null;
+      function resetIdleTimer() {
+        flashlight.style.opacity = '0.95';
+        if(idleTimer) clearTimeout(idleTimer);
+        idleTimer = setTimeout(()=> {
+          flashlight.style.opacity = '0.6';
+        }, 1600);
+      }
+      document.addEventListener('mousemove', resetIdleTimer);
+      resetIdleTimer();
+
+      // keep flashlight responsive on resize
+      window.addEventListener('resize', () => {
+        currentX = mouseX = window.innerWidth / 2;
+        currentY = mouseY = window.innerHeight / 2;
+      });
+    })();
+    
+    // Typing animation
+    const typingText = document.getElementById('typing-text');
+    const texts = [
+      "nobulem.wtf — Quality.",
+      "nobulem.wtf — Fast.",
+      "nobulem.wtf — Secure.",
+      "nobulem.wtf — Undetectable."
+    ];
+    let textIndex = 0;
+    let charIndex = 0;
+    let isDeleting = false;
+    let typingDelay = 100;
+    let deletingDelay = 50;
+    let pauseDelay = 1500;
+    
+    function type() {
+      const currentText = texts[textIndex];
+      
+      if (isDeleting) {
+        // Delete text
+        typingText.textContent = currentText.substring(0, charIndex - 1);
+        charIndex--;
+        typingDelay = deletingDelay;
+      } else {
+        // Type text
+        typingText.textContent = currentText.substring(0, charIndex + 1);
+        charIndex++;
+        typingDelay = 100;
+      }
+      
+      // Check if we've finished typing or deleting
+      if (!isDeleting && charIndex === currentText.length) {
+        // Pause at the end of typing
+        typingDelay = pauseDelay;
+        isDeleting = true;
+      } else if (isDeleting && charIndex === 0) {
+        // Move to next text after deleting
+        isDeleting = false;
+        textIndex = (textIndex + 1) % texts.length;
+        typingDelay = 500;
+      }
+      
+      setTimeout(type, typingDelay);
+    }
+    
+    // Start the typing animation
+    setTimeout(type, 1000);
   </script>
 </body>
 </html>
