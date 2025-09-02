@@ -29,7 +29,7 @@
       font: 700 15px/1.6 ui-sans-serif, -apple-system, system-ui, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
       letter-spacing:.2px;
       overflow-x:hidden;
-      cursor: auto;
+      cursor: auto !important;
     }
     h1,h2,h3,h4,strong,b{font-weight:800; margin:0 0 .6rem}
     p{margin:0 0 1rem; color:var(--muted)}
@@ -266,8 +266,9 @@
     }
     @media (max-width: 768px) {
       body {
-        cursor: auto;
+        cursor: auto !important;
       }
+
       .stats {grid-template-columns: 1fr;}
     }
   </style>
@@ -278,25 +279,26 @@
 
   <div class="flashlight" aria-hidden="true"></div>
 
-  <nav class="nav">
-    <div class="container row">
-      <div class="brand">
-        <span class="dot"></span>
-        <a href="index.html" aria-label="nobulem.wtf">nobulem.wtf</a>
-      </div>
-      <div class="links">
-        <a href="/">Home</a>
-        <a href="/executors">Executors</a>
-        <a href="/#games">Games</a>
-        <a href="/#scripts">Scripts</a>
-        <a href="/#showcases">Showcases</a>
-        <a href="/#pricing">Pricing</a>
-        <a href="/#reviews">Reviews</a>
-        <a href="/#developers">Developers</a>
-        <a href="/tos">Terms</a>
-      </div>
+<nav class="nav">
+  <div class="container row">
+    <div class="brand">
+      <span class="dot"></span>
+      <a href="/" aria-label="nobulem.wtf">nobulem.wtf</a>
     </div>
-  </nav>
+    <div class="links">
+      <a href="/">Home</a>
+      <a href="/executors">Executors</a>
+      <a href="/">Games</a>
+      <a href="/">Scripts</a>
+      <a href="/">Showcases</a>
+      <a href="/">Pricing</a>
+      <a href="/">Reviews</a>
+      <a href="/">Developers</a>
+      <a href="/tos">Terms</a>
+    </div>
+  </div>
+</nav>
+
 
   <main>
     <section id="executors" style="border-top:none; padding-top: 40px;">
