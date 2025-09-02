@@ -28,7 +28,7 @@
       font: 700 15px/1.6 ui-sans-serif, -apple-system, system-ui, Segoe UI, Roboto, Helvetica, Arial;
       letter-spacing:.2px;
       overflow-x:hidden;
-      cursor: auto; /* ✅ Restored normal cursor */
+      cursor: auto; /* ✅ Keep normal cursor */
     }
     h1,h2,h3,h4,strong,b{font-weight:800; margin:0 0 .6rem}
     p{margin:0 0 1rem; color:var(--muted)}
@@ -114,12 +114,30 @@
       color: var(--muted);
       text-align: center;
     }
+
+    /* ✅ Smooth Cursor Spotlight Effect */
+    .cursor-spotlight {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      pointer-events: none;
+      background: radial-gradient(
+        circle 160px at var(--x, 50%) var(--y, 50%),
+        rgba(255,255,255,0.08),
+        transparent 80%
+      );
+      z-index: 5;
+      transition: background-position 0.15s ease-out;
+    }
   </style>
 </head>
 <body>
   <!-- Background blobs -->
   <div class="blob"></div>
   <div class="blob b2"></div>
+
+  <!-- Spotlight cursor -->
+  <div class="cursor-spotlight"></div>
 
   <!-- Navbar -->
   <nav class="nav">
@@ -130,13 +148,13 @@
       </div>
       <div class="links">
         <a href="/">Home</a>
-        <a href="/executors">Executors</a>
-        <a href="/">Games</a>
-        <a href="/">Scripts</a>
-        <a href="/">Pricing</a>
-        <a href="/">Reviews</a>
-        <a href="/developers">Developers</a>
-        <a href="/tos">Terms</a>
+        <a href="/#executors">Executors</a>
+        <a href="/#games">Games</a>
+        <a href="/#scripts">Scripts</a>
+        <a href="/#pricing">Pricing</a>
+        <a href="/#reviews">Reviews</a>
+        <a href="/#developers">Developers</a>
+        <a href="/TOS">Terms</a>
       </div>
     </div>
   </nav>
@@ -173,5 +191,14 @@
   <footer>
     &copy; 2025 nobulem.wtf. All rights reserved.
   </footer>
+
+  <!-- Spotlight Script -->
+  <script>
+    const spotlight = document.querySelector('.cursor-spotlight');
+    document.addEventListener('mousemove', e => {
+      spotlight.style.setProperty('--x', `${e.clientX}px`);
+      spotlight.style.setProperty('--y', `${e.clientY}px`);
+    });
+  </script>
 </body>
 </html>
