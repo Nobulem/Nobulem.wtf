@@ -3,11 +3,13 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Terms of Service — nobulem.wtf</title>
-  <meta name="description" content="Terms of Service for nobulem.wtf">
+  <title>nobulem.wtf — Executor Status</title>
+  <meta name="description" content="nobulem.wtf — Live status for top executors.">
   <style>
+    /* ---------- Base / Theme ---------- */
     :root{
-      --bg: #808080; /* Changed to gray */
+      --bg: #0b0b0b;
+      --bg-2: #111;
       --card: #151515;
       --text: #fff;
       --muted: #cfcfcf;
@@ -22,19 +24,92 @@
     html{scroll-behavior:smooth}
     body{
       margin:0;
-      background: var(--bg); /* Static gray background */
+      background: radial-gradient(1200px 1200px at 10% 20%, #171717 0%, var(--bg) 50%) fixed;
       color:var(--text);
-      font: 700 15px/1.6 ui-sans-serif, -apple-system, system-ui, Segoe UI, Roboto, Helvetica, Arial;
+      font: 700 15px/1.6 ui-sans-serif, -apple-system, system-ui, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
       letter-spacing:.2px;
       overflow-x:hidden;
-      cursor: auto;
+      cursor: auto !important;
     }
     h1,h2,h3,h4,strong,b{font-weight:800; margin:0 0 .6rem}
     p{margin:0 0 1rem; color:var(--muted)}
     a{color:var(--text); text-decoration:none; font-weight:800}
     .container{width:min(1150px, 92vw); margin-inline:auto}
 
-    /* Navbar */
+    /* ---------- Flashlight (faint glowing circle following mouse in background) ---------- */
+    .flashlight {
+      position: fixed;
+      left: 50%;
+      top: 50%;
+      width: 420px;
+      height: 420px;
+      pointer-events: none;
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 0;
+      background: radial-gradient(circle at 50% 40%,
+        rgba(255,255,255,0.10) 0%,
+        rgba(255,255,255,0.06) 20%,
+        rgba(255,255,255,0.02) 40%,
+        transparent 65%);
+      filter: blur(42px) saturate(120%);
+      mix-blend-mode: screen;
+      transition: width 220ms ease, height 220ms ease, opacity 220ms ease;
+      opacity: 0.95;
+    }
+
+.warning-banner {
+  margin: 20px auto;
+  display: flex;              /* not inline-flex */
+  justify-content: center;    /* center contents inside */
+  align-items: center;
+  width: fit-content;         /* shrink to content width */
+  gap: 10px;
+  padding: 12px 20px;
+  border-radius: var(--radius);
+  font-size: 15px;
+  font-weight: 700;
+  color: #fff;
+  background: rgba(239, 68, 68, 0.15);
+  border: 1px solid rgba(239, 68, 68, 0.5);
+  box-shadow: 0 0 20px rgba(239, 68, 68, 0.4);
+  animation: pulse-red 1.5s infinite;
+}
+
+
+
+.warning-icon {
+  font-size: 20px;
+  animation: bounce 1s infinite;
+}
+
+@keyframes pulse-red {
+  0%, 100% { box-shadow: 0 0 15px rgba(239, 68, 68, 0.4); }
+  50% { box-shadow: 0 0 30px rgba(239, 68, 68, 0.8); }
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+}
+
+
+    /* ---------- Fancy glow blobs ---------- */
+    .blob{
+      position:fixed; inset:auto auto 10% -10%;
+      width:55vw; height:55vw; pointer-events:none; z-index:0;
+      background: radial-gradient(circle at 50% 50%, rgba(255,255,255,.06), transparent 55%);
+      filter: blur(60px) saturate(140%);
+      animation: float 18s ease-in-out infinite;
+      opacity:.8;
+    }
+    .blob.b2{inset:-20% -10% auto auto; width:45vw; height:45vw; animation-duration:22s; opacity:.6}
+    @keyframes float{
+      0%,100%{transform:translate3d(0,0,0) scale(1)}
+      50%{transform:translate3d(2rem,-1.5rem,0) scale(1.06)}
+    }
+
+    /* ---------- Top Nav ---------- */
     .nav{
       position:sticky; top:0; z-index:50;
       backdrop-filter:saturate(140%) blur(10px);
@@ -42,116 +117,345 @@
       border-bottom:1px solid var(--line);
     }
     .nav .row{display:flex; align-items:center; gap:16px; padding:14px 0}
-    .brand{display:flex; align-items:center; gap:10px; font-size:22px; letter-spacing:.3px}
+    .brand{
+      display:flex; align-items:center; gap:10px; font-size:22px; letter-spacing:.3px;
+    }
     .brand .dot{width:10px; height:10px; border-radius:999px; background:#fff; box-shadow:0 0 16px #fff}
     .links{margin-left:auto; display:flex; gap:18px; flex-wrap:wrap}
     .links a{opacity:.9}
     .links a:hover{opacity:1; transform:translateY(-1px)}
+    
+    /* ---------- Sections ---------- */
+    section{position:relative; z-index:1; padding:70px 0; border-top:1px solid var(--line)}
+    .grid{display:grid; gap:18px}
+    .card{
+      background:linear-gradient(180deg,#161616,#111); border:1px solid var(--line);
+      border-radius:var(--radius); padding:22px; box-shadow:var(--shadow); min-height:160px; position:relative; overflow:hidden;
+    }
+    .muted{color:var(--muted)}
+    .two{grid-template-columns:repeat(2,1fr)}
+    .center{text-align:center}
 
-    /* Hero Section */
-    .hero {
-      position: relative;
-      z-index: 1;
-      padding: 96px 0 56px;
-      text-align: center;
-    }
-    .eyebrow {
-      color: #eaeaea;
-      text-transform: uppercase;
-      font-size: 13px;
-      letter-spacing: .24em;
-    }
-    .title {
-      font-size: clamp(42px, 7vw, 76px);
-      line-height: 1.04;
-      margin: .6rem 0 .8rem;
-    }
-    .subtitle {
-      font-size: clamp(16px, 2.2vw, 20px);
-      color: var(--muted);
-    }
-
-    /* Content Section */
-    section {
-      position: relative;
-      z-index: 1;
-      padding: 70px 0;
-      border-top: 1px solid var(--line);
-    }
-    .tos-content {
-      background: linear-gradient(180deg, #161616, #111);
+    /* ---------- Executor Cards ---------- */
+    .executor-card {
+      background: linear-gradient(180deg,#161616,#111);
       border: 1px solid var(--line);
       border-radius: var(--radius);
+      padding: 20px;
       box-shadow: var(--shadow);
-      padding: 30px;
-      max-width: 900px;
-      margin: auto;
-      line-height: 1.8;
+      transition: transform 0.3s ease;
     }
-    .tos-content h2 {
-      margin-top: 30px;
+    .executor-card:hover {
+      transform: translateY(-5px);
+    }
+    .executor-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 15px;
+      margin-bottom: 12px;
+    }
+    .name-container {
+      flex-grow: 1;
+    }
+    .executor-name {
+      font-size: 20px;
+      font-weight: 800;
+    }
+    .executor-version {
+      font-size: 12px;
+      color: var(--muted);
+      background: rgba(255,255,255,0.1);
+      padding: 4px 8px;
+      border-radius: 12px;
+      margin-top: 4px;
+      display: inline-block;
+    }
+    .executor-details {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-top: 15px;
+    }
+    .executor-detail {
+      font-size: 13px;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    
+    /* ---------- New Animated Status Indicator ---------- */
+    .status-indicator {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      animation: float-bob 3s ease-in-out infinite;
+    }
+    .status-indicator svg {
+      width: 28px;
+      height: 28px;
+    }
+    .status-indicator.up {
+      background: rgba(16, 185, 129, 0.1);
+      border: 2px solid rgba(16, 185, 129, 0.5);
+      color: #10B981;
+      animation: float-bob 3s ease-in-out infinite, pulse-glow-green 2s infinite;
+    }
+    .status-indicator.down {
+      background: rgba(239, 68, 68, 0.1);
+      border: 2px solid rgba(239, 68, 68, 0.5);
+      color: #EF4444;
+      animation: float-bob 3s ease-in-out infinite, pulse-glow-red 2s infinite;
+    }
+    @keyframes pulse-glow-green {
+      0%, 100% { box-shadow: 0 0 15px rgba(16, 185, 129, 0.5); }
+      50% { box-shadow: 0 0 25px rgba(16, 185, 129, 0.8); }
+    }
+    @keyframes pulse-glow-red {
+      0%, 100% { box-shadow: 0 0 15px rgba(239, 68, 68, 0.5); }
+      50% { box-shadow: 0 0 25px rgba(239, 68, 68, 0.8); }
+    }
+    @keyframes float-bob {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-8px); }
+      100% { transform: translateY(0px); }
     }
 
-    footer {
-      border-top: 1px solid var(--line);
-      padding: 26px 0 60px;
-      color: var(--muted);
+    /* ---------- Stats ---------- */
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 15px;
+      margin: 24px 0 30px 0;
+    }
+    .stat-card {
+      background: linear-gradient(180deg,#161616,#111);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 20px;
       text-align: center;
+    }
+    .stat-number {
+      font-size: 32px;
+      font-weight: 800;
+      margin-bottom: 5px;
+    }
+    .stat-label {
+      font-size: 14px;
+      color: var(--muted);
+    }
+    
+    /* ---------- Footer ---------- */
+    footer{
+      border-top:1px solid var(--line); padding:26px 0 60px; color:var(--muted); text-align:center
+    }
+
+    /* ---------- Enter / Scroll Animations ---------- */
+    .reveal{opacity:0; transform:translateY(16px); transition:opacity var(--speed) ease, transform var(--speed) ease}
+    .reveal.in{opacity:1; transform:translateY(0)}
+    
+    /* ---------- Responsive ---------- */
+    @media (max-width: 980px){
+      .two{grid-template-columns:1fr}
+      .links{display:none}
+      .stats {grid-template-columns: repeat(2, 1fr);}
+    }
+    @media (max-width: 768px) {
+      body {
+        cursor: auto !important;
+      }
+
+      .stats {grid-template-columns: 1fr;}
     }
   </style>
 </head>
 <body>
-  <!-- Navbar -->
-  <nav class="nav">
-    <div class="container row">
-      <div class="brand">
-        <span class="dot"></span>
-        <a href="/" aria-label="nobulem.wtf">nobulem.wtf</a>
-      </div>
-      <div class="links">
-        <a href="/">Home</a>
-        <a href="/#executors">Executors</a>
-        <a href="/#games">Games</a>
-        <a href="/#scripts">Scripts</a>
-        <a href="/#pricing">Pricing</a>
-        <a href="/#reviews">Reviews</a>
-        <a href="/#developers">Developers</a>
-        <a href="/TOS">Terms</a>
-      </div>
+  <div class="blob"></div>
+  <div class="blob b2"></div>
+
+  <div class="flashlight" aria-hidden="true"></div>
+
+<nav class="nav">
+  <div class="container row">
+    <div class="brand">
+      <span class="dot"></span>
+      <a href="/" aria-label="nobulem.wtf">nobulem.wtf</a>
     </div>
-  </nav>
-
-  <!-- Hero -->
-  <header class="hero container">
-    <div class="eyebrow">Legal</div>
-    <h1 class="title">Terms of Service</h1>
-    <p class="subtitle">Read these carefully before using nobulem.wtf</p>
-  </header>
-
-  <!-- TOS Content -->
-  <section>
-    <div class="container tos-content">
-      <p>Welcome to <strong>nobulem.wtf</strong>. By accessing this website, you agree to the following terms and conditions. Please read them carefully.</p>
-
-      <h2>1. Acceptance of Terms</h2>
-      <p>By using this site, you accept these Terms of Service and agree to comply with all applicable laws and regulations.</p>
-
-      <h2>2. Use of Content</h2>
-      <p>All scripts and content on this site are for educational and entertainment purposes only. Misuse of these resources is strictly prohibited.</p>
-
-      <h2>3. Limitations</h2>
-      <p>We are not responsible for damages or issues arising from the use of content downloaded from this site.</p>
-
-      <h2>4. Changes</h2>
-      <p>These terms may be updated periodically. Continued use of the site indicates your acceptance of changes.</p>
-
-      <p style="margin-top:30px;color:var(--muted);font-size:14px;">Last updated: September 2025</p>
+    <div class="links">
+      <a href="/">Home</a>
+      <a href="/executors">Executors</a>
+      <a href="/">Games</a>
+      <a href="/">Scripts</a>
+      <a href="/">Showcases</a>
+      <a href="/">Pricing</a>
+      <a href="/">Reviews</a>
+      <a href="/">Developers</a>
+      <a href="/tos">Terms</a>
     </div>
-  </section>
+  </div>
+</nav>
 
-  <!-- Footer -->
+
+  <main>
+    <section id="executors" style="border-top:none; padding-top: 40px;">
+      <div class="container">
+        <h2 class="reveal center">Executor Status</h2>
+        <p class="reveal center muted">Live status information for our recommended executors.</p>
+        <div class="warning-banner reveal center">
+  <span class="warning-icon">⚠️</span>
+  <span class="warning-text">All executors are currently detected</span>
+</div>
+
+        
+        <div class="stats reveal">
+          <div class="stat-card">
+            <div class="stat-number" id="stats-total">0</div>
+            <div class="stat-label">Tracked</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number" id="stats-working">0</div>
+            <div class="stat-label">Working</div>
+          </div>
+        </div>
+        
+        <div id="executor-grid-container" style="margin-top:18px">
+          </div>
+        
+      </div>
+    </section>
+  </main>
+
   <footer>
-    &copy; 2025 nobulem.wtf. All rights reserved.
+    <div class="container">
+      <div style="margin-bottom:10px"><strong>nobulem.wtf</strong> — undetected</div>
+      <div>© <span id="year"></span> nobulem.wtf • All rights reserved</div>
+    </div>
   </footer>
+
+  <script>
+    // --- SCRIPT FOR DYNAMIC EXECUTORS ---
+    document.addEventListener('DOMContentLoaded', () => {
+        const API_URL = 'https://weao.xyz/api/status/exploits';
+        let allExecutors = [];
+
+        const gridContainer = document.getElementById('executor-grid-container');
+        const statsTotal = document.getElementById('stats-total');
+        const statsWorking = document.getElementById('stats-working');
+
+        async function fetchData() {
+            if (!gridContainer) return;
+            try {
+                gridContainer.innerHTML = '<p class="center muted reveal in">Fetching live status...</p>';
+                const response = await fetch(API_URL);
+                if (!response.ok) {
+                    throw new Error(`API error! status: ${response.status}`);
+                }
+                let fetchedData = await response.json();
+                
+                // Filter for the specific executors you requested
+                const allowedNames = ['volcano', 'wave', 'zenith', 'swift', 'potassium', 'nucleus'];
+                allExecutors = fetchedData.filter(ex =>
+                    allowedNames.includes(ex.title.toLowerCase()) && ex.extype && ex.extype.includes('executor')
+                );
+                
+                // Sort alphabetically
+                allExecutors.sort((a, b) => a.title.localeCompare(b.title));
+                
+                updateStats(allExecutors);
+                renderExecutors(allExecutors);
+            } catch (error) {
+                console.error('Failed to fetch executor data:', error);
+                gridContainer.innerHTML = '<p class="center muted reveal in">Failed to load executor status. Please try again later.</p>';
+            }
+        }
+
+function updateStats(data) {
+    if (!statsTotal || !statsWorking) return;
+    const total = data.length;
+    const working = data.filter(e => e.updateStatus === true).length; // ✅ ignore detected
+    statsTotal.textContent = total;
+    statsWorking.textContent = working;
+}
+
+function renderExecutors(executors) {
+    if (executors.length === 0) {
+        gridContainer.innerHTML = '<p class="center muted reveal in">Could not find specified executors.</p>';
+        return;
+    }
+
+    const html = executors.map(ex => {
+        const isUpdated = ex.updateStatus === true;
+        const statusClass = isUpdated ? 'up' : 'down';
+
+        const arrowIcon = isUpdated
+            ? `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path></svg>`
+            : `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6z"></path></svg>`;
+
+        return `
+        <div class="executor-card reveal in">
+          <div class="executor-header">
+            <div class="name-container">
+              <a href="${ex.websitelink || '#'}" target="_blank" rel="noopener noreferrer" class="executor-name">${ex.title}</a>
+              <div class="executor-version">${ex.version || 'N/A'}</div>
+            </div>
+            <div class="status-indicator ${statusClass}">
+              ${arrowIcon}
+            </div>
+          </div>
+          <div class="executor-details">
+            <div class="executor-detail"><strong>${ex.platform || 'N/A'}</strong></div>
+            <div class="executor-detail"><strong>${ex.free ? 'Free' : (ex.cost || 'Paid')}</strong></div>
+            <div class="executor-detail"><strong>${typeof ex.uncPercentage === 'number' ? ex.uncPercentage + '%' : '0%'}</strong></div>
+            <div class="executor-detail"><strong>${isUpdated ? 'Updated' : 'Outdated'}</strong></div>
+          </div>
+        </div>
+        `;
+    }).join('');
+
+    gridContainer.innerHTML = `<div class="grid two reveal in">${html}</div>`;
+}
+
+
+
+
+
+        fetchData();
+    });
+
+    // year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // reveal on scroll
+    const io = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{
+        if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+      })
+    }, {threshold:.12});
+    setTimeout(() => document.querySelectorAll('.reveal').forEach(el=>io.observe(el)), 100);
+
+    // Flashlight effect
+    (function() {
+      const flashlight = document.querySelector('.flashlight');
+      if(!flashlight) return;
+      let mouseX = window.innerWidth / 2;
+      let mouseY = window.innerHeight / 2;
+      let currentX = mouseX;
+      let currentY = mouseY;
+      function lerp(a, b, n) { return (1 - n) * a + n * b; }
+      document.addEventListener('mousemove', (e) => { mouseX = e.clientX; mouseY = e.clientY; });
+      function animate() {
+        currentX = lerp(currentX, mouseX, 0.18);
+        currentY = lerp(currentY, mouseY, 0.18);
+        flashlight.style.left = currentX + 'px';
+        flashlight.style.top = currentY + 'px';
+        requestAnimationFrame(animate);
+      }
+      animate();
+    })();
+  </script>
 </body>
 </html>
