@@ -1,96 +1,225 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Terms of Service - nobulem.wtf</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Terms of Service — nobulem.wtf</title>
+  <meta name="description" content="Terms of Service for nobulem.wtf">
   <style>
-    /* ---------- Global Styles ---------- */
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      line-height: 1.6;
-      background-color: #121212;
-      color: #f5f5f5;
+    /* Import all styles from homepage */
+    :root{
+      --bg: #0b0b0b;
+      --bg-2: #111;
+      --card: #151515;
+      --text: #fff;
+      --muted: #cfcfcf;
+      --line: #2a2a2a;
+      --accent: #ffffff;
+      --shadow: 0 20px 60px rgba(0,0,0,.45);
+      --radius: 18px;
+      --speed: 420ms;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      background: radial-gradient(1200px 1200px at 10% 20%, #171717 0%, var(--bg) 50%) fixed;
+      color:var(--text);
+      font: 700 15px/1.6 ui-sans-serif, -apple-system, system-ui, Segoe UI, Roboto, Helvetica, Arial;
+      letter-spacing:.2px;
+      overflow-x:hidden;
+      cursor: none;
+    }
+    h1,h2,h3,h4,strong,b{font-weight:800; margin:0 0 .6rem}
+    p{margin:0 0 1rem; color:var(--muted)}
+    a{color:var(--text); text-decoration:none; font-weight:800}
+    .container{width:min(1150px, 92vw); margin-inline:auto}
+
+    /* Custom Cursor */
+    .cursor {
+      position: fixed;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: white;
+      mix-blend-mode: difference;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+      z-index: 9999;
+      transition: width 0.2s, height 0.2s;
+    }
+    .cursor-follower {
+      position: fixed;
+      width: 40px;
+      height: 40px;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+      z-index: 9998;
+      transition: all 0.6s ease;
     }
 
-    header {
-      background: #1f1f1f;
-      padding: 1rem 2rem;
+    /* Blobs */
+    .blob{
+      position:fixed; inset:auto auto 10% -10%;
+      width:55vw; height:55vw; pointer-events:none; z-index:0;
+      background: radial-gradient(circle at 50% 50%, rgba(255,255,255,.06), transparent 55%);
+      filter: blur(60px) saturate(140%);
+      animation: float 18s ease-in-out infinite;
+      opacity:.8;
+    }
+    .blob.b2{inset:-20% -10% auto auto; width:45vw; height:45vw; animation-duration:22s; opacity:.6}
+    @keyframes float{
+      0%,100%{transform:translate3d(0,0,0) scale(1)}
+      50%{transform:translate3d(2rem,-1.5rem,0) scale(1.06)}
+    }
+
+    /* Navbar */
+    .nav{
+      position:sticky; top:0; z-index:50;
+      backdrop-filter:saturate(140%) blur(10px);
+      background: linear-gradient(180deg, rgba(0,0,0,.72), rgba(0,0,0,.42));
+      border-bottom:1px solid var(--line);
+    }
+    .nav .row{display:flex; align-items:center; gap:16px; padding:14px 0}
+    .brand{display:flex; align-items:center; gap:10px; font-size:22px; letter-spacing:.3px}
+    .brand .dot{width:10px; height:10px; border-radius:999px; background:#fff; box-shadow:0 0 16px #fff}
+    .links{margin-left:auto; display:flex; gap:18px; flex-wrap:wrap}
+    .links a{opacity:.9}
+    .links a:hover{opacity:1; transform:translateY(-1px)}
+
+    /* Hero Section */
+    .hero {
+      position: relative;
+      z-index: 1;
+      padding: 96px 0 56px;
       text-align: center;
-      border-bottom: 2px solid #333;
+    }
+    .eyebrow {
+      color: #eaeaea;
+      text-transform: uppercase;
+      font-size: 13px;
+      letter-spacing: .24em;
+    }
+    .title {
+      font-size: clamp(42px, 7vw, 76px);
+      line-height: 1.04;
+      margin: .6rem 0 .8rem;
+    }
+    .subtitle {
+      font-size: clamp(16px, 2.2vw, 20px);
+      color: var(--muted);
     }
 
-    header h1 {
-      margin: 0;
-      font-size: 2rem;
-      color: #00bfff;
+    /* Content Section */
+    section {
+      position: relative;
+      z-index: 1;
+      padding: 70px 0;
+      border-top: 1px solid var(--line);
     }
-
-    nav {
-      margin-top: 0.5rem;
+    .tos-content {
+      background: linear-gradient(180deg, #161616, #111);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 30px;
+      max-width: 900px;
+      margin: auto;
+      line-height: 1.8;
     }
-
-    nav a {
-      text-decoration: none;
-      color: #00bfff;
-      margin: 0 10px;
-      transition: color 0.3s;
-    }
-
-    nav a:hover {
-      color: #1e90ff;
-    }
-
-    main {
-      max-width: 800px;
-      margin: 2rem auto;
-      padding: 1rem;
-      background: #1e1e1e;
-      border-radius: 8px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-    }
-
-    h2 {
-      color: #00bfff;
-      border-bottom: 1px solid #333;
-      padding-bottom: 0.5rem;
+    .tos-content h2 {
+      margin-top: 30px;
     }
 
     footer {
+      border-top: 1px solid var(--line);
+      padding: 26px 0 60px;
+      color: var(--muted);
       text-align: center;
-      padding: 1rem;
-      background: #1f1f1f;
-      margin-top: 2rem;
-      border-top: 2px solid #333;
-      font-size: 0.9rem;
-      color: #aaa;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      body { cursor: auto; }
+      .cursor, .cursor-follower { display: none; }
     }
   </style>
 </head>
 <body>
-  <header>
-    <h1>nobulem.wtf</h1>
-    <nav>
-      <a href="index.html">Home</a>
-      <a href="TOS.html">Terms of Service</a>
-    </nav>
+  <!-- Cursor -->
+  <div class="cursor"></div>
+  <div class="cursor-follower"></div>
+
+  <!-- Background blobs -->
+  <div class="blob"></div>
+  <div class="blob b2"></div>
+
+  <!-- Navbar -->
+  <nav class="nav">
+    <div class="container row">
+      <div class="brand">
+        <span class="dot"></span>
+        <a href="/" aria-label="nobulem.wtf">nobulem.wtf</a>
+      </div>
+      <div class="links">
+        <a href="/">Home</a>
+        <a href="/#executors">Executors</a>
+        <a href="/#games">Games</a>
+        <a href="/#scripts">Scripts</a>
+        <a href="/#pricing">Pricing</a>
+        <a href="/#reviews">Reviews</a>
+        <a href="/#developers">Developers</a>
+        <a href="/TOS">Terms</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <header class="hero container">
+    <div class="eyebrow">Legal</div>
+    <h1 class="title">Terms of Service</h1>
+    <p class="subtitle">Read these carefully before using nobulem.wtf</p>
   </header>
 
-  <main>
-    <h2>Terms of Service</h2>
-    <p>Welcome to nobulem.wtf! By using this website, you agree to the following terms:</p>
-    <ul>
-      <li>You use this site at your own risk. We are not liable for any damages.</li>
-      <li>All content provided here is for educational or entertainment purposes only.</li>
-      <li>Do not attempt to hack, abuse, or exploit this site in any way.</li>
-      <li>We reserve the right to update these terms at any time without notice.</li>
-    </ul>
-    <p>If you have questions, feel free to contact us.</p>
-  </main>
+  <!-- TOS Content -->
+  <section>
+    <div class="container tos-content">
+      <p>Welcome to <strong>nobulem.wtf</strong>. By accessing this website, you agree to the following terms and conditions. Please read them carefully.</p>
 
+      <h2>1. Acceptance of Terms</h2>
+      <p>By using this site, you accept these Terms of Service and agree to comply with all applicable laws and regulations.</p>
+
+      <h2>2. Use of Content</h2>
+      <p>All scripts and content on this site are for educational and entertainment purposes only. Misuse of these resources is strictly prohibited.</p>
+
+      <h2>3. Limitations</h2>
+      <p>We are not responsible for damages or issues arising from the use of content downloaded from this site.</p>
+
+      <h2>4. Changes</h2>
+      <p>These terms may be updated periodically. Continued use of the site indicates your acceptance of changes.</p>
+
+      <p style="margin-top:30px;color:var(--muted);font-size:14px;">Last updated: September 2025</p>
+    </div>
+  </section>
+
+  <!-- Footer -->
   <footer>
-    &copy; 2025 nobulem.wtf. All Rights Reserved.
+    &copy; 2025 nobulem.wtf. All rights reserved.
   </footer>
+
+  <script>
+    // Cursor effect
+    const cursor = document.querySelector('.cursor');
+    const follower = document.querySelector('.cursor-follower');
+    document.addEventListener('mousemove', e => {
+      cursor.style.top = `${e.clientY}px`;
+      cursor.style.left = `${e.clientX}px`;
+      follower.style.top = `${e.clientY}px`;
+      follower.style.left = `${e.clientX}px`;
+    });
+  </script>
 </body>
 </html>
