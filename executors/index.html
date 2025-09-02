@@ -58,6 +58,42 @@
       opacity: 0.95;
     }
 
+.warning-banner {
+  margin: 20px auto;
+  display: flex;              /* not inline-flex */
+  justify-content: center;    /* center contents inside */
+  align-items: center;
+  width: fit-content;         /* shrink to content width */
+  gap: 10px;
+  padding: 12px 20px;
+  border-radius: var(--radius);
+  font-size: 15px;
+  font-weight: 700;
+  color: #fff;
+  background: rgba(239, 68, 68, 0.15);
+  border: 1px solid rgba(239, 68, 68, 0.5);
+  box-shadow: 0 0 20px rgba(239, 68, 68, 0.4);
+  animation: pulse-red 1.5s infinite;
+}
+
+
+
+.warning-icon {
+  font-size: 20px;
+  animation: bounce 1s infinite;
+}
+
+@keyframes pulse-red {
+  0%, 100% { box-shadow: 0 0 15px rgba(239, 68, 68, 0.4); }
+  50% { box-shadow: 0 0 30px rgba(239, 68, 68, 0.8); }
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+}
+
+
     /* ---------- Fancy glow blobs ---------- */
     .blob{
       position:fixed; inset:auto auto 10% -10%;
@@ -249,15 +285,15 @@
         <a href="index.html" aria-label="nobulem.wtf">nobulem.wtf</a>
       </div>
       <div class="links">
-        <a href="index.html">Home</a>
-        <a href="#">Executors</a>
-        <a href="index.html#games">Games</a>
-        <a href="index.html#scripts">Scripts</a>
-        <a href="index.html#showcases">Showcases</a>
-        <a href="index.html#pricing">Pricing</a>
-        <a href="index.html#reviews">Reviews</a>
-        <a href="index.html#developers">Developers</a>
-        <a href="index.html#tos">Terms</a>
+        <a href="/">Home</a>
+        <a href="/executors">Executors</a>
+        <a href="/#games">Games</a>
+        <a href="/#scripts">Scripts</a>
+        <a href="/#showcases">Showcases</a>
+        <a href="/#pricing">Pricing</a>
+        <a href="/#reviews">Reviews</a>
+        <a href="/#developers">Developers</a>
+        <a href="/tos">Terms</a>
       </div>
     </div>
   </nav>
@@ -267,6 +303,11 @@
       <div class="container">
         <h2 class="reveal center">Executor Status</h2>
         <p class="reveal center muted">Live status information for our recommended executors.</p>
+        <div class="warning-banner reveal center">
+  <span class="warning-icon">⚠️</span>
+  <span class="warning-text">All executors are currently detected</span>
+</div>
+
         
         <div class="stats reveal">
           <div class="stat-card">
