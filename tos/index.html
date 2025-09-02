@@ -6,7 +6,6 @@
   <title>Terms of Service — nobulem.wtf</title>
   <meta name="description" content="Terms of Service for nobulem.wtf">
   <style>
-    /* Import all styles from homepage */
     :root{
       --bg: #0b0b0b;
       --bg-2: #111;
@@ -29,37 +28,12 @@
       font: 700 15px/1.6 ui-sans-serif, -apple-system, system-ui, Segoe UI, Roboto, Helvetica, Arial;
       letter-spacing:.2px;
       overflow-x:hidden;
-      cursor: none;
+      cursor: auto; /* ✅ Restored normal cursor */
     }
     h1,h2,h3,h4,strong,b{font-weight:800; margin:0 0 .6rem}
     p{margin:0 0 1rem; color:var(--muted)}
     a{color:var(--text); text-decoration:none; font-weight:800}
     .container{width:min(1150px, 92vw); margin-inline:auto}
-
-    /* Custom Cursor */
-    .cursor {
-      position: fixed;
-      width: 20px;
-      height: 20px;
-      border-radius: 50%;
-      background: white;
-      mix-blend-mode: difference;
-      transform: translate(-50%, -50%);
-      pointer-events: none;
-      z-index: 9999;
-      transition: width 0.2s, height 0.2s;
-    }
-    .cursor-follower {
-      position: fixed;
-      width: 40px;
-      height: 40px;
-      border: 1px solid rgba(255, 255, 255, 0.3);
-      border-radius: 50%;
-      transform: translate(-50%, -50%);
-      pointer-events: none;
-      z-index: 9998;
-      transition: all 0.6s ease;
-    }
 
     /* Blobs */
     .blob{
@@ -140,19 +114,9 @@
       color: var(--muted);
       text-align: center;
     }
-
-    /* Responsive */
-    @media (max-width: 768px) {
-      body { cursor: auto; }
-      .cursor, .cursor-follower { display: none; }
-    }
   </style>
 </head>
 <body>
-  <!-- Cursor -->
-  <div class="cursor"></div>
-  <div class="cursor-follower"></div>
-
   <!-- Background blobs -->
   <div class="blob"></div>
   <div class="blob b2"></div>
@@ -209,17 +173,5 @@
   <footer>
     &copy; 2025 nobulem.wtf. All rights reserved.
   </footer>
-
-  <script>
-    // Cursor effect
-    const cursor = document.querySelector('.cursor');
-    const follower = document.querySelector('.cursor-follower');
-    document.addEventListener('mousemove', e => {
-      cursor.style.top = `${e.clientY}px`;
-      cursor.style.left = `${e.clientX}px`;
-      follower.style.top = `${e.clientY}px`;
-      follower.style.left = `${e.clientX}px`;
-    });
-  </script>
 </body>
 </html>
