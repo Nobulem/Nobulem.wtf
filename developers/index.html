@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Developers — nobulem.wtf</title>
+  <meta name="description" content="Terms of Service for nobulem.wtf">
+  <style>
+    :root{
+      --bg: #0b0b0b;
+      --bg-2: #111;
+      --card: #151515;
+      --text: #fff;
+      --muted: #cfcfcf;
+      --line: #2a2a2a;
+      --accent: #ffffff;
+      --shadow: 0 20px 60px rgba(0,0,0,.45);
+      --radius: 18px;
+      --speed: 420ms;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      background: radial-gradient(1200px 1200px at 10% 20%, #171717 0%, var(--bg) 50%) fixed;
+      color:var(--text);
+      font: 700 15px/1.6 ui-sans-serif, -apple-system, system-ui, Segoe UI, Roboto, Helvetica, Arial;
+      letter-spacing:.2px;
+      overflow-x:hidden;
+      cursor: default; /* keep default cursor visible */
+    }
+    h1,h2,h3,h4,strong,b{font-weight:800; margin:0 0 .6rem}
+    p{margin:0 0 1rem; color:var(--muted)}
+    a{color:var(--text); text-decoration:none; font-weight:800}
+    .container{width:min(1150px, 92vw); margin-inline:auto}
+
+    /* Blobs */
+    .blob{
+      position:fixed; inset:auto auto 10% -10%;
+      width:55vw; height:55vw; pointer-events:none; z-index:0;
+      background: radial-gradient(circle at 50% 50%, rgba(255,255,255,.06), transparent 55%);
+      filter: blur(60px) saturate(140%);
+      animation: float 18s ease-in-out infinite;
+      opacity:.8;
+    }
+    .blob.b2{inset:-20% -10% auto auto; width:45vw; height:45vw; animation-duration:22s; opacity:.6}
+    @keyframes float{
+      0%,100%{transform:translate3d(0,0,0) scale(1)}
+      50%{transform:translate3d(2rem,-1.5rem,0) scale(1.06)}
+    }
+
+    /* Navbar */
+    .nav{
+      position:sticky; top:0; z-index:50;
+      backdrop-filter:saturate(140%) blur(10px);
+      background: linear-gradient(180deg, rgba(0,0,0,.72), rgba(0,0,0,.42));
+      border-bottom:1px solid var(--line);
+    }
+    .nav .row{display:flex; align-items:center; gap:16px; padding:14px 0}
+    .brand{display:flex; align-items:center; gap:10px; font-size:22px; letter-spacing:.3px}
+    .brand .dot{width:10px; height:10px; border-radius:999px; background:#fff; box-shadow:0 0 16px #fff}
+    .links{margin-left:auto; display:flex; gap:18px; flex-wrap:wrap}
+    .links a{opacity:.9}
+    .links a:hover{opacity:1; transform:translateY(-1px)}
+
+    /* Hero Section */
+    .hero {
+      position: relative;
+      z-index: 1;
+      padding: 96px 0 56px;
+      text-align: center;
+    }
+    .eyebrow {
+      color: #eaeaea;
+      text-transform: uppercase;
+      font-size: 13px;
+      letter-spacing: .24em;
+    }
+    .title {
+      font-size: clamp(42px, 7vw, 76px);
+      line-height: 1.04;
+      margin: .6rem 0 .8rem;
+    }
+    .subtitle {
+      font-size: clamp(16px, 2.2vw, 20px);
+      color: var(--muted);
+    }
+
+    /* Content Section */
+    section {
+      position: relative;
+      z-index: 1;
+      padding: 70px 0;
+      border-top: 1px solid var(--line);
+    }
+    .tos-content {
+      background: linear-gradient(180deg, #161616, #111);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 30px;
+      max-width: 900px;
+      margin: auto;
+      line-height: 1.8;
+    }
+    .tos-content h2 {
+      margin-top: 30px;
+    }
+
+    footer {
+      border-top: 1px solid var(--line);
+      padding: 26px 0 60px;
+      color: var(--muted);
+      text-align: center;
+    }
+
+    /* Spotlight Effect */
+    .spotlight {
+      position: fixed;
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0) 70%);
+      pointer-events: none;
+      border-radius: 50%;
+      mix-blend-mode: screen;
+      transform: translate(-50%, -50%) scale(1);
+      z-index: 9999; /* above all content */
+    }
+  </style>
+</head>
+<body>
+  <!-- Background blobs -->
+  <div class="blob"></div>
+  <div class="blob b2"></div>
+
+  <!-- Navbar -->
+  <nav class="nav">
+    <div class="container row">
+      <div class="brand">
+        <span class="dot"></span>
+        <a href="/" aria-label="nobulem.wtf">nobulem.wtf</a>
+      </div>
+      <div class="links">
+        <a href="/">Home</a>
+        <a href="/#executors">Executors</a>
+        <a href="/#games">Games</a>
+        <a href="/#scripts">Scripts</a>
+        <a href="/#pricing">Pricing</a>
+        <a href="/#reviews">Reviews</a>
+        <a href="/#developers">Developers</a>
+        <a href="/TOS">Terms</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <header class="hero container">
+    <div class="eyebrow"></div>
+    <h1 class="title">Our Developers</h1>
+    <p class="subtitle">A full introduction of nobulem.wtf Development team.</p>
+  </header>
+
+  <!-- Development Content -->
+  <section>
+    <div class="container tos-content">
+      <p>Welcome to <strong>nobulem.wtf</strong>. Developer team you will learn a few thing about us and what we do</p>
+
+      <h2>@CobaltDragon299</h2>
+      <p>CobaltDragon299 has been working on coding for 6+ years, and if you look at his showcase videos on our Discord server, you will see how great his scripts are. That's why he is one of the reasons Nobulem is the way it is today. If it weren't for him, our scripts wouldn't be as reliable as they are now . He has worked on so many projects before, and he has always been better than the last. His projects will always be great, and that is why you should use Nobulem.wtf today!</p>
+
+      <h2>@LordLoaf</h2>
+      <p>HE IS THE FUCKING LORDLOAF U BUMS THE BEST MOBILE TSB PLAYER EVER AND HE IS JUST DADDY SO U BETTER PUT RESPECT ON HIS NAME AND BETTER BOW DOWN WHENEVER HE BREATHES NEAR U</p>
+
+      <h2>@Quicksy</h2>
+      <p>Quicksy Head Manager if u have any questions abt executors he is the guy for sure.</p>
+
+      <h2>@Ace</h2>
+      <p>Ace is the reason you are even reading this right now on the site so yeah.</p>
+
+      <h2>@violentsnake23</h2>
+      <p>violentsnake23 is just a chill guy who trys helping out with questions about the script which you urself can ask in our disord server by opening a support ticket.</p>
+
+      <p style="margin-top:30px;color:var(--muted);font-size:14px;">Last updated: September 2025</p>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    &copy; 2025 nobulem.wtf. All rights reserved.
+  </footer>
+
+  <!-- Spotlight Effect -->
+  <div class="spotlight"></div>
+  <script>
+    const spotlight = document.querySelector('.spotlight');
+
+    let mouseX = 0, mouseY = 0;
+    let currentX = 0, currentY = 0;
+    const speed = 0.1; // smaller = smoother
+
+    document.addEventListener('mousemove', (e) => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+    });
+
+    function animate() {
+      currentX += (mouseX - currentX) * speed;
+      currentY += (mouseY - currentY) * speed;
+
+      // Slight scaling for dynamic feel
+      const scale = 1 + Math.min(Math.abs(mouseX - currentX), Math.abs(mouseY - currentY)) / 1000;
+
+      spotlight.style.left = `${currentX}px`;
+      spotlight.style.top = `${currentY}px`;
+      spotlight.style.transform = `translate(-50%, -50%) scale(${scale})`;
+
+      requestAnimationFrame(animate);
+    }
+
+    animate();
+  </script>
+</body>
+</html>
