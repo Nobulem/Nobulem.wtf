@@ -29,43 +29,33 @@
       font: 700 15px/1.6 ui-sans-serif, -apple-system, system-ui, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
       letter-spacing:.2px;
       overflow-x:hidden;
-      cursor: none;
+      cursor: auto;
     }
     h1,h2,h3,h4,strong,b{font-weight:800; margin:0 0 .6rem}
     p{margin:0 0 1rem; color:var(--muted)}
     a{color:var(--text); text-decoration:none; font-weight:800}
     .container{width:min(1150px, 92vw); margin-inline:auto}
 
-    /* Custom Cursor */
-    .cursor {
+    /* ---------- Flashlight (faint glowing circle following mouse in background) ---------- */
+    .flashlight {
       position: fixed;
-      width: 20px;
-      height: 20px;
-      border-radius: 50%;
-      background: white;
-      mix-blend-mode: difference;
-      transform: translate(-50%, -50%);
+      left: 50%;
+      top: 50%;
+      width: 420px;
+      height: 420px;
       pointer-events: none;
-      z-index: 9999;
-      transition: width 0.2s, height 0.2s;
-    }
-    
-    .cursor-follower {
-      position: fixed;
-      width: 40px;
-      height: 40px;
-      border: 1px solid rgba(255, 255, 255, 0.3);
       border-radius: 50%;
       transform: translate(-50%, -50%);
-      pointer-events: none;
-      z-index: 9998;
-      transition: all 0.6s ease;
-    }
-    
-    .cursor.hover, .cursor-follower.hover {
-      width: 30px;
-      height: 30px;
-      background: rgba(255, 255, 255, 0.8);
+      z-index: 0; /* behind content (content sections use z-index:1) */
+      background: radial-gradient(circle at 50% 40%,
+        rgba(255,255,255,0.10) 0%,
+        rgba(255,255,255,0.06) 20%,
+        rgba(255,255,255,0.02) 40%,
+        transparent 65%);
+      filter: blur(42px) saturate(120%);
+      mix-blend-mode: screen;
+      transition: width 220ms ease, height 220ms ease, opacity 220ms ease;
+      opacity: 0.95;
     }
 
     /* ---------- Fancy glow blobs ---------- */
@@ -599,22 +589,17 @@
         cursor: auto;
       }
       
-      .cursor, .cursor-follower {
-        display: none;
-      }
-      
       .stats {grid-template-columns: 1fr;}
     }
   </style>
 </head>
 <body>
-  <!-- Custom cursor -->
-  <div class="cursor"></div>
-  <div class="cursor-follower"></div>
-
   <!-- soft light blobs -->
   <div class="blob"></div>
   <div class="blob b2"></div>
+
+  <!-- flashlight effect that follows the mouse (background, faint) -->
+  <div class="flashlight" aria-hidden="true"></div>
 
   <!-- Nav -->
   <nav class="nav">
@@ -633,7 +618,6 @@
         <a href="reviews">Reviews</a>
         <a href="developers">Developers</a>
         <a href="tos">Terms</a>
-        <a class="cta" href="#free">Made with love - nobulem.wtf</a>
       </div>
     </div>
   </nav>
@@ -1033,15 +1017,6 @@
     </div>
   </section>
 
-  <!-- Terms -->
-  <section id="terms">
-    <div class="container">
-      <h2 class="reveal">Terms</h2>
-      <div class="card reveal">
-        <p>By using nobulem.wtf you agree to use scripts responsibly, at your own risk. We do not sell anything, collect payments, or lock features behind keys. Content is provided "as is". Respect game rules, laws, and other players.</p>
-      </div>
-    </div>
-  </section>
 
   <!-- Developer / Footer -->
   <section id="free">
@@ -1086,34 +1061,71 @@
       });
     });
     
-    // Custom cursor
-    const cursor = document.querySelector('.cursor');
-    const cursorFollower = document.querySelector('.cursor-follower');
-    
-    document.addEventListener('mousemove', (e) => {
-      cursor.style.left = e.clientX + 'px';
-      cursor.style.top = e.clientY + 'px';
-      
-      setTimeout(() => {
-        cursorFollower.style.left = e.clientX + 'px';
-        cursorFollower.style.top = e.clientY + 'px';
-      }, 100);
-    });
-    
-    // Add hover effect to interactive elements
-    const interactiveElements = document.querySelectorAll('a, button, .btn, .card, .chip');
-    
-    interactiveElements.forEach(el => {
-      el.addEventListener('mouseenter', () => {
-        cursor.classList.add('hover');
-        cursorFollower.classList.add('hover');
+    // Flashlight / faint glowing circle follow mouse (background)
+    (function() {
+      const flashlight = document.querySelector('.flashlight');
+      if(!flashlight) return;
+
+      let mouseX = window.innerWidth / 2;
+      let mouseY = window.innerHeight / 2;
+      let currentX = mouseX;
+      let currentY = mouseY;
+      let lastMoveTime = 0;
+
+      // update size slightly on move speed to give subtle "flashlight" feel
+      function updateSize(dx, dy) {
+        const speed = Math.min(60, Math.hypot(dx, dy));
+        const size = 420 + Math.min(200, speed * 3);
+        flashlight.style.width = `${size}px`;
+        flashlight.style.height = `${size}px`;
+      }
+
+      document.addEventListener('mousemove', (e) => {
+        lastMoveTime = Date.now();
+        mouseX = e.clientX;
+        mouseY = e.clientY;
       });
-      
-      el.addEventListener('mouseleave', () => {
-        cursor.classList.remove('hover');
-        cursorFollower.classList.remove('hover');
+
+      function lerp(a, b, n) { return (1 - n) * a + n * b; }
+
+      function animate() {
+        const dx = mouseX - currentX;
+        const dy = mouseY - currentY;
+        currentX = lerp(currentX, mouseX, 0.18);
+        currentY = lerp(currentY, mouseY, 0.18);
+
+        // position (keep behind content)
+        flashlight.style.left = currentX + 'px';
+        flashlight.style.top = currentY + 'px';
+
+        updateSize(dx, dy);
+
+        requestAnimationFrame(animate);
+      }
+
+      // start with center
+      flashlight.style.left = (window.innerWidth/2) + 'px';
+      flashlight.style.top = (window.innerHeight/2) + 'px';
+      requestAnimationFrame(animate);
+
+      // subtle fade when idle
+      let idleTimer = null;
+      function resetIdleTimer() {
+        flashlight.style.opacity = '0.95';
+        if(idleTimer) clearTimeout(idleTimer);
+        idleTimer = setTimeout(()=> {
+          flashlight.style.opacity = '0.6';
+        }, 1600);
+      }
+      document.addEventListener('mousemove', resetIdleTimer);
+      resetIdleTimer();
+
+      // keep flashlight responsive on resize
+      window.addEventListener('resize', () => {
+        currentX = mouseX = window.innerWidth / 2;
+        currentY = mouseY = window.innerHeight / 2;
       });
-    });
+    })();
     
     // Typing animation
     const typingText = document.getElementById('typing-text');
@@ -1165,4 +1177,3 @@
   </script>
 </body>
 </html>
-
