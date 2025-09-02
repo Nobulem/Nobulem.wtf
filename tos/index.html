@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Terms of Service — nobulem.wtf</title>
+  <meta name="description" content="Terms of Service for nobulem.wtf">
+  <link rel="stylesheet" href="../style.css">
+  <style>
+    /* If style.css isn't separate, copy the same CSS from your main page here */
+  </style>
+</head>
+<body>
+  <!-- Custom cursor -->
+  <div class="cursor"></div>
+  <div class="cursor-follower"></div>
+
+  <!-- soft light blobs -->
+  <div class="blob"></div>
+  <div class="blob b2"></div>
+
+  <!-- Nav -->
+  <nav class="nav">
+    <div class="container row">
+      <div class="brand">
+        <span class="dot"></span>
+        <a href="/" aria-label="nobulem.wtf">nobulem.wtf</a>
+      </div>
+      <div class="links">
+        <a href="/">Home</a>
+        <a href="/TOS">Terms</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- TOS Hero -->
+  <header class="hero container">
+    <div class="eyebrow reveal">terms & policies</div>
+    <h1 class="title reveal">Terms of Service</h1>
+    <p class="subtitle reveal">Please read these terms carefully before using nobulem.wtf</p>
+  </header>
+
+  <!-- TOS Content -->
+  <section class="container" style="max-width: 800px;">
+    <h2>1. Acceptance of Terms</h2>
+    <p>By accessing or using nobulem.wtf, you agree to be bound by these Terms of Service and all applicable laws and regulations.</p>
+
+    <h2>2. Use of Services</h2>
+    <p>You agree to use our services responsibly and not engage in harmful or illegal activities. Any abuse or violation of these terms may result in access restrictions.</p>
+
+    <h2>3. Content</h2>
+    <p>All content provided by nobulem.wtf is for educational or entertainment purposes only. We are not responsible for third-party content or actions.</p>
+
+    <h2>4. Limitation of Liability</h2>
+    <p>We provide our services “as-is” and make no warranties of any kind. We are not liable for damages or losses resulting from use of our site or scripts.</p>
+
+    <h2>5. Changes to Terms</h2>
+    <p>We reserve the right to update these terms at any time. Continued use of the site after changes means you accept the revised terms.</p>
+
+    <p style="margin-top: 30px;">Last updated: September 2025</p>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>© 2025 nobulem.wtf. All rights reserved.</p>
+  </footer>
+
+  <script>
+    // Copy your cursor animation script if you have one
+    const cursor = document.querySelector('.cursor');
+    const follower = document.querySelector('.cursor-follower');
+    document.addEventListener('mousemove', e => {
+      cursor.style.top = `${e.clientY}px`;
+      cursor.style.left = `${e.clientX}px`;
+      follower.style.top = `${e.clientY}px`;
+      follower.style.left = `${e.clientX}px`;
+    });
+  </script>
+</body>
+</html>
