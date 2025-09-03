@@ -852,7 +852,7 @@
           </div>
           <div class="stat-card delay-3">
             <div class="stat-number" id="stats-avg">0%</div>
-            <div class="stat-label">Avg. Undetection</div>
+            <div class="stat-label">Avg. SUNC</div>
           </div>
           <div class="stat-card delay-4">
             <div class="stat-number" id="stats-updated">0</div>
@@ -1035,24 +1035,24 @@
                       ${arrowIcon}
                     </div>
                   </div>
-                  <div class="executor-details">
-                    <div class="executor-detail">
-                      <span style="opacity: 0.7;">Platform:</span>
-                      <strong>${ex.platform || 'N/A'}</strong>
-                    </div>
-                    <div class="executor-detail">
-                      <span style="opacity: 0.7;">Price:</span>
-                      <strong>${ex.free ? 'Free' : (ex.cost || 'Paid')}</strong>
-                    </div>
-                    <div class="executor-detail">
-                      <span style="opacity: 0.7;">Undetection:</span>
-                      <strong style="color: ${(ex.uncPercentage || 0) > 80 ? '#10B981' : (ex.uncPercentage || 0) > 50 ? '#F59E0B' : '#EF4444'};">${typeof ex.uncPercentage === 'number' ? ex.uncPercentage + '%' : '0%'}</strong>
-                    </div>
-                    <div class="executor-detail">
-                      <span style="opacity: 0.7;">Status:</span>
-                      <strong style="color: ${isUpdated ? '#10B981' : '#EF4444'};">${isUpdated ? 'Updated' : 'Outdated'}</strong>
-                    </div>
+                <div class="executor-details">
+                  <div class="executor-detail">
+                    <strong>${ex.platform || 'N/A'}</strong>
                   </div>
+                  <div class="executor-detail">
+                    <strong>${ex.free ? 'Free' : (ex.cost || 'Paid')}</strong>
+                  </div>
+                  <div class="executor-detail">
+                    <strong style="color: ${(ex.uncPercentage || 0) > 80 ? '#10B981' : (ex.uncPercentage || 0) > 50 ? '#F59E0B' : '#EF4444'};">
+                      ${typeof ex.uncPercentage === 'number' ? ex.uncPercentage + '%' : '0%'}
+                    </strong>
+                  </div>
+                  <div class="executor-detail">
+                    <strong style="color: ${isUpdated ? '#10B981' : '#EF4444'};">
+                      ${isUpdated ? 'Updated' : 'Outdated'}
+                    </strong>
+                  </div>
+                </div>
                 </div>
                 `;
             }).join('');
