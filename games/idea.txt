@@ -1,1 +1,0 @@
-for games we should have the game cards and a search feature at the top, also we should find a way to upload new games and update them without having to change the html a gazzilion times.
