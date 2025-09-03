@@ -8,127 +8,363 @@
   <style>
     /* ---------- Base / Theme ---------- */
     :root{
-      --bg: #0b0b0b;
-      --bg-2: #111;
-      --card: #151515;
-      --text: #fff;
-      --muted: #cfcfcf;
-      --line: #2a2a2a;
+      --bg: #000000;
+      --bg-2: #0a0a0a;
+      --card: #111111;
+      --text: #ffffff;
+      --muted: #cccccc;
+      --line: #333333;
       --accent: #ffffff;
-      --shadow: 0 20px 60px rgba(0,0,0,.45);
-      --radius: 18px;
-      --speed: 420ms;
+      --shadow: 0 25px 80px rgba(255,255,255,.08);
+      --radius: 20px;
+      --speed: 500ms;
     }
     *{box-sizing:border-box}
     html,body{height:100%}
     html{scroll-behavior:smooth}
     body{
       margin:0;
-      background: radial-gradient(1200px 1200px at 10% 20%, #171717 0%, var(--bg) 50%) fixed;
+      background: #000000;
       color:var(--text);
       font: 700 15px/1.6 ui-sans-serif, -apple-system, system-ui, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
       letter-spacing:.2px;
       overflow-x:hidden;
       cursor: auto;
+      position: relative;
     }
     h1,h2,h3,h4,strong,b{font-weight:800; margin:0 0 .6rem}
     p{margin:0 0 1rem; color:var(--muted)}
-    a{color:var(--text); text-decoration:none; font-weight:800}
+    a{color:var(--text); text-decoration:none; font-weight:800; transition: all 0.3s ease;}
+    a:hover{transform: translateY(-2px);}
     .container{width:min(1150px, 92vw); margin-inline:auto}
 
-    /* ---------- Flashlight (faint glowing circle following mouse in background) ---------- */
-    .flashlight {
+    /* ---------- Animated Background ---------- */
+    .bg-animation {
       position: fixed;
-      left: 50%;
-      top: 50%;
-      width: 420px;
-      height: 420px;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
       pointer-events: none;
+      overflow: hidden;
+    }
+
+    /* Floating Particles */
+    .particle {
+      position: absolute;
+      background: rgba(255,255,255,0.4);
       border-radius: 50%;
-      transform: translate(-50%, -50%);
-      z-index: 0; /* behind content (content sections use z-index:1) */
-      background: radial-gradient(circle at 50% 40%,
-        rgba(255,255,255,0.10) 0%,
-        rgba(255,255,255,0.06) 20%,
-        rgba(255,255,255,0.02) 40%,
-        transparent 65%);
-      filter: blur(42px) saturate(120%);
-      mix-blend-mode: screen;
-      transition: width 220ms ease, height 220ms ease, opacity 220ms ease;
-      opacity: 0.95;
+      pointer-events: none;
     }
 
-    /* ---------- Fancy glow blobs ---------- */
-    .blob{
-      position:fixed; inset:auto auto 10% -10%;
-      width:55vw; height:55vw; pointer-events:none; z-index:0;
-      background: radial-gradient(circle at 50% 50%, rgba(255,255,255,.06), transparent 55%);
-      filter: blur(60px) saturate(140%);
-      animation: float 18s ease-in-out infinite;
-      opacity:.8;
-    }
-    .blob.b2{inset:-20% -10% auto auto; width:45vw; height:45vw; animation-duration:22s; opacity:.6}
-    @keyframes float{
-      0%,100%{transform:translate3d(0,0,0) scale(1)}
-      50%{transform:translate3d(2rem,-1.5rem,0) scale(1.06)}
+    .particle-1 {
+      width: 4px;
+      height: 4px;
+      animation: float-1 20s linear infinite;
     }
 
-    /* ---------- Top Nav ---------- */
+    .particle-2 {
+      width: 6px;
+      height: 6px;
+      animation: float-2 25s linear infinite;
+    }
+
+    .particle-3 {
+      width: 3px;
+      height: 3px;
+      animation: float-3 15s linear infinite;
+    }
+
+    .particle-4 {
+      width: 8px;
+      height: 8px;
+      animation: float-4 30s linear infinite;
+    }
+
+    @keyframes float-1 {
+      0% { transform: translateY(100vh) translateX(0) rotate(0deg); opacity: 0; }
+      10% { opacity: 1; }
+      90% { opacity: 1; }
+      100% { transform: translateY(-100px) translateX(100px) rotate(360deg); opacity: 0; }
+    }
+
+    @keyframes float-2 {
+      0% { transform: translateY(100vh) translateX(0) rotate(0deg); opacity: 0; }
+      10% { opacity: 0.8; }
+      90% { opacity: 0.8; }
+      100% { transform: translateY(-100px) translateX(-50px) rotate(-360deg); opacity: 0; }
+    }
+
+    @keyframes float-3 {
+      0% { transform: translateY(100vh) translateX(0) rotate(0deg); opacity: 0; }
+      10% { opacity: 1; }
+      90% { opacity: 1; }
+      100% { transform: translateY(-100px) translateX(200px) rotate(720deg); opacity: 0; }
+    }
+
+    @keyframes float-4 {
+      0% { transform: translateY(100vh) translateX(0) rotate(0deg); opacity: 0; }
+      10% { opacity: 0.6; }
+      90% { opacity: 0.6; }
+      100% { transform: translateY(-100px) translateX(-100px) rotate(-720deg); opacity: 0; }
+    }
+
+    /* Animated Waves */
+    .wave {
+      position: absolute;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(45deg, 
+        transparent 0%, 
+        rgba(255,255,255,0.02) 25%, 
+        transparent 50%, 
+        rgba(255,255,255,0.02) 75%, 
+        transparent 100%);
+    }
+
+    .wave-1 {
+      top: -50%;
+      left: -50%;
+      animation: wave-motion-1 20s linear infinite;
+    }
+
+    .wave-2 {
+      top: -50%;
+      right: -50%;
+      animation: wave-motion-2 25s linear infinite reverse;
+    }
+
+    .wave-3 {
+      bottom: -50%;
+      left: -50%;
+      animation: wave-motion-3 30s linear infinite;
+    }
+
+    @keyframes wave-motion-1 {
+      0% { transform: rotate(0deg) scale(1); }
+      100% { transform: rotate(360deg) scale(1.1); }
+    }
+
+    @keyframes wave-motion-2 {
+      0% { transform: rotate(0deg) scale(1.05); }
+      100% { transform: rotate(-360deg) scale(0.95); }
+    }
+
+    @keyframes wave-motion-3 {
+      0% { transform: rotate(45deg) scale(1.02); }
+      100% { transform: rotate(405deg) scale(1.08); }
+    }
+
+    /* Geometric Floating Shapes */
+    .shape {
+      position: absolute;
+      border: 1px solid rgba(255,255,255,0.1);
+      pointer-events: none;
+    }
+
+    .shape-1 {
+      width: 100px;
+      height: 100px;
+      top: 20%;
+      left: 10%;
+      animation: geometric-float-1 15s ease-in-out infinite;
+    }
+
+    .shape-2 {
+      width: 60px;
+      height: 60px;
+      top: 60%;
+      right: 15%;
+      animation: geometric-float-2 12s ease-in-out infinite;
+      border-radius: 50%;
+    }
+
+    .shape-3 {
+      width: 80px;
+      height: 80px;
+      bottom: 30%;
+      left: 20%;
+      animation: geometric-float-3 18s ease-in-out infinite;
+      transform: rotate(45deg);
+    }
+
+    @keyframes geometric-float-1 {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      25% { transform: translateY(-30px) rotate(90deg); }
+      50% { transform: translateY(-10px) rotate(180deg); }
+      75% { transform: translateY(-40px) rotate(270deg); }
+    }
+
+    @keyframes geometric-float-2 {
+      0%, 100% { transform: scale(1) translateX(0); }
+      33% { transform: scale(1.2) translateX(20px); }
+      66% { transform: scale(0.8) translateX(-15px); }
+    }
+
+    @keyframes geometric-float-3 {
+      0%, 100% { transform: rotate(45deg) translateY(0); }
+      50% { transform: rotate(225deg) translateY(-25px); }
+    }
+
+
+    /* ---------- Navigation ---------- */
     .nav{
       position:sticky; top:0; z-index:50;
-      backdrop-filter:saturate(140%) blur(10px);
-      background: linear-gradient(180deg, rgba(0,0,0,.72), rgba(0,0,0,.42));
+      backdrop-filter:saturate(140%) blur(15px);
+      background: rgba(0,0,0,0.9);
       border-bottom:1px solid var(--line);
+      animation: slide-down 0.8s ease;
     }
-    .nav .row{display:flex; align-items:center; gap:16px; padding:14px 0}
+    .nav .row{display:flex; align-items:center; gap:16px; padding:16px 0}
     .brand{
-      display:flex; align-items:center; gap:10px; font-size:22px; letter-spacing:.3px;
+      display:flex; align-items:center; gap:12px; font-size:24px; letter-spacing:.3px;
+      animation: brand-glow 3s ease-in-out infinite;
     }
-    .brand .dot{width:10px; height:10px; border-radius:999px; background:#fff; box-shadow:0 0 16px #fff}
-    .links{margin-left:auto; display:flex; gap:18px; flex-wrap:wrap}
-    .links a{opacity:.9}
-    .links a:hover{opacity:1; transform:translateY(-1px)}
+    .brand .dot{
+      width:12px; height:12px; border-radius:999px; background:#fff; 
+      box-shadow:0 0 20px #fff, 0 0 40px #fff;
+      animation: pulse-dot 2s ease-in-out infinite;
+    }
+    .links{margin-left:auto; display:flex; gap:20px; flex-wrap:wrap}
+    .links a{
+      opacity:.9; 
+      transition: all 0.3s ease;
+      position: relative;
+      padding: 8px 0;
+    }
+    .links a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: #fff;
+      transition: width 0.3s ease;
+    }
+    .links a:hover {
+      opacity:1; 
+      transform:translateY(-2px);
+    }
+    .links a:hover::after {
+      width: 100%;
+    }
     .cta{
-      margin-left:10px; background:#fff; color:#000; padding:10px 16px; border-radius:999px;
-      box-shadow:var(--shadow); border:2px solid #fff; transition:transform var(--speed);
+      margin-left:12px; background:#fff; color:#000; padding:12px 20px; border-radius:999px;
+      box-shadow:var(--shadow); border:2px solid #fff; 
+      transition:transform var(--speed), box-shadow var(--speed);
+      animation: cta-pulse 3s ease-in-out infinite;
     }
-    .cta:hover{transform:translateY(-2px) scale(1.02)}
+    .cta:hover{transform:translateY(-3px) scale(1.05); box-shadow: 0 0 30px rgba(255,255,255,0.5);}
 
     /* ---------- Hero ---------- */
     .hero{
-      position:relative; z-index:1; padding:96px 0 56px; text-align:center;
+      position:relative; z-index:20; padding:120px 0 80px; text-align:center;
     }
-    .eyebrow{color:#eaeaea; text-transform:uppercase; font-size:13px; letter-spacing:.24em}
-    .title{font-size: clamp(42px, 7vw, 76px); line-height:1.04; margin:.6rem 0 .8rem}
-    .subtitle{font-size: clamp(16px, 2.2vw, 20px); color:var(--muted)}
-    .chips{display:flex; gap:10px; justify-content:center; flex-wrap:wrap; margin:22px 0 28px}
+    .eyebrow{
+      color:#eaeaea; text-transform:uppercase; font-size:14px; letter-spacing:.3em;
+      animation: fade-in-up 1s ease 0.2s both;
+    }
+    .title{
+      font-size: clamp(48px, 8vw, 90px); line-height:1.02; margin:.8rem 0 1rem;
+      animation: title-entrance 1.5s ease 0.4s both;
+    }
+    .subtitle{
+      font-size: clamp(18px, 2.5vw, 24px); color:var(--muted);
+      animation: fade-in-up 1s ease 0.8s both;
+    }
+    .chips{
+      display:flex; gap:12px; justify-content:center; flex-wrap:wrap; margin:28px 0 32px;
+    }
     .chip{
-      border:1px solid var(--line); background:linear-gradient(180deg,#121212,#0e0e0e);
-      padding:10px 14px; border-radius:999px; box-shadow: inset 0 0 0 1px rgba(255,255,255,.03);
+      border:1px solid var(--line); background:rgba(255,255,255,0.05);
+      padding:12px 18px; border-radius:999px; 
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,.05);
+      animation: chip-float 3s ease-in-out infinite;
+      transition: all 0.3s ease;
     }
-    .actions{display:flex; gap:14px; justify-content:center; flex-wrap:wrap}
+    .chip:nth-child(1) { animation-delay: 0s; }
+    .chip:nth-child(2) { animation-delay: 0.5s; }
+    .chip:nth-child(3) { animation-delay: 1s; }
+    .chip:hover {
+      transform: translateY(-5px) scale(1.05);
+      background: rgba(255,255,255,0.1);
+      box-shadow: 0 10px 30px rgba(255,255,255,0.2);
+    }
+    .actions{
+      display:flex; gap:16px; justify-content:center; flex-wrap:wrap;
+      animation: fade-in-up 1s ease 1.2s both;
+    }
     .btn{
-      display:inline-flex; align-items:center; justify-content:center; gap:10px;
-      padding:14px 20px; border-radius:12px; border:2px solid #fff; cursor:pointer; transition:transform var(--speed), background var(--speed), color var(--speed);
+      display:inline-flex; align-items:center; justify-content:center; gap:12px;
+      padding:16px 24px; border-radius:15px; border:2px solid #fff; cursor:pointer; 
+      transition:all var(--speed) ease;
       box-shadow:var(--shadow);
+      position: relative;
+      overflow: hidden;
     }
-    .btn.primary{background:#fff; color:#000}
+    .btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+      transition: left 0.6s ease;
+    }
+    .btn:hover::before {
+      left: 100%;
+    }
+    .btn.primary{
+      background:#fff; color:#000;
+      animation: btn-glow 2s ease-in-out infinite;
+    }
     .btn.ghost{background:transparent}
-    .btn:hover{transform:translateY(-2px)}
+    .btn:hover{transform:translateY(-3px) scale(1.05);}
     .ribbon{
-      margin:22px auto 0; width:fit-content; padding:8px 14px; border-radius:999px;
-      border:1px dashed #2e2e2e; color:#fefefe; background:rgba(255,255,255,.04)
+      margin:28px auto 0; width:fit-content; padding:10px 18px; border-radius:999px;
+      border:1px dashed #444; color:#fefefe; background:rgba(255,255,255,.06);
+      animation: ribbon-float 4s ease-in-out infinite;
     }
 
     /* ---------- Sections ---------- */
-    section{position:relative; z-index:1; padding:70px 0; border-top:1px solid var(--line)}
-    .grid{display:grid; gap:18px}
+    section{position:relative; z-index:20; padding:80px 0; border-top:1px solid var(--line)}
+    .grid{display:grid; gap:20px}
     .cards{grid-template-columns:repeat(4,1fr)}
     .card{
-      background:linear-gradient(180deg,#161616,#111); border:1px solid var(--line);
-      border-radius:var(--radius); padding:22px; box-shadow:var(--shadow); min-height:160px; position:relative; overflow:hidden;
+      background:linear-gradient(145deg,#1a1a1a,#0d0d0d); 
+      border:1px solid var(--line);
+      border-radius:var(--radius); padding:26px; 
+      box-shadow:var(--shadow); min-height:180px; 
+      position:relative; overflow:hidden;
+      transition: all 0.4s ease;
+      animation: card-entrance 0.8s ease both;
     }
-    .card .icon{font-size:20px; margin-bottom:8px}
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    .card:hover::before {
+      opacity: 1;
+    }
+    .card:hover {
+      transform: translateY(-8px) scale(1.02);
+      box-shadow: 0 30px 100px rgba(255,255,255,0.15);
+      border-color: rgba(255,255,255,0.3);
+    }
+    .card .icon{
+      font-size:24px; margin-bottom:12px;
+      animation: icon-pulse 2s ease-in-out infinite;
+    }
     .note{font-size:13px; text-transform:uppercase; letter-spacing:.2em; color:#eaeaea}
     .muted{color:var(--muted)}
     .two{grid-template-columns:repeat(2,1fr)}
@@ -137,187 +373,363 @@
 
     /* ---------- Game Cards ---------- */
     .game-card {
-      background: linear-gradient(180deg,#161616,#111);
+      background: linear-gradient(145deg,#1a1a1a,#0d0d0d);
       border: 1px solid var(--line);
       border-radius: var(--radius);
       overflow: hidden;
       box-shadow: var(--shadow);
-      transition: transform 0.3s ease;
+      transition: all 0.4s ease;
+      animation: card-entrance 0.8s ease both;
     }
     
     .game-card:hover {
-      transform: translateY(-5px);
+      transform: translateY(-10px) rotateY(5deg);
+      box-shadow: 0 35px 120px rgba(255,255,255,0.2);
     }
     
     .game-image {
       width: 100%;
-      height: 180px;
+      height: 200px;
       object-fit: cover;
+      transition: transform 0.4s ease;
+    }
+    
+    .game-card:hover .game-image {
+      transform: scale(1.1);
     }
     
     .game-content {
-      padding: 16px;
+      padding: 20px;
+      position: relative;
     }
     
     .game-id {
       font-size: 12px;
       color: var(--muted);
-      margin-top: 8px;
-    }
-
-    /* ---------- Executor Cards ---------- */
-    .executor-card {
-      background: linear-gradient(180deg,#161616,#111);
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      padding: 20px;
-      box-shadow: var(--shadow);
-      transition: transform 0.3s ease;
-    }
-    
-    .executor-card:hover {
-      transform: translateY(-5px);
-    }
-    
-    .executor-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 12px;
-    }
-    
-    .executor-name {
-      font-size: 18px;
-      font-weight: 800;
-    }
-    
-    .executor-version {
-      font-size: 12px;
-      color: var(--muted);
-      background: rgba(255,255,255,0.1);
-      padding: 4px 8px;
-      border-radius: 12px;
-    }
-    
-    .executor-details {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-      margin-top: 15px;
-    }
-    
-    .executor-detail {
-      font-size: 13px;
-      display: flex;
-      align-items: center;
-      gap: 5px;
-    }
-    
-    .support-badge {
-      display: inline-block;
-      padding: 4px 8px;
-      border-radius: 12px;
-      font-size: 12px;
-      font-weight: 700;
-    }
-    
-    .support-excellent {
-      background: linear-gradient(90deg, #00b09b, #96c93d);
-    }
-    
-    .support-good {
-      background: linear-gradient(90deg, #a8ff78, #78ffd6);
-    }
-    
-    .support-limited {
-      background: linear-gradient(90deg, #ff5e62, #ff9966);
-    }
-    
-    .status-dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      display: inline-block;
-    }
-    
-    .status-working {
-      background: #00b09b;
-    }
-    
-    .status-detected {
-      background: #ff5e62;
-    }
-
-    /* ---------- Stats ---------- */
-    .stats {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 15px;
-      margin-bottom: 30px;
-    }
-    
-    .stat-card {
-      background: linear-gradient(180deg,#161616,#111);
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      padding: 20px;
-      text-align: center;
-    }
-    
-    .stat-number {
-      font-size: 32px;
-      font-weight: 800;
-      margin-bottom: 5px;
-    }
-    
-    .stat-label {
-      font-size: 14px;
-      color: var(--muted);
+      margin-top: 10px;
+      opacity: 0.7;
     }
 
     /* ---------- Search ---------- */
     .search-box {
-      background: linear-gradient(180deg,#161616,#111);
+      background: linear-gradient(145deg,#1a1a1a,#0d0d0d);
       border: 1px solid var(--line);
       border-radius: var(--radius);
-      padding: 15px;
-      margin-bottom: 30px;
+      padding: 20px;
+      margin-bottom: 40px;
+      animation: slide-in-up 0.8s ease both;
     }
     
     .search-input {
       width: 100%;
-      background: transparent;
+      background: rgba(255,255,255,0.05);
       border: 1px solid var(--line);
-      border-radius: 8px;
-      padding: 12px 15px;
+      border-radius: 12px;
+      padding: 15px 20px;
       color: var(--text);
       font-size: 16px;
+      transition: all 0.3s ease;
     }
     
     .search-input:focus {
       outline: none;
       border-color: #fff;
+      background: rgba(255,255,255,0.08);
+      box-shadow: 0 0 20px rgba(255,255,255,0.1);
+    }
+
+    /* ---------- Coming Soon ---------- */
+    .coming-soon {
+      text-align: center;
+      padding: 80px 20px;
     }
     
-    .filter-tabs {
+    .pulse-text {
+      animation: mega-pulse 2s infinite;
+      font-size: 36px;
+      margin-bottom: 25px;
+      background: linear-gradient(45deg, #fff, #ccc, #fff);
+      background-size: 200% 200%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: gradient-text 3s ease infinite, mega-pulse 2s infinite;
+    }
+    
+    .loader {
       display: flex;
+      justify-content: center;
       gap: 10px;
-      margin-top: 15px;
-      flex-wrap: wrap;
+      margin: 40px 0;
     }
     
-    .filter-tab {
-      padding: 8px 15px;
-      border-radius: 20px;
-      background: rgba(255,255,255,0.05);
-      border: 1px solid var(--line);
-      cursor: pointer;
-      transition: all 0.3s ease;
-    }
-    
-    .filter-tab.active {
+    .loader-dot {
+      width: 15px;
+      height: 15px;
+      border-radius: 50%;
       background: #fff;
-      color: #000;
+      animation: loader-bounce 1.4s infinite ease-in-out both;
+    }
+    
+    .loader-dot:nth-child(1) { animation-delay: -0.32s; }
+    .loader-dot:nth-child(2) { animation-delay: -0.16s; }
+    .loader-dot:nth-child(3) { animation-delay: 0s; }
+
+    /* ---------- Pricing ---------- */
+    .pricing{
+      display:grid; grid-template-columns:repeat(3,1fr); gap:20px;
+    }
+    .plan{
+      background:linear-gradient(145deg,#1a1a1a,#0d0d0d); 
+      border:1px solid var(--line);
+      border-radius:var(--radius); padding:30px; 
+      box-shadow:var(--shadow);
+      transition: all 0.4s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    .plan::before {
+      content: '';
+      position: absolute;
+      top: -2px;
+      left: -2px;
+      right: -2px;
+      bottom: -2px;
+      background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
+      border-radius: var(--radius);
+      z-index: -1;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    .plan:hover::before {
+      opacity: 1;
+    }
+    .plan:hover {
+      transform: translateY(-8px) scale(1.02);
+      box-shadow: 0 40px 120px rgba(255,255,255,0.15);
+    }
+    .plan h3{font-size:28px; animation: text-glow 3s ease-in-out infinite;}
+    .price{
+      font-size:48px; margin:.6rem 0 1.2rem;
+      animation: price-pulse 2s ease-in-out infinite;
+    }
+    .plan ul{list-style:none; padding:0; margin:0 0 1.5rem}
+    .plan li{
+      padding:10px 0; border-bottom:1px dashed #333;
+      animation: list-item-slide 0.6s ease both;
+    }
+    .plan li:nth-child(1) { animation-delay: 0.1s; }
+    .plan li:nth-child(2) { animation-delay: 0.2s; }
+    .plan li:nth-child(3) { animation-delay: 0.3s; }
+    .plan li:nth-child(4) { animation-delay: 0.4s; }
+    .plan li:nth-child(5) { animation-delay: 0.5s; }
+    .plan li:nth-child(6) { animation-delay: 0.6s; }
+    .plan .btn{width:100%}
+
+    /* Reviews */
+    .reviews {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      margin-top: 30px;
+    }
+    
+    .review-card {
+      background: linear-gradient(145deg,#1a1a1a,#0d0d0d);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 25px;
+      box-shadow: var(--shadow);
+      transition: all 0.4s ease;
+      animation: review-entrance 0.8s ease both;
+    }
+    
+    .review-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 25px 80px rgba(255,255,255,0.12);
+    }
+    
+    .review-text {
+      font-style: italic;
+      margin-bottom: 15px;
+      animation: text-fade-in 1s ease both;
+    }
+    
+    .reviewer {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    
+    .review-avatar {
+      width: 35px;
+      height: 35px;
+      border-radius: 50%;
+      background: linear-gradient(45deg, #333, #555);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      animation: avatar-glow 3s ease-in-out infinite;
+    }
+
+    /* Developer Cards */
+    .dev-card {
+      text-align: center;
+      padding: 25px;
+      transition: all 0.4s ease;
+    }
+    
+    .dev-avatar {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      margin: 0 auto 18px;
+      overflow: hidden;
+      border: 3px solid var(--line);
+      transition: all 0.4s ease;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+      animation: avatar-float 4s ease-in-out infinite;
+    }
+    
+    .dev-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.4s ease;
+    }
+    
+    .dev-card:hover .dev-avatar {
+      transform: scale(1.1) rotateY(10deg);
+      border-color: #fff;
+      box-shadow: 0 15px 50px rgba(255,255,255,0.2);
+    }
+    
+    .dev-card:hover .dev-avatar img {
+      transform: scale(1.1);
+    }
+
+    /* ---------- Footer ---------- */
+    footer{
+      border-top:1px solid var(--line); padding:30px 0 70px; color:var(--muted); text-align:center;
+      animation: footer-entrance 1s ease both;
+    }
+
+    /* ---------- Animation Keyframes ---------- */
+    @keyframes pulse-dot {
+      0%, 100% { transform: scale(1); box-shadow: 0 0 20px #fff; }
+      50% { transform: scale(1.2); box-shadow: 0 0 30px #fff, 0 0 60px #fff; }
+    }
+
+    @keyframes brand-glow {
+      0%, 100% { text-shadow: 0 0 10px rgba(255,255,255,0.3); }
+      50% { text-shadow: 0 0 20px rgba(255,255,255,0.6), 0 0 30px rgba(255,255,255,0.4); }
+    }
+
+    @keyframes slide-down {
+      from { transform: translateY(-100%); }
+      to { transform: translateY(0); }
+    }
+
+    @keyframes fade-in-up {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes title-entrance {
+      from { opacity: 0; transform: translateY(50px) scale(0.9); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    @keyframes chip-float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+
+    @keyframes card-entrance {
+      from { opacity: 0; transform: translateY(40px) rotateX(10deg); }
+      to { opacity: 1; transform: translateY(0) rotateX(0deg); }
+    }
+
+    @keyframes icon-pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+    }
+
+    @keyframes btn-glow {
+      0%, 100% { box-shadow: 0 0 20px rgba(255,255,255,0.3); }
+      50% { box-shadow: 0 0 40px rgba(255,255,255,0.6), 0 0 60px rgba(255,255,255,0.3); }
+    }
+
+    @keyframes cta-pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.02); }
+    }
+
+    @keyframes ribbon-float {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      25% { transform: translateY(-5px) rotate(1deg); }
+      75% { transform: translateY(-3px) rotate(-1deg); }
+    }
+
+    @keyframes mega-pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+
+    @keyframes gradient-text {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    @keyframes loader-bounce {
+      0%, 80%, 100% { transform: scale(0); }
+      40% { transform: scale(1); }
+    }
+
+    @keyframes text-glow {
+      0%, 100% { text-shadow: 0 0 10px rgba(255,255,255,0.3); }
+      50% { text-shadow: 0 0 20px rgba(255,255,255,0.6); }
+    }
+
+    @keyframes price-pulse {
+      0%, 100% { transform: scale(1); color: #fff; }
+      50% { transform: scale(1.05); color: #f0f0f0; }
+    }
+
+    @keyframes list-item-slide {
+      from { opacity: 0; transform: translateX(-20px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+
+    @keyframes review-entrance {
+      from { opacity: 0; transform: translateY(30px) rotateX(15deg); }
+      to { opacity: 1; transform: translateY(0) rotateX(0deg); }
+    }
+
+    @keyframes text-fade-in {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes avatar-glow {
+      0%, 100% { box-shadow: 0 0 15px rgba(255,255,255,0.2); }
+      50% { box-shadow: 0 0 25px rgba(255,255,255,0.4); }
+    }
+
+    @keyframes avatar-float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    @keyframes slide-in-up {
+      from { opacity: 0; transform: translateY(40px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes footer-entrance {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     /* ---------- Typing Animation ---------- */
@@ -328,251 +740,28 @@
     
     .typing-text {
       display: inline-block;
-      overflow: hidden;
-      white-space: nowrap;
       border-right: 3px solid #fff;
-      animation: typing 3.5s steps(40, end), blink-caret 0.75s step-end infinite;
-    }
-    
-    @keyframes typing {
-      from { width: 0 }
-      to { width: 100% }
+      animation: blink-caret 0.75s step-end infinite;
     }
     
     @keyframes blink-caret {
       from, to { border-color: transparent }
       50% { border-color: #fff }
     }
-    
-    .typing-delete {
-      animation: typing-delete 1s steps(40, end), blink-caret 0.75s step-end infinite;
-    }
-    
-    @keyframes typing-delete {
-      from { width: 100% }
-      to { width: 0 }
-    }
 
-    /* ---------- Additional Animations ---------- */
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
+    /* ---------- Scroll Reveal ---------- */
+    .reveal{
+      opacity:0; transform:translateY(20px); 
+      transition:opacity var(--speed) ease, transform var(--speed) ease;
     }
-    
-    @keyframes slideInUp {
-      from { transform: translateY(50px); opacity: 0; }
-      to { transform: translateY(0); opacity: 1; }
-    }
-    
-    @keyframes slideInLeft {
-      from { transform: translateX(-50px); opacity: 0; }
-      to { transform: translateX(0); opacity: 1; }
-    }
-    
-    @keyframes slideInRight {
-      from { transform: translateX(50px); opacity: 0; }
-      to { transform: translateX(0); opacity: 1; }
-    }
-    
-    @keyframes pulse {
-      0% { transform: scale(1); }
-      50% { transform: scale(1.05); }
-      100% { transform: scale(1); }
-    }
-    
-    @keyframes glow {
-      0% { box-shadow: 0 0 5px rgba(255,255,255,0.3); }
-      50% { box-shadow: 0 0 20px rgba(255,255,255,0.6); }
-      100% { box-shadow: 0 0 5px rgba(255,255,255,0.3); }
-    }
-    
-    @keyframes rotate {
-      from { transform: rotate(0deg); }
-      to { transform: rotate(360deg); }
-    }
-    
-    @keyframes bounce {
-      0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
-      40% { transform: translateY(-20px); }
-      60% { transform: translateY(-10px); }
-    }
-    
-    .animate-fadeIn {
-      animation: fadeIn 1s ease forwards;
-    }
-    
-    .animate-slideInUp {
-      animation: slideInUp 0.8s ease forwards;
-    }
-    
-    .animate-slideInLeft {
-      animation: slideInLeft 0.8s ease forwards;
-    }
-    
-    .animate-slideInRight {
-      animation: slideInRight 0.8s ease forwards;
-    }
-    
-    .animate-pulse {
-      animation: pulse 2s infinite;
-    }
-    
-    .animate-glow {
-      animation: glow 2s infinite;
-    }
-    
-    .animate-rotate {
-      animation: rotate 4s linear infinite;
-    }
-    
-    .animate-bounce {
-      animation: bounce 2s infinite;
-    }
-    
-    .animation-delay-1 {
-      animation-delay: 0.2s;
-    }
-    
-    .animation-delay-2 {
-      animation-delay: 0.4s;
-    }
-    
-    .animation-delay-3 {
-      animation-delay: 0.6s;
-    }
-    
-    .animation-delay-4 {
-      animation-delay: 0.8s;
-    }
-
-    /* ---------- Pricing ---------- */
-    .pricing{
-      display:grid; grid-template-columns:repeat(3,1fr); gap:18px;
-    }
-    .plan{
-      background:linear-gradient(180deg,#161616,#111); border:1px solid var(--line);
-      border-radius:var(--radius); padding:26px; box-shadow:var(--shadow)
-    }
-    .plan h3{font-size:26px}
-    .price{font-size:42px; margin:.4rem 0 1rem}
-    .plan ul{list-style:none; padding:0; margin:0 0 1.2rem}
-    .plan li{padding:8px 0; border-bottom:1px dashed #2b2b2b}
-    .plan .btn{width:100%}
-
-    /* Reviews */
-    .reviews {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 18px;
-      margin-top: 24px;
-    }
-    
-    .review-card {
-      background: linear-gradient(180deg,#161616,#111);
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      padding: 20px;
-      box-shadow: var(--shadow);
-    }
-    
-    .review-text {
-      font-style: italic;
-      margin-bottom: 12px;
-    }
-    
-    .reviewer {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-    
-    .review-avatar {
-      width: 30px;
-      height: 30px;
-      border-radius: 50%;
-      background: #333;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: bold;
-    }
-    
-    /* Developer Cards */
-    .dev-card {
-      text-align: center;
-      padding: 20px;
-    }
-    
-    .dev-avatar {
-      width: 100px;
-      height: 100px;
-      border-radius: 50%;
-      margin: 0 auto 15px;
-      overflow: hidden;
-      border: 3px solid var(--line);
-      transition: all 0.3s ease;
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-    }
-    
-    .dev-avatar img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-    
-    .dev-card:hover .dev-avatar {
-      transform: scale(1.05);
-      border-color: #fff;
-    }
-    
-    /* Coming Soon Animation */
-    .coming-soon {
-      text-align: center;
-      padding: 60px 20px;
-    }
-    
-    .pulse-text {
-      animation: pulse 2s infinite;
-      font-size: 32px;
-      margin-bottom: 20px;
-    }
-    
-    .loader {
-      display: flex;
-      justify-content: center;
-      gap: 8px;
-      margin: 30px 0;
-    }
-    
-    .loader-dot {
-      width: 12px;
-      height: 12px;
-      border-radius: 50%;
-      background: #fff;
-      animation: bounce 1.5s infinite ease-in-out;
-    }
-    
-    .loader-dot:nth-child(2) {
-      animation-delay: 0.2s;
-    }
-    
-    .loader-dot:nth-child(3) {
-      animation-delay: 0.4s;
-    }
-
-    /* ---------- Footer ---------- */
-    footer{
-      border-top:1px solid var(--line); padding:26px 0 60px; color:var(--muted); text-align:center
-    }
-
-    /* ---------- Enter / Scroll Animations ---------- */
-    .reveal{opacity:0; transform:translateY(16px); transition:opacity var(--speed) ease, transform var(--speed) ease}
     .reveal.in{opacity:1; transform:translateY(0)}
-    .pulse{animation:pulse 2.4s ease-in-out infinite}
-    @keyframes pulse{
-      0%,100%{box-shadow:0 0 0 0 rgba(255,255,255,.35)}
-      50%{box-shadow:0 0 0 14px rgba(255,255,255,0)}
-    }
+
+    /* ---------- Animation Delays ---------- */
+    .delay-1 { animation-delay: 0.2s; }
+    .delay-2 { animation-delay: 0.4s; }
+    .delay-3 { animation-delay: 0.6s; }
+    .delay-4 { animation-delay: 0.8s; }
+    .delay-5 { animation-delay: 1.0s; }
 
     /* ---------- Responsive ---------- */
     @media (max-width: 980px){
@@ -581,44 +770,69 @@
       .two,.three{grid-template-columns:1fr}
       .links{display:none}
       .reviews {grid-template-columns: 1fr;}
-      .stats {grid-template-columns: repeat(2, 1fr);}
     }
     
     @media (max-width: 768px) {
-      body {
-        cursor: auto;
-      }
-      
-      .stats {grid-template-columns: 1fr;}
+      .particle { display: none; } /* Hide particles on mobile for performance */
+      .wave { animation-duration: 40s; } /* Slow down waves on mobile */
     }
   </style>
 </head>
 <body>
-  <div class="blob"></div>
-  <div class="blob b2"></div>
+  <!-- Animated Background -->
+  <div class="bg-animation">
+    <!-- Floating Particles -->
+    <div class="particle particle-1" style="left: 10%; animation-delay: 0s;"></div>
+    <div class="particle particle-2" style="left: 20%; animation-delay: 2s;"></div>
+    <div class="particle particle-3" style="left: 30%; animation-delay: 4s;"></div>
+    <div class="particle particle-1" style="left: 40%; animation-delay: 6s;"></div>
+    <div class="particle particle-4" style="left: 50%; animation-delay: 8s;"></div>
+    <div class="particle particle-2" style="left: 60%; animation-delay: 10s;"></div>
+    <div class="particle particle-3" style="left: 70%; animation-delay: 12s;"></div>
+    <div class="particle particle-1" style="left: 80%; animation-delay: 14s;"></div>
+    <div class="particle particle-4" style="left: 90%; animation-delay: 16s;"></div>
+    <div class="particle particle-2" style="left: 15%; animation-delay: 18s;"></div>
+    <div class="particle particle-3" style="left: 25%; animation-delay: 20s;"></div>
+    <div class="particle particle-1" style="left: 35%; animation-delay: 22s;"></div>
+    <div class="particle particle-4" style="left: 45%; animation-delay: 24s;"></div>
+    <div class="particle particle-2" style="left: 55%; animation-delay: 26s;"></div>
+    <div class="particle particle-3" style="left: 65%; animation-delay: 28s;"></div>
+    <div class="particle particle-1" style="left: 75%; animation-delay: 30s;"></div>
+    <div class="particle particle-4" style="left: 85%; animation-delay: 32s;"></div>
+    <div class="particle particle-2" style="left: 95%; animation-delay: 34s;"></div>
+
+    <!-- Animated Waves -->
+    <div class="wave wave-1"></div>
+    <div class="wave wave-2"></div>
+    <div class="wave wave-3"></div>
+
+    <!-- Floating Geometric Shapes -->
+    <div class="shape shape-1"></div>
+    <div class="shape shape-2"></div>
+    <div class="shape shape-3"></div>
+  </div>
 
   <div class="flashlight" aria-hidden="true"></div>
 
-<nav class="nav">
-  <div class="container row">
-    <div class="brand">
-      <span class="dot"></span>
-      <a href="#home" aria-label="nobulem.wtf">nobulem.wtf</a>
+  <nav class="nav">
+    <div class="container row">
+      <div class="brand">
+        <span class="dot"></span>
+        <a href="#home" aria-label="nobulem.wtf">nobulem.wtf</a>
+      </div>
+      <div class="links">
+        <a href="/">Home</a>
+        <a href="https://nobulem.wtf/executors">Executors</a>
+        <a href="https://nobulem.wtf/games">Games</a>
+        <a href="/scripts">Scripts</a>
+        <a href="/showcases">Showcases</a>
+        <a href="/pricing">Pricing</a>
+        <a href="/reviews">Reviews</a>
+        <a href="/developers">Developers</a>
+        <a href="/tos">Terms</a>
+      </div>
     </div>
-    <div class="links">
-      <a href="/">Home</a>
-      <a href="https://nobulem.wtf/executors">Executors</a>
-      <a href="https://nobulem.wtf/games">Games</a>
-      <a href="/scripts">Scripts</a>
-      <a href="/showcases">Showcases</a>
-      <a href="/pricing">Pricing</a>
-      <a href="/reviews">Reviews</a>
-      <a href="/developers">Developers</a>
-      <a href="/tos">Terms</a>
-    </div>
-  </div>
-</nav>
-
+  </nav>
 
   <header id="home" class="hero container">
     <div class="eyebrow reveal">undetectability • smooth • fast</div>
@@ -627,12 +841,12 @@
     </h1>
     <p class="subtitle reveal">multiple game support • regular updates • top-quality scripts • no bugs</p>
     <div class="chips reveal">
-      <div class="chip">Free Forever</div>
-      <div class="chip">Open Community</div>
-      <div class="chip">Secure & Fast</div>
+      <div class="chip delay-1">Free Forever</div>
+      <div class="chip delay-2">Open Community</div>
+      <div class="chip delay-3">Secure & Fast</div>
     </div>
     <div class="actions reveal">
-      <a class="btn primary pulse" href="#free">Use the script</a>
+      <a class="btn primary" href="#free">Use the script</a>
       <a class="btn ghost" href="#showcases">Join the discord server</a>
     </div>
     <div class="ribbon reveal">Made with love</div>
@@ -641,24 +855,24 @@
   <section id="why">
     <div class="container">
       <h2 class="center reveal">Why Choose <span style="text-decoration:underline;">nobulem.wtf</span>?</h2>
-      <p class="center muted reveal" style="margin-bottom:24px">Built by developers for players. Fast, safe, and completely free.</p>
+      <p class="center muted reveal" style="margin-bottom:30px">Built by developers for players. Fast, safe, and completely free.</p>
       <div class="grid cards">
-        <div class="card reveal animate-slideInLeft">
+        <div class="card reveal delay-1">
           <div class="icon">🛡️</div>
           <h3>Stable & Secure</h3>
           <p>Hardened loaders, minimal permissions, and sanity checks for a smoother experience.</p>
         </div>
-        <div class="card reveal animate-slideInUp">
+        <div class="card reveal delay-2">
           <div class="icon">⚡</div>
           <h3>Weekly Updates</h3>
           <p>Rapid patches and new game support added constantly to keep you rolling.</p>
         </div>
-        <div class="card reveal animate-slideInUp animation-delay-1">
+        <div class="card reveal delay-3">
           <div class="icon">👥</div>
           <h3>Active Community</h3>
           <p>Join our Discord to get help, share showcases, and request new features.</p>
         </div>
-        <div class="card reveal animate-slideInRight">
+        <div class="card reveal delay-4">
           <div class="icon">💬</div>
           <h3>Customer First</h3>
           <p>Feedback drives the roadmap. If you need it, we prioritize it.</p>
@@ -671,15 +885,14 @@
     <div class="container">
       <h2 class="reveal">Supported Games</h2>
       
-      
       <div class="search-box reveal">
         <input type="text" class="search-input" placeholder="Search games or features...">
       </div>
       
       <p class="muted reveal">Game list is summarized, most aren't here.</p>
       
-      <div class="grid three" style="margin-top:18px">
-        <div class="game-card reveal animate-slideInLeft">
+      <div class="grid three" style="margin-top:20px">
+        <div class="game-card reveal delay-1">
           <img src="https://tr.rbxcdn.com/180DAY-078e71f7babd821f5bb362c460fc0fd9/768/432/Image/Webp/noFilter" alt="Untitled Boxing Game" class="game-image">
           <div class="game-content">
             <h3>Untitled Boxing Game</h3>
@@ -688,7 +901,7 @@
           </div>
         </div>
         
-        <div class="game-card reveal animate-slideInUp">
+        <div class="game-card reveal delay-2">
           <img src="https://tr.rbxcdn.com/180DAY-a5173e243710a4393e582089e8f4a773/768/432/Image/Webp/noFilter" alt="Project Power" class="game-image">
           <div class="game-content">
             <h3>Project Power</h3>
@@ -697,7 +910,7 @@
           </div>
         </div>
         
-        <div class="game-card reveal animate-slideInRight">
+        <div class="game-card reveal delay-3">
           <img src="https://tr.rbxcdn.com/180DAY-915535b6a2b0ddd4710ec77320027004/768/432/Image/Webp/noFilter" alt="Marvellous Playground" class="game-image">
           <div class="game-content">
             <h3>Marvellous playground</h3>
@@ -705,8 +918,6 @@
             <div class="game-id"># 8657766101</div>
           </div>
         </div>
-      </div>
-      
       </div>
     </div>
   </section>
@@ -730,9 +941,9 @@
   <section id="pricing">
     <div class="container">
       <h2 class="center reveal">Pricing</h2>
-      <p class="center muted reveal" style="margin-bottom:24px">Choose the plan that works best for you</p>
+      <p class="center muted reveal" style="margin-bottom:30px">Choose the plan that works best for you</p>
       <div class="pricing">
-        <div class="plan reveal">
+        <div class="plan reveal delay-1">
           <h3>Free Tier</h3>
           <div class="price">$0</div>
           <ul>
@@ -743,7 +954,7 @@
           </ul>
           <a class="btn primary" href="#free">Use For Free</a>
         </div>
-        <div class="plan reveal">
+        <div class="plan reveal delay-2">
           <h3>Premium</h3>
           <div class="price">$5</div>
           <ul>
@@ -756,7 +967,7 @@
           </ul>
           <a class="btn primary" href="#free">Get Premium</a>
         </div>
-        <div class="plan reveal">
+        <div class="plan reveal delay-3">
           <h3>Enterprise</h3>
           <div class="price">Custom</div>
           <ul>
@@ -774,10 +985,10 @@
   <section id="reviews">
     <div class="container">
       <h2 class="center reveal">User Reviews</h2>
-      <p class="center muted reveal" style="margin-bottom:24px">See what our users are saying</p>
+      <p class="center muted reveal" style="margin-bottom:30px">See what our users are saying</p>
       
       <div class="reviews">
-        <div class="review-card reveal">
+        <div class="review-card reveal delay-1">
           <div class="review-text">
             "This is the best script hub I've ever used! The auto farm is perfect and completely undetected. Highly recommend!"
           </div>
@@ -787,7 +998,7 @@
           </div>
         </div>
         
-        <div class="review-card reveal">
+        <div class="review-card reveal delay-2">
           <div class="review-text">
             "The auto kill feature works flawlessly. I've been using it for weeks without any issues. Worth every penny for premium!"
           </div>
@@ -797,7 +1008,7 @@
           </div>
         </div>
         
-        <div class="review-card reveal">
+        <div class="review-card reveal delay-3">
           <div class="review-text">
             "I was skeptical at first, but this hub is truly undetectable. The scripts are well-made and regularly updated. 10/10!"
           </div>
@@ -813,10 +1024,10 @@
   <section id="developers">
     <div class="container">
       <h2 class="center reveal">Development Team</h2>
-      <p class="center muted reveal" style="margin-bottom:24px">The talented people behind nobulem.wtf</p>
+      <p class="center muted reveal" style="margin-bottom:30px">The talented people behind nobulem.wtf</p>
       
-           <div class="grid three" style="margin-top:18px">
-        <div class="card dev-card reveal">
+      <div class="grid three" style="margin-top:20px">
+        <div class="card dev-card reveal delay-1">
           <div class="dev-avatar">
             <img src="https://cdn.discordapp.com/avatars/1408786756941250715/74cdc383bd86939c8c69ce710ca1ad09.webp?size=1024" alt="@CobaltDragon299">
           </div>
@@ -824,7 +1035,7 @@
           <p>Main Script Developer</p>
         </div>
         
-        <div class="card dev-card reveal">
+        <div class="card dev-card reveal delay-2">
           <div class="dev-avatar">
             <img src="https://cdn.discordapp.com/avatars/1222510318165692451/ac92cfe503ef5ff97a5a78a510a87f14.webp?size=1024" alt="@LordLoaff">
           </div>
@@ -832,7 +1043,7 @@
           <p>Instructor</p>
         </div>
         
-        <div class="card dev-card reveal">
+        <div class="card dev-card reveal delay-3">
           <div class="dev-avatar">
             <img src="https://cdn.discordapp.com/avatars/969854525198458891/0df69e81565038a1222357b268660c50.webp?size=1024" alt="@Quicksy">
           </div>
@@ -840,7 +1051,7 @@
           <p>Head Manager</p>
         </div>
         
-        <div class="card dev-card reveal">
+        <div class="card dev-card reveal delay-4">
           <div class="dev-avatar">
             <img src="https://cdn.discordapp.com/avatars/1030140568640176218/30233ae8bf656a64de9ba826518d7688.webp?size=1024" alt="@Ace">
           </div>
@@ -848,7 +1059,7 @@
           <p>Site Developer</p>
         </div>
         
-        <div class="card dev-card reveal">
+        <div class="card dev-card reveal delay-5">
           <div class="dev-avatar">
             <img src="https://images-ext-1.discordapp.net/external/aVKHiFpUTGB34OVTvGxrrAZmuRZFmdL3B3fUagblgLQ/%3Fsize%3D1024/https/cdn.discordapp.com/avatars/1129062752795762819/72f909da293d19719ffcf8d695fa75d8.webp?format=webp&width=950&height=950" alt="@violentsnake23">
           </div>
@@ -859,162 +1070,163 @@
     </div>
   </section>
 
-
   <section id="free">
     <div class="container">
       <h2 class="center reveal">2025</h2>
       <p class="center muted reveal">Built with care. Optimized for speed. Always bold. Always free.</p>
-      <div class="grid two" style="margin-top:18px">
-        <div class="card reveal"><h3>Open & Transparent</h3><p>No hidden paywalls. No keys. Clear changelogs.</p></div>
-        <div class="card reveal"><h3>Community Roadmap</h3><p>Vote on features, submit ideas, and watch them ship.</p></div>
+      <div class="grid two" style="margin-top:20px">
+        <div class="card reveal delay-1">
+          <h3>Open & Transparent</h3>
+          <p>No hidden paywalls. No keys. Clear changelogs.</p>
+        </div>
+        <div class="card reveal delay-2">
+          <h3>Community Roadmap</h3>
+          <p>Vote on features, submit ideas, and watch them ship.</p>
+        </div>
       </div>
     </div>
   </section>
 
   <footer>
     <div class="container">
-      <div style="margin-bottom:10px"><strong>nobulem.wtf</strong> — undetected</div>
+      <div style="margin-bottom:12px"><strong>nobulem.wtf</strong> — undetected</div>
       <div>© <span id="year"></span> nobulem.wtf • All rights reserved • nobulem.wtf • Home • Executors • Games • Scripts • Showcases • Pricing • Reviews • Developers • Terms</div>
     </div>
   </footer>
 
   <script>
-    // year
+    // Set current year
     document.getElementById('year').textContent = new Date().getFullYear();
 
-    // reveal on scroll
+    // Enhanced reveal on scroll with staggered animations
     const io = new IntersectionObserver((entries)=>{
-      entries.forEach(e=>{
-        if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+      entries.forEach((e, index)=>{
+        if(e.isIntersecting){ 
+          setTimeout(() => {
+            e.target.classList.add('in');
+          }, index * 100);
+          io.unobserve(e.target); 
+        }
       })
-    }, {threshold:.12});
+    }, {threshold:.1});
     document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
 
-    // smooth anchor fix for iOS/Edge (optional enhancement)
+    // Smooth anchor navigation
     document.querySelectorAll('a[href^="#"]').forEach(a=>{
       a.addEventListener('click', e=>{
         const id = a.getAttribute('href').slice(1);
         const el = document.getElementById(id);
         if(el){
           e.preventDefault();
-          window.scrollTo({top: el.getBoundingClientRect().top + window.scrollY - 70, behavior:'smooth'});
+          window.scrollTo({top: el.getBoundingClientRect().top + window.scrollY - 80, behavior:'smooth'});
         }
       });
     });
     
-    // Flashlight / faint glowing circle follow mouse (background)
-    (function() {
-      const flashlight = document.querySelector('.flashlight');
-      if(!flashlight) return;
-
-      let mouseX = window.innerWidth / 2;
-      let mouseY = window.innerHeight / 2;
-      let currentX = mouseX;
-      let currentY = mouseY;
-      let lastMoveTime = 0;
-
-      // update size slightly on move speed to give subtle "flashlight" feel
-      function updateSize(dx, dy) {
-        const speed = Math.min(60, Math.hypot(dx, dy));
-        const size = 420 + Math.min(200, speed * 3);
-        flashlight.style.width = `${size}px`;
-        flashlight.style.height = `${size}px`;
-      }
-
-      document.addEventListener('mousemove', (e) => {
-        lastMoveTime = Date.now();
-        mouseX = e.clientX;
-        mouseY = e.clientY;
-      });
-
-      function lerp(a, b, n) { return (1 - n) * a + n * b; }
-
-      function animate() {
-        const dx = mouseX - currentX;
-        const dy = mouseY - currentY;
-        currentX = lerp(currentX, mouseX, 0.18);
-        currentY = lerp(currentY, mouseY, 0.18);
-
-        // position (keep behind content)
-        flashlight.style.left = currentX + 'px';
-        flashlight.style.top = currentY + 'px';
-
-        updateSize(dx, dy);
-
-        requestAnimationFrame(animate);
-      }
-
-      // start with center
-      flashlight.style.left = (window.innerWidth/2) + 'px';
-      flashlight.style.top = (window.innerHeight/2) + 'px';
-      requestAnimationFrame(animate);
-
-      // subtle fade when idle
-      let idleTimer = null;
-      function resetIdleTimer() {
-        flashlight.style.opacity = '0.95';
-        if(idleTimer) clearTimeout(idleTimer);
-        idleTimer = setTimeout(()=> {
-          flashlight.style.opacity = '0.6';
-        }, 1600);
-      }
-      document.addEventListener('mousemove', resetIdleTimer);
-      resetIdleTimer();
-
-      // keep flashlight responsive on resize
-      window.addEventListener('resize', () => {
-        currentX = mouseX = window.innerWidth / 2;
-        currentY = mouseY = window.innerHeight / 2;
-      });
-    })();
-    
-    // Typing animation
+    // Enhanced typing animation
     const typingText = document.getElementById('typing-text');
     const texts = [
       "nobulem.wtf — Quality.",
       "nobulem.wtf — Fast.",
       "nobulem.wtf — Secure.",
-      "nobulem.wtf — Undetectable."
+      "nobulem.wtf — Undetectable.",
+      "nobulem.wtf — Premium."
     ];
     let textIndex = 0;
     let charIndex = 0;
     let isDeleting = false;
-    let typingDelay = 100;
-    let deletingDelay = 50;
-    let pauseDelay = 1500;
+    let typingDelay = 120;
+    let deletingDelay = 60;
+    let pauseDelay = 2000;
     
     function type() {
       const currentText = texts[textIndex];
       
       if (isDeleting) {
-        // Delete text
         typingText.textContent = currentText.substring(0, charIndex - 1);
         charIndex--;
         typingDelay = deletingDelay;
       } else {
-        // Type text
         typingText.textContent = currentText.substring(0, charIndex + 1);
         charIndex++;
-        typingDelay = 100;
+        typingDelay = 120;
       }
       
-      // Check if we've finished typing or deleting
       if (!isDeleting && charIndex === currentText.length) {
-        // Pause at the end of typing
         typingDelay = pauseDelay;
         isDeleting = true;
       } else if (isDeleting && charIndex === 0) {
-        // Move to next text after deleting
         isDeleting = false;
         textIndex = (textIndex + 1) % texts.length;
-        typingDelay = 500;
+        typingDelay = 600;
       }
       
       setTimeout(type, typingDelay);
     }
     
-    // Start the typing animation
-    setTimeout(type, 1000);
+    // Start typing animation after page load
+    setTimeout(type, 1500);
+
+    // Add particle regeneration
+    function createParticle() {
+      const particle = document.createElement('div');
+      particle.className = `particle particle-${Math.floor(Math.random() * 4) + 1}`;
+      particle.style.left = Math.random() * 100 + '%';
+      particle.style.animationDelay = '0s';
+      
+      const bgAnimation = document.querySelector('.bg-animation');
+      if (bgAnimation) {
+        bgAnimation.appendChild(particle);
+        
+        // Remove particle after animation completes
+        setTimeout(() => {
+          if (particle.parentNode) {
+            particle.parentNode.removeChild(particle);
+          }
+        }, 35000);
+      }
+    }
+
+    // Create new particles periodically
+    setInterval(createParticle, 3000);
+
+    // Add parallax effect to shapes on scroll
+    window.addEventListener('scroll', () => {
+      const scrolled = window.pageYOffset;
+      const shapes = document.querySelectorAll('.shape');
+      
+      shapes.forEach((shape, index) => {
+        const speed = 0.5 + (index * 0.2);
+        shape.style.transform = `translateY(${scrolled * speed}px)`;
+      });
+    });
+
+    // Add dynamic glow effects
+    function addGlowEffects() {
+      const cards = document.querySelectorAll('.card');
+      cards.forEach(card => {
+        card.addEventListener('mouseenter', () => {
+          card.style.boxShadow = '0 35px 120px rgba(255,255,255,0.2), 0 0 50px rgba(255,255,255,0.1)';
+        });
+        card.addEventListener('mouseleave', () => {
+          card.style.boxShadow = 'var(--shadow)';
+        });
+      });
+    }
+    
+    // Initialize glow effects after DOM loads
+    setTimeout(addGlowEffects, 1000);
+
+    // Add pulsing effect to brand dot
+    const brandDot = document.querySelector('.brand .dot');
+    if (brandDot) {
+      setInterval(() => {
+        brandDot.style.transform = 'scale(1.3)';
+        setTimeout(() => {
+          brandDot.style.transform = 'scale(1)';
+        }, 200);
+      }, 3000);
+    }
   </script>
 </body>
 </html>
