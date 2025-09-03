@@ -1,0 +1,1 @@
+we should have the loader at the top in a textbox that cant be edited and the button COPY next to it, underneath it we can have all the supported games, we might not even need a games tab.
