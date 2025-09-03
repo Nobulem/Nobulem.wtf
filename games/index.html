@@ -398,11 +398,279 @@
       border-color: rgba(16, 185, 129, 0.4) !important;
     }
 
+    /* ---------- Search and Filters ---------- */
+    .search-section {
+      position: relative;
+      z-index: 20;
+      padding: 20px 0;
+    }
+
+    .search-controls {
+      background: linear-gradient(145deg, #1a1a1a, #0d0d0d);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 30px;
+      box-shadow: var(--shadow);
+      margin-bottom: 30px;
+      animation: search-entrance 1s ease both;
+    }
+
+    .search-input-container {
+      position: relative;
+      margin-bottom: 25px;
+    }
+
+    .search-input {
+      width: 100%;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid var(--line);
+      border-radius: 15px;
+      padding: 18px 55px 18px 22px;
+      color: var(--text);
+      font-size: 16px;
+      transition: all 0.3s ease;
+      font-weight: 600;
+    }
+
+    .search-input:focus {
+      outline: none;
+      border-color: rgba(255,255,255,0.4);
+      background: rgba(255,255,255,0.08);
+      box-shadow: 0 0 20px rgba(255,255,255,0.1);
+    }
+
+    .search-input::placeholder {
+      color: var(--muted);
+      opacity: 0.7;
+    }
+
+    .clear-search-btn {
+      position: absolute;
+      right: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      color: var(--muted);
+      font-size: 20px;
+      cursor: pointer;
+      padding: 5px;
+      border-radius: 50%;
+      transition: all 0.3s ease;
+      opacity: 0;
+      visibility: hidden;
+    }
+
+    .clear-search-btn.visible {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .clear-search-btn:hover {
+      background: rgba(255,255,255,0.1);
+      color: #fff;
+      transform: translateY(-50%) scale(1.1);
+    }
+
+    .filters {
+      display: flex;
+      gap: 15px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .filter-label {
+      color: var(--muted);
+      font-size: 14px;
+      font-weight: 600;
+      margin-right: 10px;
+    }
+
+    .filter-btn {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid var(--line);
+      border-radius: 25px;
+      padding: 10px 20px;
+      color: var(--muted);
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .filter-btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+      transition: left 0.5s ease;
+    }
+
+    .filter-btn:hover::before {
+      left: 100%;
+    }
+
+    .filter-btn:hover {
+      background: rgba(255,255,255,0.1);
+      transform: translateY(-2px);
+      border-color: rgba(255,255,255,0.3);
+    }
+
+    .filter-btn.active {
+      background: rgba(255,255,255,0.15);
+      border-color: rgba(255,255,255,0.4);
+      color: #fff;
+      box-shadow: 0 0 20px rgba(255,255,255,0.1);
+    }
+
+    .results-info {
+      text-align: center;
+      color: var(--muted);
+      font-size: 16px;
+      margin: 20px 0;
+      font-weight: 600;
+      animation: fade-in-up 0.5s ease both;
+    }
+
+    /* ---------- Pagination ---------- */
+    .pagination {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 15px;
+      margin-top: 40px;
+      margin-bottom: 20px;
+    }
+
+    .pagination-btn {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 12px 18px;
+      color: var(--muted);
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      min-width: 100px;
+    }
+
+    .pagination-btn:hover:not(:disabled) {
+      background: rgba(255,255,255,0.1);
+      transform: translateY(-2px);
+      color: #fff;
+      border-color: rgba(255,255,255,0.3);
+    }
+
+    .pagination-btn:disabled {
+      opacity: 0.3;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .pagination-current {
+      background: rgba(255,255,255,0.1);
+      color: #fff;
+      border-color: rgba(255,255,255,0.3);
+      box-shadow: 0 0 15px rgba(255,255,255,0.1);
+    }
+
+    /* ---------- Empty State ---------- */
+    .empty-state {
+      text-align: center;
+      padding: 80px 20px;
+      animation: empty-state-entrance 0.8s ease both;
+    }
+
+    .broken-search-icon {
+      width: 80px;
+      height: 80px;
+      margin: 0 auto 30px;
+      background: rgba(255,255,255,0.05);
+      border: 2px dashed var(--line);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 35px;
+      color: var(--muted);
+      animation: broken-icon-float 3s ease-in-out infinite;
+    }
+
+    .empty-title {
+      font-size: 32px;
+      font-weight: 800;
+      margin-bottom: 15px;
+      color: var(--muted);
+    }
+
+    .empty-subtitle {
+      color: var(--muted);
+      font-size: 18px;
+      margin-bottom: 30px;
+      opacity: 0.8;
+    }
+
+    .discord-invite {
+      color: var(--muted);
+      font-size: 16px;
+      margin-bottom: 15px;
+    }
+
+    .discord-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: #5865F2;
+      font-weight: 700;
+      font-size: 16px;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    .discord-link:hover {
+      transform: translateX(5px);
+      color: #4752C4;
+    }
+
+    .discord-arrow {
+      transition: transform 0.3s ease;
+    }
+
+    .discord-link:hover .discord-arrow {
+      transform: translateX(5px);
+    }
+
+    .empty-clear-btn {
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 12px;
+      padding: 15px 30px;
+      color: #fff;
+      font-weight: 700;
+      font-size: 16px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin-top: 25px;
+    }
+
+    .empty-clear-btn:hover {
+      background: rgba(255,255,255,0.2);
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(255,255,255,0.1);
+    }
+
     /* ---------- Games Grid ---------- */
     .games-section {
       position: relative;
       z-index: 20;
-      padding: 40px 0 80px;
+      padding: 0 0 80px;
     }
 
     .games-grid {
@@ -431,7 +699,7 @@
       left: 0;
       right: 0;
       height: 2px;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
       opacity: 0;
       transition: opacity 0.4s ease;
       z-index: 2;
@@ -806,6 +1074,11 @@
       to { opacity: 1; transform: translateY(0) scale(1); }
     }
 
+    @keyframes search-entrance {
+      from { opacity: 0; transform: translateY(30px) scale(0.95); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
     @keyframes shimmer {
       0% { left: -100%; }
       100% { left: 100%; }
@@ -883,6 +1156,18 @@
       to { opacity: 1; transform: translateX(0); }
     }
 
+    @keyframes empty-state-entrance {
+      from { opacity: 0; transform: translateY(40px) scale(0.9); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    @keyframes broken-icon-float {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      25% { transform: translateY(-10px) rotate(-5deg); }
+      50% { transform: translateY(-5px) rotate(0deg); }
+      75% { transform: translateY(-15px) rotate(5deg); }
+    }
+
     /* ---------- Scroll Reveal ---------- */
     .reveal{
       opacity:0; transform:translateY(20px); 
@@ -924,6 +1209,24 @@
       }
       .game-info {
         grid-template-columns: 1fr;
+      }
+      .filters {
+        justify-content: center;
+      }
+      .pagination {
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+      .pagination-btn {
+        min-width: 80px;
+        padding: 10px 15px;
+        font-size: 13px;
+      }
+      .results-info {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        font-size: 14px;
       }
     }
   </style>
@@ -1006,15 +1309,58 @@
     </div>
   </section>
 
+  <!-- Moved section header to here -->
+  <div class="container">
+    <div class="section-header reveal">
+      <h2 class="section-title">Supported Games</h2>
+      <p class="section-subtitle">Click on any game to access its dedicated script features</p>
+    </div>
+  </div>
+
+  <section class="search-section">
+    <div class="container">
+      <div class="search-controls reveal">
+        <div class="search-input-container">
+          <input 
+            type="text" 
+            class="search-input" 
+            id="searchInput"
+            placeholder="Search games by name, ID, or features (e.g., aimbot, ESP)..."
+            autocomplete="off">
+          <button class="clear-search-btn" id="clearSearchBtn" onclick="clearSearch()">✕</button>
+        </div>
+        
+        <div class="filters">
+          <span class="filter-label">Filter by status:</span>
+          <button class="filter-btn active" data-filter="all" onclick="setFilter('all')">All</button>
+          <button class="filter-btn" data-filter="working" onclick="setFilter('working')">Working</button>
+          <button class="filter-btn" data-filter="updating" onclick="setFilter('updating')">Updating</button>
+          <button class="filter-btn" data-filter="patched" onclick="setFilter('patched')">Patched</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <section class="games-section">
     <div class="container">
-      <div class="section-header reveal">
-        <h2 class="section-title">Supported Games</h2>
-        <p class="section-subtitle">Click on any game to access its dedicated script features</p>
+      <div class="results-info" id="resultsInfo"></div>
+      
+      <!-- Empty State -->
+      <div class="empty-state" id="emptyState" style="display: none;">
+        <div class="broken-search-icon">🔍</div>
+        <h3 class="empty-title">Nothing Here...??</h3>
+        <p class="empty-subtitle">Try adjusting your search or browse all games</p>
+        <p class="discord-invite">
+          (PS: if you want us to add a game, you can recommend it at our discord server!) 
+          <a href="https://discord.gg/ExH98C3uFH" target="_blank" class="discord-link">
+            Join Discord <span class="discord-arrow">→</span>
+          </a>
+        </p>
+        <button class="empty-clear-btn" onclick="clearSearch()">Clear Search</button>
       </div>
       
-      <div class="games-grid">
-        <div class="game-card reveal delay-1" onclick="openGameModal('marvelous-playground')">
+      <div class="games-grid" id="gamesGrid">
+        <div class="game-card reveal delay-2" data-game-id="marvelous-playground" data-status="working" onclick="openGameModal('marvelous-playground')">
           <img src="https://tr.rbxcdn.com/180DAY-915535b6a2b0ddd4710ec77320027004/768/432/Image/Webp/noFilter" alt="Marvelous Playground" class="game-thumbnail">
           <div class="game-content">
             <h3 class="game-name">Marvelous Playground</h3>
@@ -1026,7 +1372,7 @@
           </div>
         </div>
 
-        <div class="game-card reveal delay-2" onclick="openGameModal('project-power')">
+        <div class="game-card reveal delay-3" data-game-id="project-power" data-status="working" onclick="openGameModal('project-power')">
           <img src="https://tr.rbxcdn.com/180DAY-a5173e243710a4393e582089e8f4a773/768/432/Image/Webp/noFilter" alt="Project Power" class="game-thumbnail">
           <div class="game-content">
             <h3 class="game-name">Project Power</h3>
@@ -1038,7 +1384,7 @@
           </div>
         </div>
 
-        <div class="game-card reveal delay-3" onclick="openGameModal('doomspire-brickbattle')">
+        <div class="game-card reveal delay-4" data-game-id="doomspire-brickbattle" data-status="updating" onclick="openGameModal('doomspire-brickbattle')">
           <img src="https://tr.rbxcdn.com/180DAY-1e86f9077030b286cd6758344392e8bc/768/432/Image/Webp/noFilter" alt="Doomspire Brickbattle" class="game-thumbnail">
           <div class="game-content">
             <h3 class="game-name">Doomspire Brickbattle</h3>
@@ -1050,7 +1396,7 @@
           </div>
         </div>
 
-        <div class="game-card reveal delay-4" onclick="openGameModal('99-nights-forest')">
+        <div class="game-card reveal delay-5" data-game-id="99-nights-forest" data-status="working" onclick="openGameModal('99-nights-forest')">
           <img src="https://tr.rbxcdn.com/180DAY-643b9b9285f3bd9b63cf392db12a4d87/768/432/Image/Webp/noFilter" alt="99 Nights in the Forest" class="game-thumbnail">
           <div class="game-content">
             <h3 class="game-name">99 Nights in the Forest</h3>
@@ -1062,7 +1408,7 @@
           </div>
         </div>
 
-        <div class="game-card reveal delay-5" onclick="openGameModal('hyper-shot')">
+        <div class="game-card reveal delay-6" data-game-id="hyper-shot" data-status="working" onclick="openGameModal('hyper-shot')">
           <img src="https://tr.rbxcdn.com/180DAY-93924fb5e13a8c356403e707c73ab3ef/768/432/Image/Webp/noFilter" alt="Hyper Shot" class="game-thumbnail">
           <div class="game-content">
             <h3 class="game-name">Hyper Shot</h3>
@@ -1074,7 +1420,7 @@
           </div>
         </div>
 
-        <div class="game-card reveal delay-6" onclick="openGameModal('untitled-boxing')">
+        <div class="game-card reveal delay-1" data-game-id="untitled-boxing" data-status="working" onclick="openGameModal('untitled-boxing')">
           <img src="https://tr.rbxcdn.com/180DAY-078e71f7babd821f5bb362c460fc0fd9/768/432/Image/Webp/noFilter" alt="Untitled Boxing Game" class="game-thumbnail">
           <div class="game-content">
             <h3 class="game-name">Untitled Boxing Game</h3>
@@ -1085,6 +1431,13 @@
             </div>
           </div>
         </div>
+      </div>
+
+      <!-- Pagination -->
+      <div class="pagination" id="pagination" style="display: none;">
+        <button class="pagination-btn" id="prevBtn" onclick="changePage(-1)">← Previous</button>
+        <span class="pagination-current" id="pageInfo">Page 1</span>
+        <button class="pagination-btn" id="nextBtn" onclick="changePage(1)">Next →</button>
       </div>
     </div>
   </section>
@@ -1141,12 +1494,12 @@
     document.getElementById('year').textContent = new Date().getFullYear();
 
     // Game data with features
-            const gameData = {
+                            const gameData = {
       'marvelous-playground': {
         name: 'Marvelous Playground',
         id: '8657766101',
         status: 'Working',
-        features: ['Kill All Players', 'Kill Selected Player', 'ESP (Player Highlighting)', 'Player Targeting System', 'Auto Combat', 'Damage Multiplier']
+        features: ['Kill All Players', 'Kill Selected Player', 'ESP', 'Player Highlighting', 'Player Targeting System', 'Auto Combat', 'Damage Multiplier']
       },
       'project-power': {
         name: 'Project Power',
@@ -1170,7 +1523,7 @@
         name: 'Hyper Shot',
         id: '5634789123',
         status: 'Working',
-        features: ['Aimbot System', 'Wallhack ESP', 'Weapon Modifications', 'Auto Reload', 'Precision Targeting', 'Recoil Control']
+        features: ['Aimbot System', 'Wallhack ESP', 'Weapon Modifications', 'Auto Reload', 'Precision Targeting', 'Recoil Control', 'Aimbot']
       },
       'untitled-boxing': {
         name: 'Untitled Boxing Game',
@@ -1179,6 +1532,173 @@
         features: ['Perfect Dodge Timing', 'Player Chams', 'Combat ESP', 'Auto Block', 'Punch Prediction', 'Health Monitoring']
       },
     };
+
+    // Search and filter variables
+    let currentPage = 1;
+    let gamesPerPage = 10;
+    let currentFilter = 'all';
+    let currentSearch = '';
+    let allGames = [];
+    let filteredGames = [];
+
+    // Initialize games array from DOM
+    function initializeGames() {
+      const gameCards = document.querySelectorAll('.game-card');
+      allGames = Array.from(gameCards).map(card => {
+        const gameId = card.getAttribute('data-game-id');
+        const status = card.getAttribute('data-status');
+        const gameInfo = gameData[gameId] || {};
+        
+        return {
+          element: card,
+          gameId: gameId,
+          name: gameInfo.name || '',
+          id: gameInfo.id || '',
+          status: status || 'working',
+          features: gameInfo.features || [],
+          originalIndex: Array.from(gameCards).indexOf(card)
+        };
+      });
+      filteredGames = [...allGames];
+      updateDisplay();
+    }
+
+    // Search functionality
+    function performSearch() {
+      const searchTerm = document.getElementById('searchInput').value.toLowerCase().trim();
+      const clearBtn = document.getElementById('clearSearchBtn');
+      
+      currentSearch = searchTerm;
+      
+      // Show/hide clear button
+      if (searchTerm) {
+        clearBtn.classList.add('visible');
+      } else {
+        clearBtn.classList.remove('visible');
+      }
+
+      filterGames();
+    }
+
+    // Filter games based on search and status
+    function filterGames() {
+      filteredGames = allGames.filter(game => {
+        // Status filter
+        const statusMatch = currentFilter === 'all' || game.status.toLowerCase() === currentFilter;
+        
+        if (!statusMatch) return false;
+        
+        // Search filter
+        if (!currentSearch) return true;
+        
+        const searchLower = currentSearch.toLowerCase();
+        
+        // Search in name, ID, and features
+        const nameMatch = game.name.toLowerCase().includes(searchLower);
+        const idMatch = game.id.includes(searchLower);
+        const featuresMatch = game.features.some(feature => 
+          feature.toLowerCase().includes(searchLower)
+        );
+        
+        return nameMatch || idMatch || featuresMatch;
+      });
+
+      currentPage = 1; // Reset to first page
+      updateDisplay();
+    }
+
+    // Update display with pagination
+    function updateDisplay() {
+      const gamesGrid = document.getElementById('gamesGrid');
+      const emptyState = document.getElementById('emptyState');
+      const resultsInfo = document.getElementById('resultsInfo');
+      const pagination = document.getElementById('pagination');
+
+      // Hide all game cards first
+      allGames.forEach(game => {
+        game.element.style.display = 'none';
+      });
+
+      if (filteredGames.length === 0) {
+        // Show empty state
+        gamesGrid.style.display = 'none';
+        emptyState.style.display = 'block';
+        resultsInfo.style.display = 'none';
+        pagination.style.display = 'none';
+      } else {
+        // Show games grid
+        gamesGrid.style.display = 'grid';
+        emptyState.style.display = 'none';
+        resultsInfo.style.display = 'block';
+        
+        // Calculate pagination
+        const totalGames = filteredGames.length;
+        const totalPages = Math.ceil(totalGames / gamesPerPage);
+        const startIndex = (currentPage - 1) * gamesPerPage;
+        const endIndex = Math.min(startIndex + gamesPerPage, totalGames);
+        
+        // Show current page games
+        for (let i = startIndex; i < endIndex; i++) {
+          if (filteredGames[i]) {
+            filteredGames[i].element.style.display = 'block';
+          }
+        }
+
+        // Update results info
+        resultsInfo.textContent = `Showing ${startIndex + 1}-${endIndex} out of ${totalGames} games`;
+
+        // Update pagination
+        if (totalPages > 1) {
+          pagination.style.display = 'flex';
+          document.getElementById('prevBtn').disabled = currentPage === 1;
+          document.getElementById('nextBtn').disabled = currentPage === totalPages;
+          document.getElementById('pageInfo').textContent = `Page ${currentPage} of ${totalPages}`;
+        } else {
+          pagination.style.display = 'none';
+        }
+      }
+    }
+
+    // Change page
+    function changePage(direction) {
+      const totalPages = Math.ceil(filteredGames.length / gamesPerPage);
+      const newPage = currentPage + direction;
+      
+      if (newPage >= 1 && newPage <= totalPages) {
+        currentPage = newPage;
+        updateDisplay();
+        
+        // Smooth scroll to top of games section
+        document.querySelector('.games-section').scrollIntoView({ 
+          behavior: 'smooth', 
+          block: 'start' 
+        });
+      }
+    }
+
+    // Set filter
+    function setFilter(filter) {
+      currentFilter = filter;
+      
+      // Update active filter button
+      document.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.classList.remove('active');
+      });
+      document.querySelector(`[data-filter="${filter}"]`).classList.add('active');
+      
+      filterGames();
+    }
+
+    // Clear search
+    function clearSearch() {
+      document.getElementById('searchInput').value = '';
+      document.getElementById('clearSearchBtn').classList.remove('visible');
+      currentSearch = '';
+      filterGames();
+    }
+
+    // Event listeners
+    document.getElementById('searchInput').addEventListener('input', performSearch);
 
     // Enhanced reveal on scroll with staggered animations
     const io = new IntersectionObserver((entries)=>{
@@ -1308,6 +1828,11 @@
       }
     });
 
+    // Initialize the games system
+    window.addEventListener('DOMContentLoaded', () => {
+      initializeGames();
+    });
+
     // Add particle regeneration
     function createParticle() {
       const particle = document.createElement('div');
@@ -1354,7 +1879,7 @@
 
     // Add dynamic glow effects
     function addDynamicGlow() {
-      const cards = document.querySelectorAll('.game-card');
+      const cards = document.querySelectorAll('.game-card:not([style*="display: none"])');
       cards.forEach((card, index) => {
         setTimeout(() => {
           card.style.boxShadow = '0 30px 100px rgba(255,255,255,0.15)';
