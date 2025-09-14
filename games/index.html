@@ -20,7 +20,7 @@
       --speed: 500ms;
     }
     *{box-sizing:border-box}
-    html,body{height:100%}
+    html,body{height:100%; overflow-x:hidden;}
     html{scroll-behavior:smooth}
     body{
       margin:0;
@@ -28,7 +28,6 @@
       color:var(--text);
       font: 700 15px/1.6 ui-sans-serif, -apple-system, system-ui, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
       letter-spacing:.2px;
-      overflow-x:hidden;
       cursor: auto;
       position: relative;
     }
@@ -38,13 +37,40 @@
     a:hover{transform: translateY(-2px);}
     .container{width:min(1150px, 92vw); margin-inline:auto}
 
+    /* ---------- Custom Scrollbar ---------- */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: rgba(17, 17, 17, 0.3);
+      border-radius: 10px;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: linear-gradient(145deg, #333333, #1a1a1a);
+      border-radius: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: linear-gradient(145deg, #444444, #222222);
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+
+    /* Firefox scrollbar */
+    html {
+      scrollbar-width: thin;
+      scrollbar-color: #333333 rgba(17, 17, 17, 0.3);
+    }
+
     /* ---------- Animated Background ---------- */
     .bg-animation {
       position: fixed;
       top: 0;
       left: 0;
-      width: 100%;
-      height: 100%;
+      width: 100vw;
+      height: 100vh;
       z-index: 0;
       pointer-events: none;
       overflow: hidden;
@@ -124,20 +150,20 @@
     }
 
     .wave-1 {
-      top: -50%;
-      left: -50%;
+      top: -100%;
+      left: -100%;
       animation: wave-motion-1 20s linear infinite;
     }
 
     .wave-2 {
-      top: -50%;
-      right: -50%;
+      top: -100%;
+      right: -100%;
       animation: wave-motion-2 25s linear infinite reverse;
     }
 
     .wave-3 {
-      bottom: -50%;
-      left: -50%;
+      bottom: -100%;
+      left: -100%;
       animation: wave-motion-3 30s linear infinite;
     }
 
@@ -829,8 +855,8 @@
       position: fixed;
       top: 0;
       left: 0;
-      width: 100%;
-      height: 100%;
+      width: 100vw;
+      height: 100vh;
       background: rgba(0, 0, 0, 0.8);
       backdrop-filter: blur(10px);
       z-index: 1000;
@@ -840,6 +866,7 @@
       opacity: 0;
       visibility: hidden;
       transition: all 0.3s ease;
+      overflow: auto;
     }
 
     .modal-overlay.active {
@@ -852,13 +879,33 @@
       border: 1px solid var(--line);
       border-radius: var(--radius);
       padding: 40px;
-      max-width: 600px;
-      width: 90%;
-      max-height: 80vh;
+      max-width: min(600px, 90vw);
+      width: 100%;
+      max-height: min(80vh, 700px);
       overflow-y: auto;
+      overflow-x: hidden;
       position: relative;
       animation: modal-entrance 0.5s ease both;
       box-shadow: 0 50px 150px rgba(255,255,255,0.2);
+      margin: 20px;
+    }
+
+    .modal::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    .modal::-webkit-scrollbar-track {
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 3px;
+    }
+
+    .modal::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 3px;
+    }
+
+    .modal::-webkit-scrollbar-thumb:hover {
+      background: rgba(255, 255, 255, 0.3);
     }
 
     .modal::before {
@@ -1204,8 +1251,9 @@
         margin: 0 10px;
       }
       .modal {
-        width: 95%;
+        width: 95vw;
         padding: 30px 20px;
+        margin: 10px;
       }
       .game-info {
         grid-template-columns: 1fr;
@@ -1494,7 +1542,7 @@
     document.getElementById('year').textContent = new Date().getFullYear();
 
     // Game data with features
-                            const gameData = {
+                                    const gameData = {
       'marvelous-playground': {
         name: 'Marvelous Playground',
         id: '8657766101',
