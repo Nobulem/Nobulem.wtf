@@ -207,7 +207,6 @@
       50% { transform: rotate(225deg) translateY(-25px); }
     }
 
-
     /* ---------- Navigation ---------- */
     .nav{
       position:sticky; top:0; z-index:50;
@@ -250,13 +249,6 @@
     .links a:hover::after {
       width: 100%;
     }
-    .cta{
-      margin-left:12px; background:#fff; color:#000; padding:12px 20px; border-radius:999px;
-      box-shadow:var(--shadow); border:2px solid #fff; 
-      transition:transform var(--speed), box-shadow var(--speed);
-      animation: cta-pulse 3s ease-in-out infinite;
-    }
-    .cta:hover{transform:translateY(-3px) scale(1.05); box-shadow: 0 0 30px rgba(255,255,255,0.5);}
 
     /* ---------- Hero ---------- */
     .hero{
@@ -274,27 +266,10 @@
       font-size: clamp(18px, 2.5vw, 24px); color:var(--muted);
       animation: fade-in-up 1s ease 0.8s both;
     }
-    .chips{
-      display:flex; gap:12px; justify-content:center; flex-wrap:wrap; margin:28px 0 32px;
-    }
-    .chip{
-      border:1px solid var(--line); background:rgba(255,255,255,0.05);
-      padding:12px 18px; border-radius:999px; 
-      box-shadow: inset 0 0 0 1px rgba(255,255,255,.05);
-      animation: chip-float 3s ease-in-out infinite;
-      transition: all 0.3s ease;
-    }
-    .chip:nth-child(1) { animation-delay: 0s; }
-    .chip:nth-child(2) { animation-delay: 0.5s; }
-    .chip:nth-child(3) { animation-delay: 1s; }
-    .chip:hover {
-      transform: translateY(-5px) scale(1.05);
-      background: rgba(255,255,255,0.1);
-      box-shadow: 0 10px 30px rgba(255,255,255,0.2);
-    }
     .actions{
       display:flex; gap:16px; justify-content:center; flex-wrap:wrap;
       animation: fade-in-up 1s ease 1.2s both;
+      margin-top: 40px;
     }
     .btn{
       display:inline-flex; align-items:center; justify-content:center; gap:12px;
@@ -323,11 +298,6 @@
     }
     .btn.ghost{background:transparent}
     .btn:hover{transform:translateY(-3px) scale(1.05);}
-    .ribbon{
-      margin:28px auto 0; width:fit-content; padding:10px 18px; border-radius:999px;
-      border:1px dashed #444; color:#fefefe; background:rgba(255,255,255,.06);
-      animation: ribbon-float 4s ease-in-out infinite;
-    }
 
     /* ---------- Sections ---------- */
     section{position:relative; z-index:20; padding:80px 0; border-top:1px solid var(--line)}
@@ -365,9 +335,7 @@
       font-size:24px; margin-bottom:12px;
       animation: icon-pulse 2s ease-in-out infinite;
     }
-    .note{font-size:13px; text-transform:uppercase; letter-spacing:.2em; color:#eaeaea}
     .muted{color:var(--muted)}
-    .two{grid-template-columns:repeat(2,1fr)}
     .three{grid-template-columns:repeat(3,1fr)}
     .center{text-align:center}
 
@@ -380,6 +348,7 @@
       box-shadow: var(--shadow);
       transition: all 0.4s ease;
       animation: card-entrance 0.8s ease both;
+      cursor: pointer;
     }
     
     .game-card:hover {
@@ -410,44 +379,16 @@
       opacity: 0.7;
     }
 
-    /* ---------- Search ---------- */
-    .search-box {
-      background: linear-gradient(145deg,#1a1a1a,#0d0d0d);
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      padding: 20px;
-      margin-bottom: 40px;
-      animation: slide-in-up 0.8s ease both;
-    }
-    
-    .search-input {
-      width: 100%;
-      background: rgba(255,255,255,0.05);
-      border: 1px solid var(--line);
-      border-radius: 12px;
-      padding: 15px 20px;
-      color: var(--text);
-      font-size: 16px;
-      transition: all 0.3s ease;
-    }
-    
-    .search-input:focus {
-      outline: none;
-      border-color: #fff;
-      background: rgba(255,255,255,0.08);
-      box-shadow: 0 0 20px rgba(255,255,255,0.1);
-    }
-
     /* ---------- Coming Soon ---------- */
     .coming-soon {
       text-align: center;
-      padding: 80px 20px;
+      padding: 60px 20px;
     }
     
     .pulse-text {
       animation: mega-pulse 2s infinite;
-      font-size: 36px;
-      margin-bottom: 25px;
+      font-size: 32px;
+      margin-bottom: 20px;
       background: linear-gradient(45deg, #fff, #ccc, #fff);
       background-size: 200% 200%;
       -webkit-background-clip: text;
@@ -459,7 +400,7 @@
       display: flex;
       justify-content: center;
       gap: 10px;
-      margin: 40px 0;
+      margin: 30px 0;
     }
     
     .loader-dot {
@@ -473,140 +414,6 @@
     .loader-dot:nth-child(1) { animation-delay: -0.32s; }
     .loader-dot:nth-child(2) { animation-delay: -0.16s; }
     .loader-dot:nth-child(3) { animation-delay: 0s; }
-
-    /* ---------- Pricing ---------- */
-    .pricing{
-      display:grid; grid-template-columns:repeat(3,1fr); gap:20px;
-    }
-    .plan{
-      background:linear-gradient(145deg,#1a1a1a,#0d0d0d); 
-      border:1px solid var(--line);
-      border-radius:var(--radius); padding:30px; 
-      box-shadow:var(--shadow);
-      transition: all 0.4s ease;
-      position: relative;
-      overflow: hidden;
-    }
-    .plan::before {
-      content: '';
-      position: absolute;
-      top: -2px;
-      left: -2px;
-      right: -2px;
-      bottom: -2px;
-      background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
-      border-radius: var(--radius);
-      z-index: -1;
-      opacity: 0;
-      transition: opacity 0.3s ease;
-    }
-    .plan:hover::before {
-      opacity: 1;
-    }
-    .plan:hover {
-      transform: translateY(-8px) scale(1.02);
-      box-shadow: 0 40px 120px rgba(255,255,255,0.15);
-    }
-    .plan h3{font-size:28px; animation: text-glow 3s ease-in-out infinite;}
-    .price{
-      font-size:48px; margin:.6rem 0 1.2rem;
-      animation: price-pulse 2s ease-in-out infinite;
-    }
-    .plan ul{list-style:none; padding:0; margin:0 0 1.5rem}
-    .plan li{
-      padding:10px 0; border-bottom:1px dashed #333;
-      animation: list-item-slide 0.6s ease both;
-    }
-    .plan li:nth-child(1) { animation-delay: 0.1s; }
-    .plan li:nth-child(2) { animation-delay: 0.2s; }
-    .plan li:nth-child(3) { animation-delay: 0.3s; }
-    .plan li:nth-child(4) { animation-delay: 0.4s; }
-    .plan li:nth-child(5) { animation-delay: 0.5s; }
-    .plan li:nth-child(6) { animation-delay: 0.6s; }
-    .plan .btn{width:100%}
-
-    /* Reviews */
-    .reviews {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 20px;
-      margin-top: 30px;
-    }
-    
-    .review-card {
-      background: linear-gradient(145deg,#1a1a1a,#0d0d0d);
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      padding: 25px;
-      box-shadow: var(--shadow);
-      transition: all 0.4s ease;
-      animation: review-entrance 0.8s ease both;
-    }
-    
-    .review-card:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 25px 80px rgba(255,255,255,0.12);
-    }
-    
-    .review-text {
-      font-style: italic;
-      margin-bottom: 15px;
-      animation: text-fade-in 1s ease both;
-    }
-    
-    .reviewer {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-    
-    .review-avatar {
-      width: 35px;
-      height: 35px;
-      border-radius: 50%;
-      background: linear-gradient(45deg, #333, #555);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: bold;
-      animation: avatar-glow 3s ease-in-out infinite;
-    }
-
-    /* Developer Cards */
-    .dev-card {
-      text-align: center;
-      padding: 25px;
-      transition: all 0.4s ease;
-    }
-    
-    .dev-avatar {
-      width: 120px;
-      height: 120px;
-      border-radius: 50%;
-      margin: 0 auto 18px;
-      overflow: hidden;
-      border: 3px solid var(--line);
-      transition: all 0.4s ease;
-      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
-      animation: avatar-float 4s ease-in-out infinite;
-    }
-    
-    .dev-avatar img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transition: transform 0.4s ease;
-    }
-    
-    .dev-card:hover .dev-avatar {
-      transform: scale(1.1) rotateY(10deg);
-      border-color: #fff;
-      box-shadow: 0 15px 50px rgba(255,255,255,0.2);
-    }
-    
-    .dev-card:hover .dev-avatar img {
-      transform: scale(1.1);
-    }
 
     /* ---------- Footer ---------- */
     footer{
@@ -640,11 +447,6 @@
       to { opacity: 1; transform: translateY(0) scale(1); }
     }
 
-    @keyframes chip-float {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-8px); }
-    }
-
     @keyframes card-entrance {
       from { opacity: 0; transform: translateY(40px) rotateX(10deg); }
       to { opacity: 1; transform: translateY(0) rotateX(0deg); }
@@ -658,17 +460,6 @@
     @keyframes btn-glow {
       0%, 100% { box-shadow: 0 0 20px rgba(255,255,255,0.3); }
       50% { box-shadow: 0 0 40px rgba(255,255,255,0.6), 0 0 60px rgba(255,255,255,0.3); }
-    }
-
-    @keyframes cta-pulse {
-      0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.02); }
-    }
-
-    @keyframes ribbon-float {
-      0%, 100% { transform: translateY(0) rotate(0deg); }
-      25% { transform: translateY(-5px) rotate(1deg); }
-      75% { transform: translateY(-3px) rotate(-1deg); }
     }
 
     @keyframes mega-pulse {
@@ -685,46 +476,6 @@
     @keyframes loader-bounce {
       0%, 80%, 100% { transform: scale(0); }
       40% { transform: scale(1); }
-    }
-
-    @keyframes text-glow {
-      0%, 100% { text-shadow: 0 0 10px rgba(255,255,255,0.3); }
-      50% { text-shadow: 0 0 20px rgba(255,255,255,0.6); }
-    }
-
-    @keyframes price-pulse {
-      0%, 100% { transform: scale(1); color: #fff; }
-      50% { transform: scale(1.05); color: #f0f0f0; }
-    }
-
-    @keyframes list-item-slide {
-      from { opacity: 0; transform: translateX(-20px); }
-      to { opacity: 1; transform: translateX(0); }
-    }
-
-    @keyframes review-entrance {
-      from { opacity: 0; transform: translateY(30px) rotateX(15deg); }
-      to { opacity: 1; transform: translateY(0) rotateX(0deg); }
-    }
-
-    @keyframes text-fade-in {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
-
-    @keyframes avatar-glow {
-      0%, 100% { box-shadow: 0 0 15px rgba(255,255,255,0.2); }
-      50% { box-shadow: 0 0 25px rgba(255,255,255,0.4); }
-    }
-
-    @keyframes avatar-float {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-10px); }
-    }
-
-    @keyframes slide-in-up {
-      from { opacity: 0; transform: translateY(40px); }
-      to { opacity: 1; transform: translateY(0); }
     }
 
     @keyframes footer-entrance {
@@ -761,20 +512,17 @@
     .delay-2 { animation-delay: 0.4s; }
     .delay-3 { animation-delay: 0.6s; }
     .delay-4 { animation-delay: 0.8s; }
-    .delay-5 { animation-delay: 1.0s; }
 
     /* ---------- Responsive ---------- */
     @media (max-width: 980px){
       .cards{grid-template-columns:repeat(2,1fr)}
-      .pricing{grid-template-columns:1fr}
-      .two,.three{grid-template-columns:1fr}
+      .three{grid-template-columns:1fr}
       .links{display:none}
-      .reviews {grid-template-columns: 1fr;}
     }
     
     @media (max-width: 768px) {
-      .particle { display: none; } /* Hide particles on mobile for performance */
-      .wave { animation-duration: 40s; } /* Slow down waves on mobile */
+      .particle { display: none; }
+      .wave { animation-duration: 40s; }
     }
   </style>
 </head>
@@ -812,8 +560,6 @@
     <div class="shape shape-3"></div>
   </div>
 
-  <div class="flashlight" aria-hidden="true"></div>
-
   <nav class="nav">
     <div class="container row">
       <div class="brand">
@@ -822,8 +568,8 @@
       </div>
       <div class="links">
         <a href="/">Home</a>
-        <a href="https://nobulem.wtf/executors">Executors</a>
-        <a href="https://nobulem.wtf/games">Games</a>
+        <a href="/executors">Executors</a>
+        <a href="/games">Games</a>
         <a href="/scripts">Scripts</a>
         <a href="/showcases">Showcases</a>
         <a href="/pricing">Pricing</a>
@@ -840,16 +586,10 @@
       <span id="typing-text" class="typing-text">nobulem.wtf — Quality.</span>
     </h1>
     <p class="subtitle reveal">multiple game support • regular updates • top-quality scripts • no bugs</p>
-    <div class="chips reveal">
-      <div class="chip delay-1">Free Forever</div>
-      <div class="chip delay-2">Open Community</div>
-      <div class="chip delay-3">Secure & Fast</div>
-    </div>
     <div class="actions reveal">
-      <a class="btn primary" href="#free">Use the script</a>
-      <a class="btn ghost" href="#showcases">Join the discord server</a>
+      <a class="btn primary" href="/games">Use the script</a>
+      <a class="btn ghost" href="https://discord.gg/ExH98C3uFH" target="_blank">Join the discord server</a>
     </div>
-    <div class="ribbon reveal">Made with love</div>
   </header>
 
   <section id="why">
@@ -883,16 +623,11 @@
 
   <section id="games">
     <div class="container">
-      <h2 class="reveal">Supported Games</h2>
-      
-      <div class="search-box reveal">
-        <input type="text" class="search-input" placeholder="Search games or features...">
-      </div>
-      
-      <p class="muted reveal">Game list is summarized, most aren't here.</p>
+      <h2 class="reveal">Featured Games</h2>
+      <p class="muted reveal">Explore our most popular scripts. <a href="/games" style="color: #fff; text-decoration: underline;">View all games →</a></p>
       
       <div class="grid three" style="margin-top:20px">
-        <div class="game-card reveal delay-1">
+        <div class="game-card reveal delay-1" onclick="window.location.href='/games'">
           <img src="https://tr.rbxcdn.com/180DAY-078e71f7babd821f5bb362c460fc0fd9/768/432/Image/Webp/noFilter" alt="Untitled Boxing Game" class="game-image">
           <div class="game-content">
             <h3>Untitled Boxing Game</h3>
@@ -901,7 +636,7 @@
           </div>
         </div>
         
-        <div class="game-card reveal delay-2">
+        <div class="game-card reveal delay-2" onclick="window.location.href='/games'">
           <img src="https://tr.rbxcdn.com/180DAY-a5173e243710a4393e582089e8f4a773/768/432/Image/Webp/noFilter" alt="Project Power" class="game-image">
           <div class="game-content">
             <h3>Project Power</h3>
@@ -910,7 +645,7 @@
           </div>
         </div>
         
-        <div class="game-card reveal delay-3">
+        <div class="game-card reveal delay-3" onclick="window.location.href='/games'">
           <img src="https://tr.rbxcdn.com/180DAY-915535b6a2b0ddd4710ec77320027004/768/432/Image/Webp/noFilter" alt="Marvellous Playground" class="game-image">
           <div class="game-content">
             <h3>Marvellous playground</h3>
@@ -938,159 +673,10 @@
     </div>
   </section>
 
-  <section id="pricing">
-    <div class="container">
-      <h2 class="center reveal">Pricing</h2>
-      <p class="center muted reveal" style="margin-bottom:30px">Choose the plan that works best for you</p>
-      <div class="pricing">
-        <div class="plan reveal delay-1">
-          <h3>Free Tier</h3>
-          <div class="price">$0</div>
-          <ul>
-            <li>Basic scripts access</li>
-            <li>Two checkpoints (key) every 12 hours</li>
-            <li>Community support</li>
-            <li>Standard updates</li>
-          </ul>
-          <a class="btn primary" href="#free">Use For Free</a>
-        </div>
-        <div class="plan reveal delay-2">
-          <h3>Premium</h3>
-          <div class="price">$5</div>
-          <ul>
-            <li>All scripts unlocked</li>
-            <li>Unlimited checkpoints</li>
-            <li>Priority support</li>
-            <li>Early access to new scripts</li>
-            <li>Custom script requests</li>
-            <li>Lifetime access</li>
-          </ul>
-          <a class="btn primary" href="#free">Get Premium</a>
-        </div>
-        <div class="plan reveal delay-3">
-          <h3>Enterprise</h3>
-          <div class="price">Custom</div>
-          <ul>
-            <li>Custom builds</li>
-            <li>Dedicated help</li>
-            <li>White-label solutions</li>
-            <li>SLA-ish vibes</li>
-          </ul>
-          <a class="btn primary" href="#free">Contact Us</a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section id="reviews">
-    <div class="container">
-      <h2 class="center reveal">User Reviews</h2>
-      <p class="center muted reveal" style="margin-bottom:30px">See what our users are saying</p>
-      
-      <div class="reviews">
-        <div class="review-card reveal delay-1">
-          <div class="review-text">
-            "This is the best script hub I've ever used! The auto farm is perfect and completely undetected. Highly recommend!"
-          </div>
-          <div class="reviewer">
-            <div class="review-avatar">J</div>
-            <div>JohnRoblox</div>
-          </div>
-        </div>
-        
-        <div class="review-card reveal delay-2">
-          <div class="review-text">
-            "The auto kill feature works flawlessly. I've been using it for weeks without any issues. Worth every penny for premium!"
-          </div>
-          <div class="reviewer">
-            <div class="review-avatar">S</div>
-            <div>ScriptMaster</div>
-          </div>
-        </div>
-        
-        <div class="review-card reveal delay-3">
-          <div class="review-text">
-            "I was skeptical at first, but this hub is truly undetectable. The scripts are well-made and regularly updated. 10/10!"
-          </div>
-          <div class="reviewer">
-            <div class="review-avatar">G</div>
-            <div>GamerPro</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section id="developers">
-    <div class="container">
-      <h2 class="center reveal">Development Team</h2>
-      <p class="center muted reveal" style="margin-bottom:30px">The talented people behind nobulem.wtf</p>
-      
-      <div class="grid three" style="margin-top:20px">
-        <div class="card dev-card reveal delay-1">
-          <div class="dev-avatar">
-            <img src="https://cdn.discordapp.com/avatars/1408786756941250715/74cdc383bd86939c8c69ce710ca1ad09.webp?size=1024" alt="@CobaltDragon299">
-          </div>
-          <h3>@CobaltDragon299</h3>
-          <p>Main Script Developer</p>
-        </div>
-        
-        <div class="card dev-card reveal delay-2">
-          <div class="dev-avatar">
-            <img src="https://cdn.discordapp.com/avatars/1222510318165692451/ac92cfe503ef5ff97a5a78a510a87f14.webp?size=1024" alt="@LordLoaff">
-          </div>
-          <h3>@LordLoaff</h3>
-          <p>Instructor</p>
-        </div>
-        
-        <div class="card dev-card reveal delay-3">
-          <div class="dev-avatar">
-            <img src="https://cdn.discordapp.com/avatars/969854525198458891/0df69e81565038a1222357b268660c50.webp?size=1024" alt="@Quicksy">
-          </div>
-          <h3>@Quicksy</h3>
-          <p>Head Manager</p>
-        </div>
-        
-        <div class="card dev-card reveal delay-4">
-          <div class="dev-avatar">
-            <img src="https://cdn.discordapp.com/avatars/1030140568640176218/30233ae8bf656a64de9ba826518d7688.webp?size=1024" alt="@Ace">
-          </div>
-          <h3>@Ace</h3>
-          <p>Site Developer</p>
-        </div>
-        
-        <div class="card dev-card reveal delay-5">
-          <div class="dev-avatar">
-            <img src="https://images-ext-1.discordapp.net/external/aVKHiFpUTGB34OVTvGxrrAZmuRZFmdL3B3fUagblgLQ/%3Fsize%3D1024/https/cdn.discordapp.com/avatars/1129062752795762819/72f909da293d19719ffcf8d695fa75d8.webp?format=webp&width=950&height=950" alt="@violentsnake23">
-          </div>
-          <h3>@violentsnake23</h3>
-          <p>Ticket Support</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section id="free">
-    <div class="container">
-      <h2 class="center reveal">2025</h2>
-      <p class="center muted reveal">Built with care. Optimized for speed. Always bold. Always free.</p>
-      <div class="grid two" style="margin-top:20px">
-        <div class="card reveal delay-1">
-          <h3>Open & Transparent</h3>
-          <p>No hidden paywalls. No keys. Clear changelogs.</p>
-        </div>
-        <div class="card reveal delay-2">
-          <h3>Community Roadmap</h3>
-          <p>Vote on features, submit ideas, and watch them ship.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
   <footer>
     <div class="container">
       <div style="margin-bottom:12px"><strong>nobulem.wtf</strong> — undetected</div>
-      <div>© <span id="year"></span> nobulem.wtf • All rights reserved • nobulem.wtf • Home • Executors • Games • Scripts • Showcases • Pricing • Reviews • Developers • Terms</div>
+      <div>© <span id="year"></span> nobulem.wtf • All rights reserved • Home • Executors • Games • Scripts • Showcases • Pricing • Reviews • Developers • Terms</div>
     </div>
   </footer>
 
@@ -1123,16 +709,17 @@
       });
     });
     
-    // Enhanced typing animation
+    // Enhanced typing animation - only change text after "nobulem.wtf — "
     const typingText = document.getElementById('typing-text');
-    const texts = [
-      "nobulem.wtf — Quality.",
-      "nobulem.wtf — Fast.",
-      "nobulem.wtf — Secure.",
-      "nobulem.wtf — Reliable.",
-      "nobulem.wtf — Best."
+    const baseText = "nobulem.wtf — ";
+    const suffixes = [
+      "Quality.",
+      "Fast.",
+      "Secure.",
+      "Reliable.",
+      "Best."
     ];
-    let textIndex = 0;
+    let suffixIndex = 0;
     let charIndex = 0;
     let isDeleting = false;
     let typingDelay = 120;
@@ -1140,24 +727,28 @@
     let pauseDelay = 2000;
     
     function type() {
-      const currentText = texts[textIndex];
+      const currentSuffix = suffixes[suffixIndex];
       
       if (isDeleting) {
-        typingText.textContent = currentText.substring(0, charIndex - 1);
+        // Only delete the suffix part, keep the base
+        const currentText = baseText + currentSuffix.substring(0, charIndex - 1);
+        typingText.textContent = currentText;
         charIndex--;
         typingDelay = deletingDelay;
       } else {
-        typingText.textContent = currentText.substring(0, charIndex + 1);
+        // Add characters to the suffix
+        const currentText = baseText + currentSuffix.substring(0, charIndex + 1);
+        typingText.textContent = currentText;
         charIndex++;
         typingDelay = 120;
       }
       
-      if (!isDeleting && charIndex === currentText.length) {
+      if (!isDeleting && charIndex === currentSuffix.length) {
         typingDelay = pauseDelay;
         isDeleting = true;
       } else if (isDeleting && charIndex === 0) {
         isDeleting = false;
-        textIndex = (textIndex + 1) % texts.length;
+        suffixIndex = (suffixIndex + 1) % suffixes.length;
         typingDelay = 600;
       }
       
@@ -1178,7 +769,6 @@
       if (bgAnimation) {
         bgAnimation.appendChild(particle);
         
-        // Remove particle after animation completes
         setTimeout(() => {
           if (particle.parentNode) {
             particle.parentNode.removeChild(particle);
