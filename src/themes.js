@@ -1,6 +1,4 @@
 // Advanced Theme System for nobulem.wtf
-// Manages theme switching, persistence, and dynamic styling
-
 class ThemeManager {
   constructor() {
     this.themes = {
@@ -46,9 +44,9 @@ class ThemeManager {
         name: 'Sunset',
         icon: '🌅',
         colors: {
-          bg: 'linear-gradient(135deg, #ff6b35, #f7931e, #ff6b35)',
+          bg: 'linear-gradient(135deg, #ff6b35, #f7931e)',
           bg2: '#ff8c42',
-          card: 'rgba(255,255,255,0.1)',
+          card: 'rgba(255,255,255,0.15)',
           text: '#ffffff',
           muted: '#ffe4d6',
           line: 'rgba(255,255,255,0.2)',
@@ -65,9 +63,9 @@ class ThemeManager {
         name: 'Neon',
         icon: '⚡',
         colors: {
-          bg: 'linear-gradient(135deg, #0a0a0a, #1a0a1a, #0a1a1a)',
+          bg: 'linear-gradient(135deg, #0a0a0a, #1a0a1a)',
           bg2: '#1a1a2e',
-          card: 'rgba(0,255,255,0.1)',
+          card: 'rgba(0,255,255,0.15)',
           text: '#00ffff',
           muted: '#66ffff',
           line: 'rgba(0,255,255,0.3)',
@@ -84,7 +82,7 @@ class ThemeManager {
         name: 'Galaxy',
         icon: '🌌',
         colors: {
-          bg: 'linear-gradient(135deg, #0c0c0c, #1a0d2e, #0d1a2e)',
+          bg: 'linear-gradient(135deg, #0c0c0c, #1a0d2e)',
           bg2: '#1a1a3a',
           card: 'rgba(138,43,226,0.15)',
           text: '#e6e6fa',
@@ -103,7 +101,7 @@ class ThemeManager {
         name: 'Ocean',
         icon: '🌊',
         colors: {
-          bg: 'linear-gradient(135deg, #001122, #003366, #004488)',
+          bg: 'linear-gradient(135deg, #001122, #003366)',
           bg2: '#002244',
           card: 'rgba(0,191,255,0.15)',
           text: '#e0f6ff',
@@ -132,11 +130,9 @@ class ThemeManager {
   }
 
   createThemeButton() {
-    // Find the links container in the nav
     const linksContainer = document.querySelector('.nav .links');
     if (!linksContainer) return;
 
-    // Create theme button
     const themeButton = document.createElement('button');
     themeButton.id = 'themeButton';
     themeButton.className = 'theme-button';
@@ -145,8 +141,13 @@ class ThemeManager {
       <span class="theme-text">Themes</span>
     `;
 
-    // Add styles for theme button
+    this.addThemeButtonStyles();
+    linksContainer.appendChild(themeButton);
+  }
+
+  addThemeButtonStyles() {
     const style = document.createElement('style');
+    style.id = 'theme-button-styles';
     style.textContent = `
       .theme-button {
         background: rgba(255,255,255,0.1);
@@ -224,13 +225,9 @@ class ThemeManager {
       }
     `;
     document.head.appendChild(style);
-
-    // Insert before the last link
-    linksContainer.appendChild(themeButton);
   }
 
   createThemeSelector() {
-    // Create theme selector modal
     const themeSelector = document.createElement('div');
     themeSelector.id = 'themeSelector';
     themeSelector.className = 'theme-selector-overlay';
@@ -239,13 +236,12 @@ class ThemeManager {
       <div class="theme-selector-modal">
         <div class="theme-selector-header">
           <h3>🎨 Choose Your Theme</h3>
-          <button class="theme-close-btn" onclick="closeThemeSelector()">×</button>
+          <button class="theme-close-btn">&times;</button>
         </div>
         <div class="theme-grid">
           ${Object.entries(this.themes).map(([key, theme]) => `
             <div class="theme-option ${key === this.currentTheme ? 'active' : ''}" 
-                 data-theme="${key}" 
-                 onclick="selectTheme('${key}')">
+                 data-theme="${key}">
               <div class="theme-preview" data-theme="${key}">
                 <div class="theme-preview-bg"></div>
                 <div class="theme-preview-card"></div>
@@ -264,9 +260,14 @@ class ThemeManager {
       </div>
     `;
 
-    // Add theme selector styles
-    const selectorStyle = document.createElement('style');
-    selectorStyle.textContent = `
+    this.addThemeSelectorStyles();
+    document.body.appendChild(themeSelector);
+  }
+
+  addThemeSelectorStyles() {
+    const style = document.createElement('style');
+    style.id = 'theme-selector-styles';
+    style.textContent = `
       .theme-selector-overlay {
         position: fixed;
         top: 0;
@@ -315,6 +316,7 @@ class ThemeManager {
       .theme-selector-header h3 {
         margin: 0;
         font-size: 24px;
+        color: var(--text);
         background: linear-gradient(45deg, var(--text), var(--muted));
         background-size: 200% 200%;
         -webkit-background-clip: text;
@@ -479,6 +481,30 @@ class ThemeManager {
       .theme-preview[data-theme="ocean"] .theme-preview-card { background: rgba(0,191,255,0.3); }
       .theme-preview[data-theme="ocean"] .theme-preview-text { background: #00bfff; }
 
+      .theme-notification {
+        position: fixed;
+        top: 100px;
+        right: 30px;
+        background: linear-gradient(145deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05));
+        border: 1px solid var(--line);
+        border-radius: 15px;
+        padding: 15px 20px;
+        color: var(--text);
+        font-weight: 700;
+        z-index: 1001;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        backdrop-filter: blur(10px);
+        animation: notification-slide-in 0.5s ease, notification-slide-out 0.5s ease 2.5s forwards;
+        box-shadow: 0 10px 30px rgba(255,255,255,0.1);
+      }
+
+      .notification-icon {
+        font-size: 18px;
+        animation: notification-icon-spin 0.5s ease;
+      }
+
       @keyframes modal-entrance {
         from { opacity: 0; transform: translateY(50px) scale(0.9); }
         to { opacity: 1; transform: translateY(0) scale(1); }
@@ -494,6 +520,21 @@ class ThemeManager {
         50% { transform: scale(1.2) rotate(10deg); }
       }
 
+      @keyframes notification-slide-in {
+        from { transform: translateX(100%); opacity: 0; }
+        to { transform: translateX(0); opacity: 1; }
+      }
+
+      @keyframes notification-slide-out {
+        from { transform: translateX(0); opacity: 1; }
+        to { transform: translateX(100%); opacity: 0; }
+      }
+
+      @keyframes notification-icon-spin {
+        from { transform: rotate(0deg) scale(1); }
+        to { transform: rotate(360deg) scale(1.2); }
+      }
+
       @media (max-width: 768px) {
         .theme-grid {
           grid-template-columns: 1fr;
@@ -503,65 +544,42 @@ class ThemeManager {
           width: 95vw;
           padding: 20px;
         }
+
+        .theme-notification {
+          top: 80px;
+          right: 20px;
+          left: 20px;
+          text-align: center;
+        }
       }
     `;
     document.head.appendChild(style);
-
-    // Insert theme button
-    linksContainer.appendChild(themeButton);
-  }
-
-  createThemeSelector() {
-    const themeSelector = document.createElement('div');
-    themeSelector.id = 'themeSelector';
-    themeSelector.className = 'theme-selector-overlay';
-    
-    themeSelector.innerHTML = `
-      <div class="theme-selector-modal">
-        <div class="theme-selector-header">
-          <h3>🎨 Choose Your Theme</h3>
-          <button class="theme-close-btn" onclick="closeThemeSelector()">×</button>
-        </div>
-        <div class="theme-grid">
-          ${Object.entries(this.themes).map(([key, theme]) => `
-            <div class="theme-option ${key === this.currentTheme ? 'active' : ''}" 
-                 data-theme="${key}" 
-                 onclick="selectTheme('${key}')">
-              <div class="theme-preview" data-theme="${key}">
-                <div class="theme-preview-bg"></div>
-                <div class="theme-preview-card"></div>
-                <div class="theme-preview-text"></div>
-              </div>
-              <div class="theme-info">
-                <div class="theme-name">
-                  <span class="theme-emoji">${theme.icon}</span>
-                  ${theme.name}
-                </div>
-                <div class="theme-description">${theme.description}</div>
-              </div>
-            </div>
-          `).join('')}
-        </div>
-      </div>
-    `;
-
-    document.body.appendChild(themeSelector);
   }
 
   setupEventListeners() {
-    // Theme button click
-    document.getElementById('themeButton').addEventListener('click', () => {
-      this.openThemeSelector();
-    });
+    const themeButton = document.getElementById('themeButton');
+    if (themeButton) {
+      themeButton.addEventListener('click', () => {
+        this.openThemeSelector();
+      });
+    }
 
-    // Close on outside click
-    document.getElementById('themeSelector').addEventListener('click', (e) => {
+    // Theme option clicks
+    document.addEventListener('click', (e) => {
+      if (e.target.closest('.theme-option')) {
+        const themeName = e.target.closest('.theme-option').getAttribute('data-theme');
+        this.selectTheme(themeName);
+      }
+      
+      if (e.target.classList.contains('theme-close-btn')) {
+        this.closeThemeSelector();
+      }
+      
       if (e.target.classList.contains('theme-selector-overlay')) {
         this.closeThemeSelector();
       }
     });
 
-    // Close on escape key
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape') {
         this.closeThemeSelector();
@@ -571,14 +589,18 @@ class ThemeManager {
 
   openThemeSelector() {
     const selector = document.getElementById('themeSelector');
-    selector.classList.add('active');
-    document.body.style.overflow = 'hidden';
+    if (selector) {
+      selector.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
   }
 
   closeThemeSelector() {
     const selector = document.getElementById('themeSelector');
-    selector.classList.remove('active');
-    document.body.style.overflow = '';
+    if (selector) {
+      selector.classList.remove('active');
+      document.body.style.overflow = '';
+    }
   }
 
   selectTheme(themeName) {
@@ -589,8 +611,6 @@ class ThemeManager {
       this.updateActiveTheme(themeName);
       this.updateThemeButton();
       this.closeThemeSelector();
-      
-      // Add selection feedback
       this.showThemeChangeNotification(this.themes[themeName].name);
     }
   }
@@ -616,6 +636,16 @@ class ThemeManager {
     
     // Apply theme-specific animations
     this.applyThemeAnimations(themeName);
+
+    // Update navigation background
+    const nav = document.querySelector('.nav');
+    if (nav) {
+      if (themeName === 'light') {
+        nav.style.background = 'rgba(255,255,255,0.9)';
+      } else {
+        nav.style.background = 'rgba(0,0,0,0.9)';
+      }
+    }
   }
 
   updateParticles(theme) {
@@ -667,8 +697,8 @@ class ThemeManager {
       case 'sunset':
         animations = `
           .theme-sunset .brand .dot {
-            background: linear-gradient(45deg, #ff6b35, #f7931e);
-            box-shadow: 0 0 20px #ff6b35, 0 0 40px #f7931e;
+            background: linear-gradient(45deg, #ff6b35, #f7931e) !important;
+            box-shadow: 0 0 20px #ff6b35, 0 0 40px #f7931e !important;
           }
           
           .theme-sunset .particle {
@@ -687,8 +717,8 @@ class ThemeManager {
       case 'neon':
         animations = `
           .theme-neon .brand .dot {
-            background: linear-gradient(45deg, #00ffff, #ff00ff);
-            box-shadow: 0 0 20px #00ffff, 0 0 40px #ff00ff, 0 0 60px #00ffff;
+            background: linear-gradient(45deg, #00ffff, #ff00ff) !important;
+            box-shadow: 0 0 20px #00ffff, 0 0 40px #ff00ff, 0 0 60px #00ffff !important;
             animation: neon-pulse 1s ease-in-out infinite alternate;
           }
           
@@ -698,14 +728,14 @@ class ThemeManager {
           }
           
           .theme-neon .shape {
-            border-color: #00ffff;
+            border-color: #00ffff !important;
             box-shadow: 0 0 20px #00ffff;
             animation: neon-shape-glow 2s ease-in-out infinite alternate;
           }
           
           @keyframes neon-pulse {
-            0% { box-shadow: 0 0 20px #00ffff, 0 0 40px #ff00ff; }
-            100% { box-shadow: 0 0 40px #ff00ff, 0 0 60px #00ffff, 0 0 80px #ff00ff; }
+            0% { box-shadow: 0 0 20px #00ffff, 0 0 40px #ff00ff !important; }
+            100% { box-shadow: 0 0 40px #ff00ff, 0 0 60px #00ffff, 0 0 80px #ff00ff !important; }
           }
           
           @keyframes neon-float {
@@ -715,8 +745,8 @@ class ThemeManager {
           }
           
           @keyframes neon-shape-glow {
-            0% { border-color: #00ffff; box-shadow: 0 0 20px #00ffff; }
-            100% { border-color: #ff00ff; box-shadow: 0 0 30px #ff00ff; }
+            0% { border-color: #00ffff !important; box-shadow: 0 0 20px #00ffff; }
+            100% { border-color: #ff00ff !important; box-shadow: 0 0 30px #ff00ff; }
           }
         `;
         break;
@@ -724,8 +754,8 @@ class ThemeManager {
       case 'galaxy':
         animations = `
           .theme-galaxy .brand .dot {
-            background: linear-gradient(45deg, #8a2be2, #9370db);
-            box-shadow: 0 0 20px #8a2be2, 0 0 40px #9370db;
+            background: linear-gradient(45deg, #8a2be2, #9370db) !important;
+            box-shadow: 0 0 20px #8a2be2, 0 0 40px #9370db !important;
           }
           
           .theme-galaxy .particle {
@@ -733,7 +763,7 @@ class ThemeManager {
           }
           
           .theme-galaxy .shape {
-            border-color: #9370db;
+            border-color: #9370db !important;
             animation: galaxy-shape-drift 25s ease-in-out infinite;
           }
           
@@ -757,8 +787,8 @@ class ThemeManager {
       case 'ocean':
         animations = `
           .theme-ocean .brand .dot {
-            background: linear-gradient(45deg, #00bfff, #1e90ff);
-            box-shadow: 0 0 20px #00bfff, 0 0 40px #1e90ff;
+            background: linear-gradient(45deg, #00bfff, #1e90ff) !important;
+            box-shadow: 0 0 20px #00bfff, 0 0 40px #1e90ff !important;
           }
           
           .theme-ocean .particle {
@@ -770,7 +800,7 @@ class ThemeManager {
           }
           
           .theme-ocean .shape {
-            border-color: #00bfff;
+            border-color: #00bfff !important;
             animation: ocean-drift 20s ease-in-out infinite;
           }
           
@@ -792,8 +822,8 @@ class ThemeManager {
       case 'light':
         animations = `
           .theme-light .brand .dot {
-            background: linear-gradient(45deg, #1a1a1a, #333);
-            box-shadow: 0 0 20px rgba(26,26,26,0.5), 0 0 40px rgba(26,26,26,0.3);
+            background: linear-gradient(45deg, #1a1a1a, #333) !important;
+            box-shadow: 0 0 20px rgba(26,26,26,0.5), 0 0 40px rgba(26,26,26,0.3) !important;
           }
           
           .theme-light .particle {
@@ -801,7 +831,7 @@ class ThemeManager {
           }
           
           .theme-light .shape {
-            border-color: rgba(26,26,26,0.2);
+            border-color: rgba(26,26,26,0.2) !important;
           }
           
           @keyframes light-float {
@@ -819,7 +849,6 @@ class ThemeManager {
   }
 
   updateActiveTheme(themeName) {
-    // Update active state in theme selector
     document.querySelectorAll('.theme-option').forEach(option => {
       option.classList.remove('active');
     });
@@ -832,12 +861,10 @@ class ThemeManager {
 
   updateThemeButton() {
     const themeButton = document.getElementById('themeButton');
-    const themeIcon = themeButton.querySelector('.theme-icon');
+    const themeIcon = themeButton?.querySelector('.theme-icon');
     
     if (themeIcon) {
       themeIcon.textContent = this.themes[this.currentTheme].icon;
-      
-      // Add a little animation when changing
       themeIcon.style.transform = 'scale(1.3) rotate(20deg)';
       setTimeout(() => {
         themeIcon.style.transform = '';
@@ -846,7 +873,6 @@ class ThemeManager {
   }
 
   showThemeChangeNotification(themeName) {
-    // Create notification
     const notification = document.createElement('div');
     notification.className = 'theme-notification';
     notification.innerHTML = `
@@ -854,62 +880,8 @@ class ThemeManager {
       <span>Theme changed to ${themeName}</span>
     `;
 
-    // Add notification styles
-    const style = document.createElement('style');
-    style.textContent = `
-      .theme-notification {
-        position: fixed;
-        top: 100px;
-        right: 30px;
-        background: linear-gradient(145deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05));
-        border: 1px solid var(--line);
-        border-radius: 15px;
-        padding: 15px 20px;
-        color: var(--text);
-        font-weight: 700;
-        z-index: 1001;
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        backdrop-filter: blur(10px);
-        animation: notification-slide-in 0.5s ease, notification-slide-out 0.5s ease 2.5s forwards;
-        box-shadow: 0 10px 30px rgba(255,255,255,0.1);
-      }
-
-      .notification-icon {
-        font-size: 18px;
-        animation: notification-icon-spin 0.5s ease;
-      }
-
-      @keyframes notification-slide-in {
-        from { transform: translateX(100%); opacity: 0; }
-        to { transform: translateX(0); opacity: 1; }
-      }
-
-      @keyframes notification-slide-out {
-        from { transform: translateX(0); opacity: 1; }
-        to { transform: translateX(100%); opacity: 0; }
-      }
-
-      @keyframes notification-icon-spin {
-        from { transform: rotate(0deg) scale(1); }
-        to { transform: rotate(360deg) scale(1.2); }
-      }
-
-      @media (max-width: 768px) {
-        .theme-notification {
-          top: 80px;
-          right: 20px;
-          left: 20px;
-          text-align: center;
-        }
-      }
-    `;
-    document.head.appendChild(style);
-
     document.body.appendChild(notification);
 
-    // Remove notification after animation
     setTimeout(() => {
       if (notification.parentNode) {
         notification.parentNode.removeChild(notification);
@@ -925,15 +897,6 @@ class ThemeManager {
     return localStorage.getItem('nobulem-theme') || 'dark';
   }
 }
-
-// Global functions for HTML onclick handlers
-window.selectTheme = function(themeName) {
-  window.themeManager.selectTheme(themeName);
-};
-
-window.closeThemeSelector = function() {
-  window.themeManager.closeThemeSelector();
-};
 
 // Initialize theme manager when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
