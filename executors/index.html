@@ -819,7 +819,7 @@
       </div>
       <div class="links">
         <a href="/">Home</a>
-        <a href="/executors">Executors</a>
+        <a href="/executors" style="color: #fff; opacity: 1;">Executors</a>
         <a href="https://discord.gg/ExH98C3uFH" target="_blank">Discord</a>
         <a href="/games">Games & Scripts</a>
         <a href="/showcases">Showcases</a>
@@ -885,6 +885,7 @@
     </div>
   </footer>
 
+  <script src="/js/theme-manager.js"></script>
   <script>
     // Set current year
     document.getElementById('year').textContent = new Date().getFullYear();
@@ -1148,14 +1149,6 @@
     document.head.appendChild(style);
 
     enhanceStatsAnimation();
-
-    // Load theme system
-    const script = document.createElement('script');
-    script.src = '/src/themes.js';
-    document.head.appendChild(script);
   </script>
 </body>
 </html>
-
-
-
