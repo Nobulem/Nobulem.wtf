@@ -1406,6 +1406,11 @@
 
     // Trigger matrix rain occasionally
     setInterval(createMatrixRain, 8000);
+
+    // Load theme system
+    const script = document.createElement('script');
+    script.src = '/src/themes.js';
+    document.head.appendChild(script);
   </script>
 </body>
 </html>
