@@ -841,7 +841,7 @@
         <a href="/games">Games & Scripts</a>
         <a href="/showcases">Showcases</a>
         <a href="/pricing">Pricing</a>
-        <a href="/developers">Developers</a>
+        <a href="/developers" style="color: #fff; opacity: 1;">Developers</a>
         <a href="/tos">Terms</a>
       </div>
     </div>
@@ -1095,6 +1095,7 @@
     </div>
   </footer>
 
+  <script src="/js/theme-manager.js"></script>
   <script>
     // Scroll-triggered animations
     const observerOptions = {
@@ -1406,14 +1407,6 @@
 
     // Trigger matrix rain occasionally
     setInterval(createMatrixRain, 8000);
-
-    // Load theme system
-    const script = document.createElement('script');
-    script.src = '/src/themes.js';
-    document.head.appendChild(script);
   </script>
 </body>
 </html>
-
-
-
