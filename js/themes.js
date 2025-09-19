@@ -119,19 +119,37 @@ class ThemeManager {
     };
 
     this.currentTheme = this.loadTheme();
+    this.isInitialized = false;
     this.init();
   }
 
   init() {
+    // Wait for DOM to be ready
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', () => {
+        this.initializeTheme();
+      });
+    } else {
+      this.initializeTheme();
+    }
+  }
+
+  initializeTheme() {
+    if (this.isInitialized) return;
+    
     this.createThemeButton();
     this.createThemeSelector();
     this.applyTheme(this.currentTheme);
     this.setupEventListeners();
+    this.isInitialized = true;
   }
 
   createThemeButton() {
     const linksContainer = document.querySelector('.nav .links');
     if (!linksContainer) return;
+
+    // Check if button already exists
+    if (document.getElementById('themeButton')) return;
 
     const themeButton = document.createElement('button');
     themeButton.id = 'themeButton';
@@ -146,6 +164,9 @@ class ThemeManager {
   }
 
   addThemeButtonStyles() {
+    // Check if styles already exist
+    if (document.getElementById('theme-button-styles')) return;
+
     const style = document.createElement('style');
     style.id = 'theme-button-styles';
     style.textContent = `
@@ -228,6 +249,9 @@ class ThemeManager {
   }
 
   createThemeSelector() {
+    // Check if selector already exists
+    if (document.getElementById('themeSelector')) return;
+
     const themeSelector = document.createElement('div');
     themeSelector.id = 'themeSelector';
     themeSelector.className = 'theme-selector-overlay';
@@ -265,6 +289,9 @@ class ThemeManager {
   }
 
   addThemeSelectorStyles() {
+    // Check if styles already exist
+    if (document.getElementById('theme-selector-styles')) return;
+
     const style = document.createElement('style');
     style.id = 'theme-selector-styles';
     style.textContent = `
@@ -734,8 +761,8 @@ class ThemeManager {
           }
           
           @keyframes neon-pulse {
-            0% { box-shadow: 0 0 20px #00ffff, 0 0 40px #ff00ff !important; }
-            100% { box-shadow: 0 0 40px #ff00ff, 0 0 60px #00ffff, 0 0 80px #ff00ff !important; }
+            0% { box-shadow: 0 0 20px #00ffff, 0 0 40px #ff00ff; }
+            100% { box-shadow: 0 0 40px #ff00ff, 0 0 60px #00ffff, 0 0 80px #ff00ff; }
           }
           
           @keyframes neon-float {
@@ -873,6 +900,12 @@ class ThemeManager {
   }
 
   showThemeChangeNotification(themeName) {
+    // Remove existing notification
+    const existingNotification = document.querySelector('.theme-notification');
+    if (existingNotification) {
+      existingNotification.remove();
+    }
+
     const notification = document.createElement('div');
     notification.className = 'theme-notification';
     notification.innerHTML = `
@@ -899,6 +932,24 @@ class ThemeManager {
 }
 
 // Initialize theme manager when DOM is loaded
-document.addEventListener('DOMContentLoaded', () => {
-  window.themeManager = new ThemeManager();
+let themeManagerInstance = null;
+
+function initThemeManager() {
+  if (!themeManagerInstance) {
+    themeManagerInstance = new ThemeManager();
+  }
+}
+
+// Multiple initialization methods to ensure it works
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initThemeManager);
+} else {
+  initThemeManager();
+}
+
+// Backup initialization
+window.addEventListener('load', () => {
+  if (!themeManagerInstance) {
+    initThemeManager();
+  }
 });
