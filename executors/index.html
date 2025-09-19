@@ -1148,6 +1148,11 @@
     document.head.appendChild(style);
 
     enhanceStatsAnimation();
+
+    // Load theme system
+    const script = document.createElement('script');
+    script.src = '/src/themes.js';
+    document.head.appendChild(script);
   </script>
 </body>
 </html>
