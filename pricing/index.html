@@ -301,7 +301,7 @@
     }
 
     .plan {
-      background: linear-gradient(145deg, #1a1a1a, #0d0d0d);
+      background: var(--cardBg, linear-gradient(145deg, #1a1a1a, #0d0d0d));
       border: 1px solid var(--line);
       border-radius: var(--radius);
       padding: 40px 35px;
@@ -358,7 +358,7 @@
 
     .plan.premium {
       border-color: #4ade80;
-      background: linear-gradient(145deg, #1a2a1a, #0d1a0d);
+      background: var(--cardBg, linear-gradient(145deg, #1a2a1a, #0d1a0d));
     }
 
     .plan.premium::before {
@@ -458,8 +458,8 @@
       display: block;
       width: 100%;
       padding: 16px 24px;
-      background: linear-gradient(145deg, #fff, #e5e5e5);
-      color: #000;
+      background: var(--buttonBg, linear-gradient(145deg, #fff, #e5e5e5));
+      color: var(--bg, #000);
       border: none;
       border-radius: 15px;
       font-size: 16px;
@@ -474,8 +474,8 @@
     }
 
     .plan.premium .plan-button {
-      background: linear-gradient(145deg, #4ade80, #22c55e);
-      color: #000;
+      background: var(--buttonBg, linear-gradient(145deg, #4ade80, #22c55e));
+      color: var(--bg, #000);
       box-shadow: 0 8px 25px rgba(74,222,128,0.3);
     }
 
@@ -508,7 +508,7 @@
       margin-top: 60px;
       text-align: center;
       padding: 40px;
-      background: linear-gradient(145deg, #1a1a2e, #0d0d1a);
+      background: var(--cardBg, linear-gradient(145deg, #1a1a2e, #0d0d1a));
       border: 1px solid #5865f2;
       border-radius: var(--radius);
       animation: discord-entrance 1s ease 1.4s both;

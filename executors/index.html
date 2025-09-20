@@ -312,7 +312,7 @@
     section{position:relative; z-index:20; padding:80px 0; border-top:1px solid var(--line)}
     .grid{display:grid; gap:20px}
     .card{
-      background:linear-gradient(145deg,#1a1a1a,#0d0d0d); 
+      background: var(--cardBg, linear-gradient(145deg,#1a1a1a,#0d0d0d)); 
       border:1px solid var(--line);
       border-radius:var(--radius); padding:26px; 
       box-shadow:var(--shadow); min-height:180px; 
@@ -345,7 +345,7 @@
 
     /* ---------- Enhanced Executor Cards ---------- */
     .executor-card {
-      background: linear-gradient(145deg,#1a1a1a,#0d0d0d);
+      background: var(--cardBg, linear-gradient(145deg,#1a1a1a,#0d0d0d));
       border: 1px solid var(--line);
       border-radius: var(--radius);
       padding: 24px;
@@ -558,7 +558,7 @@
     }
 
     .stat-card {
-      background: linear-gradient(145deg,#1a1a1a,#0d0d0d);
+      background: var(--cardBg, linear-gradient(145deg,#1a1a1a,#0d0d0d));
       border: 1px solid var(--line);
       border-radius: var(--radius);
       padding: 25px;
