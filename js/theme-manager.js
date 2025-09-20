@@ -1,4 +1,4 @@
-// Advanced Theme System for nobulem.wtf
+// Advanced Theme System for nobulem.wtf - Fixed Card Backgrounds
 class ThemeManager {
   constructor() {
     this.themes = {
@@ -14,7 +14,9 @@ class ThemeManager {
           line: '#333333',
           accent: '#ffffff',
           primary: '#ffffff',
-          secondary: '#888888'
+          secondary: '#888888',
+          cardBg: 'linear-gradient(145deg, #1a1a1a, #0d0d0d)',
+          buttonBg: '#ffffff'
         },
         particles: 'rgba(255,255,255,0.4)',
         waves: 'rgba(255,255,255,0.02)',
@@ -33,7 +35,9 @@ class ThemeManager {
           line: '#e5e7eb',
           accent: '#1a1a1a',
           primary: '#1a1a1a',
-          secondary: '#6b7280'
+          secondary: '#6b7280',
+          cardBg: 'linear-gradient(145deg, #ffffff, #f8f9fa)',
+          buttonBg: '#1a1a1a'
         },
         particles: 'rgba(26,26,26,0.3)',
         waves: 'rgba(26,26,26,0.05)',
@@ -52,7 +56,9 @@ class ThemeManager {
           line: 'rgba(255,255,255,0.2)',
           accent: '#fff3cd',
           primary: '#fff3cd',
-          secondary: '#ffb366'
+          secondary: '#ffb366',
+          cardBg: 'linear-gradient(145deg, rgba(255,255,255,0.15), rgba(255,255,255,0.08))',
+          buttonBg: '#fff3cd'
         },
         particles: 'rgba(255,243,205,0.6)',
         waves: 'rgba(255,243,205,0.1)',
@@ -71,7 +77,9 @@ class ThemeManager {
           line: 'rgba(0,255,255,0.3)',
           accent: '#ff00ff',
           primary: '#00ffff',
-          secondary: '#ff00ff'
+          secondary: '#ff00ff',
+          cardBg: 'linear-gradient(145deg, rgba(0,255,255,0.15), rgba(0,255,255,0.08))',
+          buttonBg: '#00ffff'
         },
         particles: 'rgba(0,255,255,0.8)',
         waves: 'rgba(255,0,255,0.1)',
@@ -90,7 +98,9 @@ class ThemeManager {
           line: 'rgba(138,43,226,0.3)',
           accent: '#9370db',
           primary: '#8a2be2',
-          secondary: '#6a5acd'
+          secondary: '#6a5acd',
+          cardBg: 'linear-gradient(145deg, rgba(138,43,226,0.15), rgba(138,43,226,0.08))',
+          buttonBg: '#9370db'
         },
         particles: 'rgba(147,112,219,0.7)',
         waves: 'rgba(138,43,226,0.1)',
@@ -109,7 +119,9 @@ class ThemeManager {
           line: 'rgba(0,191,255,0.3)',
           accent: '#00bfff',
           primary: '#1e90ff',
-          secondary: '#4682b4'
+          secondary: '#4682b4',
+          cardBg: 'linear-gradient(145deg, rgba(0,191,255,0.15), rgba(0,191,255,0.08))',
+          buttonBg: '#00bfff'
         },
         particles: 'rgba(0,191,255,0.6)',
         waves: 'rgba(30,144,255,0.1)',
@@ -664,6 +676,9 @@ class ThemeManager {
     // Apply theme-specific animations
     this.applyThemeAnimations(themeName);
 
+    // Update card backgrounds and buttons
+    this.updateCardBackgrounds(theme);
+
     // Update navigation background
     const nav = document.querySelector('.nav');
     if (nav) {
@@ -673,6 +688,44 @@ class ThemeManager {
         nav.style.background = 'rgba(0,0,0,0.9)';
       }
     }
+  }
+
+  updateCardBackgrounds(theme) {
+    // Update all card backgrounds
+    const cardSelectors = [
+      '.card',
+      '.game-card',
+      '.dev-card-mini',
+      '.dev-card',
+      '.showcase-card',
+      '.video-card',
+      '.executor-card',
+      '.plan',
+      '.stat-card',
+      '.contact-card',
+      '.info-card',
+      '.highlight-box',
+      '.discord-cta',
+      '.team-stats',
+      '.quote-section',
+      '.tos-content'
+    ];
+
+    cardSelectors.forEach(selector => {
+      const elements = document.querySelectorAll(selector);
+      elements.forEach(element => {
+        element.style.background = theme.colors.cardBg;
+      });
+    });
+
+    // Update button backgrounds for better visibility
+    const buttons = document.querySelectorAll('.btn, .plan-button, .discord-button, .sort-btn, .theme-button');
+    buttons.forEach(button => {
+      if (button.classList.contains('primary') || button.classList.contains('plan-button')) {
+        button.style.background = theme.colors.buttonBg;
+        button.style.color = theme.name === 'light' ? '#ffffff' : '#000000';
+      }
+    });
   }
 
   updateParticles(theme) {

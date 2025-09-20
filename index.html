@@ -274,7 +274,8 @@
     }
     .btn{
       display:inline-flex; align-items:center; justify-content:center; gap:12px;
-      padding:16px 24px; border-radius:15px; border:2px solid #fff; cursor:pointer; 
+      padding:16px 24px; border-radius:15px; 
+      border:2px solid var(--accent); cursor:pointer; 
       transition:all var(--speed) ease;
       box-shadow:var(--shadow);
       position: relative;
@@ -294,7 +295,8 @@
       left: 100%;
     }
     .btn.primary{
-      background:#fff; color:#000;
+      background: var(--buttonBg, #fff); 
+      color: var(--bg, #000);
       animation: btn-glow 2s ease-in-out infinite;
     }
     .btn.ghost{background:transparent}
@@ -305,7 +307,7 @@
     .grid{display:grid; gap:20px}
     .cards{grid-template-columns:repeat(4,1fr)}
     .card{
-      background:linear-gradient(145deg,#1a1a1a,#0d0d0d); 
+      background: var(--cardBg, linear-gradient(145deg,#1a1a1a,#0d0d0d)); 
       border:1px solid var(--line);
       border-radius:var(--radius); padding:26px; 
       box-shadow:var(--shadow); min-height:180px; 
@@ -342,7 +344,7 @@
 
     /* ---------- Game Cards ---------- */
     .game-card {
-      background: linear-gradient(145deg,#1a1a1a,#0d0d0d);
+      background: var(--cardBg, linear-gradient(145deg,#1a1a1a,#0d0d0d));
       border: 1px solid var(--line);
       border-radius: var(--radius);
       overflow: hidden;
@@ -389,7 +391,7 @@
     }
 
     .dev-card-mini {
-      background: linear-gradient(145deg, #1a1a1a, #0d0d0d);
+      background: var(--cardBg, linear-gradient(145deg, #1a1a1a, #0d0d0d));
       border: 1px solid var(--line);
       border-radius: var(--radius);
       padding: 25px;
@@ -435,7 +437,7 @@
 
     /* ---------- Showcase Cards ---------- */
     .showcase-card {
-      background: linear-gradient(145deg, #1a1a1a, #0d0d0d);
+      background: var(--cardBg, linear-gradient(145deg, #1a1a1a, #0d0d0d));
       border: 1px solid var(--line);
       border-radius: var(--radius);
       overflow: hidden;
