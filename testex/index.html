@@ -1,0 +1,932 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Executors - nobulem.wtf</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Real-time executor status tracking for popular Roblox executors. Check if your favorite executor is working!">
+  <meta name="keywords" content="roblox, executors, status, solara, wave, zenith, nucleus, volcano swift">
+  <link rel="icon" type="image/x-icon" href="https://i.ibb.co/NdNpCJ4v/image-2.png">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      font-family: 'Poppins', sans-serif;
+      scroll-behavior: smooth;
+      box-sizing: border-box;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+    }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      overflow-y: initial;
+      background-color: #0a0a0a;
+      height: fit-content;
+      transition: all 0.3s ease;
+    }
+
+    body::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    body::-webkit-scrollbar-track {
+      background: #1a1a1a;
+    }
+
+    body::-webkit-scrollbar-thumb {
+      background: linear-gradient(135deg, #348cff, #14cdff);
+      border-radius: 4px;
+    }
+
+    body::-webkit-scrollbar-thumb:hover {
+      background: linear-gradient(135deg, #14cdff, #348cff);
+    }
+
+    .header {
+      min-height: 70px;
+      max-height: 70px;
+      height: 70px;
+      min-width: 100vw;
+      max-width: 100vw;
+      width: 100vw;
+      background: rgba(30, 30, 30, 0.95);
+      backdrop-filter: blur(10px);
+      margin-left: auto;
+      margin-right: auto;
+      transition: all 0.3s ease;
+      position: fixed;
+      z-index: 1000;
+      border-bottom: 1px solid rgba(66, 66, 66, 0.3);
+    }
+
+    .header-item {
+      font-size: 1.4rem;
+      color: rgba(240, 240, 240, 0.7);
+      font-weight: 400;
+      text-decoration: none;
+      text-transform: uppercase;
+      line-height: 1;
+      letter-spacing: 1px;
+      height: 70px;
+      -webkit-transition: all .2s ease;
+      transition: all .2s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 16px;
+    }
+
+    .header-item:hover {
+      background: rgba(195, 196, 196, 0.12);
+      color: #fdfdfd;
+    }
+
+    .header-logo img {
+      max-height: calc(40px);
+    }
+
+    .header-logo {
+      display: inline-flex;
+      align-items: center;
+      margin-right: 28px;
+    }
+
+    .content-holder-flex {
+      max-width: 1200px;
+      margin-left: auto;
+      margin-right: auto;
+      width: 100%;
+      width: calc(100% - 56px);
+      transition: max-width .2s;
+      position: relative;
+      height: 70px;
+      display: flex;
+      align-items: center;
+    }
+
+    .nav-container {
+      display: flex;
+      gap: 0;
+      align-items: center;
+      margin-left: auto;
+    }
+
+    .nav-item {
+      font-size: 0.9rem;
+      color: rgba(240, 240, 240, 0.7);
+      font-weight: 400;
+      text-decoration: none;
+      text-transform: uppercase;
+      line-height: 1;
+      letter-spacing: 1px;
+      height: 70px;
+      transition: all .2s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 16px;
+      cursor: pointer;
+    }
+
+    .nav-item:hover {
+      background: rgba(195, 196, 196, 0.12);
+      color: #fdfdfd;
+    }
+
+    .nav-item i {
+      margin-right: 8px;
+      color: #808080;
+    }
+
+    .main-container {
+      min-height: 100vh;
+      padding-top: 90px;
+      background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+    }
+
+    .hero-section {
+      text-align: center;
+      padding: 60px 20px;
+      background: radial-gradient(ellipse at center, rgba(52, 140, 255, 0.1) 0%, transparent 70%);
+    }
+
+    .hero-title {
+      font-size: 4rem;
+      font-weight: 800;
+      margin-bottom: 20px;
+      background: linear-gradient(135deg, #01ffee 0%, #3f76ff 100%);
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 0 40px rgba(0, 123, 255, 0.3);
+      animation: glow 2s ease-in-out infinite alternate;
+    }
+
+    .hero-subtitle {
+      font-size: 1.5rem;
+      color: #b1b1b1;
+      margin-bottom: 40px;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .status-legend {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      margin-bottom: 40px;
+      flex-wrap: wrap;
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 24px;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 25px;
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .legend-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+
+    .legend-dot.working {
+      background: linear-gradient(135deg, #00ff88, #00cc6a);
+      box-shadow: 0 0 15px rgba(0, 255, 136, 0.5);
+    }
+
+    .legend-dot.detected {
+      background: linear-gradient(135deg, #ff4757, #ff3838);
+      box-shadow: 0 0 15px rgba(255, 71, 87, 0.5);
+    }
+
+    .legend-dot.outdated {
+      background: linear-gradient(135deg, #ffa726, #ff9800);
+      box-shadow: 0 0 15px rgba(255, 167, 38, 0.5);
+    }
+
+    .legend-text {
+      color: #ffffff;
+      font-weight: 500;
+    }
+
+    .executors-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+      gap: 30px;
+      padding: 40px;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .executor-card {
+      background: rgba(30, 30, 30, 0.8);
+      border-radius: 20px;
+      padding: 30px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(15px);
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+      opacity: 0;
+      transform: translateY(50px);
+      animation: fadeInUp 0.6s ease-out forwards;
+    }
+
+    .executor-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, transparent, #348cff, transparent);
+      transform: translateX(-100%);
+      transition: transform 0.6s ease;
+    }
+
+    .executor-card:hover::before {
+      transform: translateX(100%);
+    }
+
+    .executor-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3), 0 0 30px rgba(52, 140, 255, 0.2);
+      border-color: rgba(52, 140, 255, 0.3);
+    }
+
+    .executor-card.working {
+      border-left: 4px solid #00ff88;
+      box-shadow: 0 10px 30px rgba(0, 255, 136, 0.1);
+    }
+
+    .executor-card.detected {
+      border-left: 4px solid #ff4757;
+      box-shadow: 0 10px 30px rgba(255, 71, 87, 0.1);
+    }
+
+    .executor-card.outdated {
+      border-left: 4px solid #ffa726;
+      box-shadow: 0 10px 30px rgba(255, 167, 38, 0.1);
+    }
+
+    .executor-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .executor-name {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .executor-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, #348cff, #14cdff);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      color: white;
+    }
+
+    .status-indicator {
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .status-indicator.working {
+      background: linear-gradient(135deg, rgba(0, 255, 136, 0.2), rgba(0, 204, 106, 0.2));
+      color: #00ff88;
+      border: 1px solid rgba(0, 255, 136, 0.3);
+    }
+
+    .status-indicator.detected {
+      background: linear-gradient(135deg, rgba(255, 71, 87, 0.2), rgba(255, 56, 56, 0.2));
+      color: #ff4757;
+      border: 1px solid rgba(255, 71, 87, 0.3);
+    }
+
+    .status-indicator.outdated {
+      background: linear-gradient(135deg, rgba(255, 167, 38, 0.2), rgba(255, 152, 0, 0.2));
+      color: #ffa726;
+      border: 1px solid rgba(255, 167, 38, 0.3);
+    }
+
+    .executor-info {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 15px;
+      margin-bottom: 20px;
+    }
+
+    .info-item {
+      background: rgba(255, 255, 255, 0.05);
+      padding: 12px;
+      border-radius: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .info-label {
+      font-size: 0.8rem;
+      color: #808080;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 4px;
+    }
+
+    .info-value {
+      font-size: 1rem;
+      color: #ffffff;
+      font-weight: 500;
+    }
+
+    .executor-features {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 20px;
+    }
+
+    .feature-tag {
+      padding: 4px 12px;
+      background: rgba(52, 140, 255, 0.2);
+      border: 1px solid rgba(52, 140, 255, 0.3);
+      border-radius: 15px;
+      font-size: 0.75rem;
+      color: #348cff;
+      font-weight: 500;
+    }
+
+    .feature-tag.free {
+      background: rgba(0, 255, 136, 0.2);
+      border-color: rgba(0, 255, 136, 0.3);
+      color: #00ff88;
+    }
+
+    .feature-tag.unc {
+      background: rgba(138, 43, 226, 0.2);
+      border-color: rgba(138, 43, 226, 0.3);
+      color: #8a2be2;
+    }
+
+    .executor-actions {
+      display: flex;
+      gap: 12px;
+    }
+
+    .action-btn {
+      flex: 1;
+      padding: 12px;
+      border: none;
+      border-radius: 10px;
+      font-weight: 600;
+      text-decoration: none;
+      text-align: center;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .action-btn.primary {
+      background: linear-gradient(135deg, #348cff, #14cdff);
+      color: white;
+    }
+
+    .action-btn.primary:hover {
+      background: linear-gradient(135deg, #14cdff, #348cff);
+      transform: translateY(-2px);
+      box-shadow: 0 10px 20px rgba(52, 140, 255, 0.3);
+    }
+
+    .action-btn.secondary {
+      background: rgba(255, 255, 255, 0.1);
+      color: #ffffff;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .action-btn.secondary:hover {
+      background: rgba(255, 255, 255, 0.2);
+      transform: translateY(-2px);
+    }
+
+    .loading-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 400px;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .loading-spinner {
+      width: 60px;
+      height: 60px;
+      border: 4px solid rgba(52, 140, 255, 0.2);
+      border-left: 4px solid #348cff;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+
+    .loading-text {
+      color: #b1b1b1;
+      font-size: 1.2rem;
+    }
+
+    .error-container {
+      text-align: center;
+      padding: 40px;
+      color: #ff4757;
+    }
+
+    .error-icon {
+      font-size: 4rem;
+      margin-bottom: 20px;
+    }
+
+    .error-text {
+      font-size: 1.2rem;
+      margin-bottom: 20px;
+    }
+
+    .retry-btn {
+      background: linear-gradient(135deg, #348cff, #14cdff);
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 10px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .retry-btn:hover {
+      background: linear-gradient(135deg, #14cdff, #348cff);
+      transform: translateY(-2px);
+    }
+
+    .stats-bar {
+      background: rgba(30, 30, 30, 0.8);
+      padding: 20px;
+      margin: 40px;
+      border-radius: 15px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    .stat-item {
+      text-align: center;
+    }
+
+    .stat-number {
+      font-size: 2rem;
+      font-weight: 700;
+      color: #348cff;
+      display: block;
+    }
+
+    .stat-label {
+      color: #b1b1b1;
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    @keyframes fadeInUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes glow {
+      from {
+        text-shadow: 0 0 40px rgba(0, 123, 255, 0.3);
+      }
+      to {
+        text-shadow: 0 0 60px rgba(0, 123, 255, 0.6);
+      }
+    }
+
+    @keyframes pulse {
+      0%, 100% {
+        transform: scale(1);
+        opacity: 1;
+      }
+      50% {
+        transform: scale(1.1);
+        opacity: 0.8;
+      }
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    @media (max-width: 768px) {
+      .hero-title {
+        font-size: 2.5rem;
+      }
+
+      .executors-grid {
+        grid-template-columns: 1fr;
+        padding: 20px;
+      }
+
+      .executor-card {
+        padding: 20px;
+      }
+
+      .status-legend {
+        gap: 15px;
+      }
+
+      .legend-item {
+        padding: 8px 16px;
+      }
+
+      .stats-bar {
+        margin: 20px;
+        padding: 15px;
+      }
+
+      .nav-item {
+        font-size: 0.8rem;
+        padding: 0 12px;
+      }
+
+      .nav-item i {
+        display: none;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header id="header" class="header">
+    <div class="content-holder-flex">
+      <div class="header-logo">
+        <a style="margin-right: 28px; display: flex;" href="index.html">
+          <img src="https://i.ibb.co/NdNpCJ4v/image-2.png" alt="nobulem Logo">
+        </a>
+      </div>
+      <div class="nav-container">
+        <a class="nav-item" href="index.html"><i class="fa-solid fa-home"></i> Home</a>
+        <a class="nav-item" href="#executors"><i class="fa-solid fa-terminal"></i> Executors</a>
+        <a class="nav-item" href="#discord"><i class="fa-brands fa-discord"></i> Discord</a>
+        <a class="nav-item" href="#games-scripts"><i class="fa-solid fa-gamepad"></i> Games & Scripts</a>
+        <a class="nav-item" href="#showcases"><i class="fa-solid fa-video"></i> Showcases</a>
+        <a class="nav-item" href="#pricing"><i class="fa-solid fa-dollar-sign"></i> Pricing</a>
+        <a class="nav-item" href="#terms"><i class="fa-solid fa-file-contract"></i> Terms</a>
+      </div>
+    </div>
+  </header>
+
+  <div class="main-container">
+    <div class="hero-section">
+      <h1 class="hero-title">Executor Status</h1>
+      <p class="hero-subtitle">Real-time status tracking for popular Roblox executors. Stay updated with the latest working executors!</p>
+      
+      <div class="status-legend">
+        <div class="legend-item">
+          <div class="legend-dot working"></div>
+          <span class="legend-text">Working</span>
+        </div>
+        <div class="legend-item">
+          <div class="legend-dot detected"></div>
+          <span class="legend-text">Detected</span>
+        </div>
+        <div class="legend-item">
+          <div class="legend-dot outdated"></div>
+          <span class="legend-text">Outdated</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="stats-bar" id="stats-bar" style="display: none;">
+      <div class="stat-item">
+        <span class="stat-number" id="total-executors">0</span>
+        <span class="stat-label">Total Tracked</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-number" id="working-count">0</span>
+        <span class="stat-label">Working</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-number" id="detected-count">0</span>
+        <span class="stat-label">Detected</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-number" id="free-count">0</span>
+        <span class="stat-label">Free</span>
+      </div>
+    </div>
+
+    <div id="loading" class="loading-container">
+      <div class="loading-spinner"></div>
+      <div class="loading-text">Loading executor status...</div>
+    </div>
+
+    <div id="error" class="error-container" style="display: none;">
+      <div class="error-icon">⚠️</div>
+      <div class="error-text">Failed to load executor data</div>
+      <button class="retry-btn" onclick="loadExecutors()">Retry</button>
+    </div>
+
+    <div id="executors-container" class="executors-grid" style="display: none;"></div>
+  </div>
+
+  <script>
+    // Popular executors to filter for
+    const popularExecutors = [
+      'solara', 'wave', 'zenith', 'nucleus', 'volcano', 'swift', 'celery', 
+      'synapse', 'script-ware', 'krnl', 'oxygen u', 'fluxus', 'jjsploit',
+      'electron', 'proxo', 'infinite yield', 'dex', 'ro-exec', 'protosmasher',
+      'sentinel', 'sirhurt', 'coco z', 'delta', 'vega x', 'trigon', 'arceus x',
+      'evon', 'codex', 'kitten milk', 'comet', 'nihon', 'hydrogen', 'valyse',
+      'bytecode', 'sk8r', 'aspect', 'novaline', 'rebel', 'arthas', 'xeno',
+      'bunni', 'potassium', 'matcha', 'photon', 'apple'
+    ];
+
+    let executorsData = [];
+    let stats = {
+      total: 0,
+      working: 0,
+      detected: 0,
+      free: 0
+    };
+
+    function getExecutorIcon(name) {
+      const icons = {
+        'solara': '☀️',
+        'wave': '🌊',
+        'zenith': '⛰️',
+        'nucleus': '⚛️',
+        'volcano': '🌋',
+        'swift': '⚡',
+        'synapse': '🔮',
+        'krnl': '👑',
+        'fluxus': '🔥',
+        'electron': '⚡',
+        'celery': '🥬',
+        'delta': '△',
+        'vega': '⭐',
+        'trigon': '🔺',
+        'evon': '🎯',
+        'comet': '☄️',
+        'hydrogen': '💎',
+        'xeno': '👽',
+        'bunni': '🐰',
+        'potassium': '⚗️',
+        'matcha': '🍃',
+        'photon': '💫'
+      };
+      
+      const key = name.toLowerCase().replace(/[^a-z]/g, '');
+      return icons[key] || '⚙️';
+    }
+
+    function determineStatus(executor) {
+      if (executor.detected) return 'detected';
+      if (!executor.updateStatus) return 'outdated';
+      return 'working';
+    }
+
+    function getStatusText(status) {
+      switch(status) {
+        case 'working': return 'Working';
+        case 'detected': return 'Detected';
+        case 'outdated': return 'Outdated';
+        default: return 'Unknown';
+      }
+    }
+
+    function getStatusIcon(status) {
+      switch(status) {
+        case 'working': return '✅';
+        case 'detected': return '🚫';
+        case 'outdated': return '⚠️';
+        default: return '❓';
+      }
+    }
+
+    function formatDate(dateString) {
+      try {
+        const date = new Date(dateString);
+        return date.toLocaleDateString() + ' ' + date.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+      } catch {
+        return dateString;
+      }
+    }
+
+    function isPopularExecutor(name) {
+      const cleanName = name.toLowerCase().replace(/[^a-z0-9]/g, '');
+      return popularExecutors.some(popular => 
+        cleanName.includes(popular.replace(/[^a-z0-9]/g, '')) || 
+        popular.replace(/[^a-z0-9]/g, '').includes(cleanName)
+      );
+    }
+
+    function createExecutorCard(executor) {
+      const status = determineStatus(executor);
+      const features = [];
+      
+      if (executor.free) features.push({ text: 'Free', class: 'free' });
+      if (executor.uncStatus) features.push({ text: 'UNC Support', class: 'unc' });
+      if (executor.decompiler) features.push({ text: 'Decompiler', class: '' });
+      if (executor.multiInject) features.push({ text: 'Multi-Inject', class: '' });
+      if (executor.keysystem) features.push({ text: 'Key System', class: '' });
+
+      return `
+        <div class="executor-card ${status}" style="animation-delay: ${Math.random() * 0.3}s">
+          <div class="executor-header">
+            <div class="executor-name">
+              <div class="executor-icon">${getExecutorIcon(executor.title)}</div>
+              ${executor.title}
+            </div>
+            <div class="status-indicator ${status}">
+              ${getStatusIcon(status)}
+              ${getStatusText(status)}
+            </div>
+          </div>
+          
+          <div class="executor-info">
+            <div class="info-item">
+              <div class="info-label">Version</div>
+              <div class="info-value">${executor.version || 'N/A'}</div>
+            </div>
+            <div class="info-item">
+              <div class="info-label">Platform</div>
+              <div class="info-value">${executor.platform || 'N/A'}</div>
+            </div>
+            <div class="info-item">
+              <div class="info-label">Price</div>
+              <div class="info-value">${executor.free ? 'Free' : (executor.cost || 'Paid')}</div>
+            </div>
+            <div class="info-item">
+              <div class="info-label">Last Updated</div>
+              <div class="info-value">${formatDate(executor.updatedDate)}</div>
+            </div>
+          </div>
+
+          ${features.length > 0 ? `
+            <div class="executor-features">
+              ${features.map(feature => `<span class="feature-tag ${feature.class}">${feature.text}</span>`).join('')}
+            </div>
+          ` : ''}
+
+          <div class="executor-actions">
+            ${executor.websitelink ? `
+              <a href="${executor.websitelink}" target="_blank" class="action-btn primary">
+                <i class="fa-solid fa-external-link-alt"></i>
+                Website
+              </a>
+            ` : ''}
+            ${executor.discordlink ? `
+              <a href="${executor.discordlink}" target="_blank" class="action-btn secondary">
+                <i class="fa-brands fa-discord"></i>
+                Discord
+              </a>
+            ` : ''}
+          </div>
+        </div>
+      `;
+    }
+
+    function updateStats() {
+      document.getElementById('total-executors').textContent = stats.total;
+      document.getElementById('working-count').textContent = stats.working;
+      document.getElementById('detected-count').textContent = stats.detected;
+      document.getElementById('free-count').textContent = stats.free;
+      document.getElementById('stats-bar').style.display = 'flex';
+    }
+
+    function renderExecutors() {
+      const container = document.getElementById('executors-container');
+      const filteredExecutors = executorsData.filter(executor => isPopularExecutor(executor.title));
+      
+      // Calculate stats
+      stats.total = filteredExecutors.length;
+      stats.working = filteredExecutors.filter(e => determineStatus(e) === 'working').length;
+      stats.detected = filteredExecutors.filter(e => determineStatus(e) === 'detected').length;
+      stats.free = filteredExecutors.filter(e => e.free).length;
+      
+      // Sort executors: working first, then by popularity/name
+      filteredExecutors.sort((a, b) => {
+        const statusA = determineStatus(a);
+        const statusB = determineStatus(b);
+        
+        if (statusA === 'working' && statusB !== 'working') return -1;
+        if (statusB === 'working' && statusA !== 'working') return 1;
+        
+        return a.title.localeCompare(b.title);
+      });
+
+      container.innerHTML = filteredExecutors.map(createExecutorCard).join('');
+      container.style.display = 'grid';
+      
+      updateStats();
+      
+      // Animate cards
+      setTimeout(() => {
+        const cards = document.querySelectorAll('.executor-card');
+        cards.forEach((card, index) => {
+          setTimeout(() => {
+            card.style.animationDelay = `${index * 0.1}s`;
+          }, index * 100);
+        });
+      }, 100);
+    }
+
+    async function loadExecutors() {
+      const loadingElement = document.getElementById('loading');
+      const errorElement = document.getElementById('error');
+      const containerElement = document.getElementById('executors-container');
+      
+      loadingElement.style.display = 'flex';
+      errorElement.style.display = 'none';
+      containerElement.style.display = 'none';
+
+      try {
+        const response = await fetch('https://weao.xyz/api/status/exploits', {
+          headers: {
+            'User-Agent': 'WEAO-3PService'
+          }
+        });
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const data = await response.json();
+        executorsData = data;
+        
+        loadingElement.style.display = 'none';
+        renderExecutors();
+        
+      } catch (error) {
+        console.error('Error fetching executors:', error);
+        loadingElement.style.display = 'none';
+        errorElement.style.display = 'block';
+      }
+    }
+
+    // Sticky header
+    window.onscroll = function() {
+      const header = document.getElementById("header");
+      if (window.pageYOffset > 0) {
+        header.style.background = 'rgba(30, 30, 30, 0.95)';
+        header.style.backdropFilter = 'blur(15px)';
+      } else {
+        header.style.background = 'rgba(30, 30, 30, 0.95)';
+        header.style.backdropFilter = 'blur(10px)';
+      }
+    };
+
+    // Load executors when page loads
+    document.addEventListener('DOMContentLoaded', loadExecutors);
+
+    // Auto-refresh every 5 minutes
+    setInterval(loadExecutors, 300000);
+  </script>
+</body>
+</html>
