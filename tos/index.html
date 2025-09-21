@@ -425,12 +425,13 @@
     }
 
     .warning-box {
-      background: linear-gradient(135deg, rgba(255,100,100,0.1), rgba(255,50,50,0.05));
+      background: var(--cardBg, linear-gradient(135deg, rgba(255,100,100,0.1), rgba(255,50,50,0.05)));
       border: 1px solid rgba(255,100,100,0.3);
       border-radius: 12px;
       padding: 20px;
       margin: 25px 0;
       animation: warning-pulse 2s ease-in-out infinite;
+      color: var(--text);
     }
 
     .info-grid {
