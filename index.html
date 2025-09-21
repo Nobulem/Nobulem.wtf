@@ -295,8 +295,8 @@
       left: 100%;
     }
     .btn.primary{
-      background: var(--buttonBg, #fff); 
-      color: var(--bg, #000);
+      background: var(--buttonBg, #fff);
+      color: var(--bg) === '#ffffff' ? '#000000' : '#ffffff';
       animation: btn-glow 2s ease-in-out infinite;
     }
     .btn.ghost{background:transparent}
