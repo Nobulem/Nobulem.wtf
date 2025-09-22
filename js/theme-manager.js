@@ -30,12 +30,15 @@ class ThemeManager {
           bg: '#ffffff',
           bg2: '#f8f9fa',
           card: '#ffffff',
-          text: '#1a1a1a',
-          muted: '#6b7280',
+          text: '#000000',
+          muted: '#4a5568',
           line: '#e5e7eb',
           accent: '#1a1a1a',
           primary: '#1a1a1a',
           secondary: '#6b7280',
+          cardBg: 'linear-gradient(145deg, #ffffff, #f8f9fa)',
+          buttonBg: '#1a1a1a',
+          navActive: '#000000'
           cardBg: 'linear-gradient(145deg, #ffffff, #f8f9fa)',
           buttonBg: '#1a1a1a'
         },
@@ -708,13 +711,16 @@ class ThemeManager {
       '.discord-cta',
       '.team-stats',
       '.quote-section',
-      '.tos-content'
+      '.tos-content',
+      '.loader-section',
+      '.warning-box'
     ];
 
     cardSelectors.forEach(selector => {
       const elements = document.querySelectorAll(selector);
       elements.forEach(element => {
         element.style.background = theme.colors.cardBg;
+        element.style.border = `1px solid ${theme.colors.line}`;
       });
     });
 
@@ -723,7 +729,52 @@ class ThemeManager {
     buttons.forEach(button => {
       if (button.classList.contains('primary') || button.classList.contains('plan-button')) {
         button.style.background = theme.colors.buttonBg;
-        button.style.color = theme.name === 'light' ? '#ffffff' : '#000000';
+        button.style.color = theme.name === 'light' ? '#ffffff' : (theme.colors.bg === '#ffffff' ? '#000000' : '#ffffff');
+        if (theme.name === 'light') {
+          button.style.textShadow = '0 0 10px rgba(255,255,255,0.8)';
+          button.style.boxShadow = '0 0 20px rgba(26,26,26,0.3)';
+        }
+      }
+    });
+
+    // Fix navigation active state
+    const navLinks = document.querySelectorAll('.nav .links a');
+    navLinks.forEach(link => {
+      if (link.style.color === '#fff' || link.style.opacity === '1') {
+        if (theme.name === 'light') {
+          link.style.color = '#000000';
+          link.style.textShadow = '1px 1px 2px rgba(255,255,255,0.8)';
+          link.style.fontWeight = '900';
+        } else {
+          link.style.color = '#fff';
+          link.style.textShadow = '';
+          link.style.fontWeight = '800';
+        }
+      }
+    });
+
+    // Fix search inputs
+    const searchInputs = document.querySelectorAll('input[type="text"], input[type="search"], .search-input');
+    searchInputs.forEach(input => {
+      if (theme.name === 'light') {
+        input.style.background = '#ffffff';
+        input.style.color = '#000000';
+        input.style.border = '2px solid #e5e7eb';
+        input.style.boxShadow = 'inset 0 2px 4px rgba(0,0,0,0.1)';
+      } else {
+        input.style.background = theme.colors.card;
+        input.style.color = theme.colors.text;
+        input.style.border = `1px solid ${theme.colors.line}`;
+      }
+    });
+
+    // Fix clear buttons
+    const clearButtons = document.querySelectorAll('.clear-btn');
+    clearButtons.forEach(btn => {
+      if (theme.name === 'light') {
+        btn.style.background = '#e5e7eb';
+        btn.style.color = '#000000';
+        btn.style.border = '1px solid #d1d5db';
       }
     });
   }

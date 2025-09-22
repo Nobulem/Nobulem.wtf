@@ -251,6 +251,13 @@
       width: 100%;
     }
 
+    /* Fix active nav link visibility */
+    .links a[style*="color: #fff"],
+    .links a[style*="opacity: 1"] {
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+      font-weight: 900;
+    }
+
     /* ---------- Hero ---------- */
     .hero{
       position:relative; z-index:20; padding:120px 0 80px; text-align:center;
@@ -258,6 +265,7 @@
     .eyebrow{
       color:#eaeaea; text-transform:uppercase; font-size:14px; letter-spacing:.3em;
       animation: fade-in-up 1s ease 0.2s both;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
     }
     .title{
       font-size: clamp(48px, 8vw, 90px); line-height:1.02; margin:.8rem 0 1rem;
@@ -266,6 +274,7 @@
     .subtitle{
       font-size: clamp(18px, 2.5vw, 24px); color:var(--muted);
       animation: fade-in-up 1s ease 0.8s both;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
     }
     .actions{
       display:flex; gap:16px; justify-content:center; flex-wrap:wrap;
@@ -296,8 +305,10 @@
     }
     .btn.primary{
       background: var(--buttonBg, #fff);
-      color: var(--bg) === '#ffffff' ? '#000000' : '#ffffff';
+      color: #ffffff;
       animation: btn-glow 2s ease-in-out infinite;
+      text-shadow: 0 0 10px rgba(255,255,255,0.8);
+      font-weight: 900;
     }
     .btn.ghost{background:transparent}
     .btn:hover{transform:translateY(-3px) scale(1.05);}
@@ -525,6 +536,7 @@
     footer{
       border-top:1px solid var(--line); padding:30px 0 70px; color:var(--muted); text-align:center;
       animation: footer-entrance 1s ease both;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
     }
 
     /* ---------- Animation Keyframes ---------- */
