@@ -38,7 +38,7 @@ class ThemeManager {
           secondary: '#6b7280',
           cardBg: 'linear-gradient(145deg, #ffffff, #f8f9fa)',
           buttonBg: '#1a1a1a',
-          navActive: '#C0C0C0'
+          navActive: '#000000'
           cardBg: 'linear-gradient(145deg, #ffffff, #f8f9fa)',
           buttonBg: '#1a1a1a'
         },
