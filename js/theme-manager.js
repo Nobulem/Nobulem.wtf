@@ -1082,11 +1082,27 @@ class ThemeManager {
           .theme-light .particle {
             animation: light-float 25s linear infinite, light-shimmer 3s ease-in-out infinite;
             background: radial-gradient(circle, rgba(26,26,26,0.6) 0%, rgba(26,26,26,0.3) 70%, transparent 100%) !important;
+            position: fixed !important;
+            z-index: 0 !important;
           }
           
           .theme-light .shape {
             border-color: rgba(26,26,26,0.2) !important;
             box-shadow: 0 0 15px rgba(26,26,26,0.1);
+          }
+          
+          .theme-light .bg-animation::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+              radial-gradient(circle at 30% 20%, rgba(248,249,250,0.8) 0%, transparent 50%),
+              radial-gradient(circle at 70% 80%, rgba(229,231,235,0.6) 0%, transparent 50%);
+            animation: light-ambient 10s ease-in-out infinite;
+            pointer-events: none;
           }
           
           .theme-light .bg-animation::after {
@@ -1113,6 +1129,11 @@ class ThemeManager {
           @keyframes light-shimmer {
             0%, 100% { opacity: 0.3; }
             50% { opacity: 0.6; }
+          }
+          
+          @keyframes light-ambient {
+            0%, 100% { opacity: 0.2; transform: scale(1); }
+            50% { opacity: 0.4; transform: scale(1.05); }
           }
           
           @keyframes light-ambient {
