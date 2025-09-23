@@ -254,7 +254,8 @@
     /* Fix active nav link visibility */
     .links a[style*="color: #fff"],
     .links a[style*="opacity: 1"] {
-      text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+      color: var(--navActive, #fff) !important;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.3) !important;
       font-weight: 900;
     }
 
@@ -265,7 +266,8 @@
     .eyebrow{
       color:#eaeaea; text-transform:uppercase; font-size:14px; letter-spacing:.3em;
       animation: fade-in-up 1s ease 0.2s both;
-      text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+      color: var(--eyebrowColor, #eaeaea);
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
     }
     .title{
       font-size: clamp(48px, 8vw, 90px); line-height:1.02; margin:.8rem 0 1rem;
@@ -274,7 +276,8 @@
     .subtitle{
       font-size: clamp(18px, 2.5vw, 24px); color:var(--muted);
       animation: fade-in-up 1s ease 0.8s both;
-      text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+      color: var(--subtitleColor, var(--muted));
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
     }
     .actions{
       display:flex; gap:16px; justify-content:center; flex-wrap:wrap;
@@ -304,11 +307,12 @@
       left: 100%;
     }
     .btn.primary{
-      background: var(--buttonBg, #fff);
-      color: #ffffff;
+      background: var(--buttonBg, #fff) !important;
+      color: #ffffff !important;
       animation: btn-glow 2s ease-in-out infinite;
-      text-shadow: 0 0 10px rgba(255,255,255,0.8);
+      text-shadow: 0 0 10px rgba(255,255,255,0.8) !important;
       font-weight: 900;
+      border: 2px solid var(--buttonBg, #fff) !important;
     }
     .btn.ghost{background:transparent}
     .btn:hover{transform:translateY(-3px) scale(1.05);}

@@ -16,7 +16,11 @@ class ThemeManager {
           primary: '#ffffff',
           secondary: '#888888',
           cardBg: 'linear-gradient(145deg, #1a1a1a, #0d0d0d)',
-          buttonBg: '#ffffff'
+          buttonBg: '#ffffff',
+          navActive: '#ffffff',
+          eyebrowColor: '#eaeaea',
+          subtitleColor: '#cccccc',
+          borderColor: '#333333'
         },
         particles: 'rgba(255,255,255,0.4)',
         waves: 'rgba(255,255,255,0.02)',
@@ -38,9 +42,10 @@ class ThemeManager {
           secondary: '#6b7280',
           cardBg: 'linear-gradient(145deg, #ffffff, #f8f9fa)',
           buttonBg: '#1a1a1a',
-          navActive: '#000000'
-          cardBg: 'linear-gradient(145deg, #ffffff, #f8f9fa)',
-          buttonBg: '#1a1a1a'
+          navActive: '#000000',
+          eyebrowColor: '#000000',
+          subtitleColor: '#4a5568',
+          borderColor: '#e5e7eb'
         },
         particles: 'rgba(26,26,26,0.3)',
         waves: 'rgba(26,26,26,0.05)',
@@ -61,7 +66,11 @@ class ThemeManager {
           primary: '#fff3cd',
           secondary: '#ffb366',
           cardBg: 'linear-gradient(145deg, rgba(255,255,255,0.15), rgba(255,255,255,0.08))',
-          buttonBg: '#fff3cd'
+          buttonBg: '#fff3cd',
+          navActive: '#ffffff',
+          eyebrowColor: '#ffe4d6',
+          subtitleColor: '#ffe4d6',
+          borderColor: 'rgba(255,255,255,0.2)'
         },
         particles: 'rgba(255,243,205,0.6)',
         waves: 'rgba(255,243,205,0.1)',
@@ -82,7 +91,11 @@ class ThemeManager {
           primary: '#00ffff',
           secondary: '#ff00ff',
           cardBg: 'linear-gradient(145deg, rgba(0,255,255,0.15), rgba(0,255,255,0.08))',
-          buttonBg: '#00ffff'
+          buttonBg: '#00ffff',
+          navActive: '#00ffff',
+          eyebrowColor: '#66ffff',
+          subtitleColor: '#66ffff',
+          borderColor: 'rgba(0,255,255,0.3)'
         },
         particles: 'rgba(0,255,255,0.8)',
         waves: 'rgba(255,0,255,0.1)',
@@ -103,7 +116,11 @@ class ThemeManager {
           primary: '#8a2be2',
           secondary: '#6a5acd',
           cardBg: 'linear-gradient(145deg, rgba(138,43,226,0.15), rgba(138,43,226,0.08))',
-          buttonBg: '#9370db'
+          buttonBg: '#9370db',
+          navActive: '#e6e6fa',
+          eyebrowColor: '#b19cd9',
+          subtitleColor: '#b19cd9',
+          borderColor: 'rgba(138,43,226,0.3)'
         },
         particles: 'rgba(147,112,219,0.7)',
         waves: 'rgba(138,43,226,0.1)',
@@ -124,7 +141,11 @@ class ThemeManager {
           primary: '#1e90ff',
           secondary: '#4682b4',
           cardBg: 'linear-gradient(145deg, rgba(0,191,255,0.15), rgba(0,191,255,0.08))',
-          buttonBg: '#00bfff'
+          buttonBg: '#00bfff',
+          navActive: '#e0f6ff',
+          eyebrowColor: '#87ceeb',
+          subtitleColor: '#87ceeb',
+          borderColor: 'rgba(0,191,255,0.3)'
         },
         particles: 'rgba(0,191,255,0.6)',
         waves: 'rgba(30,144,255,0.1)',
@@ -691,6 +712,9 @@ class ThemeManager {
         nav.style.background = 'rgba(0,0,0,0.9)';
       }
     }
+
+    // Fix particles positioning
+    this.fixParticlePositioning();
   }
 
   updateCardBackgrounds(theme) {
@@ -720,7 +744,7 @@ class ThemeManager {
       const elements = document.querySelectorAll(selector);
       elements.forEach(element => {
         element.style.background = theme.colors.cardBg;
-        element.style.border = `1px solid ${theme.colors.line}`;
+        element.style.border = `1px solid ${theme.colors.borderColor}`;
       });
     });
 
@@ -737,19 +761,35 @@ class ThemeManager {
       }
     });
 
-    // Fix navigation active state
+    // Fix navigation active state for ALL nav links
     const navLinks = document.querySelectorAll('.nav .links a');
     navLinks.forEach(link => {
-      if (link.style.color === '#fff' || link.style.opacity === '1') {
+      if (link.style.color === '#fff' || link.style.opacity === '1' || link.getAttribute('style')?.includes('color: #fff')) {
+        link.style.color = theme.colors.navActive;
         if (theme.name === 'light') {
-          link.style.color = '#000000';
           link.style.textShadow = '1px 1px 2px rgba(255,255,255,0.8)';
           link.style.fontWeight = '900';
         } else {
-          link.style.color = '#fff';
           link.style.textShadow = '';
           link.style.fontWeight = '800';
         }
+      }
+    });
+
+    // Fix eyebrow and subtitle colors
+    const eyebrows = document.querySelectorAll('.eyebrow');
+    eyebrows.forEach(eyebrow => {
+      eyebrow.style.color = theme.colors.eyebrowColor;
+      if (theme.name === 'light') {
+        eyebrow.style.textShadow = '1px 1px 2px rgba(0,0,0,0.3)';
+      }
+    });
+
+    const subtitles = document.querySelectorAll('.subtitle, .hero-subtitle');
+    subtitles.forEach(subtitle => {
+      subtitle.style.color = theme.colors.subtitleColor;
+      if (theme.name === 'light') {
+        subtitle.style.textShadow = '1px 1px 2px rgba(0,0,0,0.3)';
       }
     });
 
@@ -776,6 +816,16 @@ class ThemeManager {
         btn.style.color = '#000000';
         btn.style.border = '1px solid #d1d5db';
       }
+    });
+  }
+
+  fixParticlePositioning() {
+    // Fix particles getting stuck at top by ensuring proper positioning
+    const particles = document.querySelectorAll('.particle');
+    particles.forEach(particle => {
+      particle.style.position = 'fixed';
+      particle.style.zIndex = '0';
+      particle.style.pointerEvents = 'none';
     });
   }
 
@@ -833,7 +883,7 @@ class ThemeManager {
           }
           
           .theme-sunset .particle {
-            animation: sunset-float 15s linear infinite;
+            animation: sunset-float 15s linear infinite, sunset-shimmer 3s ease-in-out infinite;
             background: radial-gradient(circle, rgba(255,243,205,0.8) 0%, rgba(255,107,53,0.6) 100%) !important;
           }
           
@@ -854,6 +904,11 @@ class ThemeManager {
             10% { opacity: 1; transform: translateY(90vh) rotate(36deg) scale(0.8); }
             90% { opacity: 1; transform: translateY(10vh) rotate(324deg) scale(1.2); }
             100% { transform: translateY(-10vh) rotate(360deg) scale(0.3); opacity: 0; }
+          }
+          
+          @keyframes sunset-shimmer {
+            0%, 100% { filter: brightness(1) hue-rotate(0deg); }
+            50% { filter: brightness(1.3) hue-rotate(15deg); }
           }
           
           @keyframes horizon-glow {
@@ -1105,20 +1160,6 @@ class ThemeManager {
             pointer-events: none;
           }
           
-          .theme-light .bg-animation::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: 
-              radial-gradient(circle at 30% 20%, rgba(248,249,250,0.8) 0%, transparent 50%),
-              radial-gradient(circle at 70% 80%, rgba(229,231,235,0.6) 0%, transparent 50%);
-            animation: light-ambient 10s ease-in-out infinite;
-            pointer-events: none;
-          }
-          
           @keyframes light-float {
             0% { transform: translateY(100vh) rotate(0deg) scale(0.8); opacity: 0; }
             20% { opacity: 0.4; transform: translateY(80vh) rotate(36deg) scale(1); }
@@ -1129,11 +1170,6 @@ class ThemeManager {
           @keyframes light-shimmer {
             0%, 100% { opacity: 0.3; }
             50% { opacity: 0.6; }
-          }
-          
-          @keyframes light-ambient {
-            0%, 100% { opacity: 0.2; transform: scale(1); }
-            50% { opacity: 0.4; transform: scale(1.05); }
           }
           
           @keyframes light-ambient {
