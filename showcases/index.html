@@ -251,6 +251,14 @@
       width: 100%;
     }
 
+    /* Fix active nav link visibility */
+    .links a[style*="color: #fff"],
+    .links a[style*="opacity: 1"] {
+      color: var(--navActive, #fff) !important;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.3) !important;
+      font-weight: 900;
+    }
+
     /* ---------- Hero Section ---------- */
     .hero {
       position: relative;
@@ -260,7 +268,8 @@
     }
 
     .eyebrow {
-      color: #eaeaea;
+      color: var(--eyebrowColor, #eaeaea);
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
       text-transform: uppercase;
       font-size: 14px;
       letter-spacing: .3em;
@@ -281,7 +290,8 @@
 
     .subtitle {
       font-size: clamp(18px, 2.5vw, 24px);
-      color: var(--muted);
+      color: var(--subtitleColor, var(--muted));
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
       animation: fade-in-up 1s ease 0.8s both;
     }
 
@@ -299,11 +309,11 @@
     }
 
     .sort-btn {
-      background: var(--cardBg, linear-gradient(145deg, #1a1a1a, #0d0d0d));
+      background: var(--cardBg, linear-gradient(145deg, #1a1a1a, #0d0d0d)) !important;
       border: 1px solid var(--line);
       border-radius: 25px;
       padding: 15px 30px;
-      color: var(--text);
+      color: var(--text) !important;
       font-size: 16px;
       font-weight: 700;
       cursor: pointer;

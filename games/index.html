@@ -286,12 +286,12 @@
     }
 
     .eyebrow {
-      color: #eaeaea;
+      color: var(--eyebrowColor, #eaeaea);
       text-transform: uppercase;
       font-size: 14px;
       letter-spacing: .3em;
       animation: fade-in-up 1s ease 0.2s both;
-      text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
     }
 
     .title {
@@ -308,9 +308,9 @@
 
     .subtitle {
       font-size: clamp(18px, 2.5vw, 24px);
-      color: var(--muted);
+      color: var(--subtitleColor, var(--muted));
       animation: fade-in-up 1s ease 0.8s both;
-      text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
     }
 
     /* ---------- Script Box ---------- */

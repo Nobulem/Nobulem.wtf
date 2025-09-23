@@ -290,11 +290,12 @@
       text-align: center;
     }
     .eyebrow {
-      color: #eaeaea;
+      color: var(--eyebrowColor, #eaeaea);
       text-transform: uppercase;
       font-size: 13px;
       letter-spacing: .24em;
       animation: fade-in 1.2s ease-out 0.2s both;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
     }
     .title {
       font-size: clamp(42px, 7vw, 76px);
@@ -304,8 +305,9 @@
     }
     .subtitle {
       font-size: clamp(16px, 2.2vw, 20px);
-      color: var(--muted);
+      color: var(--subtitleColor, var(--muted));
       animation: fade-in 1.2s ease-out 0.4s both;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
     }
 
     /* Content Section */
@@ -416,10 +418,11 @@
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       animation: gradient-text 3s ease infinite;
+      color: var(--text) !important;
     }
 
     .dev-role {
-      color: var(--accent);
+      color: var(--text) !important;
       font-size: 16px;
       margin-bottom: 20px;
       text-transform: uppercase;
@@ -449,14 +452,14 @@
     .stat-number {
       font-size: 24px;
       font-weight: 800;
-      color: #fff;
+      color: var(--text) !important;
       display: block;
       animation: number-pulse 1.5s ease-in-out infinite;
     }
 
     .stat-label {
       font-size: 12px;
-      color: var(--muted);
+      color: var(--subtitleColor, var(--muted));
       text-transform: uppercase;
       letter-spacing: 0.1em;
     }
@@ -470,15 +473,15 @@
     }
 
     .skill-tag {
-      background: var(--cardBg, rgba(255,255,255,0.1));
+      background: var(--cardBg, rgba(255,255,255,0.1)) !important;
       border: 1px solid var(--line);
       border-radius: 20px;
       padding: 6px 12px;
       font-size: 12px;
-      color: var(--text);
+      color: var(--text) !important;
       transition: all 0.3s ease;
       animation: tag-float 3s ease-in-out infinite;
-      text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
     }
 
     .skill-tag:hover {
@@ -535,14 +538,14 @@
     .team-stat-number {
       font-size: 48px;
       font-weight: 800;
-      color: #fff;
+      color: var(--text) !important;
       display: block;
       animation: big-number-pulse 2s ease-in-out infinite;
     }
 
     .team-stat-label {
       font-size: 14px;
-      color: var(--muted);
+      color: var(--subtitleColor, var(--muted));
       text-transform: uppercase;
       letter-spacing: 0.1em;
       margin-top: 8px;
@@ -613,6 +616,14 @@
       position: relative;
       z-index: 1;
       animation: fade-in 1s ease-out 1.5s both;
+    }
+
+    /* Fix active nav link visibility */
+    .links a[style*="color: #fff"],
+    .links a[style*="opacity: 1"] {
+      color: var(--navActive, #fff) !important;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.3) !important;
+      font-weight: 900;
     }
 
     /* ---------- Animations ---------- */

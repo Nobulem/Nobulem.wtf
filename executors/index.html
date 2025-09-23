@@ -251,6 +251,14 @@
       width: 100%;
     }
 
+    /* Fix active nav link visibility */
+    .links a[style*="color: #fff"],
+    .links a[style*="opacity: 1"] {
+      color: var(--navActive, #fff) !important;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.3) !important;
+      font-weight: 900;
+    }
+
     /* ---------- Warning Banner ---------- */
     .warning-banner {
       margin: 20px auto;
@@ -626,6 +634,7 @@
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       animation: gradient-text-hero 4s ease infinite, title-entrance 1.5s ease 0.2s both;
+      color: var(--text) !important;
     }
 
     .hero-subtitle {
@@ -633,6 +642,8 @@
       color: var(--muted);
       animation: fade-in-up 1s ease 0.6s both;
       margin-bottom: 20px;
+      color: var(--subtitleColor, var(--muted));
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
     }
 
     /* ---------- Footer ---------- */
