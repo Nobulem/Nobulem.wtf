@@ -1,4 +1,4 @@
-/ Advanced Theme System for nobulem.wtf - Fixed Card Backgrounds
+// Advanced Theme System for nobulem.wtf - Fixed Card Backgrounds
 class ThemeManager {
   constructor() {
     this.themes = {
