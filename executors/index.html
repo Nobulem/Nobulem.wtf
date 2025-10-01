@@ -51,7 +51,6 @@
       overflow: hidden;
     }
 
-    /* Floating Particles */
     .particle {
       position: absolute;
       background: rgba(255,255,255,0.4);
@@ -111,16 +110,15 @@
       100% { transform: translateY(-100px) translateX(-100px) rotate(-720deg); opacity: 0; }
     }
 
-    /* Animated Waves */
     .wave {
       position: absolute;
       width: 200%;
       height: 200%;
-      background: linear-gradient(45deg, 
-        transparent 0%, 
-        rgba(255,255,255,0.02) 25%, 
-        transparent 50%, 
-        rgba(255,255,255,0.02) 75%, 
+      background: linear-gradient(45deg,
+        transparent 0%,
+        rgba(255,255,255,0.02) 25%,
+        transparent 50%,
+        rgba(255,255,255,0.02) 75%,
         transparent 100%);
     }
 
@@ -157,7 +155,6 @@
       100% { transform: rotate(405deg) scale(1.08); }
     }
 
-    /* Geometric Floating Shapes */
     .shape {
       position: absolute;
       border: 1px solid rgba(255,255,255,0.1);
@@ -222,13 +219,13 @@
       animation: brand-glow 3s ease-in-out infinite;
     }
     .brand .dot{
-      width:12px; height:12px; border-radius:999px; background:#fff; 
+      width:12px; height:12px; border-radius:999px; background:#fff;
       box-shadow:0 0 20px #fff, 0 0 40px #fff;
       animation: pulse-dot 2s ease-in-out infinite;
     }
     .links{margin-left:auto; display:flex; gap:20px; flex-wrap:wrap}
     .links a{
-      opacity:.9; 
+      opacity:.9;
       transition: all 0.3s ease;
       position: relative;
       padding: 8px 0;
@@ -244,14 +241,13 @@
       transition: width 0.3s ease;
     }
     .links a:hover {
-      opacity:1; 
+      opacity:1;
       transform:translateY(-2px);
     }
     .links a:hover::after {
       width: 100%;
     }
 
-    /* Fix active nav link visibility */
     .links a[style*="color: #fff"],
     .links a[style*="opacity: 1"] {
       color: var(--navActive) !important;
@@ -320,10 +316,10 @@
     section{position:relative; z-index:20; padding:80px 0; border-top:1px solid var(--line)}
     .grid{display:grid; gap:20px}
     .card{
-      background: var(--cardBg); 
+      background: var(--cardBg);
       border:1px solid var(--line);
-      border-radius:var(--radius); padding:26px; 
-      box-shadow:var(--shadow); min-height:180px; 
+      border-radius:var(--radius); padding:26px;
+      box-shadow:var(--shadow); min-height:180px;
       position:relative; overflow:hidden;
       transition: all 0.4s ease;
       animation: card-entrance 0.8s ease both;
@@ -353,8 +349,8 @@
 
     /* ---------- Enhanced Executor Cards ---------- */
     .executor-card {
-      background: var(--cardBg, linear-gradient(145deg, #1a1a1a, #0d0d0d)) !important;
-      border: 1px solid var(--borderColor, #333333) !important;
+      background: linear-gradient(145deg, #1a1a1a, #0d0d0d) !important;
+      border: 1px solid #333333 !important;
       border-radius: var(--radius);
       padding: 24px;
       box-shadow: var(--shadow);
@@ -362,7 +358,7 @@
       animation: card-entrance 0.8s ease both;
       position: relative;
       overflow: hidden;
-      color: var(--text, #ffffff) !important;
+      color: #ffffff !important;
     }
 
     .executor-card::before {
@@ -384,11 +380,11 @@
       left: -2px;
       right: -2px;
       bottom: -2px;
-      background: linear-gradient(45deg, 
-        transparent 0%, 
-        rgba(255,255,255,0.1) 25%, 
-        transparent 50%, 
-        rgba(255,255,255,0.1) 75%, 
+      background: linear-gradient(45deg,
+        transparent 0%,
+        rgba(255,255,255,0.1) 25%,
+        transparent 50%,
+        rgba(255,255,255,0.1) 75%,
         transparent 100%);
       border-radius: var(--radius);
       z-index: -1;
@@ -567,7 +563,7 @@
     }
 
     .stat-card {
-      background: var(--cardBg);
+      background: linear-gradient(145deg, #1a1a1a, #0d0d0d);
       border: 1px solid var(--line);
       border-radius: var(--radius);
       padding: 25px;
@@ -636,7 +632,7 @@
 
     .hero-subtitle {
       font-size: clamp(16px, 2vw, 20px);
-      color: var(--subtitleColor, #cccccc) !important;
+      color: #cccccc !important;
       animation: fade-in-up 1s ease 0.6s both;
       margin-bottom: 20px;
       text-shadow: 1px 1px 2px rgba(0,0,0,0.5) !important;
@@ -644,15 +640,15 @@
 
     /* ---------- Footer ---------- */
     footer{
-      border-top:1px solid var(--line); 
-      padding:30px 0 70px; 
-      color:var(--muted); 
+      border-top:1px solid var(--line);
+      padding:30px 0 70px;
+      color:var(--muted);
       text-align:center;
       animation: footer-entrance 1s ease both;
       position: relative;
       z-index: 20;
     }
-    
+
     footer strong {
       color: var(--text) !important;
       text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
@@ -710,12 +706,6 @@
       100% { background-position: 0% 50%; }
     }
 
-    @keyframes gradient-text-hero {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
-    }
-
     @keyframes version-pulse {
       0%, 100% { transform: scale(1); }
       50% { transform: scale(1.05); }
@@ -738,7 +728,7 @@
 
     /* ---------- Scroll Reveal ---------- */
     .reveal{
-      opacity:0; transform:translateY(20px); 
+      opacity:0; transform:translateY(20px);
       transition:opacity var(--speed) ease, transform var(--speed) ease;
     }
     .reveal.in{opacity:1; transform:translateY(0)}
@@ -780,7 +770,7 @@
       .links{display:none}
       .stats {grid-template-columns: repeat(2, 1fr);}
     }
-    
+
     @media (max-width: 768px) {
       .particle { display: none; }
       .wave { animation-duration: 40s; }
@@ -831,7 +821,7 @@
       </div>
       <div class="links">
         <a href="/">Home</a>
-        <a href="/executors" style="color: #fff; opacity: 1;">Executors</a>
+        <a href="/executors.html" style="color: #fff; opacity: 1;">Executors</a>
         <a href="https://discord.gg/ExH98C3uFH" target="_blank">Discord</a>
         <a href="/games">Games & Scripts</a>
         <a href="/showcases">Showcases</a>
@@ -847,12 +837,12 @@
       <div class="container">
         <h1 class="hero-title reveal">Executor Status</h1>
         <p class="hero-subtitle reveal">Live status information for our recommended executors</p>
-        
-        <div class="warning-banner reveal">
+
+        <div class="warning-banner reveal" id="warning-banner">
           <span class="warning-icon">⚠️</span>
-          <span class="warning-text">All executors are currently detected</span>
+          <span class="warning-text">Checking executor status...</span>
         </div>
-        
+
         <div class="stats reveal">
           <div class="stat-card delay-1">
             <div class="stat-number" id="stats-total">0</div>
@@ -864,7 +854,7 @@
           </div>
           <div class="stat-card delay-3">
             <div class="stat-number" id="stats-avg">0%</div>
-            <div class="stat-label">Avg. SUNC</div>
+            <div class="stat-label">Avg. UNC</div>
           </div>
           <div class="stat-card delay-4">
             <div class="stat-number" id="stats-updated">0</div>
@@ -897,35 +887,30 @@
     </div>
   </footer>
 
-  <script src="/js/theme-manager.js"></script>
   <script>
-    // Set current year
     document.getElementById('year').textContent = new Date().getFullYear();
 
-    // Enhanced reveal on scroll with staggered animations
     const io = new IntersectionObserver((entries)=>{
       entries.forEach((e, index)=>{
-        if(e.isIntersecting){ 
+        if(e.isIntersecting){
           setTimeout(() => {
             e.target.classList.add('in');
           }, index * 100);
-          io.unobserve(e.target); 
+          io.unobserve(e.target);
         }
       })
     }, {threshold:.1});
     document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
 
-    // Add particle regeneration
     function createParticle() {
       const particle = document.createElement('div');
       particle.className = `particle particle-${Math.floor(Math.random() * 4) + 1}`;
       particle.style.left = Math.random() * 100 + '%';
       particle.style.animationDelay = '0s';
-      
+
       const bgAnimation = document.querySelector('.bg-animation');
       if (bgAnimation) {
         bgAnimation.appendChild(particle);
-        
         setTimeout(() => {
           if (particle.parentNode) {
             particle.parentNode.removeChild(particle);
@@ -934,21 +919,18 @@
       }
     }
 
-    // Create new particles periodically
     setInterval(createParticle, 3000);
 
-    // Add parallax effect to shapes on scroll
     window.addEventListener('scroll', () => {
       const scrolled = window.pageYOffset;
       const shapes = document.querySelectorAll('.shape');
-      
+
       shapes.forEach((shape, index) => {
         const speed = 0.5 + (index * 0.2);
         shape.style.transform = `translateY(${scrolled * speed}px)`;
       });
     });
 
-    // Add pulsing effect to brand dot
     const brandDot = document.querySelector('.brand .dot');
     if (brandDot) {
       setInterval(() => {
@@ -959,166 +941,156 @@
       }, 3000);
     }
 
-    // --- EXECUTOR STATUS FUNCTIONALITY ---
-    document.addEventListener('DOMContentLoaded', () => {
-        const API_URL = 'https://weao.xyz/api/status/exploits';
-        let allExecutors = [];
+    // EXECUTOR STATUS FUNCTIONALITY WITH REQUIRED USER-AGENT
+    const API_URL = 'https://weao.xyz/api/status/exploits';
+    const ALLOWED_EXECUTORS = ['volcano', 'wave', 'zenith', 'swift', 'potassium', 'nucleus'];
+    let allExecutors = [];
 
-        const gridContainer = document.getElementById('executor-grid-container');
-        const statsTotal = document.getElementById('stats-total');
-        const statsWorking = document.getElementById('stats-working');
-        const statsAvg = document.getElementById('stats-avg');
-        const statsUpdated = document.getElementById('stats-updated');
+    const gridContainer = document.getElementById('executor-grid-container');
+    const statsTotal = document.getElementById('stats-total');
+    const statsWorking = document.getElementById('stats-working');
+    const statsAvg = document.getElementById('stats-avg');
+    const statsUpdated = document.getElementById('stats-updated');
+    const warningBanner = document.getElementById('warning-banner');
 
-        async function fetchData() {
-            if (!gridContainer) return;
-            try {
-                const response = await fetch(API_URL);
-                if (!response.ok) {
-                    throw new Error(`API error! status: ${response.status}`);
-                }
-                let fetchedData = await response.json();
-                
-                // Filter for the specific executors
-                const allowedNames = ['volcano', 'wave', 'zenith', 'swift', 'potassium', 'nucleus'];
-                allExecutors = fetchedData.filter(ex =>
-                    allowedNames.includes(ex.title.toLowerCase()) && ex.extype && ex.extype.includes('executor')
-                );
-                
-                // Sort alphabetically
-                allExecutors.sort((a, b) => a.title.localeCompare(b.title));
-                
-                updateStats(allExecutors);
-                renderExecutors(allExecutors);
-            } catch (error) {
-                console.error('Failed to fetch executor data:', error);
-                gridContainer.innerHTML = '<div class="center"><p class="muted reveal in">Failed to load executor status. Please try again later.</p></div>';
-            }
-        }
-
-        function updateStats(data) {
-            if (!statsTotal || !statsWorking) return;
-            const total = data.length;
-            const working = data.filter(e => e.updateStatus === true).length;
-            const avgUnc = data.length > 0 ? Math.round(data.reduce((sum, e) => sum + (e.uncPercentage || 0), 0) / data.length) : 0;
-            const recentlyUpdated = data.filter(e => e.updateStatus === true).length;
-            
-            // Animate numbers counting up
-            animateNumber(statsTotal, total);
-            animateNumber(statsWorking, working);
-            animateNumber(statsAvg, avgUnc, '%');
-            animateNumber(statsUpdated, recentlyUpdated);
-        }
-
-        function animateNumber(element, target, suffix = '') {
-            let current = 0;
-            const increment = target / 30;
-            const timer = setInterval(() => {
-                current += increment;
-                if (current >= target) {
-                    current = target;
-                    clearInterval(timer);
-                }
-                element.textContent = Math.floor(current) + suffix;
-            }, 50);
-        }
-
-        function renderExecutors(executors) {
-            if (executors.length === 0) {
-                gridContainer.innerHTML = '<div class="center"><p class="muted reveal in">Could not find specified executors.</p></div>';
-                return;
-            }
-
-            const html = executors.map((ex, index) => {
-                const isUpdated = ex.updateStatus === true;
-                const statusClass = isUpdated ? 'up' : 'down';
-
-                const arrowIcon = isUpdated
-                    ? `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path></svg>`
-                    : `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6z"></path></svg>`;
-
-                return `
-                <div class="executor-card reveal delay-${Math.min(index + 1, 5)}">
-                  <div class="executor-header">
-                    <div class="name-container">
-                      <a href="${ex.websitelink || '#'}" target="_blank" rel="noopener noreferrer" class="executor-name">${ex.title}</a>
-                      <div class="executor-version">${ex.version || 'N/A'}</div>
-                    </div>
-                    <div class="status-indicator ${statusClass}">
-                      ${arrowIcon}
-                    </div>
-                  </div>
-                <div class="executor-details">
-                  <div class="executor-detail">
-                    <strong>${ex.platform || 'N/A'}</strong>
-                  </div>
-                  <div class="executor-detail">
-                    <strong>${ex.free ? 'Free' : (ex.cost || 'Paid')}</strong>
-                  </div>
-                  <div class="executor-detail">
-                    <strong style="color: ${(ex.uncPercentage || 0) > 80 ? '#10B981' : (ex.uncPercentage || 0) > 50 ? '#F59E0B' : '#EF4444'};">
-                      ${typeof ex.uncPercentage === 'number' ? ex.uncPercentage + '%' : '0%'}
-                    </strong>
-                  </div>
-                  <div class="executor-detail">
-                    <strong style="color: ${isUpdated ? '#10B981' : '#EF4444'};">
-                      ${isUpdated ? 'Updated' : 'Outdated'}
-                    </strong>
-                  </div>
-                </div>
-                </div>
-                `;
-            }).join('');
-
-            gridContainer.innerHTML = `<div class="grid two reveal in">${html}</div>`;
-            
-            // Re-observe new elements for scroll animations
-            setTimeout(() => {
-                document.querySelectorAll('.executor-card.reveal').forEach(el => io.observe(el));
-            }, 100);
-        }
-
-        fetchData();
-        
-        // Refresh data every 30 seconds
-        setInterval(fetchData, 30000);
-    });
-
-    // Enhanced hover effects for executor cards
-    function addExecutorHoverEffects() {
-      setTimeout(() => {
-        const executorCards = document.querySelectorAll('.executor-card');
-        executorCards.forEach(card => {
-          card.addEventListener('mouseenter', () => {
-            card.style.transform = 'translateY(-12px) scale(1.03) rotateX(5deg)';
-            card.style.boxShadow = '0 40px 120px rgba(255,255,255,0.25), 0 0 80px rgba(255,255,255,0.15)';
-          });
-          
-          card.addEventListener('mouseleave', () => {
-            card.style.transform = '';
-            card.style.boxShadow = '';
-          });
+    async function fetchData() {
+      if (!gridContainer) return;
+      try {
+        const response = await fetch(API_URL, {
+          headers: {
+            'User-Agent': 'WEAO-3PService'
+          }
         });
-      }, 2000);
+
+        if (!response.ok) {
+          throw new Error(`API error! status: ${response.status}`);
+        }
+
+        let fetchedData = await response.json();
+
+        allExecutors = fetchedData.filter(ex =>
+          ALLOWED_EXECUTORS.includes(ex.title.toLowerCase()) &&
+          ex.extype &&
+          (ex.extype === 'wexecutor' || ex.extype === 'mexecutor' || ex.extype === 'aexecutor')
+        );
+
+        allExecutors.sort((a, b) => a.title.localeCompare(b.title));
+
+        updateStats(allExecutors);
+        updateWarningBanner(allExecutors);
+        renderExecutors(allExecutors);
+      } catch (error) {
+        console.error('Failed to fetch executor data:', error);
+        gridContainer.innerHTML = '<div class="center"><p class="muted reveal in">Failed to load executor status. Please try again later.</p></div>';
+      }
     }
-    
-    addExecutorHoverEffects();
 
-    // Dynamic background interaction
-    window.addEventListener('scroll', () => {
-      const scrolled = window.pageYOffset;
-      const rate = scrolled * -0.5;
-      
-      // Move background elements
-      const particles = document.querySelectorAll('.particle');
-      particles.forEach((particle, index) => {
-        const speed = 0.3 + (index % 4) * 0.1;
-        particle.style.transform = `translateY(${rate * speed}px)`;
-      });
-    });
+    function updateStats(data) {
+      if (!statsTotal || !statsWorking) return;
+      const total = data.length;
+      const working = data.filter(e => e.updateStatus === true && e.detected === false).length;
+      const avgUnc = data.length > 0 ? Math.round(data.reduce((sum, e) => sum + (e.uncPercentage || 0), 0) / data.length) : 0;
+      const recentlyUpdated = data.filter(e => e.updateStatus === true).length;
 
-    // Add twinkling effect to particles
-    function addTwinkleEffect() {
+      animateNumber(statsTotal, total);
+      animateNumber(statsWorking, working);
+      animateNumber(statsAvg, avgUnc, '%');
+      animateNumber(statsUpdated, recentlyUpdated);
+    }
+
+    function updateWarningBanner(data) {
+      if (!warningBanner) return;
+      const allDetected = data.every(e => e.detected === true);
+      const warningText = warningBanner.querySelector('.warning-text');
+
+      if (allDetected) {
+        warningText.textContent = 'All executors are currently detected';
+      } else {
+        const undetectedCount = data.filter(e => e.detected === false).length;
+        warningText.textContent = `${undetectedCount} executor${undetectedCount !== 1 ? 's' : ''} undetected`;
+        warningBanner.style.background = 'rgba(16, 185, 129, 0.15)';
+        warningBanner.style.borderColor = 'rgba(16, 185, 129, 0.5)';
+        warningBanner.style.boxShadow = '0 0 20px rgba(16, 185, 129, 0.4)';
+      }
+    }
+
+    function animateNumber(element, target, suffix = '') {
+      let current = 0;
+      const increment = target / 30;
+      const timer = setInterval(() => {
+        current += increment;
+        if (current >= target) {
+          current = target;
+          clearInterval(timer);
+        }
+        element.textContent = Math.floor(current) + suffix;
+      }, 50);
+    }
+
+    function renderExecutors(executors) {
+      if (executors.length === 0) {
+        gridContainer.innerHTML = '<div class="center"><p class="muted reveal in">Could not find specified executors.</p></div>';
+        return;
+      }
+
+      const html = executors.map((ex, index) => {
+        const isUpdated = ex.updateStatus === true;
+        const isDetected = ex.detected === true;
+        const statusClass = isUpdated && !isDetected ? 'up' : 'down';
+
+        const arrowIcon = statusClass === 'up'
+          ? `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path></svg>`
+          : `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6z"></path></svg>`;
+
+        const costDisplay = ex.free ? 'Free' : (ex.cost || 'Paid');
+        const uncColor = (ex.uncPercentage || 0) > 80 ? '#10B981' : (ex.uncPercentage || 0) > 50 ? '#F59E0B' : '#EF4444';
+        const statusText = isDetected ? 'Detected' : 'Undetected';
+        const statusColor = isDetected ? '#EF4444' : '#10B981';
+
+        return `
+          <div class="executor-card reveal delay-${Math.min(index + 1, 5)}">
+            <div class="executor-header">
+              <div class="name-container">
+                <a href="${ex.websitelink || '#'}" target="_blank" rel="noopener noreferrer" class="executor-name">${ex.title}</a>
+                <div class="executor-version">${ex.version || 'N/A'}</div>
+              </div>
+              <div class="status-indicator ${statusClass}">
+                ${arrowIcon}
+              </div>
+            </div>
+            <div class="executor-details">
+              <div class="executor-detail">
+                <strong>${ex.platform || 'N/A'}</strong>
+              </div>
+              <div class="executor-detail">
+                <strong>${costDisplay}</strong>
+              </div>
+              <div class="executor-detail">
+                <strong style="color: ${uncColor};">
+                  ${typeof ex.uncPercentage === 'number' ? ex.uncPercentage + '%' : '0%'} UNC
+                </strong>
+              </div>
+              <div class="executor-detail">
+                <strong style="color: ${statusColor};">
+                  ${statusText}
+                </strong>
+              </div>
+            </div>
+          </div>
+        `;
+      }).join('');
+
+      gridContainer.innerHTML = `<div class="grid two reveal in">${html}</div>`;
+
+      setTimeout(() => {
+        document.querySelectorAll('.executor-card.reveal').forEach(el => io.observe(el));
+      }, 100);
+    }
+
+    fetchData();
+    setInterval(fetchData, 30000);
+
+    setInterval(() => {
       const particles = document.querySelectorAll('.particle');
       particles.forEach((particle, index) => {
         setTimeout(() => {
@@ -1128,39 +1100,7 @@
           }, 500);
         }, index * 200);
       });
-    }
-
-    setInterval(addTwinkleEffect, 5000);
-
-    // Enhanced stats animation on scroll
-    function enhanceStatsAnimation() {
-      const statCards = document.querySelectorAll('.stat-card');
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach((entry, index) => {
-          if (entry.isIntersecting) {
-            setTimeout(() => {
-              entry.target.style.animation = `stat-entrance 0.8s ease both, card-glow ${2 + index * 0.5}s ease-in-out infinite`;
-            }, index * 200);
-          }
-        });
-      }, { threshold: 0.3 });
-
-      statCards.forEach(card => observer.observe(card));
-    }
-
-    // Add card glow animation
-    const cardGlowKeyframes = `
-      @keyframes card-glow {
-        0%, 100% { box-shadow: var(--shadow); }
-        50% { box-shadow: 0 30px 100px rgba(255,255,255,0.12); }
-      }
-    `;
-    
-    const style = document.createElement('style');
-    style.textContent = cardGlowKeyframes;
-    document.head.appendChild(style);
-
-    enhanceStatsAnimation();
+    }, 5000);
   </script>
 </body>
 </html>
