@@ -277,6 +277,14 @@
       width: 100%;
     }
 
+    /* Fix active nav link visibility */
+    .links a[style*="color: #fff"],
+    .links a[style*="opacity: 1"] {
+      color: var(--navActive) !important;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.3) !important;
+      font-weight: 900;
+    }
+
     /* ---------- Hero Section ---------- */
     .hero {
       position: relative;
@@ -286,7 +294,8 @@
     }
 
     .eyebrow {
-      color: #eaeaea;
+      color: var(--eyebrowColor, #ffffff) !important;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.5) !important;
       text-transform: uppercase;
       font-size: 14px;
       letter-spacing: .3em;
@@ -298,16 +307,14 @@
       line-height: 1.02;
       margin: .8rem 0 1rem;
       animation: title-entrance 1.5s ease 0.4s both;
-      background: linear-gradient(45deg, #fff, #e0e0e0, #fff);
-      background-size: 200% 200%;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      animation: gradient-text 3s ease infinite, title-entrance 1.5s ease 0.4s both;
+      color: var(--text) !important;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.5) !important;
     }
 
     .subtitle {
       font-size: clamp(18px, 2.5vw, 24px);
-      color: var(--muted);
+      color: var(--subtitleColor, #cccccc) !important;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.5) !important;
       animation: fade-in-up 1s ease 0.8s both;
     }
 
@@ -319,8 +326,8 @@
     }
 
     .script-box {
-      background: linear-gradient(145deg, #1a1a1a, #0d0d0d);
-      border: 1px solid var(--line);
+      background: var(--loaderBg, linear-gradient(145deg, #1a1a1a, #0d0d0d)) !important;
+      border: 1px solid var(--borderColor, #333333) !important;
       border-radius: var(--radius);
       padding: 35px;
       box-shadow: var(--shadow);
@@ -347,8 +354,9 @@
     .script-box h3 {
       margin-bottom: 20px;
       font-size: 22px;
-      animation: text-glow 3s ease-in-out infinite;
       text-align: center;
+      color: var(--text) !important;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.5) !important;
     }
 
     .script-input-container {
@@ -359,17 +367,17 @@
 
     .script-input {
       flex: 1;
-      background: rgba(255,255,255,0.05);
-      border: 1px solid var(--line);
+      background: var(--inputBg, rgba(255,255,255,0.05)) !important;
+      border: 1px solid var(--inputBorder, #333333) !important;
       border-radius: 12px;
       padding: 18px 22px;
-      color: var(--text);
+      color: var(--inputText, #ffffff) !important;
       font-size: 16px;
       font-family: 'Courier New', monospace;
       resize: none;
       transition: all 0.3s ease;
-      animation: input-glow 4s ease-in-out infinite;
       height: 50px;
+      box-shadow: 1px 1px 3px rgba(0,0,0,0.3) !important;
     }
 
     .script-input:focus {
@@ -380,18 +388,19 @@
     }
 
     .copy-btn {
-      background: rgba(255,255,255,0.1);
-      color: #fff;
-      border: 1px solid rgba(255,255,255,0.2);
+      background: var(--buttonBg, rgba(255,255,255,0.1)) !important;
+      color: var(--buttonText, #ffffff) !important;
+      border: 1px solid var(--buttonBorder, rgba(255,255,255,0.2)) !important;
       border-radius: 12px;
       padding: 18px 20px;
       font-weight: 700;
       font-size: 14px;
       cursor: pointer;
       transition: all 0.3s ease;
-      animation: btn-pulse 3s ease-in-out infinite;
       position: relative;
       overflow: hidden;
+      box-shadow: 1px 1px 3px rgba(0,0,0,0.3) !important;
+      text-shadow: none !important;
     }
 
     .copy-btn::before {
@@ -433,8 +442,8 @@
     }
 
     .search-controls {
-      background: linear-gradient(145deg, #1a1a1a, #0d0d0d);
-      border: 1px solid var(--line);
+      background: var(--cardBg, linear-gradient(145deg, #1a1a1a, #0d0d0d)) !important;
+      border: 1px solid var(--borderColor, #333333) !important;
       border-radius: var(--radius);
       padding: 30px;
       box-shadow: var(--shadow);
@@ -449,14 +458,15 @@
 
     .search-input {
       width: 100%;
-      background: rgba(255,255,255,0.05);
-      border: 1px solid var(--line);
+      background: var(--inputBg, rgba(255,255,255,0.05)) !important;
+      border: 1px solid var(--inputBorder, #333333) !important;
       border-radius: 15px;
       padding: 18px 55px 18px 22px;
-      color: var(--text);
+      color: var(--inputText, #ffffff) !important;
       font-size: 16px;
       transition: all 0.3s ease;
       font-weight: 600;
+      box-shadow: 1px 1px 3px rgba(0,0,0,0.3) !important;
     }
 
     .search-input:focus {
@@ -708,8 +718,8 @@
     }
 
     .game-card {
-      background: var(--cardBg, linear-gradient(145deg,#1a1a1a,#0d0d0d));
-      border: 1px solid var(--line);
+      background: var(--cardBg, linear-gradient(145deg,#1a1a1a,#0d0d0d)) !important;
+      border: 1px solid var(--borderColor, #333333) !important;
       border-radius: var(--radius);
       overflow: hidden;
       box-shadow: var(--shadow);
@@ -782,17 +792,13 @@
       font-size: 22px;
       font-weight: 800;
       margin-bottom: 12px;
-      background: linear-gradient(45deg, #fff, #e0e0e0);
-      background-size: 200% 200%;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      animation: gradient-text-game 3s ease infinite;
       transition: all 0.3s ease;
+      color: var(--text) !important;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.5) !important;
     }
 
     .game-card:hover .game-name {
       transform: scale(1.05);
-      text-shadow: 0 0 20px rgba(255,255,255,0.5);
     }
 
     .game-description {
@@ -876,8 +882,8 @@
     }
 
     .modal {
-      background: linear-gradient(145deg, #1a1a1a, #0d0d0d);
-      border: 1px solid var(--line);
+      background: var(--modalBg, linear-gradient(145deg, #1a1a1a, #0d0d0d)) !important;
+      border: 1px solid var(--borderColor, #333333) !important;
       border-radius: var(--radius);
       padding: 40px;
       max-width: min(600px, 90vw);
@@ -926,23 +932,20 @@
       align-items: center;
       margin-bottom: 25px;
       padding-bottom: 15px;
-      border-bottom: 1px solid var(--line);
+      border-bottom: 1px solid var(--borderColor, #333333) !important;
     }
 
     .modal-title {
       font-size: 28px;
       font-weight: 800;
-      background: linear-gradient(45deg, #fff, #e0e0e0);
-      background-size: 200% 200%;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      animation: gradient-text 3s ease infinite;
+      color: var(--text) !important;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.5) !important;
     }
 
     .close-btn {
       background: none;
       border: none;
-      color: #fff;
+      color: var(--text) !important;
       font-size: 24px;
       cursor: pointer;
       padding: 8px;
@@ -956,24 +959,30 @@
     }
 
     .modal-script-box {
-      background: rgba(255,255,255,0.05);
-      border: 1px solid var(--line);
+      background: var(--inputBg, rgba(255,255,255,0.05)) !important;
+      border: 1px solid var(--inputBorder, #333333) !important;
       border-radius: 12px;
       padding: 20px;
       margin-bottom: 25px;
     }
 
+    .modal-script-box h4 {
+      color: var(--text) !important;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.5) !important;
+    }
+
     .modal-script-input {
       width: 100%;
-      background: rgba(255,255,255,0.05);
-      border: 1px solid var(--line);
+      background: var(--inputBg, rgba(255,255,255,0.05)) !important;
+      border: 1px solid var(--inputBorder, #333333) !important;
       border-radius: 8px;
       padding: 12px 16px;
-      color: var(--text);
+      color: var(--inputText, #ffffff) !important;
       font-size: 14px;
       font-family: 'Courier New', monospace;
       margin-bottom: 15px;
       transition: all 0.3s ease;
+      box-shadow: 1px 1px 3px rgba(0,0,0,0.3) !important;
     }
 
     .modal-script-input:focus {
@@ -984,14 +993,16 @@
 
     .modal-copy-btn {
       width: 100%;
-      background: rgba(255,255,255,0.1);
-      color: #fff;
-      border: 1px solid rgba(255,255,255,0.2);
+      background: var(--buttonBg, rgba(255,255,255,0.1)) !important;
+      color: var(--buttonText, #ffffff) !important;
+      border: 1px solid var(--buttonBorder, rgba(255,255,255,0.2)) !important;
       border-radius: 8px;
       padding: 12px;
       font-weight: 700;
       cursor: pointer;
       transition: all 0.3s ease;
+      text-shadow: none !important;
+      box-shadow: 1px 1px 3px rgba(0,0,0,0.3) !important;
     }
 
     .modal-copy-btn:hover {
@@ -1005,18 +1016,21 @@
 
     .features-list h4 {
       margin-bottom: 15px;
-      color: #fff;
+      color: var(--text) !important;
       font-size: 18px;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.5) !important;
     }
 
     .feature-item {
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,255,255,0.1);
+      background: var(--featureBg, rgba(255,255,255,0.05)) !important;
+      border: 1px solid var(--featureBorder, rgba(255,255,255,0.1)) !important;
       border-radius: 8px;
       padding: 12px 16px;
       margin-bottom: 8px;
       transition: all 0.3s ease;
       animation: feature-slide-in 0.5s ease both;
+      color: var(--text) !important;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.3) !important;
     }
 
     .feature-item:hover {
@@ -1032,7 +1046,7 @@
     }
 
     .info-item {
-      background: rgba(255,255,255,0.05);
+      background: var(--inputBg, rgba(255,255,255,0.05)) !important;
       border-radius: 8px;
       padding: 12px;
       text-align: center;
@@ -1048,7 +1062,8 @@
 
     .info-value {
       font-weight: 800;
-      color: #fff;
+      color: var(--text) !important;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.5) !important;
     }
 
     /* ---------- Section Headers ---------- */
@@ -1061,28 +1076,30 @@
     .section-title {
       font-size: clamp(32px, 5vw, 48px);
       margin-bottom: 12px;
-      background: linear-gradient(45deg, #fff, #ccc, #fff);
-      background-size: 200% 200%;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      animation: gradient-text-header 4s ease infinite;
+      color: var(--text) !important;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.5) !important;
     }
 
     .section-subtitle {
-      color: var(--muted);
+      color: var(--subtitleColor, #cccccc) !important;
       font-size: 18px;
-      animation: subtitle-glow 3s ease-in-out infinite;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.5) !important;
     }
 
     /* ---------- Footer ---------- */
     footer {
-      border-top: 1px solid var(--line);
+      border-top: 1px solid var(--borderColor, #333333) !important;
       padding: 30px 0 70px;
       color: var(--muted);
       text-align: center;
       position: relative;
       z-index: 20;
       animation: footer-entrance 1s ease both;
+    }
+
+    footer strong {
+      color: var(--text) !important;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.3) !important;
     }
 
     /* ---------- Animation Keyframes ---------- */
@@ -1111,12 +1128,6 @@
       to { opacity: 1; transform: translateY(0) scale(1); }
     }
 
-    @keyframes gradient-text {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
-    }
-
     @keyframes script-box-entrance {
       from { opacity: 0; transform: translateY(40px) scale(0.95); }
       to { opacity: 1; transform: translateY(0) scale(1); }
@@ -1132,30 +1143,9 @@
       100% { left: 100%; }
     }
 
-    @keyframes text-glow {
-      0%, 100% { text-shadow: 0 0 10px rgba(255,255,255,0.3); }
-      50% { text-shadow: 0 0 20px rgba(255,255,255,0.6); }
-    }
-
-    @keyframes input-glow {
-      0%, 100% { box-shadow: inset 0 0 20px rgba(255,255,255,0.05); }
-      50% { box-shadow: inset 0 0 30px rgba(255,255,255,0.1); }
-    }
-
-    @keyframes btn-pulse {
-      0%, 100% { box-shadow: 0 0 10px rgba(255,255,255,0.1); }
-      50% { box-shadow: 0 0 20px rgba(255,255,255,0.2); }
-    }
-
     @keyframes game-card-entrance {
       from { opacity: 0; transform: translateY(50px) rotateX(15deg); }
       to { opacity: 1; transform: translateY(0) rotateX(0deg); }
-    }
-
-    @keyframes gradient-text-game {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
     }
 
     @keyframes text-fade-in {
@@ -1176,17 +1166,6 @@
     @keyframes header-entrance {
       from { opacity: 0; transform: translateY(30px) scale(0.95); }
       to { opacity: 1; transform: translateY(0) scale(1); }
-    }
-
-    @keyframes gradient-text-header {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
-    }
-
-    @keyframes subtitle-glow {
-      0%, 100% { text-shadow: 0 0 10px rgba(204,204,204,0.3); }
-      50% { text-shadow: 0 0 20px rgba(204,204,204,0.5); }
     }
 
     @keyframes footer-entrance {
@@ -1357,7 +1336,6 @@
     </div>
   </section>
 
-  <!-- Moved section header to here -->
   <div class="container">
     <div class="section-header reveal">
       <h2 class="section-title">Supported Games</h2>
@@ -1393,7 +1371,6 @@
     <div class="container">
       <div class="results-info" id="resultsInfo"></div>
 
-      <!-- Empty State -->
       <div class="empty-state" id="emptyState" style="display: none;">
         <div class="broken-search-icon">🔍</div>
         <h3 class="empty-title">Nothing Here...??</h3>
@@ -1481,7 +1458,6 @@
         </div>
       </div>
 
-      <!-- Pagination -->
       <div class="pagination" id="pagination" style="display: none;">
         <button class="pagination-btn" id="prevBtn" onclick="changePage(-1)">← Previous</button>
         <span class="pagination-current" id="pageInfo">Page 1</span>
@@ -1490,7 +1466,6 @@
     </div>
   </section>
 
-  <!-- Game Modal -->
   <div class="modal-overlay" id="gameModal">
     <div class="modal">
       <div class="modal-header">
@@ -1499,7 +1474,7 @@
       </div>
 
       <div class="modal-script-box">
-        <h4 style="margin-bottom: 15px; color: #fff;">🚀 Script Loader</h4>
+        <h4 style="margin-bottom: 15px;">🚀 Script Loader</h4>
         <input
           class="modal-script-input"
           readonly
@@ -1523,9 +1498,7 @@
 
       <div class="features-list">
         <h4>🎯 Available Features</h4>
-        <div id="modalFeatures">
-          <!-- Features will be populated by JavaScript -->
-        </div>
+        <div id="modalFeatures"></div>
       </div>
     </div>
   </div>
@@ -1539,10 +1512,8 @@
 
   <script src="/js/theme-manager.js"></script>
   <script>
-    // Set current year
     document.getElementById('year').textContent = new Date().getFullYear();
 
-    // Game data with features
     const gameData = {
       'marvelous-playground': {
         name: 'Marvelous Playground',
@@ -1572,7 +1543,7 @@
         name: 'Hyper Shot',
         id: '5634789123',
         status: 'Working',
-        features: ['Aimbot System', 'Wallhack ESP', 'Weapon Modifications', 'Auto Reload', 'Precision Targeting', 'Recoil Control', 'Aimbot']
+        features: ['Aimbot System', 'Wallhack ESP', 'Weapon Modifications', 'Auto Reload', 'Precision Targeting', 'Recoil Control']
       },
       'untitled-boxing': {
         name: 'Untitled Boxing Game',
@@ -1582,7 +1553,6 @@
       },
     };
 
-    // Search and filter variables
     let currentPage = 1;
     let gamesPerPage = 10;
     let currentFilter = 'all';
@@ -1590,7 +1560,6 @@
     let allGames = [];
     let filteredGames = [];
 
-    // Initialize games array from DOM
     function initializeGames() {
       const gameCards = document.querySelectorAll('.game-card');
       allGames = Array.from(gameCards).map(card => {
@@ -1612,14 +1581,12 @@
       updateDisplay();
     }
 
-    // Search functionality
     function performSearch() {
       const searchTerm = document.getElementById('searchInput').value.toLowerCase().trim();
       const clearBtn = document.getElementById('clearSearchBtn');
 
       currentSearch = searchTerm;
 
-      // Show/hide clear button
       if (searchTerm) {
         clearBtn.classList.add('visible');
       } else {
@@ -1629,20 +1596,16 @@
       filterGames();
     }
 
-    // Filter games based on search and status
     function filterGames() {
       filteredGames = allGames.filter(game => {
-        // Status filter
         const statusMatch = currentFilter === 'all' || game.status.toLowerCase() === currentFilter;
 
         if (!statusMatch) return false;
 
-        // Search filter
         if (!currentSearch) return true;
 
         const searchLower = currentSearch.toLowerCase();
 
-        // Search in name, ID, and features
         const nameMatch = game.name.toLowerCase().includes(searchLower);
         const idMatch = game.id.includes(searchLower);
         const featuresMatch = game.features.some(feature =>
@@ -1652,51 +1615,43 @@
         return nameMatch || idMatch || featuresMatch;
       });
 
-      currentPage = 1; // Reset to first page
+      currentPage = 1;
       updateDisplay();
     }
 
-    // Update display with pagination
     function updateDisplay() {
       const gamesGrid = document.getElementById('gamesGrid');
       const emptyState = document.getElementById('emptyState');
       const resultsInfo = document.getElementById('resultsInfo');
       const pagination = document.getElementById('pagination');
 
-      // Hide all game cards first
       allGames.forEach(game => {
         game.element.style.display = 'none';
       });
 
       if (filteredGames.length === 0) {
-        // Show empty state
         gamesGrid.style.display = 'none';
         emptyState.style.display = 'block';
         resultsInfo.style.display = 'none';
         pagination.style.display = 'none';
       } else {
-        // Show games grid
         gamesGrid.style.display = 'grid';
         emptyState.style.display = 'none';
         resultsInfo.style.display = 'block';
 
-        // Calculate pagination
         const totalGames = filteredGames.length;
         const totalPages = Math.ceil(totalGames / gamesPerPage);
         const startIndex = (currentPage - 1) * gamesPerPage;
         const endIndex = Math.min(startIndex + gamesPerPage, totalGames);
 
-        // Show current page games
         for (let i = startIndex; i < endIndex; i++) {
           if (filteredGames[i]) {
             filteredGames[i].element.style.display = 'block';
           }
         }
 
-        // Update results info
         resultsInfo.textContent = `Showing ${startIndex + 1}-${endIndex} out of ${totalGames} games`;
 
-        // Update pagination
         if (totalPages > 1) {
           pagination.style.display = 'flex';
           document.getElementById('prevBtn').disabled = currentPage === 1;
@@ -1708,7 +1663,6 @@
       }
     }
 
-    // Change page
     function changePage(direction) {
       const totalPages = Math.ceil(filteredGames.length / gamesPerPage);
       const newPage = currentPage + direction;
@@ -1717,7 +1671,6 @@
         currentPage = newPage;
         updateDisplay();
 
-        // Smooth scroll to top of games section
         document.querySelector('.games-section').scrollIntoView({
           behavior: 'smooth',
           block: 'start'
@@ -1725,11 +1678,9 @@
       }
     }
 
-    // Set filter
     function setFilter(filter) {
       currentFilter = filter;
 
-      // Update active filter button
       document.querySelectorAll('.filter-btn').forEach(btn => {
         btn.classList.remove('active');
       });
@@ -1738,7 +1689,6 @@
       filterGames();
     }
 
-    // Clear search
     function clearSearch() {
       document.getElementById('searchInput').value = '';
       document.getElementById('clearSearchBtn').classList.remove('visible');
@@ -1746,10 +1696,8 @@
       filterGames();
     }
 
-    // Event listeners
     document.getElementById('searchInput').addEventListener('input', performSearch);
 
-    // Enhanced reveal on scroll with staggered animations
     const io = new IntersectionObserver((entries)=>{
       entries.forEach((e, index)=>{
         if(e.isIntersecting){
@@ -1762,14 +1710,12 @@
     }, {threshold:.1});
     document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
 
-    // Copy script functionality
     function copyScript() {
       const scriptText = document.getElementById('script-text');
       const copyBtn = document.querySelector('.copy-btn');
 
       try {
         navigator.clipboard.writeText(scriptText.value).then(() => {
-          // Success feedback
           const originalText = copyBtn.innerHTML;
           copyBtn.innerHTML = '✓ Copied';
           copyBtn.classList.add('copy-success');
@@ -1779,7 +1725,6 @@
             copyBtn.classList.remove('copy-success');
           }, 2000);
         }).catch(() => {
-          // Fallback for older browsers
           scriptText.select();
           document.execCommand('copy');
           const originalText = copyBtn.innerHTML;
@@ -1796,33 +1741,27 @@
       }
     }
 
-    // Modal functionality
     function openGameModal(gameId) {
       const game = gameData[gameId];
       if (!game) return;
 
-      // Populate modal content
       document.getElementById('modalTitle').textContent = game.name;
       document.getElementById('modalStatus').textContent = game.status;
       document.getElementById('modalGameId').textContent = `# ${game.id}`;
 
-      // Set status color
       const statusElement = document.getElementById('modalStatus');
       statusElement.style.color = game.status === 'Working' ? '#10B981' :
                                   game.status === 'Updating' ? '#F59E0B' : '#EF4444';
 
-      // Populate features
       const featuresContainer = document.getElementById('modalFeatures');
       featuresContainer.innerHTML = game.features.map((feature, index) =>
         `<div class="feature-item" style="animation-delay: ${index * 0.1}s;">${feature}</div>`
       ).join('');
 
-      // Show modal
       const modal = document.getElementById('gameModal');
       modal.classList.add('active');
       document.body.style.overflow = 'hidden';
 
-      // Add click effect to the card
       const clickedCard = event.currentTarget;
       clickedCard.style.transform = 'translateY(-20px) scale(1.05)';
       clickedCard.style.boxShadow = '0 60px 180px rgba(255,255,255,0.3)';
@@ -1863,26 +1802,22 @@
       }
     }
 
-    // Close modal when clicking outside
     document.getElementById('gameModal').addEventListener('click', (e) => {
       if (e.target.classList.contains('modal-overlay')) {
         closeGameModal();
       }
     });
 
-    // Close modal with Escape key
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape') {
         closeGameModal();
       }
     });
 
-    // Initialize the games system
     window.addEventListener('DOMContentLoaded', () => {
       initializeGames();
     });
 
-    // Add particle regeneration
     function createParticle() {
       const particle = document.createElement('div');
       particle.className = `particle particle-${Math.floor(Math.random() * 4) + 1}`;
@@ -1901,10 +1836,8 @@
       }
     }
 
-    // Create new particles periodically
     setInterval(createParticle, 3000);
 
-    // Add parallax effect to shapes on scroll
     window.addEventListener('scroll', () => {
       const scrolled = window.pageYOffset;
       const shapes = document.querySelectorAll('.shape');
@@ -1915,7 +1848,6 @@
       });
     });
 
-    // Add pulsing effect to brand dot
     const brandDot = document.querySelector('.brand .dot');
     if (brandDot) {
       setInterval(() => {
@@ -1926,7 +1858,6 @@
       }, 3000);
     }
 
-    // Add dynamic glow effects
     function addDynamicGlow() {
       const cards = document.querySelectorAll('.game-card:not([style*="display: none"])');
       cards.forEach((card, index) => {
@@ -1939,7 +1870,6 @@
       });
     }
 
-    // Trigger glow effects periodically
     setInterval(addDynamicGlow, 12000);
   </script>
 </body>
