@@ -268,8 +268,8 @@
     }
 
     .eyebrow {
-      color: var(--eyebrowColor);
-      text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+      color: var(--eyebrowColor, #ffffff) !important;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.5) !important;
       text-transform: uppercase;
       font-size: 14px;
       letter-spacing: .3em;
@@ -290,8 +290,8 @@
 
     .subtitle {
       font-size: clamp(18px, 2.5vw, 24px);
-      color: var(--subtitleColor);
-      text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+      color: var(--subtitleColor, #cccccc) !important;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.5) !important;
       animation: fade-in-up 1s ease 0.8s both;
     }
 
@@ -309,11 +309,11 @@
     }
 
     .sort-btn {
-      background: var(--cardBg) !important;
+      background: var(--cardBg, linear-gradient(145deg, #1a1a1a, #0d0d0d)) !important;
       border: 1px solid var(--line);
       border-radius: 25px;
       padding: 15px 30px;
-      color: var(--inputText) !important;
+      color: var(--text, #ffffff) !important;
       font-size: 16px;
       font-weight: 700;
       cursor: pointer;
@@ -324,7 +324,7 @@
       align-items: center;
       gap: 12px;
       animation: sort-btn-entrance 1s ease both;
-      text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.5) !important;
     }
 
     .sort-btn::before {
@@ -373,8 +373,8 @@
     }
 
     .video-card {
-      background: var(--cardBg);
-      border: 1px solid var(--line);
+      background: var(--cardBg, linear-gradient(145deg, #1a1a1a, #0d0d0d)) !important;
+      border: 1px solid var(--borderColor, #333333) !important;
       border-radius: var(--radius);
       overflow: hidden;
       box-shadow: var(--shadow);
@@ -382,6 +382,7 @@
       animation: video-card-entrance 0.8s ease both;
       position: relative;
       cursor: pointer;
+      color: var(--text, #ffffff) !important;
     }
 
     .video-card::before {
@@ -501,13 +502,10 @@
       font-size: 20px;
       font-weight: 800;
       margin-bottom: 12px;
-      background: linear-gradient(45deg, #fff, #e0e0e0);
-      background-size: 200% 200%;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      animation: gradient-text-video 3s ease infinite;
+      color: var(--text, #ffffff) !important;
       transition: all 0.3s ease;
       line-height: 1.3;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.5) !important;
     }
 
     .video-card:hover .video-title {

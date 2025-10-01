@@ -1,4 +1,4 @@
-// Advanced Theme System for nobulem.wtf - Fixed Card Backgrounds
+// Advanced Theme System for nobulem.wtf - Comprehensive Fix with Admin Panel Compatibility
 class ThemeManager {
   constructor() {
     this.themes = {
@@ -19,13 +19,18 @@ class ThemeManager {
           buttonBg: '#ffffff',
           buttonText: '#000000',
           navActive: '#ffffff',
-          eyebrowColor: '#eaeaea',
+          eyebrowColor: '#ffffff',
           subtitleColor: '#cccccc',
           borderColor: '#333333',
           linkColor: '#ffffff',
           inputBg: '#1a1a1a',
           inputText: '#ffffff',
-          inputBorder: '#333333'
+          inputBorder: '#333333',
+          loaderBg: '#1a1a1a',
+          loaderText: '#ffffff',
+          searchBg: '#1a1a1a',
+          clearBtnBg: '#333333',
+          clearBtnText: '#ffffff'
         },
         particles: 'rgba(255,255,255,0.4)',
         waves: 'rgba(255,255,255,0.02)',
@@ -55,7 +60,12 @@ class ThemeManager {
           linkColor: '#1a1a1a',
           inputBg: '#ffffff',
           inputText: '#1a1a1a',
-          inputBorder: '#e5e7eb'
+          inputBorder: '#e5e7eb',
+          loaderBg: '#ffffff',
+          loaderText: '#1a1a1a',
+          searchBg: '#ffffff',
+          clearBtnBg: '#e5e7eb',
+          clearBtnText: '#1a1a1a'
         },
         particles: 'rgba(26,26,26,0.3)',
         waves: 'rgba(26,26,26,0.05)',
@@ -79,13 +89,18 @@ class ThemeManager {
           buttonBg: '#fff3cd',
           buttonText: '#1a1a1a',
           navActive: '#ffffff',
-          eyebrowColor: '#ffe4d6',
+          eyebrowColor: '#ffffff',
           subtitleColor: '#ffe4d6',
           borderColor: 'rgba(255,255,255,0.2)',
           linkColor: '#ffffff',
           inputBg: 'rgba(255,255,255,0.2)',
           inputText: '#ffffff',
-          inputBorder: 'rgba(255,255,255,0.3)'
+          inputBorder: 'rgba(255,255,255,0.3)',
+          loaderBg: 'rgba(255,255,255,0.15)',
+          loaderText: '#ffffff',
+          searchBg: 'rgba(255,255,255,0.2)',
+          clearBtnBg: 'rgba(255,255,255,0.3)',
+          clearBtnText: '#ffffff'
         },
         particles: 'rgba(255,243,205,0.6)',
         waves: 'rgba(255,243,205,0.1)',
@@ -109,13 +124,18 @@ class ThemeManager {
           buttonBg: '#00ffff',
           buttonText: '#000000',
           navActive: '#00ffff',
-          eyebrowColor: '#66ffff',
+          eyebrowColor: '#00ffff',
           subtitleColor: '#66ffff',
           borderColor: 'rgba(0,255,255,0.3)',
           linkColor: '#00ffff',
           inputBg: 'rgba(0,255,255,0.1)',
           inputText: '#00ffff',
-          inputBorder: 'rgba(0,255,255,0.3)'
+          inputBorder: 'rgba(0,255,255,0.3)',
+          loaderBg: 'rgba(0,255,255,0.15)',
+          loaderText: '#00ffff',
+          searchBg: 'rgba(0,255,255,0.1)',
+          clearBtnBg: 'rgba(0,255,255,0.3)',
+          clearBtnText: '#00ffff'
         },
         particles: 'rgba(0,255,255,0.8)',
         waves: 'rgba(255,0,255,0.1)',
@@ -139,13 +159,18 @@ class ThemeManager {
           buttonBg: '#9370db',
           buttonText: '#ffffff',
           navActive: '#e6e6fa',
-          eyebrowColor: '#b19cd9',
+          eyebrowColor: '#e6e6fa',
           subtitleColor: '#b19cd9',
           borderColor: 'rgba(138,43,226,0.3)',
           linkColor: '#e6e6fa',
           inputBg: 'rgba(138,43,226,0.1)',
           inputText: '#e6e6fa',
-          inputBorder: 'rgba(138,43,226,0.3)'
+          inputBorder: 'rgba(138,43,226,0.3)',
+          loaderBg: 'rgba(138,43,226,0.15)',
+          loaderText: '#e6e6fa',
+          searchBg: 'rgba(138,43,226,0.1)',
+          clearBtnBg: 'rgba(138,43,226,0.3)',
+          clearBtnText: '#e6e6fa'
         },
         particles: 'rgba(147,112,219,0.7)',
         waves: 'rgba(138,43,226,0.1)',
@@ -169,13 +194,18 @@ class ThemeManager {
           buttonBg: '#00bfff',
           buttonText: '#ffffff',
           navActive: '#e0f6ff',
-          eyebrowColor: '#87ceeb',
+          eyebrowColor: '#e0f6ff',
           subtitleColor: '#87ceeb',
           borderColor: 'rgba(0,191,255,0.3)',
           linkColor: '#e0f6ff',
           inputBg: 'rgba(0,191,255,0.1)',
           inputText: '#e0f6ff',
-          inputBorder: 'rgba(0,191,255,0.3)'
+          inputBorder: 'rgba(0,191,255,0.3)',
+          loaderBg: 'rgba(0,191,255,0.15)',
+          loaderText: '#e0f6ff',
+          searchBg: 'rgba(0,191,255,0.1)',
+          clearBtnBg: 'rgba(0,191,255,0.3)',
+          clearBtnText: '#e0f6ff'
         },
         particles: 'rgba(0,191,255,0.6)',
         waves: 'rgba(30,144,255,0.1)',
@@ -730,25 +760,62 @@ class ThemeManager {
     // Apply theme-specific animations
     this.applyThemeAnimations(themeName);
 
-    // Update card backgrounds and buttons
-    this.updateCardBackgrounds(theme);
-
-    // Update navigation background
-    const nav = document.querySelector('.nav');
-    if (nav) {
-      if (themeName === 'light') {
-        nav.style.background = 'rgba(255,255,255,0.9)';
-      } else {
-        nav.style.background = 'rgba(0,0,0,0.9)';
-      }
-    }
+    // Update all themed elements
+    this.updateAllThemedElements(theme, themeName);
 
     // Fix particles positioning
     this.fixParticlePositioning();
   }
 
-  updateCardBackgrounds(theme) {
+  updateAllThemedElements(theme, themeName) {
+    // Update navigation
+    this.updateNavigation(theme, themeName);
+    
     // Update all card backgrounds
+    this.updateCardBackgrounds(theme);
+    
+    // Update buttons
+    this.updateButtons(theme);
+    
+    // Update text elements
+    this.updateTextElements(theme);
+    
+    // Update inputs and search
+    this.updateInputElements(theme);
+    
+    // Update special elements
+    this.updateSpecialElements(theme);
+  }
+
+  updateNavigation(theme, themeName) {
+    const nav = document.querySelector('.nav');
+    if (nav) {
+      if (themeName === 'light') {
+        nav.style.background = 'rgba(255,255,255,0.9)';
+        nav.style.backdropFilter = 'saturate(140%) blur(15px)';
+      } else {
+        nav.style.background = 'rgba(0,0,0,0.9)';
+        nav.style.backdropFilter = 'saturate(140%) blur(15px)';
+      }
+    }
+
+    // Fix ALL navigation links
+    const navLinks = document.querySelectorAll('.nav .links a');
+    navLinks.forEach(link => {
+      // Check if this is the active page link
+      if (link.style.color === 'rgb(255, 255, 255)' || 
+          link.style.opacity === '1' || 
+          link.getAttribute('style')?.includes('color: #fff') ||
+          link.getAttribute('style')?.includes('opacity: 1')) {
+        link.style.color = theme.colors.navActive + ' !important';
+        link.style.textShadow = themeName === 'light' ? '1px 1px 2px rgba(0,0,0,0.5)' : '1px 1px 2px rgba(255,255,255,0.3)';
+        link.style.fontWeight = '900';
+      }
+    });
+  }
+
+  updateCardBackgrounds(theme) {
+    // Update all card types
     const cardSelectors = [
       '.card',
       '.game-card',
@@ -767,7 +834,11 @@ class ThemeManager {
       '.quote-section',
       '.tos-content',
       '.loader-section',
-      '.warning-box'
+      '.warning-box',
+      '.empty-state',
+      '.sort-controls',
+      '.featured-column',
+      '.featured-item'
     ];
 
     cardSelectors.forEach(selector => {
@@ -778,62 +849,144 @@ class ThemeManager {
       });
     });
 
-    // Update button backgrounds for better visibility
-    const buttons = document.querySelectorAll('.btn, .plan-button, .discord-button, .sort-btn, .theme-button');
-    buttons.forEach(button => {
-      if (button.classList.contains('primary') || button.classList.contains('plan-button')) {
-        button.style.background = theme.colors.buttonBg;
-        button.style.color = theme.colors.buttonText;
-        button.style.border = `2px solid ${theme.colors.buttonBg}`;
-      }
+    // Special handling for loader section
+    const loaderSection = document.querySelector('.loader-section');
+    if (loaderSection) {
+      loaderSection.style.background = theme.colors.loaderBg;
+      loaderSection.style.color = theme.colors.loaderText;
+      loaderSection.style.border = `2px solid ${theme.colors.borderColor}`;
+    }
+  }
+
+  updateButtons(theme) {
+    // Update primary buttons
+    const primaryButtons = document.querySelectorAll('.btn.primary, .plan-button, .discord-button');
+    primaryButtons.forEach(button => {
+      button.style.background = theme.colors.buttonBg + ' !important';
+      button.style.color = theme.colors.buttonText + ' !important';
+      button.style.border = `2px solid ${theme.colors.buttonBg} !important`;
+      button.style.textShadow = '0 0 10px rgba(255,255,255,0.8) !important';
     });
 
-    // Fix navigation active state for ALL nav links
-    const navLinks = document.querySelectorAll('.nav .links a');
-    navLinks.forEach(link => {
-      if (link.style.color === '#fff' || link.style.opacity === '1' || link.getAttribute('style')?.includes('color: #fff')) {
-        link.style.color = theme.colors.navActive;
-        link.style.textShadow = theme.name === 'light' ? '1px 1px 2px rgba(0,0,0,0.3)' : '';
+    // Update secondary buttons
+    const secondaryButtons = document.querySelectorAll('.btn.ghost, .btn.secondary');
+    secondaryButtons.forEach(button => {
+      button.style.background = 'transparent !important';
+      button.style.color = theme.colors.text + ' !important';
+      button.style.border = `2px solid ${theme.colors.borderColor} !important';
+    });
+
+    // Update copy button specifically
+    const copyButton = document.querySelector('.copy-btn');
+    if (copyButton) {
+      copyButton.style.background = theme.colors.buttonBg + ' !important';
+      copyButton.style.color = theme.colors.buttonText + ' !important';
+      copyButton.style.border = `1px solid ${theme.colors.buttonBg} !important`;
+    }
+
+    // Update clear search button
+    const clearButtons = document.querySelectorAll('.clear-btn');
+    clearButtons.forEach(btn => {
+      btn.style.background = theme.colors.clearBtnBg + ' !important';
+      btn.style.color = theme.colors.clearBtnText + ' !important';
+      btn.style.border = `1px solid ${theme.colors.clearBtnBg} !important`;
+    });
+  }
+
+  updateTextElements(theme) {
+    // Update eyebrow text
+    const eyebrows = document.querySelectorAll('.eyebrow');
+    eyebrows.forEach(eyebrow => {
+      eyebrow.style.color = theme.colors.eyebrowColor + ' !important';
+      eyebrow.style.textShadow = theme.name === 'light' ? 
+        '1px 1px 2px rgba(0,0,0,0.5)' : 
+        '1px 1px 2px rgba(255,255,255,0.3)';
+    });
+
+    // Update subtitle text
+    const subtitles = document.querySelectorAll('.subtitle, .hero-subtitle, .section-subtitle');
+    subtitles.forEach(subtitle => {
+      subtitle.style.color = theme.colors.subtitleColor + ' !important';
+      subtitle.style.textShadow = theme.name === 'light' ? 
+        '1px 1px 2px rgba(0,0,0,0.5)' : 
+        '1px 1px 2px rgba(255,255,255,0.3)';
+    });
+
+    // Update link colors (View all games →, etc.)
+    const viewLinks = document.querySelectorAll('a[href*="games"], a[href*="showcases"], a[href*="developers"]');
+    viewLinks.forEach(link => {
+      if (link.textContent.includes('→')) {
+        link.style.color = theme.colors.linkColor + ' !important';
+        link.style.textShadow = theme.name === 'light' ? 
+          '1px 1px 2px rgba(0,0,0,0.5)' : 
+          '1px 1px 2px rgba(255,255,255,0.3)';
         link.style.fontWeight = '900';
       }
     });
 
-    // Fix eyebrow and subtitle colors
-    const eyebrows = document.querySelectorAll('.eyebrow');
-    eyebrows.forEach(eyebrow => {
-      eyebrow.style.color = theme.colors.eyebrowColor;
-      eyebrow.style.textShadow = theme.name === 'light' ? '1px 1px 2px rgba(0,0,0,0.3)' : '';
+    // Update muted text
+    const mutedElements = document.querySelectorAll('.muted, p:not(.subtitle):not(.hero-subtitle)');
+    mutedElements.forEach(element => {
+      element.style.color = theme.colors.muted + ' !important';
     });
 
-    const subtitles = document.querySelectorAll('.subtitle, .hero-subtitle');
-    subtitles.forEach(subtitle => {
-      subtitle.style.color = theme.colors.subtitleColor;
-      subtitle.style.textShadow = theme.name === 'light' ? '1px 1px 2px rgba(0,0,0,0.3)' : '';
+    // Update main text
+    const textElements = document.querySelectorAll('h1, h2, h3, h4, .title, .section-title');
+    textElements.forEach(element => {
+      element.style.color = theme.colors.text + ' !important';
+    });
+  }
+
+  updateInputElements(theme) {
+    // Update search inputs
+    const searchInputs = document.querySelectorAll('input[type="text"], input[type="search"], .search-input');
+    searchInputs.forEach(input => {
+      input.style.background = theme.colors.searchBg + ' !important';
+      input.style.color = theme.colors.inputText + ' !important';
+      input.style.border = `2px solid ${theme.colors.inputBorder} !important`;
     });
 
-    // Fix link colors
-    const links = document.querySelectorAll('a[href*="games"], a[href*="showcases"], a[href*="developers"]');
-    links.forEach(link => {
-      if (link.textContent.includes('→')) {
-        link.style.color = theme.colors.linkColor;
-        link.style.textShadow = theme.name === 'light' ? '1px 1px 2px rgba(0,0,0,0.3)' : '';
+    // Update form inputs
+    const formInputs = document.querySelectorAll('.form-input, .form-textarea, .form-select');
+    formInputs.forEach(input => {
+      input.style.background = theme.colors.inputBg + ' !important';
+      input.style.color = theme.colors.inputText + ' !important';
+      input.style.border = `1px solid ${theme.colors.inputBorder} !important`;
+    });
+  }
+
+  updateSpecialElements(theme) {
+    // Update footer
+    const footer = document.querySelector('footer');
+    if (footer) {
+      footer.style.borderTop = `1px solid ${theme.colors.borderColor}`;
+      const footerStrong = footer.querySelectorAll('strong');
+      footerStrong.forEach(strong => {
+        strong.style.color = theme.colors.text + ' !important';
+        strong.style.textShadow = theme.name === 'light' ? 
+          '1px 1px 2px rgba(0,0,0,0.3)' : 
+          '1px 1px 2px rgba(255,255,255,0.3)';
+      });
+    }
+
+    // Update warning banners
+    const warningBanners = document.querySelectorAll('.warning-banner');
+    warningBanners.forEach(banner => {
+      if (theme.name === 'light') {
+        banner.style.background = 'rgba(239, 68, 68, 0.2)';
+        banner.style.border = '1px solid rgba(239, 68, 68, 0.7)';
+        banner.style.color = '#dc2626';
+      } else {
+        banner.style.background = 'rgba(239, 68, 68, 0.15)';
+        banner.style.border = '1px solid rgba(239, 68, 68, 0.5)';
+        banner.style.color = '#fff';
       }
     });
 
-    // Fix search inputs
-    const searchInputs = document.querySelectorAll('input[type="text"], input[type="search"], .search-input');
-    searchInputs.forEach(input => {
-      input.style.background = theme.colors.inputBg;
-      input.style.color = theme.colors.inputText;
-      input.style.border = `2px solid ${theme.colors.inputBorder}`;
-    });
-
-    // Fix clear buttons
-    const clearButtons = document.querySelectorAll('.clear-btn');
-    clearButtons.forEach(btn => {
-      btn.style.background = theme.colors.inputBorder;
-      btn.style.color = theme.colors.inputText;
-      btn.style.border = `1px solid ${theme.colors.inputBorder}`;
+    // Update section borders
+    const sections = document.querySelectorAll('section');
+    sections.forEach(section => {
+      section.style.borderTop = `1px solid ${theme.colors.borderColor}`;
     });
   }
 
@@ -844,6 +997,15 @@ class ThemeManager {
       particle.style.position = 'fixed';
       particle.style.zIndex = '0';
       particle.style.pointerEvents = 'none';
+      particle.style.top = 'auto';
+      particle.style.bottom = 'auto';
+    });
+
+    // Reset any particles that might be stuck
+    const stuckParticles = document.querySelectorAll('.particle[style*="top: 0"]');
+    stuckParticles.forEach(particle => {
+      particle.style.top = 'auto';
+      particle.style.transform = 'translateY(100vh)';
     });
   }
 

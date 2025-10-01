@@ -353,8 +353,8 @@
 
     /* ---------- Enhanced Executor Cards ---------- */
     .executor-card {
-      background: var(--cardBg);
-      border: 1px solid var(--line);
+      background: var(--cardBg, linear-gradient(145deg, #1a1a1a, #0d0d0d)) !important;
+      border: 1px solid var(--borderColor, #333333) !important;
       border-radius: var(--radius);
       padding: 24px;
       box-shadow: var(--shadow);
@@ -362,6 +362,7 @@
       animation: card-entrance 0.8s ease both;
       position: relative;
       overflow: hidden;
+      color: var(--text, #ffffff) !important;
     }
 
     .executor-card::before {
@@ -629,21 +630,16 @@
       line-height: 1.1;
       margin: 0.8rem 0 1rem;
       animation: title-entrance 1.5s ease 0.2s both;
-      background: linear-gradient(45deg, #fff, #e0e0e0, #fff);
-      background-size: 200% 200%;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      animation: gradient-text-hero 4s ease infinite, title-entrance 1.5s ease 0.2s both;
       color: var(--text) !important;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.5) !important;
     }
 
     .hero-subtitle {
       font-size: clamp(16px, 2vw, 20px);
-      color: var(--muted);
+      color: var(--subtitleColor, #cccccc) !important;
       animation: fade-in-up 1s ease 0.6s both;
       margin-bottom: 20px;
-      color: var(--subtitleColor);
-      text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.5) !important;
     }
 
     /* ---------- Footer ---------- */

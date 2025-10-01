@@ -290,8 +290,8 @@
       text-align: center;
     }
     .eyebrow {
-      color: var(--eyebrowColor);
-      text-transform: uppercase;
+      color: var(--eyebrowColor, #ffffff) !important;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.5) !important;
       font-size: 13px;
       letter-spacing: .24em;
       animation: fade-in 1.2s ease-out 0.2s both;
@@ -305,9 +305,9 @@
     }
     .subtitle {
       font-size: clamp(16px, 2.2vw, 20px);
-      color: var(--subtitleColor);
+      color: var(--subtitleColor, #cccccc) !important;
       animation: fade-in 1.2s ease-out 0.4s both;
-      text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.5) !important;
     }
 
     /* Content Section */
@@ -327,8 +327,8 @@
     }
 
     .dev-card {
-      background: var(--cardBg);
-      border: 1px solid var(--line);
+      background: var(--cardBg, linear-gradient(145deg, #1a1a1a, #0d0d0d)) !important;
+      border: 1px solid var(--borderColor, #333333) !important;
       border-radius: var(--radius);
       padding: 40px 30px;
       box-shadow: var(--shadow);
@@ -337,6 +337,7 @@
       overflow: hidden;
       transition: all 0.5s ease;
       animation: dev-card-entrance 0.8s ease both;
+      color: var(--text, #ffffff) !important;
     }
 
     .dev-card::before {
@@ -413,12 +414,8 @@
     .dev-name {
       font-size: 28px;
       margin-bottom: 8px;
-      background: linear-gradient(45deg, #fff, #ccc, #fff);
-      background-size: 200% 200%;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      animation: gradient-text 3s ease infinite;
       color: var(--text) !important;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.5) !important;
     }
 
     .dev-role {
@@ -428,6 +425,7 @@
       text-transform: uppercase;
       letter-spacing: 0.1em;
       animation: role-glow 2s ease-in-out infinite;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.5) !important;
     }
 
     .dev-description {
@@ -473,15 +471,15 @@
     }
 
     .skill-tag {
-      background: var(--cardBg) !important;
-      border: 1px solid var(--line);
+      background: var(--cardBg, linear-gradient(145deg, #1a1a1a, #0d0d0d)) !important;
+      border: 1px solid var(--borderColor, #333333) !important;
       border-radius: 20px;
       padding: 6px 12px;
       font-size: 12px;
       color: var(--text) !important;
       transition: all 0.3s ease;
       animation: tag-float 3s ease-in-out infinite;
-      text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.5) !important;
     }
 
     .skill-tag:hover {
@@ -497,8 +495,8 @@
 
     /* Team Stats Section */
     .team-stats {
-      background: var(--cardBg);
-      border: 1px solid var(--line);
+      background: var(--cardBg, linear-gradient(145deg, #1a1a1a, #0d0d0d)) !important;
+      border: 1px solid var(--borderColor, #333333) !important;
       border-radius: var(--radius);
       padding: 40px;
       margin: 50px 0;
@@ -506,6 +504,7 @@
       position: relative;
       overflow: hidden;
       animation: stats-entrance 1s ease both;
+      color: var(--text, #ffffff) !important;
     }
 
     .team-stats::before {
@@ -553,7 +552,7 @@
 
     /* Quote Section */
     .quote-section {
-      background: var(--cardBg);
+      background: var(--cardBg, linear-gradient(145deg, #1a1a1a, #0d0d0d)) !important;
       border: 1px solid rgba(255,255,255,0.1);
       border-radius: var(--radius);
       padding: 50px 40px;
@@ -562,6 +561,7 @@
       position: relative;
       animation: quote-entrance 1s ease both;
       color: var(--text);
+      border: 1px solid var(--borderColor, #333333) !important;
     }
 
     .quote-text {
@@ -587,13 +587,14 @@
     }
 
     .contact-card {
-      background: var(--cardBg);
-      border: 1px solid var(--line);
+      background: var(--cardBg, linear-gradient(145deg, #1a1a1a, #0d0d0d)) !important;
+      border: 1px solid var(--borderColor, #333333) !important;
       border-radius: var(--radius);
       padding: 30px;
       text-align: center;
       transition: all 0.4s ease;
       animation: contact-entrance 0.8s ease both;
+      color: var(--text, #ffffff) !important;
     }
 
     .contact-card:hover {

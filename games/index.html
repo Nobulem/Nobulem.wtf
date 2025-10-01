@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Nobulem.wtf — Games & Scripts</title>
-  <meta name="description" content="Nobulem.wtf — View our Latest Games And Scripts Supported by our Universal Script Loader">
+  <meta name="description" content="nobulem.wtf — Games & Scripts, Quality Scripts for Popular Games!">
   <link rel="icon" type="image/png" href="https://i.ibb.co/NdNpCJ4v/image-2.png">
   <style>
     /* ---------- Base / Theme ---------- */
@@ -21,7 +21,7 @@
       --speed: 500ms;
     }
     *{box-sizing:border-box}
-    html,body{height:100%; overflow-x:hidden;}
+    html,body{height:100%}
     html{scroll-behavior:smooth}
     body{
       margin:0;
@@ -29,6 +29,7 @@
       color:var(--text);
       font: 700 15px/1.6 ui-sans-serif, -apple-system, system-ui, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
       letter-spacing:.2px;
+      overflow-x:hidden;
       cursor: auto;
       position: relative;
     }
@@ -38,40 +39,13 @@
     a:hover{transform: translateY(-2px);}
     .container{width:min(1150px, 92vw); margin-inline:auto}
 
-    /* ---------- Custom Scrollbar ---------- */
-    ::-webkit-scrollbar {
-      width: 8px;
-    }
-
-    ::-webkit-scrollbar-track {
-      background: rgba(17, 17, 17, 0.3);
-      border-radius: 10px;
-    }
-
-    ::-webkit-scrollbar-thumb {
-      background: linear-gradient(145deg, #333333, #1a1a1a);
-      border-radius: 10px;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-    }
-
-    ::-webkit-scrollbar-thumb:hover {
-      background: linear-gradient(145deg, #444444, #222222);
-      border-color: rgba(255, 255, 255, 0.2);
-    }
-
-    /* Firefox scrollbar */
-    html {
-      scrollbar-width: thin;
-      scrollbar-color: #333333 rgba(17, 17, 17, 0.3);
-    }
-
     /* ---------- Animated Background ---------- */
     .bg-animation {
       position: fixed;
       top: 0;
       left: 0;
-      width: 100vw;
-      height: 100vh;
+      width: 100%;
+      height: 100%;
       z-index: 0;
       pointer-events: none;
       overflow: hidden;
@@ -79,10 +53,11 @@
 
     /* Floating Particles */
     .particle {
-      position: absolute;
+      position: fixed;
       background: rgba(255,255,255,0.4);
       border-radius: 50%;
       pointer-events: none;
+      z-index: 0;
     }
 
     .particle-1 {
@@ -151,20 +126,20 @@
     }
 
     .wave-1 {
-      top: -100%;
-      left: -100%;
+      top: -50%;
+      left: -50%;
       animation: wave-motion-1 20s linear infinite;
     }
 
     .wave-2 {
-      top: -100%;
-      right: -100%;
+      top: -50%;
+      right: -50%;
       animation: wave-motion-2 25s linear infinite reverse;
     }
 
     .wave-3 {
-      bottom: -100%;
-      left: -100%;
+      bottom: -50%;
+      left: -50%;
       animation: wave-motion-3 30s linear infinite;
     }
 
@@ -277,6 +252,14 @@
       width: 100%;
     }
 
+    /* Fix active nav link visibility */
+    .links a[style*="color: #fff"],
+    .links a[style*="opacity: 1"] {
+      color: var(--navActive, #ffffff) !important;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.5) !important;
+      font-weight: 900;
+    }
+
     /* ---------- Hero Section ---------- */
     .hero {
       position: relative;
@@ -286,12 +269,12 @@
     }
 
     .eyebrow {
-      color: var(--eyebrowColor);
+      color: var(--eyebrowColor, #ffffff) !important;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.5) !important;
       text-transform: uppercase;
       font-size: 14px;
       letter-spacing: .3em;
       animation: fade-in-up 1s ease 0.2s both;
-      text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
     }
 
     .title {
@@ -299,400 +282,109 @@
       line-height: 1.02;
       margin: .8rem 0 1rem;
       animation: title-entrance 1.5s ease 0.4s both;
-      background: linear-gradient(45deg, #fff, #e0e0e0, #fff);
-      background-size: 200% 200%;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      animation: gradient-text 3s ease infinite, title-entrance 1.5s ease 0.4s both;
+      color: var(--text, #ffffff) !important;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.5) !important;
     }
 
     .subtitle {
       font-size: clamp(18px, 2.5vw, 24px);
-      color: var(--subtitleColor);
+      color: var(--subtitleColor, #cccccc) !important;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.5) !important;
       animation: fade-in-up 1s ease 0.8s both;
-      text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
     }
 
-    /* ---------- Script Box ---------- */
-    .script-section {
-      position: relative;
-      z-index: 20;
-      padding: 40px 0;
-    }
-
-    .script-box {
-      background: linear-gradient(145deg, #1a1a1a, #0d0d0d);
-      border: 1px solid var(--line);
+    /* ---------- Script Loader Section ---------- */
+    .loader-section {
+      margin: 40px 0;
+      padding: 30px;
+      background: var(--loaderBg, #1a1a1a) !important;
+      color: var(--loaderText, #ffffff) !important;
+      border: 2px solid var(--borderColor, #333333) !important;
       border-radius: var(--radius);
-      padding: 35px;
-      box-shadow: var(--shadow);
-      margin-bottom: 50px;
-      animation: script-box-entrance 1s ease 0.6s both;
+      text-align: center;
       position: relative;
       overflow: hidden;
-      max-width: 700px;
-      margin-left: auto;
-      margin-right: auto;
+      animation: loader-glow 3s ease-in-out infinite;
     }
 
-    .script-box::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
-      animation: shimmer 4s ease-in-out infinite;
+    .loader-title {
+      font-size: 24px;
+      font-weight: 800;
+      margin-bottom: 15px;
+      color: var(--text, #ffffff) !important;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.5) !important;
     }
 
-    .script-box h3 {
-      margin-bottom: 20px;
-      font-size: 22px;
-      animation: text-glow 3s ease-in-out infinite;
-      text-align: center;
-    }
-
-    .script-input-container {
-      display: flex;
-      gap: 15px;
-      align-items: center;
-    }
-
-    .script-input {
-      flex: 1;
-      background: rgba(255,255,255,0.05);
-      border: 1px solid var(--line);
-      border-radius: 12px;
-      padding: 18px 22px;
-      color: var(--text);
-      font-size: 16px;
+    .loader-code {
+      background: rgba(0,0,0,0.3);
+      border: 1px solid var(--borderColor, #333333);
+      border-radius: 8px;
+      padding: 15px;
       font-family: 'Courier New', monospace;
-      resize: none;
-      transition: all 0.3s ease;
-      animation: input-glow 4s ease-in-out infinite;
-      height: 50px;
-    }
-
-    .script-input:focus {
-      outline: none;
-      border-color: rgba(255,255,255,0.4);
-      background: rgba(255,255,255,0.08);
-      box-shadow: 0 0 20px rgba(255,255,255,0.1);
+      font-size: 14px;
+      margin: 20px 0;
+      position: relative;
+      color: var(--text, #ffffff) !important;
     }
 
     .copy-btn {
-      background: rgba(255,255,255,0.1);
-      color: #fff;
-      border: 1px solid rgba(255,255,255,0.2);
-      border-radius: 12px;
-      padding: 18px 20px;
-      font-weight: 700;
+      background: var(--buttonBg, #ffffff) !important;
+      color: var(--buttonText, #000000) !important;
+      border: 1px solid var(--buttonBg, #ffffff) !important;
+      border-radius: 8px;
+      padding: 8px 16px;
       font-size: 14px;
+      font-weight: 700;
       cursor: pointer;
       transition: all 0.3s ease;
-      animation: btn-pulse 3s ease-in-out infinite;
-      position: relative;
-      overflow: hidden;
+      text-shadow: none !important;
     }
 
-    .copy-btn::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-      transition: left 0.6s ease;
-    }
-
-    .copy-btn:hover::before {
-      left: 100%;
-    }
-
-    .copy-btn:hover {
-      transform: translateY(-2px);
-      background: rgba(255,255,255,0.2);
-      border-color: rgba(255,255,255,0.4);
-    }
-
-    .copy-btn:active {
-      transform: translateY(0);
-    }
-
-    .copy-success {
-      background: rgba(16, 185, 129, 0.2) !important;
-      color: #10B981 !important;
-      border-color: rgba(16, 185, 129, 0.4) !important;
-    }
-
-    /* ---------- Search and Filters ---------- */
+    /* ---------- Search Section ---------- */
     .search-section {
       position: relative;
       z-index: 20;
       padding: 20px 0;
     }
 
-    .search-controls {
-      background: linear-gradient(145deg, #1a1a1a, #0d0d0d);
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      padding: 30px;
-      box-shadow: var(--shadow);
+    .search-container {
+      display: flex;
+      justify-content: center;
       margin-bottom: 30px;
-      animation: search-entrance 1s ease both;
-    }
-
-    .search-input-container {
       position: relative;
-      margin-bottom: 25px;
     }
 
     .search-input {
-      width: 100%;
-      background: var(--cardBg, rgba(255,255,255,0.05));
-      border: 1px solid var(--line);
-      border-radius: 15px;
-      padding: 18px 55px 18px 22px;
-      color: var(--text);
+      background: var(--searchBg, #1a1a1a) !important;
+      color: var(--inputText, #ffffff) !important;
+      border: 2px solid var(--inputBorder, #333333) !important;
+      border-radius: 25px;
+      padding: 15px 50px 15px 20px;
       font-size: 16px;
-      transition: all 0.3s ease;
       font-weight: 600;
+      width: 100%;
+      max-width: 400px;
+      transition: all 0.3s ease;
+      box-shadow: 1px 1px 3px rgba(0,0,0,0.3) !important;
     }
 
-    .search-input:focus {
-      outline: none;
-      border-color: rgba(255,255,255,0.4);
-      background: rgba(255,255,255,0.08);
-      box-shadow: 0 0 20px rgba(255,255,255,0.1);
-    }
-
-    .search-input::placeholder {
-      color: var(--muted);
-      opacity: 0.7;
-    }
-
-    .clear-search-btn {
+    .clear-btn {
+      background: var(--clearBtnBg, #333333) !important;
+      color: var(--clearBtnText, #ffffff) !important;
+      border: 1px solid var(--clearBtnBg, #333333) !important;
+      border-radius: 50%;
+      width: 35px;
+      height: 35px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
       position: absolute;
-      right: 15px;
+      right: 8px;
       top: 50%;
       transform: translateY(-50%);
-      background: none;
-      border: none;
-      color: var(--muted);
-      font-size: 20px;
-      cursor: pointer;
-      padding: 5px;
-      border-radius: 50%;
-      transition: all 0.3s ease;
-      opacity: 0;
-      visibility: hidden;
-    }
-
-    .clear-search-btn.visible {
-      opacity: 1;
-      visibility: visible;
-    }
-
-    .clear-search-btn:hover {
-      background: rgba(255,255,255,0.1);
-      color: #fff;
-      transform: translateY(-50%) scale(1.1);
-    }
-
-    .filters {
-      display: flex;
-      gap: 15px;
-      flex-wrap: wrap;
-      align-items: center;
-    }
-
-    .filter-label {
-      color: var(--muted);
-      font-size: 14px;
-      font-weight: 600;
-      margin-right: 10px;
-    }
-
-    .filter-btn {
-      background: rgba(255,255,255,0.05);
-      border: 1px solid var(--line);
-      border-radius: 25px;
-      padding: 10px 20px;
-      color: var(--muted);
-      font-size: 14px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .filter-btn::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
-      transition: left 0.5s ease;
-    }
-
-    .filter-btn:hover::before {
-      left: 100%;
-    }
-
-    .filter-btn:hover {
-      background: rgba(255,255,255,0.1);
-      transform: translateY(-2px);
-      border-color: rgba(255,255,255,0.3);
-    }
-
-    .filter-btn.active {
-      background: rgba(255,255,255,0.15);
-      border-color: rgba(255,255,255,0.4);
-      color: #fff;
-      box-shadow: 0 0 20px rgba(255,255,255,0.1);
-    }
-
-    .results-info {
-      text-align: center;
-      color: var(--muted);
-      font-size: 16px;
-      margin: 20px 0;
-      font-weight: 600;
-      animation: fade-in-up 0.5s ease both;
-    }
-
-    /* ---------- Pagination ---------- */
-    .pagination {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 15px;
-      margin-top: 40px;
-      margin-bottom: 20px;
-    }
-
-    .pagination-btn {
-      background: rgba(255,255,255,0.05);
-      border: 1px solid var(--line);
-      border-radius: 12px;
-      padding: 12px 18px;
-      color: var(--muted);
-      font-size: 14px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      min-width: 100px;
-    }
-
-    .pagination-btn:hover:not(:disabled) {
-      background: rgba(255,255,255,0.1);
-      transform: translateY(-2px);
-      color: #fff;
-      border-color: rgba(255,255,255,0.3);
-    }
-
-    .pagination-btn:disabled {
-      opacity: 0.3;
-      cursor: not-allowed;
-      transform: none;
-    }
-
-    .pagination-current {
-      background: rgba(255,255,255,0.1);
-      color: #fff;
-      border-color: rgba(255,255,255,0.3);
-      box-shadow: 0 0 15px rgba(255,255,255,0.1);
-    }
-
-    /* ---------- Empty State ---------- */
-    .empty-state {
-      text-align: center;
-      padding: 80px 20px;
-      animation: empty-state-entrance 0.8s ease both;
-    }
-
-    .broken-search-icon {
-      width: 80px;
-      height: 80px;
-      margin: 0 auto 30px;
-      background: rgba(255,255,255,0.05);
-      border: 2px dashed var(--line);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 35px;
-      color: var(--muted);
-      animation: broken-icon-float 3s ease-in-out infinite;
-    }
-
-    .empty-title {
-      font-size: 32px;
-      font-weight: 800;
-      margin-bottom: 15px;
-      color: var(--muted);
-    }
-
-    .empty-subtitle {
-      color: var(--muted);
-      font-size: 18px;
-      margin-bottom: 30px;
-      opacity: 0.8;
-    }
-
-    .discord-invite {
-      color: var(--muted);
-      font-size: 16px;
-      margin-bottom: 15px;
-    }
-
-    .discord-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      color: #5865F2;
-      font-weight: 700;
-      font-size: 16px;
-      text-decoration: none;
-      transition: all 0.3s ease;
-      position: relative;
-    }
-
-    .discord-link:hover {
-      transform: translateX(5px);
-      color: #4752C4;
-    }
-
-    .discord-arrow {
-      transition: transform 0.3s ease;
-    }
-
-    .discord-link:hover .discord-arrow {
-      transform: translateX(5px);
-    }
-
-    .empty-clear-btn {
-      background: rgba(255,255,255,0.1);
-      border: 1px solid rgba(255,255,255,0.2);
-      border-radius: 12px;
-      padding: 15px 30px;
-      color: #fff;
-      font-weight: 700;
-      font-size: 16px;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      margin-top: 25px;
-    }
-
-    .empty-clear-btn:hover {
-      background: rgba(255,255,255,0.2);
-      transform: translateY(-2px);
-      box-shadow: 0 10px 30px rgba(255,255,255,0.1);
+      box-shadow: 1px 1px 3px rgba(0,0,0,0.3) !important;
     }
 
     /* ---------- Games Grid ---------- */
@@ -702,16 +394,34 @@
       padding: 0 0 80px;
     }
 
+    .section-header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .section-title {
+      font-size: clamp(32px, 5vw, 48px);
+      margin-bottom: 12px;
+      color: var(--text, #ffffff) !important;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.5) !important;
+    }
+
+    .section-subtitle {
+      color: var(--subtitleColor, #cccccc) !important;
+      font-size: 18px;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.5) !important;
+    }
+
     .games-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-      gap: 25px;
+      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+      gap: 30px;
       margin-top: 30px;
     }
 
     .game-card {
-      background: var(--cardBg, linear-gradient(145deg,#1a1a1a,#0d0d0d));
-      border: 1px solid var(--line);
+      background: var(--cardBg, linear-gradient(145deg, #1a1a1a, #0d0d0d)) !important;
+      border: 1px solid var(--borderColor, #333333) !important;
       border-radius: var(--radius);
       overflow: hidden;
       box-shadow: var(--shadow);
@@ -719,57 +429,20 @@
       animation: game-card-entrance 0.8s ease both;
       position: relative;
       cursor: pointer;
-    }
-
-    .game-card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 2px;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
-      opacity: 0;
-      transition: opacity 0.4s ease;
-      z-index: 2;
-    }
-
-    .game-card::after {
-      content: '';
-      position: absolute;
-      top: -2px;
-      left: -2px;
-      right: -2px;
-      bottom: -2px;
-      background: linear-gradient(45deg, 
-        transparent 0%, 
-        rgba(255,255,255,0.1) 25%, 
-        transparent 50%, 
-        rgba(255,255,255,0.1) 75%, 
-        transparent 100%);
-      border-radius: var(--radius);
-      z-index: -1;
-      opacity: 0;
-      transition: opacity 0.4s ease;
+      color: var(--text, #ffffff) !important;
     }
 
     .game-card:hover {
       transform: translateY(-15px) scale(1.03);
-      box-shadow: 0 50px 150px rgba(255,255,255,0.25), 0 0 100px rgba(255,255,255,0.1);
+      box-shadow: 0 50px 150px rgba(255,255,255,0.25);
       border-color: rgba(255,255,255,0.4);
-    }
-
-    .game-card:hover::before,
-    .game-card:hover::after {
-      opacity: 1;
     }
 
     .game-thumbnail {
       width: 100%;
-      height: 180px;
+      height: 200px;
       object-fit: cover;
-      transition: transform 0.5s ease;
-      position: relative;
+      transition: transform 0.4s ease;
     }
 
     .game-card:hover .game-thumbnail {
@@ -784,312 +457,69 @@
       font-size: 22px;
       font-weight: 800;
       margin-bottom: 12px;
-      background: linear-gradient(45deg, #fff, #e0e0e0);
-      background-size: 200% 200%;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      animation: gradient-text-game 3s ease infinite;
-      transition: all 0.3s ease;
-    }
-
-    .game-card:hover .game-name {
-      transform: scale(1.05);
-      text-shadow: 0 0 20px rgba(255,255,255,0.5);
+      color: var(--text, #ffffff) !important;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.5) !important;
     }
 
     .game-description {
-      color: var(--muted);
-      font-size: 15px;
-      line-height: 1.6;
+      color: var(--muted, #cccccc) !important;
+      font-size: 14px;
+      line-height: 1.5;
       margin-bottom: 20px;
-      animation: text-fade-in 1s ease both;
     }
 
     .game-status {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      margin-top: 20px;
-      padding-top: 15px;
-      border-top: 1px solid var(--line);
+      margin-top: 15px;
     }
 
     .status-badge {
-      padding: 8px 16px;
+      padding: 6px 12px;
       border-radius: 20px;
       font-size: 12px;
-      font-weight: 800;
+      font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.1em;
-      animation: badge-pulse 2s ease-in-out infinite;
     }
 
     .status-working {
       background: rgba(16, 185, 129, 0.2);
       color: #10B981;
       border: 1px solid rgba(16, 185, 129, 0.4);
-      box-shadow: 0 0 15px rgba(16, 185, 129, 0.3);
     }
 
     .status-updating {
       background: rgba(245, 158, 11, 0.2);
       color: #F59E0B;
       border: 1px solid rgba(245, 158, 11, 0.4);
-      box-shadow: 0 0 15px rgba(245, 158, 11, 0.3);
     }
 
     .status-patched {
       background: rgba(239, 68, 68, 0.2);
       color: #EF4444;
       border: 1px solid rgba(239, 68, 68, 0.4);
-      box-shadow: 0 0 15px rgba(239, 68, 68, 0.3);
     }
 
     .game-id {
-      font-size: 11px;
-      color: var(--muted);
-      font-family: 'Courier New', monospace;
-      opacity: 0.7;
-      animation: id-fade 3s ease-in-out infinite;
-    }
-
-    /* ---------- Game Popup Modal ---------- */
-    .modal-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      background: rgba(0, 0, 0, 0.8);
-      backdrop-filter: blur(10px);
-      z-index: 1000;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      opacity: 0;
-      visibility: hidden;
-      transition: all 0.3s ease;
-      overflow: auto;
-    }
-
-    .modal-overlay.active {
-      opacity: 1;
-      visibility: visible;
-    }
-
-    .modal {
-      background: linear-gradient(145deg, #1a1a1a, #0d0d0d);
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      padding: 40px;
-      max-width: min(600px, 90vw);
-      width: 100%;
-      max-height: min(80vh, 700px);
-      overflow-y: auto;
-      overflow-x: hidden;
-      position: relative;
-      animation: modal-entrance 0.5s ease both;
-      box-shadow: 0 50px 150px rgba(255,255,255,0.2);
-      margin: 20px;
-    }
-
-    .modal::-webkit-scrollbar {
-      width: 6px;
-    }
-
-    .modal::-webkit-scrollbar-track {
-      background: rgba(255, 255, 255, 0.05);
-      border-radius: 3px;
-    }
-
-    .modal::-webkit-scrollbar-thumb {
-      background: rgba(255, 255, 255, 0.2);
-      border-radius: 3px;
-    }
-
-    .modal::-webkit-scrollbar-thumb:hover {
-      background: rgba(255, 255, 255, 0.3);
-    }
-
-    .modal::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
-      animation: shimmer 4s ease-in-out infinite;
-    }
-
-    .modal-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 25px;
-      padding-bottom: 15px;
-      border-bottom: 1px solid var(--line);
-    }
-
-    .modal-title {
-      font-size: 28px;
-      font-weight: 800;
-      background: linear-gradient(45deg, #fff, #e0e0e0);
-      background-size: 200% 200%;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      animation: gradient-text 3s ease infinite;
-    }
-
-    .close-btn {
-      background: none;
-      border: none;
-      color: #fff;
-      font-size: 24px;
-      cursor: pointer;
-      padding: 8px;
-      border-radius: 8px;
-      transition: all 0.3s ease;
-    }
-
-    .close-btn:hover {
-      background: rgba(255,255,255,0.1);
-      transform: scale(1.1);
-    }
-
-    .modal-script-box {
-      background: rgba(255,255,255,0.05);
-      border: 1px solid var(--line);
-      border-radius: 12px;
-      padding: 20px;
-      margin-bottom: 25px;
-    }
-
-    .modal-script-input {
-      width: 100%;
-      background: rgba(255,255,255,0.05);
-      border: 1px solid var(--line);
-      border-radius: 8px;
-      padding: 12px 16px;
-      color: var(--text);
-      font-size: 14px;
-      font-family: 'Courier New', monospace;
-      margin-bottom: 15px;
-      transition: all 0.3s ease;
-    }
-
-    .modal-script-input:focus {
-      outline: none;
-      border-color: rgba(255,255,255,0.4);
-      background: rgba(255,255,255,0.08);
-    }
-
-    .modal-copy-btn {
-      width: 100%;
-      background: rgba(255,255,255,0.1);
-      color: #fff;
-      border: 1px solid rgba(255,255,255,0.2);
-      border-radius: 8px;
-      padding: 12px;
-      font-weight: 700;
-      cursor: pointer;
-      transition: all 0.3s ease;
-    }
-
-    .modal-copy-btn:hover {
-      background: rgba(255,255,255,0.2);
-      transform: translateY(-2px);
-    }
-
-    .features-list {
-      margin-bottom: 25px;
-    }
-
-    .features-list h4 {
-      margin-bottom: 15px;
-      color: #fff;
-      font-size: 18px;
-    }
-
-    .feature-item {
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,255,255,0.1);
-      border-radius: 8px;
-      padding: 12px 16px;
-      margin-bottom: 8px;
-      transition: all 0.3s ease;
-      animation: feature-slide-in 0.5s ease both;
-    }
-
-    .feature-item:hover {
-      background: rgba(255,255,255,0.1);
-      transform: translateX(5px);
-    }
-
-    .game-info {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 15px;
-      margin-bottom: 20px;
-    }
-
-    .info-item {
-      background: rgba(255,255,255,0.05);
-      border-radius: 8px;
-      padding: 12px;
-      text-align: center;
-    }
-
-    .info-label {
       font-size: 12px;
-      color: var(--muted);
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      margin-bottom: 5px;
-    }
-
-    .info-value {
-      font-weight: 800;
-      color: #fff;
-    }
-
-    /* ---------- Section Headers ---------- */
-    .section-header {
-      text-align: center;
-      margin-bottom: 40px;
-      animation: header-entrance 1s ease both;
-    }
-
-    .section-title {
-      font-size: clamp(32px, 5vw, 48px);
-      margin-bottom: 12px;
-      background: linear-gradient(45deg, #fff, #ccc, #fff);
-      background-size: 200% 200%;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      animation: gradient-text-header 4s ease infinite;
-    }
-
-    .section-subtitle {
-      color: var(--muted);
-      font-size: 18px;
-      animation: subtitle-glow 3s ease-in-out infinite;
+      color: var(--muted, #cccccc) !important;
+      font-family: monospace;
     }
 
     /* ---------- Footer ---------- */
-    footer {
-      border-top: 1px solid var(--line);
-      padding: 30px 0 70px;
-      color: var(--muted);
-      text-align: center;
+    footer{
+      border-top: 1px solid var(--borderColor, #333333) !important; 
+      padding:30px 0 70px; color:var(--muted); text-align:center;
+      animation: footer-entrance 1s ease both;
       position: relative;
       z-index: 20;
-      animation: footer-entrance 1s ease both;
     }
     
     footer strong {
       color: var(--text) !important;
-      text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.5) !important;
     }
 
     /* ---------- Animation Keyframes ---------- */
@@ -1118,109 +548,19 @@
       to { opacity: 1; transform: translateY(0) scale(1); }
     }
 
-    @keyframes gradient-text {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
-    }
-
-    @keyframes script-box-entrance {
-      from { opacity: 0; transform: translateY(40px) scale(0.95); }
-      to { opacity: 1; transform: translateY(0) scale(1); }
-    }
-
-    @keyframes search-entrance {
-      from { opacity: 0; transform: translateY(30px) scale(0.95); }
-      to { opacity: 1; transform: translateY(0) scale(1); }
-    }
-
-    @keyframes shimmer {
-      0% { left: -100%; }
-      100% { left: 100%; }
-    }
-
-    @keyframes text-glow {
-      0%, 100% { text-shadow: 0 0 10px rgba(255,255,255,0.3); }
-      50% { text-shadow: 0 0 20px rgba(255,255,255,0.6); }
-    }
-
-    @keyframes input-glow {
-      0%, 100% { box-shadow: inset 0 0 20px rgba(255,255,255,0.05); }
-      50% { box-shadow: inset 0 0 30px rgba(255,255,255,0.1); }
-    }
-
-    @keyframes btn-pulse {
-      0%, 100% { box-shadow: 0 0 10px rgba(255,255,255,0.1); }
-      50% { box-shadow: 0 0 20px rgba(255,255,255,0.2); }
-    }
-
     @keyframes game-card-entrance {
       from { opacity: 0; transform: translateY(50px) rotateX(15deg); }
       to { opacity: 1; transform: translateY(0) rotateX(0deg); }
     }
 
-    @keyframes gradient-text-game {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
-    }
-
-    @keyframes text-fade-in {
-      from { opacity: 0; transform: translateY(10px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    @keyframes badge-pulse {
-      0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.05); }
-    }
-
-    @keyframes id-fade {
-      0%, 100% { opacity: 0.7; }
-      50% { opacity: 1; }
-    }
-
-    @keyframes header-entrance {
-      from { opacity: 0; transform: translateY(30px) scale(0.95); }
-      to { opacity: 1; transform: translateY(0) scale(1); }
-    }
-
-    @keyframes gradient-text-header {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
-    }
-
-    @keyframes subtitle-glow {
-      0%, 100% { text-shadow: 0 0 10px rgba(204,204,204,0.3); }
-      50% { text-shadow: 0 0 20px rgba(204,204,204,0.5); }
+    @keyframes loader-glow {
+      0%, 100% { box-shadow: 0 0 20px rgba(255,255,255,0.1); }
+      50% { box-shadow: 0 0 40px rgba(255,255,255,0.2); }
     }
 
     @keyframes footer-entrance {
       from { opacity: 0; transform: translateY(30px); }
       to { opacity: 1; transform: translateY(0); }
-    }
-
-    @keyframes modal-entrance {
-      from { opacity: 0; transform: translateY(50px) scale(0.9); }
-      to { opacity: 1; transform: translateY(0) scale(1); }
-    }
-
-    @keyframes feature-slide-in {
-      from { opacity: 0; transform: translateX(-20px); }
-      to { opacity: 1; transform: translateX(0); }
-    }
-
-    @keyframes empty-state-entrance {
-      from { opacity: 0; transform: translateY(40px) scale(0.9); }
-      to { opacity: 1; transform: translateY(0) scale(1); }
-    }
-
-    @keyframes broken-icon-float {
-      0%, 100% { transform: translateY(0) rotate(0deg); }
-      25% { transform: translateY(-10px) rotate(-5deg); }
-      50% { transform: translateY(-5px) rotate(0deg); }
-      75% { transform: translateY(-15px) rotate(5deg); }
     }
 
     /* ---------- Scroll Reveal ---------- */
@@ -1241,48 +581,15 @@
     /* ---------- Responsive ---------- */
     @media (max-width: 980px){
       .links{display:none}
-      .games-grid{grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));}
+      .games-grid{grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));}
     }
     
     @media (max-width: 768px) {
       .particle { display: none; }
       .wave { animation-duration: 40s; }
       .games-grid{grid-template-columns: 1fr;}
-      .script-input-container {
-        flex-direction: column;
-        gap: 12px;
-      }
-      .copy-btn {
-        width: 100%;
-      }
       .game-card {
         margin: 0 10px;
-      }
-      .modal {
-        width: 95vw;
-        padding: 30px 20px;
-        margin: 10px;
-      }
-      .game-info {
-        grid-template-columns: 1fr;
-      }
-      .filters {
-        justify-content: center;
-      }
-      .pagination {
-        flex-wrap: wrap;
-        gap: 10px;
-      }
-      .pagination-btn {
-        min-width: 80px;
-        padding: 10px 15px;
-        font-size: 13px;
-      }
-      .results-info {
-        display: flex;
-        flex-direction: column;
-        gap: 5px;
-        font-size: 14px;
       }
     }
   </style>
@@ -1300,15 +607,6 @@
     <div class="particle particle-3" style="left: 70%; animation-delay: 12s;"></div>
     <div class="particle particle-1" style="left: 80%; animation-delay: 14s;"></div>
     <div class="particle particle-4" style="left: 90%; animation-delay: 16s;"></div>
-    <div class="particle particle-2" style="left: 15%; animation-delay: 18s;"></div>
-    <div class="particle particle-3" style="left: 25%; animation-delay: 20s;"></div>
-    <div class="particle particle-1" style="left: 35%; animation-delay: 22s;"></div>
-    <div class="particle particle-4" style="left: 45%; animation-delay: 24s;"></div>
-    <div class="particle particle-2" style="left: 55%; animation-delay: 26s;"></div>
-    <div class="particle particle-3" style="left: 65%; animation-delay: 28s;"></div>
-    <div class="particle particle-1" style="left: 75%; animation-delay: 30s;"></div>
-    <div class="particle particle-4" style="left: 85%; animation-delay: 32s;"></div>
-    <div class="particle particle-2" style="left: 95%; animation-delay: 34s;"></div>
 
     <!-- Animated Waves -->
     <div class="wave wave-1"></div>
@@ -1330,8 +628,8 @@
       <div class="links">
         <a href="/">Home</a>
         <a href="/executors">Executors</a>
-        <a href="/games" style="color: #fff; opacity: 1;">Games & Scripts</a>
         <a href="https://discord.gg/ExH98C3uFH" target="_blank">Discord</a>
+        <a href="/games" style="color: #fff; opacity: 1;">Games & Scripts</a>
         <a href="/showcases">Showcases</a>
         <a href="/pricing">Pricing</a>
         <a href="/developers">Developers</a>
@@ -1343,78 +641,46 @@
   <header class="hero container">
     <div class="eyebrow reveal">game scripts • automation • quality</div>
     <h1 class="title reveal">Games & Scripts</h1>
-    <p class="subtitle reveal">Premium scripts for your favorite games — undetected and always updated</p>
+    <p class="subtitle reveal">High-quality scripts for your favorite games. Updated regularly for maximum compatibility.</p>
+    
+    <!-- Universal Script Loader -->
+    <div class="loader-section reveal">
+      <h3 class="loader-title">🚀 Universal Script Loader</h3>
+      <div class="loader-code">loadstring(game:HttpGet("https://raw.githubusercontent.com/nobulem/scripts/main/loader.lua"))()</div>
+      <button class="copy-btn" onclick="copyLoader()">Copy</button>
+    </div>
   </header>
-
-  <section class="script-section">
-    <div class="container">
-      <div class="script-box reveal">
-        <h3>🚀 Universal Script Loader</h3>
-        <div class="script-input-container">
-          <input 
-            class="script-input" 
-            readonly 
-            id="script-text"
-            value='loadstring(game:HttpGet("https://raw.githubusercontent.com/nobulem/scripts/main/loader.lua"))()'>
-          <button class="copy-btn" onclick="copyScript()">
-            Copy
-          </button>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Moved section header to here -->
-  <div class="container">
-    <div class="section-header reveal">
-      <h2 class="section-title">Supported Games</h2>
-      <p class="section-subtitle">Click on any game to access its dedicated script features</p>
-    </div>
-  </div>
 
   <section class="search-section">
     <div class="container">
-      <div class="search-controls reveal">
-        <div class="search-input-container">
-          <input 
-            type="text" 
-            class="search-input" 
-            id="searchInput"
-            placeholder="Search games by name, ID, or features (e.g., aimbot, ESP)..."
-            autocomplete="off">
-          <button class="clear-search-btn" id="clearSearchBtn" onclick="clearSearch()">✕</button>
-        </div>
-        
-        <div class="filters">
-          <span class="filter-label">Filter by status:</span>
-          <button class="filter-btn active" data-filter="all" onclick="setFilter('all')">All</button>
-          <button class="filter-btn" data-filter="working" onclick="setFilter('working')">Working</button>
-          <button class="filter-btn" data-filter="updating" onclick="setFilter('updating')">Updating</button>
-          <button class="filter-btn" data-filter="patched" onclick="setFilter('patched')">Patched</button>
-        </div>
+      <div class="search-container reveal">
+        <input type="text" class="search-input" placeholder="Search games..." id="searchInput" oninput="filterGames()">
+        <button class="clear-btn" onclick="clearSearch()" style="display: none;" id="clearBtn">×</button>
       </div>
     </div>
   </section>
 
   <section class="games-section">
     <div class="container">
-      <div class="results-info" id="resultsInfo"></div>
-      
-      <!-- Empty State -->
-      <div class="empty-state" id="emptyState" style="display: none;">
-        <div class="broken-search-icon">🔍</div>
-        <h3 class="empty-title">Nothing Here...??</h3>
-        <p class="empty-subtitle">Try adjusting your search or browse all games</p>
-        <p class="discord-invite">
-          (PS: if you want us to add a game, you can recommend it at our discord server!) 
-          <a href="https://discord.gg/ExH98C3uFH" target="_blank" class="discord-link">
-            Join Discord <span class="discord-arrow">→</span>
-          </a>
-        </p>
-        <button class="empty-clear-btn" onclick="clearSearch()">Clear Search</button>
+      <div class="section-header reveal">
+        <h2 class="section-title">Supported Games</h2>
+        <p class="section-subtitle">Choose from our collection of premium game scripts</p>
       </div>
       
       <div class="games-grid" id="gamesGrid">
+        <!-- Games will be loaded dynamically or from admin panel -->
+        <div class="game-card reveal delay-1" data-game-id="untitled-boxing" data-status="working" onclick="openGameModal('untitled-boxing')">
+          <img src="https://tr.rbxcdn.com/180DAY-078e71f7babd821f5bb362c460fc0fd9/768/432/Image/Webp/noFilter" alt="Untitled Boxing Game" class="game-thumbnail">
+          <div class="game-content">
+            <h3 class="game-name">Untitled Boxing Game</h3>
+            <p class="game-description">Boxing combat enhancements with perfect dodge timing, player chams, and advanced ESP systems.</p>
+            <div class="game-status">
+              <span class="status-badge status-working">Working</span>
+              <span class="game-id"># 13423334817</span>
+            </div>
+          </div>
+        </div>
+
         <div class="game-card reveal delay-2" data-game-id="marvelous-playground" data-status="working" onclick="openGameModal('marvelous-playground')">
           <img src="https://tr.rbxcdn.com/180DAY-915535b6a2b0ddd4710ec77320027004/768/432/Image/Webp/noFilter" alt="Marvelous Playground" class="game-thumbnail">
           <div class="game-content">
@@ -1438,104 +704,9 @@
             </div>
           </div>
         </div>
-
-        <div class="game-card reveal delay-4" data-game-id="doomspire-brickbattle" data-status="updating" onclick="openGameModal('doomspire-brickbattle')">
-          <img src="https://tr.rbxcdn.com/180DAY-1e86f9077030b286cd6758344392e8bc/768/432/Image/Webp/noFilter" alt="Doomspire Brickbattle" class="game-thumbnail">
-          <div class="game-content">
-            <h3 class="game-name">Doomspire Brickbattle</h3>
-            <p class="game-description">Strategic building and combat enhancements with auto-build, rocket spam, and team coordination tools.</p>
-            <div class="game-status">
-              <span class="status-badge status-updating">Updating</span>
-              <span class="game-id"># 1215581239</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="game-card reveal delay-5" data-game-id="99-nights-forest" data-status="working" onclick="openGameModal('99-nights-forest')">
-          <img src="https://tr.rbxcdn.com/180DAY-643b9b9285f3bd9b63cf392db12a4d87/768/432/Image/Webp/noFilter" alt="99 Nights in the Forest" class="game-thumbnail">
-          <div class="game-content">
-            <h3 class="game-name">99 Nights in the Forest</h3>
-            <p class="game-description">Survival automation with resource gathering, monster detection, and night vision capabilities.</p>
-            <div class="game-status">
-              <span class="status-badge status-working">Working</span>
-              <span class="game-id"># 7892341567</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="game-card reveal delay-6" data-game-id="hyper-shot" data-status="working" onclick="openGameModal('hyper-shot')">
-          <img src="https://tr.rbxcdn.com/180DAY-93924fb5e13a8c356403e707c73ab3ef/768/432/Image/Webp/noFilter" alt="Hyper Shot" class="game-thumbnail">
-          <div class="game-content">
-            <h3 class="game-name">Hyper Shot</h3>
-            <p class="game-description">Precision shooting enhancements with aimbot, wallhacks, and weapon modification systems.</p>
-            <div class="game-status">
-              <span class="status-badge status-working">Working</span>
-              <span class="game-id"># 5634789123</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="game-card reveal delay-1" data-game-id="untitled-boxing" data-status="working" onclick="openGameModal('untitled-boxing')">
-          <img src="https://tr.rbxcdn.com/180DAY-078e71f7babd821f5bb362c460fc0fd9/768/432/Image/Webp/noFilter" alt="Untitled Boxing Game" class="game-thumbnail">
-          <div class="game-content">
-            <h3 class="game-name">Untitled Boxing Game</h3>
-            <p class="game-description">Boxing combat enhancements with perfect dodge timing, player chams, and advanced ESP systems.</p>
-            <div class="game-status">
-              <span class="status-badge status-working">Working</span>
-              <span class="game-id"># 13423334817</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Pagination -->
-      <div class="pagination" id="pagination" style="display: none;">
-        <button class="pagination-btn" id="prevBtn" onclick="changePage(-1)">← Previous</button>
-        <span class="pagination-current" id="pageInfo">Page 1</span>
-        <button class="pagination-btn" id="nextBtn" onclick="changePage(1)">Next →</button>
       </div>
     </div>
   </section>
-
-  <!-- Game Modal -->
-  <div class="modal-overlay" id="gameModal">
-    <div class="modal">
-      <div class="modal-header">
-        <h3 class="modal-title" id="modalTitle">Game Details</h3>
-        <button class="close-btn" onclick="closeGameModal()">×</button>
-      </div>
-      
-      <div class="modal-script-box">
-        <h4 style="margin-bottom: 15px; color: #fff;">🚀 Script Loader</h4>
-        <input 
-          class="modal-script-input" 
-          readonly 
-          id="modalScriptText"
-          value='loadstring(game:HttpGet("https://raw.githubusercontent.com/nobulem/scripts/main/loader.lua"))()'>
-        <button class="modal-copy-btn" onclick="copyModalScript()">
-          📋 Copy Script
-        </button>
-      </div>
-
-      <div class="game-info" id="modalGameInfo">
-        <div class="info-item">
-          <div class="info-label">Status</div>
-          <div class="info-value" id="modalStatus">Working</div>
-        </div>
-        <div class="info-item">
-          <div class="info-label">Game ID</div>
-          <div class="info-value" id="modalGameId"># 8657766101</div>
-        </div>
-      </div>
-
-      <div class="features-list">
-        <h4>🎯 Available Features</h4>
-        <div id="modalFeatures">
-          <!-- Features will be populated by JavaScript -->
-        </div>
-      </div>
-    </div>
-  </div>
 
   <footer>
     <div class="container">
@@ -1549,214 +720,7 @@
     // Set current year
     document.getElementById('year').textContent = new Date().getFullYear();
 
-    // Game data with features
-    const gameData = {
-      'marvelous-playground': {
-        name: 'Marvelous Playground',
-        id: '8657766101',
-        status: 'Working',
-        features: ['Kill All Players', 'Kill Selected Player', 'ESP', 'Player Highlighting', 'Player Targeting System', 'Auto Combat', 'Damage Multiplier']
-      },
-      'project-power': {
-        name: 'Project Power',
-        id: '34329168147',
-        status: 'Working',
-        features: ['Kill All Players', 'Kill Selected Player', 'ESP Overlay', 'Power-up Automation', 'Player Detection', 'Auto Abilities']
-      },
-      'doomspire-brickbattle': {
-        name: 'Doomspire Brickbattle',
-        id: '1215581239',
-        status: 'Updating',
-        features: ['Auto Build Towers', 'Rocket Spam', 'Team Coordination', 'Building ESP', 'Auto Repair', 'Strategic Positioning']
-      },
-      '99-nights-forest': {
-        name: '99 Nights in the Forest',
-        id: '7892341567',
-        status: 'Working',
-        features: ['Auto Resource Gathering', 'Monster Detection ESP', 'Night Vision', 'Survival Automation', 'Item Collection', 'Danger Alerts']
-      },
-      'hyper-shot': {
-        name: 'Hyper Shot',
-        id: '5634789123',
-        status: 'Working',
-        features: ['Aimbot System', 'Wallhack ESP', 'Weapon Modifications', 'Auto Reload', 'Precision Targeting', 'Recoil Control', 'Aimbot']
-      },
-      'untitled-boxing': {
-        name: 'Untitled Boxing Game',
-        id: '13423334817',
-        status: 'Working',
-        features: ['Perfect Dodge Timing', 'Player Chams', 'Combat ESP', 'Auto Block', 'Punch Prediction', 'Health Monitoring']
-      },
-    };
-
-    // Search and filter variables
-    let currentPage = 1;
-    let gamesPerPage = 10;
-    let currentFilter = 'all';
-    let currentSearch = '';
-    let allGames = [];
-    let filteredGames = [];
-
-    // Initialize games array from DOM
-    function initializeGames() {
-      const gameCards = document.querySelectorAll('.game-card');
-      allGames = Array.from(gameCards).map(card => {
-        const gameId = card.getAttribute('data-game-id');
-        const status = card.getAttribute('data-status');
-        const gameInfo = gameData[gameId] || {};
-        
-        return {
-          element: card,
-          gameId: gameId,
-          name: gameInfo.name || '',
-          id: gameInfo.id || '',
-          status: status || 'working',
-          features: gameInfo.features || [],
-          originalIndex: Array.from(gameCards).indexOf(card)
-        };
-      });
-      filteredGames = [...allGames];
-      updateDisplay();
-    }
-
-    // Search functionality
-    function performSearch() {
-      const searchTerm = document.getElementById('searchInput').value.toLowerCase().trim();
-      const clearBtn = document.getElementById('clearSearchBtn');
-      
-      currentSearch = searchTerm;
-      
-      // Show/hide clear button
-      if (searchTerm) {
-        clearBtn.classList.add('visible');
-      } else {
-        clearBtn.classList.remove('visible');
-      }
-
-      filterGames();
-    }
-
-    // Filter games based on search and status
-    function filterGames() {
-      filteredGames = allGames.filter(game => {
-        // Status filter
-        const statusMatch = currentFilter === 'all' || game.status.toLowerCase() === currentFilter;
-        
-        if (!statusMatch) return false;
-        
-        // Search filter
-        if (!currentSearch) return true;
-        
-        const searchLower = currentSearch.toLowerCase();
-        
-        // Search in name, ID, and features
-        const nameMatch = game.name.toLowerCase().includes(searchLower);
-        const idMatch = game.id.includes(searchLower);
-        const featuresMatch = game.features.some(feature => 
-          feature.toLowerCase().includes(searchLower)
-        );
-        
-        return nameMatch || idMatch || featuresMatch;
-      });
-
-      currentPage = 1; // Reset to first page
-      updateDisplay();
-    }
-
-    // Update display with pagination
-    function updateDisplay() {
-      const gamesGrid = document.getElementById('gamesGrid');
-      const emptyState = document.getElementById('emptyState');
-      const resultsInfo = document.getElementById('resultsInfo');
-      const pagination = document.getElementById('pagination');
-
-      // Hide all game cards first
-      allGames.forEach(game => {
-        game.element.style.display = 'none';
-      });
-
-      if (filteredGames.length === 0) {
-        // Show empty state
-        gamesGrid.style.display = 'none';
-        emptyState.style.display = 'block';
-        resultsInfo.style.display = 'none';
-        pagination.style.display = 'none';
-      } else {
-        // Show games grid
-        gamesGrid.style.display = 'grid';
-        emptyState.style.display = 'none';
-        resultsInfo.style.display = 'block';
-        
-        // Calculate pagination
-        const totalGames = filteredGames.length;
-        const totalPages = Math.ceil(totalGames / gamesPerPage);
-        const startIndex = (currentPage - 1) * gamesPerPage;
-        const endIndex = Math.min(startIndex + gamesPerPage, totalGames);
-        
-        // Show current page games
-        for (let i = startIndex; i < endIndex; i++) {
-          if (filteredGames[i]) {
-            filteredGames[i].element.style.display = 'block';
-          }
-        }
-
-        // Update results info
-        resultsInfo.textContent = `Showing ${startIndex + 1}-${endIndex} out of ${totalGames} games`;
-
-        // Update pagination
-        if (totalPages > 1) {
-          pagination.style.display = 'flex';
-          document.getElementById('prevBtn').disabled = currentPage === 1;
-          document.getElementById('nextBtn').disabled = currentPage === totalPages;
-          document.getElementById('pageInfo').textContent = `Page ${currentPage} of ${totalPages}`;
-        } else {
-          pagination.style.display = 'none';
-        }
-      }
-    }
-
-    // Change page
-    function changePage(direction) {
-      const totalPages = Math.ceil(filteredGames.length / gamesPerPage);
-      const newPage = currentPage + direction;
-      
-      if (newPage >= 1 && newPage <= totalPages) {
-        currentPage = newPage;
-        updateDisplay();
-        
-        // Smooth scroll to top of games section
-        document.querySelector('.games-section').scrollIntoView({ 
-          behavior: 'smooth', 
-          block: 'start' 
-        });
-      }
-    }
-
-    // Set filter
-    function setFilter(filter) {
-      currentFilter = filter;
-      
-      // Update active filter button
-      document.querySelectorAll('.filter-btn').forEach(btn => {
-        btn.classList.remove('active');
-      });
-      document.querySelector(`[data-filter="${filter}"]`).classList.add('active');
-      
-      filterGames();
-    }
-
-    // Clear search
-    function clearSearch() {
-      document.getElementById('searchInput').value = '';
-      document.getElementById('clearSearchBtn').classList.remove('visible');
-      currentSearch = '';
-      filterGames();
-    }
-
-    // Event listeners
-    document.getElementById('searchInput').addEventListener('input', performSearch);
-
-    // Enhanced reveal on scroll with staggered animations
+    // Enhanced reveal on scroll
     const io = new IntersectionObserver((entries)=>{
       entries.forEach((e, index)=>{
         if(e.isIntersecting){ 
@@ -1769,125 +733,57 @@
     }, {threshold:.1});
     document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
 
-    // Copy script functionality
-    function copyScript() {
-      const scriptText = document.getElementById('script-text');
-      const copyBtn = document.querySelector('.copy-btn');
-      
-      try {
-        navigator.clipboard.writeText(scriptText.value).then(() => {
-          // Success feedback
-          const originalText = copyBtn.innerHTML;
-          copyBtn.innerHTML = '✓ Copied';
-          copyBtn.classList.add('copy-success');
-          
-          setTimeout(() => {
-            copyBtn.innerHTML = originalText;
-            copyBtn.classList.remove('copy-success');
-          }, 2000);
-        }).catch(() => {
-          // Fallback for older browsers
-          scriptText.select();
-          document.execCommand('copy');
-          const originalText = copyBtn.innerHTML;
-          copyBtn.innerHTML = '✓ Copied';
-          copyBtn.classList.add('copy-success');
-          
-          setTimeout(() => {
-            copyBtn.innerHTML = originalText;
-            copyBtn.classList.remove('copy-success');
-          }, 2000);
-        });
-      } catch (err) {
-        console.error('Failed to copy text: ', err);
-      }
+    // Copy loader function
+    function copyLoader() {
+      const loaderCode = 'loadstring(game:HttpGet("https://raw.githubusercontent.com/nobulem/scripts/main/loader.lua"))()';
+      navigator.clipboard.writeText(loaderCode).then(() => {
+        const btn = document.querySelector('.copy-btn');
+        const originalText = btn.textContent;
+        btn.textContent = 'Copied!';
+        btn.style.background = '#10B981';
+        btn.style.color = '#ffffff';
+        setTimeout(() => {
+          btn.textContent = originalText;
+          btn.style.background = '';
+          btn.style.color = '';
+        }, 2000);
+      });
     }
 
-    // Modal functionality
+    // Search functionality
+    function filterGames() {
+      const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+      const clearBtn = document.getElementById('clearBtn');
+      const gameCards = document.querySelectorAll('.game-card');
+      
+      clearBtn.style.display = searchTerm ? 'flex' : 'none';
+      
+      gameCards.forEach(card => {
+        const gameName = card.querySelector('.game-name').textContent.toLowerCase();
+        const gameDescription = card.querySelector('.game-description').textContent.toLowerCase();
+        const gameId = card.querySelector('.game-id').textContent.toLowerCase();
+        
+        if (gameName.includes(searchTerm) || gameDescription.includes(searchTerm) || gameId.includes(searchTerm)) {
+          card.style.display = 'block';
+          card.style.animation = 'game-card-entrance 0.5s ease both';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+
+    function clearSearch() {
+      document.getElementById('searchInput').value = '';
+      document.getElementById('clearBtn').style.display = 'none';
+      document.querySelectorAll('.game-card').forEach(card => {
+        card.style.display = 'block';
+      });
+    }
+
+    // Game modal placeholder
     function openGameModal(gameId) {
-      const game = gameData[gameId];
-      if (!game) return;
-
-      // Populate modal content
-      document.getElementById('modalTitle').textContent = game.name;
-      document.getElementById('modalStatus').textContent = game.status;
-      document.getElementById('modalGameId').textContent = `# ${game.id}`;
-      
-      // Set status color
-      const statusElement = document.getElementById('modalStatus');
-      statusElement.style.color = game.status === 'Working' ? '#10B981' : 
-                                  game.status === 'Updating' ? '#F59E0B' : '#EF4444';
-
-      // Populate features
-      const featuresContainer = document.getElementById('modalFeatures');
-      featuresContainer.innerHTML = game.features.map((feature, index) => 
-        `<div class="feature-item" style="animation-delay: ${index * 0.1}s;">${feature}</div>`
-      ).join('');
-
-      // Show modal
-      const modal = document.getElementById('gameModal');
-      modal.classList.add('active');
-      document.body.style.overflow = 'hidden';
-
-      // Add click effect to the card
-      const clickedCard = event.currentTarget;
-      clickedCard.style.transform = 'translateY(-20px) scale(1.05)';
-      clickedCard.style.boxShadow = '0 60px 180px rgba(255,255,255,0.3)';
-      
-      setTimeout(() => {
-        clickedCard.style.transform = '';
-        clickedCard.style.boxShadow = '';
-      }, 300);
+      alert(`Opening ${gameId} - Feature coming soon!`);
     }
-
-    function closeGameModal() {
-      const modal = document.getElementById('gameModal');
-      modal.classList.remove('active');
-      document.body.style.overflow = '';
-    }
-
-    function copyModalScript() {
-      const scriptText = document.getElementById('modalScriptText');
-      const copyBtn = document.querySelector('.modal-copy-btn');
-      
-      try {
-        navigator.clipboard.writeText(scriptText.value).then(() => {
-          const originalText = copyBtn.innerHTML;
-          copyBtn.innerHTML = '✅ Copied!';
-          copyBtn.style.background = 'rgba(16, 185, 129, 0.2)';
-          copyBtn.style.color = '#10B981';
-          copyBtn.style.borderColor = 'rgba(16, 185, 129, 0.4)';
-          
-          setTimeout(() => {
-            copyBtn.innerHTML = originalText;
-            copyBtn.style.background = '';
-            copyBtn.style.color = '';
-            copyBtn.style.borderColor = '';
-          }, 2000);
-        });
-      } catch (err) {
-        console.error('Failed to copy text: ', err);
-      }
-    }
-
-    // Close modal when clicking outside
-    document.getElementById('gameModal').addEventListener('click', (e) => {
-      if (e.target.classList.contains('modal-overlay')) {
-        closeGameModal();
-      }
-    });
-
-    // Close modal with Escape key
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') {
-        closeGameModal();
-      }
-    });
-
-    // Initialize the games system
-    window.addEventListener('DOMContentLoaded', () => {
-      initializeGames();
-    });
 
     // Add particle regeneration
     function createParticle() {
@@ -1921,33 +817,6 @@
         shape.style.transform = `translateY(${scrolled * speed}px)`;
       });
     });
-
-    // Add pulsing effect to brand dot
-    const brandDot = document.querySelector('.brand .dot');
-    if (brandDot) {
-      setInterval(() => {
-        brandDot.style.transform = 'scale(1.3)';
-        setTimeout(() => {
-          brandDot.style.transform = 'scale(1)';
-        }, 200);
-      }, 3000);
-    }
-
-    // Add dynamic glow effects
-    function addDynamicGlow() {
-      const cards = document.querySelectorAll('.game-card:not([style*="display: none"])');
-      cards.forEach((card, index) => {
-        setTimeout(() => {
-          card.style.boxShadow = '0 30px 100px rgba(255,255,255,0.15)';
-          setTimeout(() => {
-            card.style.boxShadow = 'var(--shadow)';
-          }, 2000);
-        }, index * 800);
-      });
-    }
-
-    // Trigger glow effects periodically
-    setInterval(addDynamicGlow, 12000);
   </script>
 </body>
 </html>
