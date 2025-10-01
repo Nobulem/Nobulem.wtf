@@ -290,7 +290,7 @@
       text-align: center;
     }
     .eyebrow {
-      color: var(--eyebrowColor, #eaeaea);
+      color: var(--eyebrowColor);
       text-transform: uppercase;
       font-size: 13px;
       letter-spacing: .24em;
@@ -305,7 +305,7 @@
     }
     .subtitle {
       font-size: clamp(16px, 2.2vw, 20px);
-      color: var(--subtitleColor, var(--muted));
+      color: var(--subtitleColor);
       animation: fade-in 1.2s ease-out 0.4s both;
       text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
     }
@@ -327,7 +327,7 @@
     }
 
     .dev-card {
-      background: var(--cardBg, linear-gradient(145deg, #1a1a1a, #0d0d0d));
+      background: var(--cardBg);
       border: 1px solid var(--line);
       border-radius: var(--radius);
       padding: 40px 30px;
@@ -473,7 +473,7 @@
     }
 
     .skill-tag {
-      background: var(--cardBg, rgba(255,255,255,0.1)) !important;
+      background: var(--cardBg) !important;
       border: 1px solid var(--line);
       border-radius: 20px;
       padding: 6px 12px;
@@ -497,7 +497,7 @@
 
     /* Team Stats Section */
     .team-stats {
-      background: var(--cardBg, linear-gradient(145deg, #1a1a1a, #0d0d0d));
+      background: var(--cardBg);
       border: 1px solid var(--line);
       border-radius: var(--radius);
       padding: 40px;
@@ -545,7 +545,7 @@
 
     .team-stat-label {
       font-size: 14px;
-      color: var(--subtitleColor, var(--muted));
+      color: var(--subtitleColor);
       text-transform: uppercase;
       letter-spacing: 0.1em;
       margin-top: 8px;
@@ -553,7 +553,7 @@
 
     /* Quote Section */
     .quote-section {
-      background: var(--cardBg, linear-gradient(135deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02)));
+      background: var(--cardBg);
       border: 1px solid rgba(255,255,255,0.1);
       border-radius: var(--radius);
       padding: 50px 40px;
@@ -587,7 +587,7 @@
     }
 
     .contact-card {
-      background: var(--cardBg, linear-gradient(145deg, #1a1a1a, #0d0d0d));
+      background: var(--cardBg);
       border: 1px solid var(--line);
       border-radius: var(--radius);
       padding: 30px;
@@ -617,11 +617,16 @@
       z-index: 1;
       animation: fade-in 1s ease-out 1.5s both;
     }
+    
+    footer strong {
+      color: var(--text) !important;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+    }
 
     /* Fix active nav link visibility */
     .links a[style*="color: #fff"],
     .links a[style*="opacity: 1"] {
-      color: var(--navActive, #fff) !important;
+      color: var(--navActive) !important;
       text-shadow: 1px 1px 2px rgba(0,0,0,0.3) !important;
       font-weight: 900;
     }
