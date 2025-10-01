@@ -25,7 +25,7 @@ class ThemeManager {
         particles: 'rgba(255,255,255,0.4)',
         waves: 'rgba(255,255,255,0.02)',
         animationSpeed: '20s',
-        description: 'Classic dark theme'
+        description: 'Classic dark theme.'
       },
      light: {
   name: 'Light',
@@ -50,7 +50,7 @@ class ThemeManager {
   particles: 'rgba(26,26,26,0.3)',
   waves: 'rgba(26,26,26,0.05)',
   animationSpeed: '25s',
-  description: 'Clean light theme'
+  description: 'Clean light theme.'
 }
       sunset: {
         name: 'Sunset',
@@ -75,7 +75,7 @@ class ThemeManager {
         particles: 'rgba(255,243,205,0.6)',
         waves: 'rgba(255,243,205,0.1)',
         animationSpeed: '15s',
-        description: 'Warm sunset vibes'
+        description: 'Warm sunset vibes.'
       },
       neon: {
         name: 'Neon',
@@ -100,7 +100,7 @@ class ThemeManager {
         particles: 'rgba(0,255,255,0.8)',
         waves: 'rgba(255,0,255,0.1)',
         animationSpeed: '10s',
-        description: 'Electric neon glow'
+        description: 'Electric neon glow.'
       },
       galaxy: {
         name: 'Galaxy',
@@ -125,7 +125,7 @@ class ThemeManager {
         particles: 'rgba(147,112,219,0.7)',
         waves: 'rgba(138,43,226,0.1)',
         animationSpeed: '30s',
-        description: 'Cosmic space theme'
+        description: 'Cosmic space theme.'
       },
       ocean: {
         name: 'Ocean',
@@ -150,7 +150,7 @@ class ThemeManager {
         particles: 'rgba(0,191,255,0.6)',
         waves: 'rgba(30,144,255,0.1)',
         animationSpeed: '35s',
-        description: 'Deep ocean depths'
+        description: 'Deep ocean depths.'
       }
     };
 
