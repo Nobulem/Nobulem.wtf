@@ -51,8 +51,8 @@ class ThemeManager {
   waves: 'rgba(26,26,26,0.05)',
   animationSpeed: '25s',
   description: 'Clean light theme'
-}
-      sunset: {
+},
+        sunset: {
         name: 'Sunset',
         icon: '🌅',
         colors: {
