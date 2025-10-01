@@ -7,15 +7,16 @@
   <meta name="description" content="nobulem.wtf — Executors Status Provided by WhatexpsAreOnline.api">
   <link rel="icon" type="image/png" href="https://i.ibb.co/NdNpCJ4v/image-2.png">
   <style>
-    /* ---------- Base / Theme ---------- */
     :root{
       --bg: #000000;
       --bg-2: #0a0a0a;
       --card: #111111;
+      --cardBg: linear-gradient(145deg, #1a1a1a, #0d0d0d);
       --text: #ffffff;
       --muted: #cccccc;
       --line: #333333;
       --accent: #ffffff;
+      --navActive: #ffffff;
       --shadow: 0 25px 80px rgba(255,255,255,.08);
       --radius: 20px;
       --speed: 500ms;
@@ -25,13 +26,14 @@
     html{scroll-behavior:smooth}
     body{
       margin:0;
-      background: #000000;
+      background: var(--bg);
       color:var(--text);
       font: 700 15px/1.6 ui-sans-serif, -apple-system, system-ui, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
       letter-spacing:.2px;
       overflow-x:hidden;
       cursor: auto;
       position: relative;
+      transition: background 0.3s ease, color 0.3s ease;
     }
     h1,h2,h3,h4,strong,b{font-weight:800; margin:0 0 .6rem}
     p{margin:0 0 1rem; color:var(--muted)}
@@ -39,7 +41,6 @@
     a:hover{transform: translateY(-2px);}
     .container{width:min(1150px, 92vw); margin-inline:auto}
 
-    /* ---------- Animated Background ---------- */
     .bg-animation {
       position: fixed;
       top: 0;
@@ -205,13 +206,13 @@
       50% { transform: rotate(225deg) translateY(-25px); }
     }
 
-    /* ---------- Navigation ---------- */
     .nav{
       position:sticky; top:0; z-index:50;
       backdrop-filter:saturate(140%) blur(15px);
-      background: rgba(0,0,0,0.9);
+      background: rgba(0,0,0,0.7);
       border-bottom:1px solid var(--line);
       animation: slide-down 0.8s ease;
+      transition: background 0.3s ease;
     }
     .nav .row{display:flex; align-items:center; gap:16px; padding:16px 0}
     .brand{
@@ -223,7 +224,7 @@
       box-shadow:0 0 20px #fff, 0 0 40px #fff;
       animation: pulse-dot 2s ease-in-out infinite;
     }
-    .links{margin-left:auto; display:flex; gap:20px; flex-wrap:wrap}
+    .links{margin-left:auto; display:flex; gap:20px; flex-wrap:wrap; align-items: center;}
     .links a{
       opacity:.9;
       transition: all 0.3s ease;
@@ -237,7 +238,7 @@
       left: 0;
       width: 0;
       height: 2px;
-      background: #fff;
+      background: var(--accent);
       transition: width 0.3s ease;
     }
     .links a:hover {
@@ -248,14 +249,46 @@
       width: 100%;
     }
 
-    .links a[style*="color: #fff"],
-    .links a[style*="opacity: 1"] {
-      color: var(--navActive) !important;
-      text-shadow: 1px 1px 2px rgba(0,0,0,0.3) !important;
+    .links a.active {
+      color: var(--navActive);
+      opacity: 1;
       font-weight: 900;
     }
 
-    /* ---------- Warning Banner ---------- */
+    .theme-switcher {
+      display: flex;
+      gap: 8px;
+      padding: 4px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 12px;
+      border: 1px solid var(--line);
+    }
+
+    .theme-btn {
+      width: 28px;
+      height: 28px;
+      border-radius: 8px;
+      border: 2px solid transparent;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    .theme-btn:hover {
+      transform: scale(1.1);
+      border-color: rgba(255,255,255,0.5);
+    }
+
+    .theme-btn.active {
+      border-color: var(--accent);
+      box-shadow: 0 0 10px currentColor;
+    }
+
+    .theme-btn[data-theme-btn="dark"] { background: linear-gradient(135deg, #000, #333); }
+    .theme-btn[data-theme-btn="light"] { background: linear-gradient(135deg, #fff, #ddd); }
+    .theme-btn[data-theme-btn="blue"] { background: linear-gradient(135deg, #1e3a5f, #64b5f6); }
+    .theme-btn[data-theme-btn="green"] { background: linear-gradient(135deg, #1e5a3f, #66bb6a); }
+
     .warning-banner {
       margin: 20px auto;
       display: flex;
@@ -312,7 +345,6 @@
       100% { left: 100%; }
     }
 
-    /* ---------- Sections ---------- */
     section{position:relative; z-index:20; padding:80px 0; border-top:1px solid var(--line)}
     .grid{display:grid; gap:20px}
     .card{
@@ -347,10 +379,9 @@
     .two{grid-template-columns:repeat(2,1fr)}
     .center{text-align:center}
 
-    /* ---------- Enhanced Executor Cards ---------- */
     .executor-card {
-      background: linear-gradient(145deg, #1a1a1a, #0d0d0d) !important;
-      border: 1px solid #333333 !important;
+      background: var(--cardBg);
+      border: 1px solid var(--line);
       border-radius: var(--radius);
       padding: 24px;
       box-shadow: var(--shadow);
@@ -358,7 +389,7 @@
       animation: card-entrance 0.8s ease both;
       position: relative;
       overflow: hidden;
-      color: #ffffff !important;
+      color: var(--text);
     }
 
     .executor-card::before {
@@ -420,7 +451,7 @@
       font-size: 22px;
       font-weight: 800;
       transition: all 0.3s ease;
-      background: linear-gradient(45deg, #fff, #e0e0e0);
+      background: linear-gradient(45deg, var(--text), var(--muted));
       background-size: 200% 200%;
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
@@ -429,7 +460,6 @@
 
     .executor-name:hover {
       transform: scale(1.05);
-      text-shadow: 0 0 20px rgba(255,255,255,0.5);
     }
 
     .executor-version {
@@ -478,7 +508,6 @@
       transform: translateY(-2px) scale(1.05);
     }
 
-    /* ---------- Enhanced Status Indicator ---------- */
     .status-indicator {
       width: 60px;
       height: 60px;
@@ -554,7 +583,6 @@
       75% { transform: translateY(-4px) rotate(-5deg); }
     }
 
-    /* ---------- Enhanced Stats Cards ---------- */
     .stats {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
@@ -563,7 +591,7 @@
     }
 
     .stat-card {
-      background: linear-gradient(145deg, #1a1a1a, #0d0d0d);
+      background: var(--cardBg);
       border: 1px solid var(--line);
       border-radius: var(--radius);
       padding: 25px;
@@ -599,7 +627,7 @@
       font-weight: 800;
       margin-bottom: 8px;
       animation: number-count 2s ease both, number-glow 3s ease-in-out infinite;
-      background: linear-gradient(45deg, #fff, #ccc);
+      background: linear-gradient(45deg, var(--text), var(--muted));
       background-size: 200% 200%;
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
@@ -613,7 +641,6 @@
       animation: fade-in-up 1s ease 0.5s both;
     }
 
-    /* ---------- Enhanced Hero Section ---------- */
     .hero {
       position: relative;
       z-index: 20;
@@ -626,19 +653,16 @@
       line-height: 1.1;
       margin: 0.8rem 0 1rem;
       animation: title-entrance 1.5s ease 0.2s both;
-      color: var(--text) !important;
-      text-shadow: 1px 1px 2px rgba(0,0,0,0.5) !important;
+      color: var(--text);
     }
 
     .hero-subtitle {
       font-size: clamp(16px, 2vw, 20px);
-      color: #cccccc !important;
+      color: var(--muted);
       animation: fade-in-up 1s ease 0.6s both;
       margin-bottom: 20px;
-      text-shadow: 1px 1px 2px rgba(0,0,0,0.5) !important;
     }
 
-    /* ---------- Footer ---------- */
     footer{
       border-top:1px solid var(--line);
       padding:30px 0 70px;
@@ -650,11 +674,9 @@
     }
 
     footer strong {
-      color: var(--text) !important;
-      text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+      color: var(--text);
     }
 
-    /* ---------- Animation Keyframes ---------- */
     @keyframes pulse-dot {
       0%, 100% { transform: scale(1); box-shadow: 0 0 20px #fff; }
       50% { transform: scale(1.2); box-shadow: 0 0 30px #fff, 0 0 60px #fff; }
@@ -726,21 +748,18 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
-    /* ---------- Scroll Reveal ---------- */
     .reveal{
       opacity:0; transform:translateY(20px);
       transition:opacity var(--speed) ease, transform var(--speed) ease;
     }
     .reveal.in{opacity:1; transform:translateY(0)}
 
-    /* ---------- Animation Delays ---------- */
     .delay-1 { animation-delay: 0.2s; }
     .delay-2 { animation-delay: 0.4s; }
     .delay-3 { animation-delay: 0.6s; }
     .delay-4 { animation-delay: 0.8s; }
     .delay-5 { animation-delay: 1.0s; }
 
-    /* ---------- Loading Animation ---------- */
     .loading-spinner {
       display: inline-flex;
       gap: 8px;
@@ -751,7 +770,7 @@
       width: 12px;
       height: 12px;
       border-radius: 50%;
-      background: #fff;
+      background: var(--text);
       animation: loading-bounce 1.4s infinite ease-in-out both;
     }
 
@@ -764,10 +783,8 @@
       40% { transform: scale(1) rotate(180deg); }
     }
 
-    /* ---------- Responsive ---------- */
     @media (max-width: 980px){
       .two{grid-template-columns:1fr}
-      .links{display:none}
       .stats {grid-template-columns: repeat(2, 1fr);}
     }
 
@@ -776,13 +793,12 @@
       .wave { animation-duration: 40s; }
       .stats {grid-template-columns: 1fr;}
       .executor-details {grid-template-columns: 1fr;}
+      .links {display:none}
     }
   </style>
 </head>
 <body>
-  <!-- Animated Background -->
   <div class="bg-animation">
-    <!-- Floating Particles -->
     <div class="particle particle-1" style="left: 10%; animation-delay: 0s;"></div>
     <div class="particle particle-2" style="left: 20%; animation-delay: 2s;"></div>
     <div class="particle particle-3" style="left: 30%; animation-delay: 4s;"></div>
@@ -802,12 +818,10 @@
     <div class="particle particle-4" style="left: 85%; animation-delay: 32s;"></div>
     <div class="particle particle-2" style="left: 95%; animation-delay: 34s;"></div>
 
-    <!-- Animated Waves -->
     <div class="wave wave-1"></div>
     <div class="wave wave-2"></div>
     <div class="wave wave-3"></div>
 
-    <!-- Floating Geometric Shapes -->
     <div class="shape shape-1"></div>
     <div class="shape shape-2"></div>
     <div class="shape shape-3"></div>
@@ -821,13 +835,19 @@
       </div>
       <div class="links">
         <a href="/">Home</a>
-        <a href="/executors.html" style="color: #fff; opacity: 1;">Executors</a>
+        <a href="/executors.html" class="active">Executors</a>
         <a href="https://discord.gg/ExH98C3uFH" target="_blank">Discord</a>
         <a href="/games">Games & Scripts</a>
         <a href="/showcases">Showcases</a>
         <a href="/pricing">Pricing</a>
         <a href="/developers">Developers</a>
         <a href="/tos">Terms</a>
+        <div class="theme-switcher">
+          <button class="theme-btn active" data-theme-btn="dark" title="Dark Theme"></button>
+          <button class="theme-btn" data-theme-btn="light" title="Light Theme"></button>
+          <button class="theme-btn" data-theme-btn="blue" title="Blue Theme"></button>
+          <button class="theme-btn" data-theme-btn="green" title="Green Theme"></button>
+        </div>
       </div>
     </div>
   </nav>
@@ -887,8 +907,27 @@
     </div>
   </footer>
 
+  <script src="js/theme-manager.js"></script>
   <script>
+    const SUPABASE_URL = 'https://qmjzoiausxegjffzjhzr.supabase.co';
+    const API_URL = `${SUPABASE_URL}/functions/v1/executor-status`;
+    const ALLOWED_EXECUTORS = ['volcano', 'wave', 'zenith', 'swift', 'potassium', 'nucleus'];
+    let allExecutors = [];
+    let themeManager;
+
     document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Initialize theme manager
+    if (typeof ThemeManager !== 'undefined') {
+      themeManager = new ThemeManager();
+
+      // Setup theme switcher buttons
+      document.querySelectorAll('[data-theme-btn]').forEach(btn => {
+        btn.addEventListener('click', () => {
+          themeManager.switchTheme(btn.dataset.themeBtn);
+        });
+      });
+    }
 
     const io = new IntersectionObserver((entries)=>{
       entries.forEach((e, index)=>{
@@ -941,11 +980,6 @@
       }, 3000);
     }
 
-    // EXECUTOR STATUS FUNCTIONALITY WITH REQUIRED USER-AGENT
-    const API_URL = 'https://weao.xyz/api/status/exploits';
-    const ALLOWED_EXECUTORS = ['volcano', 'wave', 'zenith', 'swift', 'potassium', 'nucleus'];
-    let allExecutors = [];
-
     const gridContainer = document.getElementById('executor-grid-container');
     const statsTotal = document.getElementById('stats-total');
     const statsWorking = document.getElementById('stats-working');
@@ -956,11 +990,7 @@
     async function fetchData() {
       if (!gridContainer) return;
       try {
-        const response = await fetch(API_URL, {
-          headers: {
-            'User-Agent': 'WEAO-3PService'
-          }
-        });
+        const response = await fetch(API_URL);
 
         if (!response.ok) {
           throw new Error(`API error! status: ${response.status}`);
