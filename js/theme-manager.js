@@ -17,10 +17,15 @@ class ThemeManager {
           secondary: '#888888',
           cardBg: 'linear-gradient(145deg, #1a1a1a, #0d0d0d)',
           buttonBg: '#ffffff',
+          buttonText: '#000000',
           navActive: '#ffffff',
           eyebrowColor: '#eaeaea',
           subtitleColor: '#cccccc',
-          borderColor: '#333333'
+          borderColor: '#333333',
+          linkColor: '#ffffff',
+          inputBg: '#1a1a1a',
+          inputText: '#ffffff',
+          inputBorder: '#333333'
         },
         particles: 'rgba(255,255,255,0.4)',
         waves: 'rgba(255,255,255,0.02)',
@@ -34,7 +39,7 @@ class ThemeManager {
           bg: '#ffffff',
           bg2: '#f8f9fa',
           card: '#ffffff',
-          text: '#000000',
+          text: '#1a1a1a',
           muted: '#4a5568',
           line: '#e5e7eb',
           accent: '#1a1a1a',
@@ -42,10 +47,15 @@ class ThemeManager {
           secondary: '#6b7280',
           cardBg: 'linear-gradient(145deg, #ffffff, #f8f9fa)',
           buttonBg: '#1a1a1a',
-          navActive: '#000000',
-          eyebrowColor: '#000000',
+          buttonText: '#ffffff',
+          navActive: '#1a1a1a',
+          eyebrowColor: '#1a1a1a',
           subtitleColor: '#4a5568',
-          borderColor: '#e5e7eb'
+          borderColor: '#e5e7eb',
+          linkColor: '#1a1a1a',
+          inputBg: '#ffffff',
+          inputText: '#1a1a1a',
+          inputBorder: '#e5e7eb'
         },
         particles: 'rgba(26,26,26,0.3)',
         waves: 'rgba(26,26,26,0.05)',
@@ -67,10 +77,15 @@ class ThemeManager {
           secondary: '#ffb366',
           cardBg: 'linear-gradient(145deg, rgba(255,255,255,0.15), rgba(255,255,255,0.08))',
           buttonBg: '#fff3cd',
+          buttonText: '#1a1a1a',
           navActive: '#ffffff',
           eyebrowColor: '#ffe4d6',
           subtitleColor: '#ffe4d6',
-          borderColor: 'rgba(255,255,255,0.2)'
+          borderColor: 'rgba(255,255,255,0.2)',
+          linkColor: '#ffffff',
+          inputBg: 'rgba(255,255,255,0.2)',
+          inputText: '#ffffff',
+          inputBorder: 'rgba(255,255,255,0.3)'
         },
         particles: 'rgba(255,243,205,0.6)',
         waves: 'rgba(255,243,205,0.1)',
@@ -92,10 +107,15 @@ class ThemeManager {
           secondary: '#ff00ff',
           cardBg: 'linear-gradient(145deg, rgba(0,255,255,0.15), rgba(0,255,255,0.08))',
           buttonBg: '#00ffff',
+          buttonText: '#000000',
           navActive: '#00ffff',
           eyebrowColor: '#66ffff',
           subtitleColor: '#66ffff',
-          borderColor: 'rgba(0,255,255,0.3)'
+          borderColor: 'rgba(0,255,255,0.3)',
+          linkColor: '#00ffff',
+          inputBg: 'rgba(0,255,255,0.1)',
+          inputText: '#00ffff',
+          inputBorder: 'rgba(0,255,255,0.3)'
         },
         particles: 'rgba(0,255,255,0.8)',
         waves: 'rgba(255,0,255,0.1)',
@@ -117,10 +137,15 @@ class ThemeManager {
           secondary: '#6a5acd',
           cardBg: 'linear-gradient(145deg, rgba(138,43,226,0.15), rgba(138,43,226,0.08))',
           buttonBg: '#9370db',
+          buttonText: '#ffffff',
           navActive: '#e6e6fa',
           eyebrowColor: '#b19cd9',
           subtitleColor: '#b19cd9',
-          borderColor: 'rgba(138,43,226,0.3)'
+          borderColor: 'rgba(138,43,226,0.3)',
+          linkColor: '#e6e6fa',
+          inputBg: 'rgba(138,43,226,0.1)',
+          inputText: '#e6e6fa',
+          inputBorder: 'rgba(138,43,226,0.3)'
         },
         particles: 'rgba(147,112,219,0.7)',
         waves: 'rgba(138,43,226,0.1)',
@@ -142,10 +167,15 @@ class ThemeManager {
           secondary: '#4682b4',
           cardBg: 'linear-gradient(145deg, rgba(0,191,255,0.15), rgba(0,191,255,0.08))',
           buttonBg: '#00bfff',
+          buttonText: '#ffffff',
           navActive: '#e0f6ff',
           eyebrowColor: '#87ceeb',
           subtitleColor: '#87ceeb',
-          borderColor: 'rgba(0,191,255,0.3)'
+          borderColor: 'rgba(0,191,255,0.3)',
+          linkColor: '#e0f6ff',
+          inputBg: 'rgba(0,191,255,0.1)',
+          inputText: '#e0f6ff',
+          inputBorder: 'rgba(0,191,255,0.3)'
         },
         particles: 'rgba(0,191,255,0.6)',
         waves: 'rgba(30,144,255,0.1)',
@@ -753,11 +783,8 @@ class ThemeManager {
     buttons.forEach(button => {
       if (button.classList.contains('primary') || button.classList.contains('plan-button')) {
         button.style.background = theme.colors.buttonBg;
-        button.style.color = theme.name === 'light' ? '#ffffff' : (theme.colors.bg === '#ffffff' ? '#000000' : '#ffffff');
-        if (theme.name === 'light') {
-          button.style.textShadow = '0 0 10px rgba(255,255,255,0.8)';
-          button.style.boxShadow = '0 0 20px rgba(26,26,26,0.3)';
-        }
+        button.style.color = theme.colors.buttonText;
+        button.style.border = `2px solid ${theme.colors.buttonBg}`;
       }
     });
 
@@ -766,13 +793,8 @@ class ThemeManager {
     navLinks.forEach(link => {
       if (link.style.color === '#fff' || link.style.opacity === '1' || link.getAttribute('style')?.includes('color: #fff')) {
         link.style.color = theme.colors.navActive;
-        if (theme.name === 'light') {
-          link.style.textShadow = '1px 1px 2px rgba(255,255,255,0.8)';
-          link.style.fontWeight = '900';
-        } else {
-          link.style.textShadow = '';
-          link.style.fontWeight = '800';
-        }
+        link.style.textShadow = theme.name === 'light' ? '1px 1px 2px rgba(0,0,0,0.3)' : '';
+        link.style.fontWeight = '900';
       }
     });
 
@@ -780,42 +802,38 @@ class ThemeManager {
     const eyebrows = document.querySelectorAll('.eyebrow');
     eyebrows.forEach(eyebrow => {
       eyebrow.style.color = theme.colors.eyebrowColor;
-      if (theme.name === 'light') {
-        eyebrow.style.textShadow = '1px 1px 2px rgba(0,0,0,0.3)';
-      }
+      eyebrow.style.textShadow = theme.name === 'light' ? '1px 1px 2px rgba(0,0,0,0.3)' : '';
     });
 
     const subtitles = document.querySelectorAll('.subtitle, .hero-subtitle');
     subtitles.forEach(subtitle => {
       subtitle.style.color = theme.colors.subtitleColor;
-      if (theme.name === 'light') {
-        subtitle.style.textShadow = '1px 1px 2px rgba(0,0,0,0.3)';
+      subtitle.style.textShadow = theme.name === 'light' ? '1px 1px 2px rgba(0,0,0,0.3)' : '';
+    });
+
+    // Fix link colors
+    const links = document.querySelectorAll('a[href*="games"], a[href*="showcases"], a[href*="developers"]');
+    links.forEach(link => {
+      if (link.textContent.includes('→')) {
+        link.style.color = theme.colors.linkColor;
+        link.style.textShadow = theme.name === 'light' ? '1px 1px 2px rgba(0,0,0,0.3)' : '';
       }
     });
 
     // Fix search inputs
     const searchInputs = document.querySelectorAll('input[type="text"], input[type="search"], .search-input');
     searchInputs.forEach(input => {
-      if (theme.name === 'light') {
-        input.style.background = '#ffffff';
-        input.style.color = '#000000';
-        input.style.border = '2px solid #e5e7eb';
-        input.style.boxShadow = 'inset 0 2px 4px rgba(0,0,0,0.1)';
-      } else {
-        input.style.background = theme.colors.card;
-        input.style.color = theme.colors.text;
-        input.style.border = `1px solid ${theme.colors.line}`;
-      }
+      input.style.background = theme.colors.inputBg;
+      input.style.color = theme.colors.inputText;
+      input.style.border = `2px solid ${theme.colors.inputBorder}`;
     });
 
     // Fix clear buttons
     const clearButtons = document.querySelectorAll('.clear-btn');
     clearButtons.forEach(btn => {
-      if (theme.name === 'light') {
-        btn.style.background = '#e5e7eb';
-        btn.style.color = '#000000';
-        btn.style.border = '1px solid #d1d5db';
-      }
+      btn.style.background = theme.colors.inputBorder;
+      btn.style.color = theme.colors.inputText;
+      btn.style.border = `1px solid ${theme.colors.inputBorder}`;
     });
   }
 

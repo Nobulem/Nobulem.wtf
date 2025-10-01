@@ -254,7 +254,7 @@
     /* Fix active nav link visibility */
     .links a[style*="color: #fff"],
     .links a[style*="opacity: 1"] {
-      color: var(--navActive, #fff) !important;
+      color: var(--navActive) !important;
       text-shadow: 1px 1px 2px rgba(0,0,0,0.3) !important;
       font-weight: 900;
     }
@@ -264,9 +264,8 @@
       position:relative; z-index:20; padding:120px 0 80px; text-align:center;
     }
     .eyebrow{
-      color:#eaeaea; text-transform:uppercase; font-size:14px; letter-spacing:.3em;
+      color: var(--eyebrowColor); text-transform:uppercase; font-size:14px; letter-spacing:.3em;
       animation: fade-in-up 1s ease 0.2s both;
-      color: var(--eyebrowColor, #eaeaea);
       text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
     }
     .title{
@@ -276,7 +275,7 @@
     .subtitle{
       font-size: clamp(18px, 2.5vw, 24px); color:var(--muted);
       animation: fade-in-up 1s ease 0.8s both;
-      color: var(--subtitleColor, var(--muted));
+      color: var(--subtitleColor);
       text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
     }
     .actions{
@@ -307,12 +306,12 @@
       left: 100%;
     }
     .btn.primary{
-      background: var(--buttonBg, #fff) !important;
-      color: #ffffff !important;
+      background: var(--buttonBg) !important;
+      color: var(--buttonText) !important;
       animation: btn-glow 2s ease-in-out infinite;
-      text-shadow: 0 0 10px rgba(255,255,255,0.8) !important;
+      text-shadow: 0 0 10px rgba(255,255,255,0.5) !important;
       font-weight: 900;
-      border: 2px solid var(--buttonBg, #fff) !important;
+      border: 2px solid var(--buttonBg) !important;
     }
     .btn.ghost{background:transparent}
     .btn:hover{transform:translateY(-3px) scale(1.05);}
@@ -322,7 +321,7 @@
     .grid{display:grid; gap:20px}
     .cards{grid-template-columns:repeat(4,1fr)}
     .card{
-      background: var(--cardBg, linear-gradient(145deg,#1a1a1a,#0d0d0d)); 
+      background: var(--cardBg); 
       border:1px solid var(--line);
       border-radius:var(--radius); padding:26px; 
       box-shadow:var(--shadow); min-height:180px; 
@@ -359,7 +358,7 @@
 
     /* ---------- Game Cards ---------- */
     .game-card {
-      background: var(--cardBg, linear-gradient(145deg,#1a1a1a,#0d0d0d));
+      background: var(--cardBg);
       border: 1px solid var(--line);
       border-radius: var(--radius);
       overflow: hidden;
@@ -406,7 +405,7 @@
     }
 
     .dev-card-mini {
-      background: var(--cardBg, linear-gradient(145deg, #1a1a1a, #0d0d0d));
+      background: var(--cardBg);
       border: 1px solid var(--line);
       border-radius: var(--radius);
       padding: 25px;
@@ -452,7 +451,7 @@
 
     /* ---------- Showcase Cards ---------- */
     .showcase-card {
-      background: var(--cardBg, linear-gradient(145deg, #1a1a1a, #0d0d0d));
+      background: var(--cardBg);
       border: 1px solid var(--line);
       border-radius: var(--radius);
       overflow: hidden;
@@ -540,6 +539,10 @@
     footer{
       border-top:1px solid var(--line); padding:30px 0 70px; color:var(--muted); text-align:center;
       animation: footer-entrance 1s ease both;
+    }
+    
+    footer strong {
+      color: var(--text) !important;
       text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
     }
 
@@ -751,7 +754,7 @@
       <p class="muted reveal">Recently added scripts for popular games. <a href="/games" style="color: #fff; text-decoration: underline;">View all games →</a></p>
       
       <div class="grid three" style="margin-top:20px" id="latest-games">
-        <!-- Latest games will be loaded here -->
+        <!-- Latest games will be loaded dynamically from games page -->
       </div>
     </div>
   </section>
@@ -795,16 +798,7 @@
       <p class="muted reveal">Most viewed script demonstrations and tutorials. <a href="/showcases" style="color: #fff; text-decoration: underline;">View all showcases →</a></p>
       
       <div class="grid three" style="margin-top:20px" id="popular-showcases">
-        <!-- Empty state for now since no showcases exist -->
-        <div class="coming-soon">
-          <div class="pulse-text reveal">🎬 Coming Soon!</div>
-          <p class="muted reveal">Awesome showcase videos are on their way.</p>
-          <div class="loader">
-            <div class="loader-dot"></div>
-            <div class="loader-dot"></div>
-            <div class="loader-dot"></div>
-          </div>
-        </div>
+        <!-- Popular showcases will be loaded dynamically from showcases page -->
       </div>
     </div>
   </section>
@@ -897,26 +891,52 @@
 
     // Load latest games from games.html
     function loadLatestGames() {
-      const gamesData = [
-        {
-          name: "Untitled Boxing Game",
-          description: "Boxing combat enhancements with perfect dodge timing, player chams, and advanced ESP systems.",
-          image: "https://tr.rbxcdn.com/180DAY-078e71f7babd821f5bb362c460fc0fd9/768/432/Image/Webp/noFilter",
-          id: "13423334817"
-        },
-        {
-          name: "Marvelous Playground", 
-          description: "Advanced combat scripts with kill aura, ESP, and player targeting systems for enhanced gameplay experience.",
-          image: "https://tr.rbxcdn.com/180DAY-915535b6a2b0ddd4710ec77320027004/768/432/Image/Webp/noFilter",
-          id: "8657766101"
-        },
-        {
-          name: "Project Power",
-          description: "Comprehensive power-up automation with kill systems, ESP overlays, and advanced player detection.",
-          image: "https://tr.rbxcdn.com/180DAY-a5173e243710a4393e582089e8f4a773/768/432/Image/Webp/noFilter", 
-          id: "34329168147"
-        }
-      ];
+      // Try to fetch games from games page
+      fetch('/games')
+        .then(response => response.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const doc = parser.parseFromString(html, 'text/html');
+          const gameCards = doc.querySelectorAll('.game-card');
+          
+          const gamesData = Array.from(gameCards).slice(0, 3).map(card => {
+            const name = card.querySelector('.game-title')?.textContent || 'Game';
+            const description = card.querySelector('.game-description')?.textContent || 'Description';
+            const image = card.querySelector('.game-image')?.src || 'https://via.placeholder.com/400x200';
+            const id = card.querySelector('.game-id')?.textContent?.replace('#', '') || '0';
+            
+            return { name, description, image, id };
+          });
+          
+          renderLatestGames(gamesData);
+        })
+        .catch(() => {
+          // Fallback data if fetch fails
+          const fallbackGames = [
+            {
+              name: "Untitled Boxing Game",
+              description: "Boxing combat enhancements with perfect dodge timing, player chams, and advanced ESP systems.",
+              image: "https://tr.rbxcdn.com/180DAY-078e71f7babd821f5bb362c460fc0fd9/768/432/Image/Webp/noFilter",
+              id: "13423334817"
+            },
+            {
+              name: "Marvelous Playground", 
+              description: "Advanced combat scripts with kill aura, ESP, and player targeting systems for enhanced gameplay experience.",
+              image: "https://tr.rbxcdn.com/180DAY-915535b6a2b0ddd4710ec77320027004/768/432/Image/Webp/noFilter",
+              id: "8657766101"
+            },
+            {
+              name: "Project Power",
+              description: "Comprehensive power-up automation with kill systems, ESP overlays, and advanced player detection.",
+              image: "https://tr.rbxcdn.com/180DAY-a5173e243710a4393e582089e8f4a773/768/432/Image/Webp/noFilter", 
+              id: "34329168147"
+            }
+          ];
+          renderLatestGames(fallbackGames);
+        });
+    }
+    
+    function renderLatestGames(gamesData) {
       
       const gamesContainer = document.getElementById('latest-games');
       const gamesHTML = gamesData.map((game, index) => `
@@ -940,8 +960,70 @@
 
     // Load popular showcases (empty for now)
     function loadPopularShowcases() {
-      // Since showcases.html has no videos yet, we'll show the coming soon message
-      // This would normally fetch from showcases and show the most viewed ones
+      // Try to fetch showcases from showcases page
+      fetch('/showcases')
+        .then(response => response.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const doc = parser.parseFromString(html, 'text/html');
+          const videoCards = doc.querySelectorAll('.video-card');
+          
+          if (videoCards.length > 0) {
+            const showcasesData = Array.from(videoCards).slice(0, 3).map(card => {
+              const title = card.querySelector('.video-title')?.textContent || 'Video';
+              const description = card.querySelector('.video-description')?.textContent || 'Description';
+              const thumbnail = card.querySelector('.video-thumbnail')?.src || 'https://via.placeholder.com/400x200';
+              const views = card.querySelector('.video-views')?.textContent || '0 views';
+              
+              return { title, description, thumbnail, views };
+            });
+            
+            renderPopularShowcases(showcasesData);
+          } else {
+            renderEmptyShowcases();
+          }
+        })
+        .catch(() => {
+          renderEmptyShowcases();
+        });
+    }
+    
+    function renderPopularShowcases(showcasesData) {
+      const showcasesContainer = document.getElementById('popular-showcases');
+      const showcasesHTML = showcasesData.map((showcase, index) => `
+        <div class="showcase-card reveal delay-${index + 1}" onclick="window.location.href='/showcases'">
+          <div class="showcase-thumbnail">
+            <img src="${showcase.thumbnail}" alt="${showcase.title}" style="width: 100%; height: 100%; object-fit: cover;">
+          </div>
+          <div class="showcase-content">
+            <h3 class="showcase-title">${showcase.title}</h3>
+            <p style="color: var(--muted); font-size: 14px; margin-bottom: 10px;">${showcase.description}</p>
+            <div class="showcase-views">${showcase.views}</div>
+          </div>
+        </div>
+      `).join('');
+      
+      showcasesContainer.innerHTML = showcasesHTML;
+      
+      // Re-observe new elements
+      setTimeout(() => {
+        document.querySelectorAll('.showcase-card.reveal').forEach(el => io.observe(el));
+      }, 100);
+    }
+    
+    function renderEmptyShowcases() {
+      const showcasesContainer = document.getElementById('popular-showcases');
+      showcasesContainer.innerHTML = `
+        <div class="coming-soon">
+          <div class="pulse-text reveal">🎬 Coming Soon!</div>
+          <p class="muted reveal">Awesome showcase videos are on their way.</p>
+          <div class="loader">
+            <div class="loader-dot"></div>
+            <div class="loader-dot"></div>
+            <div class="loader-dot"></div>
+          </div>
+        </div>
+      `;
     }
 
     // Initialize content loading
