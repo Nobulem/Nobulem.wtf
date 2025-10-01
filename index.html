@@ -374,14 +374,14 @@
       box-shadow: 0 35px 120px rgba(255,255,255,0.2);
     }
     
-    .game-image {
+    .game-thumbnail {
       width: 100%;
       height: 200px;
       object-fit: cover;
       transition: transform 0.4s ease;
     }
     
-    .game-card:hover .game-image {
+    .game-card:hover .game-thumbnail {
       transform: scale(1.1);
     }
     
@@ -905,7 +905,7 @@
           const gamesData = Array.from(gameCards).slice(0, 3).map(card => {
             const name = card.querySelector('.game-name')?.textContent || 'Game';
             const description = card.querySelector('.game-description')?.textContent || 'Description';
-            const image = card.querySelector('.game-image')?.src || 'https://via.placeholder.com/400x200';
+            const image = card.querySelector('.game-thumbnail')?.src || 'https://via.placeholder.com/400x200';
             const id = card.querySelector('.game-id')?.textContent?.replace('#', '') || '0';
             
             return { name, description, image, id };
