@@ -903,7 +903,7 @@
           const gameCards = doc.querySelectorAll('.game-card');
           
           const gamesData = Array.from(gameCards).slice(0, 3).map(card => {
-            const name = card.querySelector('.game-title')?.textContent || 'Game';
+            const name = card.querySelector('.game-name')?.textContent || 'Game';
             const description = card.querySelector('.game-description')?.textContent || 'Description';
             const image = card.querySelector('.game-image')?.src || 'https://via.placeholder.com/400x200';
             const id = card.querySelector('.game-id')?.textContent?.replace('#', '') || '0';
