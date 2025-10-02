@@ -42,10 +42,15 @@ class ThemeManager {
     secondary: '#6b7280',
     cardBg: 'linear-gradient(145deg, #ffffff, #f8f9fa)',
     buttonBg: '#1a1a1a',
+    buttonText: '#ffffff',
     navActive: '#000000',
     eyebrowColor: '#000000',
     subtitleColor: '#4a5568',
-    borderColor: '#e5e7eb'
+    borderColor: '#e5e7eb',
+    loaderBg: 'linear-gradient(145deg, #f8f9fa, #e5e7eb)',
+    inputBg: '#ffffff',
+    inputBorder: '#e5e7eb',
+    inputText: '#000000'
   },
   particles: 'rgba(26,26,26,0.3)',
   waves: 'rgba(26,26,26,0.05)',
@@ -749,14 +754,19 @@ class ThemeManager {
     });
 
     // Update button backgrounds for better visibility
-    const buttons = document.querySelectorAll('.btn, .plan-button, .discord-button, .sort-btn, .theme-button');
+    const buttons = document.querySelectorAll('.btn, .plan-button, .discord-button, .sort-btn, .theme-button, .copy-btn, .modal-copy-btn');
     buttons.forEach(button => {
-      if (button.classList.contains('primary') || button.classList.contains('plan-button')) {
-        button.style.background = theme.colors.buttonBg;
-        button.style.color = theme.name === 'light' ? '#ffffff' : (theme.colors.bg === '#ffffff' ? '#000000' : '#ffffff');
+      if (button.classList.contains('primary') || button.classList.contains('plan-button') || button.classList.contains('copy-btn') || button.classList.contains('modal-copy-btn')) {
         if (theme.name === 'light') {
-          button.style.textShadow = '0 0 10px rgba(255,255,255,0.8)';
-          button.style.boxShadow = '0 0 20px rgba(26,26,26,0.3)';
+          button.style.background = '#1a1a1a';
+          button.style.color = '#ffffff';
+          button.style.textShadow = 'none';
+          button.style.boxShadow = '1px 1px 3px rgba(0,0,0,0.3)';
+          button.style.border = '1px solid #333333';
+        } else {
+          button.style.background = theme.colors.buttonBg || 'rgba(200,200,200,0.15)';
+          button.style.color = theme.colors.buttonText || '#ffffff';
+          button.style.textShadow = 'none';
         }
       }
     });
