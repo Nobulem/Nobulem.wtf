@@ -1,7 +1,33 @@
 // Advanced Theme System for nobulem.wtf - Fixed Card Backgrounds
 class ThemeManager {
   constructor() {
+    this.defaultTheme = 'halloween'; // Configure main theme here
     this.themes = {
+      halloween: {
+        name: 'Halloween',
+        icon: '🎃',
+        colors: {
+          bg: 'linear-gradient(135deg, #1a0d00, #2d1600)',
+          bg2: '#2d1600',
+          card: 'rgba(255,140,0,0.15)',
+          text: '#ff9933',
+          muted: '#ffb366',
+          line: 'rgba(255,140,0,0.3)',
+          accent: '#ff8c00',
+          primary: '#ff8c00',
+          secondary: '#cc7000',
+          cardBg: 'linear-gradient(145deg, rgba(255,140,0,0.15), rgba(255,140,0,0.08))',
+          buttonBg: '#ff8c00',
+          navActive: '#ff9933',
+          eyebrowColor: '#ffb366',
+          subtitleColor: '#ffb366',
+          borderColor: 'rgba(255,140,0,0.3)'
+        },
+        particles: 'rgba(255,140,0,0.6)',
+        waves: 'rgba(255,140,0,0.1)',
+        animationSpeed: '18s',
+        description: 'Spooky Halloween theme'
+      },
       dark: {
         name: 'Dark',
         icon: '🌙',
@@ -202,6 +228,26 @@ class ThemeManager {
 
     this.addThemeButtonStyles();
     linksContainer.appendChild(themeButton);
+
+    // Add pumpkin icon to brand
+    this.addPumpkinToBrand();
+  }
+
+  addPumpkinToBrand() {
+    const brandContainer = document.querySelector('.brand');
+    if (!brandContainer) return;
+
+    // Check if pumpkin already exists
+    if (document.querySelector('.pumpkin-icon')) return;
+
+    const dotElement = brandContainer.querySelector('.dot');
+    if (dotElement) {
+      const pumpkinIcon = document.createElement('span');
+      pumpkinIcon.className = 'pumpkin-icon';
+      pumpkinIcon.style.display = 'none';
+      pumpkinIcon.textContent = '🎃';
+      dotElement.parentNode.insertBefore(pumpkinIcon, dotElement);
+    }
   }
 
   addThemeButtonStyles() {
@@ -304,7 +350,12 @@ class ThemeManager {
           <button class="theme-close-btn">&times;</button>
         </div>
         <div class="theme-grid">
-          ${Object.entries(this.themes).map(([key, theme]) => `
+          ${Object.entries(this.themes).sort((a, b) => {
+            // Show Halloween first, then alphabetically
+            if (a[0] === 'halloween') return -1;
+            if (b[0] === 'halloween') return 1;
+            return a[1].name.localeCompare(b[1].name);
+          }).map(([key, theme]) => `
             <div class="theme-option ${key === this.currentTheme ? 'active' : ''}" 
                  data-theme="${key}">
               <div class="theme-preview" data-theme="${key}">
@@ -548,6 +599,10 @@ class ThemeManager {
       .theme-preview[data-theme="ocean"] .theme-preview-bg { background: linear-gradient(135deg, #001122, #003366); }
       .theme-preview[data-theme="ocean"] .theme-preview-card { background: rgba(0,191,255,0.3); }
       .theme-preview[data-theme="ocean"] .theme-preview-text { background: #00bfff; }
+
+      .theme-preview[data-theme="halloween"] .theme-preview-bg { background: linear-gradient(135deg, #1a0d00, #2d1600); }
+      .theme-preview[data-theme="halloween"] .theme-preview-card { background: rgba(255,140,0,0.3); }
+      .theme-preview[data-theme="halloween"] .theme-preview-text { background: #ff8c00; }
 
       .theme-notification {
         position: fixed;
@@ -1137,6 +1192,107 @@ class ThemeManager {
         `;
         break;
 
+      case 'halloween':
+        animations = `
+          .theme-halloween .brand .dot {
+            display: none !important;
+          }
+
+          .theme-halloween .pumpkin-icon {
+            display: block !important;
+            font-size: 20px;
+            animation: pumpkin-flicker 2s ease-in-out infinite;
+          }
+
+          @keyframes pumpkin-flicker {
+            0%, 100% {
+              filter: drop-shadow(0 0 8px #ff8c00) drop-shadow(0 0 12px #ff8c00);
+              text-shadow: 0 0 10px #ff8c00;
+            }
+            50% {
+              filter: drop-shadow(0 0 15px #ff6600) drop-shadow(0 0 20px #ff6600);
+              text-shadow: 0 0 20px #ff6600;
+            }
+          }
+
+          .theme-halloween .bg-animation::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image:
+              url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path d="M10,30 Q15,25 20,30 T30,30" stroke="rgba(200,200,200,0.3)" fill="none" stroke-width="0.5"/><path d="M10,30 L20,40" stroke="rgba(200,200,200,0.3)" fill="none" stroke-width="0.3"/><path d="M30,30 L25,40" stroke="rgba(200,200,200,0.3)" fill="none" stroke-width="0.3"/></svg>'),
+              url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path d="M60,20 Q65,15 70,20 T80,20" stroke="rgba(200,200,200,0.3)" fill="none" stroke-width="0.5"/><path d="M60,20 L70,30" stroke="rgba(200,200,200,0.3)" fill="none" stroke-width="0.3"/><path d="M80,20 L75,30" stroke="rgba(200,200,200,0.3)" fill="none" stroke-width="0.3"/></svg>');
+            background-size: 150px 150px, 120px 120px;
+            background-position: 0 0, 200px 100px;
+            background-repeat: repeat;
+            pointer-events: none;
+            opacity: 0.4;
+          }
+
+          .theme-halloween .particle {
+            animation: halloween-float 20s linear infinite, spider-crawl 8s ease-in-out infinite;
+            background: radial-gradient(circle, rgba(255,140,0,0.8) 0%, rgba(204,112,0,0.4) 100%) !important;
+          }
+
+          .theme-halloween .particle::after {
+            content: '🕷️';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 16px;
+            animation: spider-rotate 4s linear infinite;
+          }
+
+          @keyframes halloween-float {
+            0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-100px) rotate(360deg); opacity: 0; }
+          }
+
+          @keyframes spider-crawl {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(10px); }
+            50% { transform: translateX(-5px); }
+            75% { transform: translateX(8px); }
+          }
+
+          @keyframes spider-rotate {
+            0%, 100% { transform: translate(-50%, -50%) rotate(0deg); }
+            25% { transform: translate(-50%, -50%) rotate(-15deg); }
+            50% { transform: translate(-50%, -50%) rotate(15deg); }
+            75% { transform: translate(-50%, -50%) rotate(-10deg); }
+          }
+
+          .theme-halloween .bg-animation::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image:
+              url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 100"><path d="M10,30 L30,20 L20,15 L30,10 L20,5 L25,0" stroke="rgba(139,69,19,0.5)" fill="none" stroke-width="2"/><ellipse cx="35" cy="35" rx="15" ry="8" fill="rgba(139,69,19,0.4)"/></svg>'),
+              url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 100"><path d="M150,40 L170,30 L160,25 L170,20 L160,15 L165,10" stroke="rgba(139,69,19,0.5)" fill="none" stroke-width="2"/><ellipse cx="175" cy="45" rx="15" ry="8" fill="rgba(139,69,19,0.4)"/></svg>');
+            background-size: 250px 150px, 220px 140px;
+            background-position: 10% 15%, 80% 25%;
+            background-repeat: no-repeat;
+            animation: broom-fly 15s linear infinite;
+            pointer-events: none;
+            opacity: 0.6;
+          }
+
+          @keyframes broom-fly {
+            0% { background-position: -300px 15%, 100vw 25%; }
+            100% { background-position: 100vw 15%, -300px 25%; }
+          }
+        `;
+        break;
+
       case 'light':
         animations = `
           .theme-light .brand .dot {
@@ -1246,7 +1402,7 @@ class ThemeManager {
   }
 
   loadTheme() {
-    return localStorage.getItem('nobulem-theme') || 'dark';
+    return localStorage.getItem('nobulem-theme') || this.defaultTheme;
   }
 }
 
