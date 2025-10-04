@@ -231,48 +231,6 @@ class ThemeManager {
 
     // Add pumpkin icon to brand
     this.addPumpkinToBrand();
-
-    // Add arachnophobia toggle
-    this.addArachnophobiaToggle(themeButton);
-  }
-
-  addArachnophobiaToggle(themeButton) {
-    const toggleContainer = document.createElement('div');
-    toggleContainer.className = 'arachnophobia-toggle';
-    toggleContainer.innerHTML = `
-      <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
-        <input type="checkbox" id="arachnophobia-toggle" />
-        <span>Arachnophobia Mode</span>
-      </label>
-    `;
-
-    themeButton.appendChild(toggleContainer);
-
-    // Load saved preference
-    const savedPref = localStorage.getItem('arachnophobia-mode');
-    const checkbox = toggleContainer.querySelector('#arachnophobia-toggle');
-    if (savedPref === 'true') {
-      checkbox.checked = true;
-      this.toggleSpiders(true);
-    }
-
-    // Handle toggle
-    checkbox.addEventListener('change', (e) => {
-      const hideSpiders = e.target.checked;
-      localStorage.setItem('arachnophobia-mode', hideSpiders);
-      this.toggleSpiders(hideSpiders);
-    });
-  }
-
-  toggleSpiders(hide) {
-    const particles = document.querySelectorAll('.particle');
-    particles.forEach(particle => {
-      if (hide) {
-        particle.classList.add('hide-spiders');
-      } else {
-        particle.classList.remove('hide-spiders');
-      }
-    });
   }
 
   addPumpkinToBrand() {
@@ -299,21 +257,6 @@ class ThemeManager {
     const style = document.createElement('style');
     style.id = 'theme-button-styles';
     style.textContent = `
-      .arachnophobia-toggle {
-        display: none;
-        position: absolute;
-        top: 100%;
-        left: 50%;
-        transform: translateX(-50%);
-        margin-top: 8px;
-        background: rgba(0,0,0,0.95);
-        padding: 8px 12px;
-        border-radius: 8px;
-        border: 1px solid var(--line);
-        white-space: nowrap;
-        z-index: 101;
-      }
-
       .theme-button {
         background: rgba(255,255,255,0.1);
         border: 1px solid var(--line);
@@ -800,7 +743,7 @@ class ThemeManager {
     if (!theme) return;
 
     const root = document.documentElement;
-
+    
     // Apply color variables
     Object.entries(theme.colors).forEach(([key, value]) => {
       root.style.setProperty(`--${key}`, value);
@@ -813,7 +756,7 @@ class ThemeManager {
     this.updateParticles(theme);
     this.updateWaves(theme);
     this.updateAnimationSpeeds(theme);
-
+    
     // Apply theme-specific animations
     this.applyThemeAnimations(themeName);
 
@@ -832,83 +775,6 @@ class ThemeManager {
 
     // Fix particles positioning
     this.fixParticlePositioning();
-
-    // Show/hide arachnophobia toggle for Halloween theme
-    const toggle = document.querySelector('.arachnophobia-toggle');
-    if (toggle) {
-      toggle.style.display = themeName === 'halloween' ? 'block' : 'none';
-    }
-
-    // Add Halloween-specific elements
-    if (themeName === 'halloween') {
-      this.addHalloweenElements();
-      // Apply saved arachnophobia preference
-      const savedPref = localStorage.getItem('arachnophobia-mode');
-      if (savedPref === 'true') {
-        setTimeout(() => this.toggleSpiders(true), 500);
-      }
-    } else {
-      this.removeHalloweenElements();
-    }
-  }
-
-  addHalloweenElements() {
-    // Remove existing brooms
-    document.querySelectorAll('.halloween-broom').forEach(el => el.remove());
-
-    // Add flying brooms
-    for (let i = 0; i < 3; i++) {
-      const broom = document.createElement('div');
-      broom.className = 'halloween-broom';
-      broom.style.top = Math.random() * 40 + 10 + '%';
-      broom.style.animationName = 'broom-fly-' + i;
-      broom.style.animationDuration = (15 + i * 5) + 's';
-      broom.style.animationIterationCount = 'infinite';
-      broom.style.animationTimingFunction = 'linear';
-      broom.style.animationDelay = (i * 5) + 's';
-
-      document.body.appendChild(broom);
-
-      // Add animation keyframes
-      if (!document.getElementById('broom-animations')) {
-        const style = document.createElement('style');
-        style.id = 'broom-animations';
-        style.textContent = `
-          @keyframes broom-fly-0 {
-            0% { left: -100px; }
-            100% { left: calc(100% + 100px); }
-          }
-          @keyframes broom-fly-1 {
-            0% { right: -100px; left: auto; }
-            100% { right: calc(100% + 100px); }
-          }
-          @keyframes broom-fly-2 {
-            0% { left: -100px; }
-            100% { left: calc(100% + 100px); }
-          }
-        `;
-        document.head.appendChild(style);
-      }
-    }
-
-    // Position some spiders at the top for mobile/tablet
-    setTimeout(() => {
-      const particles = document.querySelectorAll('.particle');
-      particles.forEach((particle, index) => {
-        if (index < 3) {
-          // Keep first 3 at top
-          particle.style.top = Math.random() * 15 + '%';
-          particle.style.left = Math.random() * 100 + '%';
-          particle.style.animation = 'none';
-        }
-      });
-    }, 100);
-  }
-
-  removeHalloweenElements() {
-    document.querySelectorAll('.halloween-broom').forEach(el => el.remove());
-    const style = document.getElementById('broom-animations');
-    if (style) style.remove();
   }
 
   updateCardBackgrounds(theme) {
@@ -1349,135 +1215,80 @@ class ThemeManager {
             }
           }
 
-          /* Pumpkin pattern background */
-          .theme-halloween body {
-            background: #000 !important;
-            background-image:
-              radial-gradient(ellipse 30px 40px at 50% 50%, transparent 60%, rgba(255,140,0,0.15) 70%, transparent 100%),
-              radial-gradient(ellipse 30px 40px at 50% 50%, transparent 60%, rgba(255,140,0,0.15) 70%, transparent 100%),
-              radial-gradient(ellipse 30px 40px at 50% 50%, transparent 60%, rgba(255,140,0,0.15) 70%, transparent 100%),
-              radial-gradient(ellipse 30px 40px at 50% 50%, transparent 60%, rgba(255,140,0,0.15) 70%, transparent 100%) !important;
-            background-position: 0 0, 80px 120px, 160px 40px, 240px 160px !important;
-            background-size: 160px 200px !important;
-            background-repeat: repeat !important;
-          }
-
-          /* Cobwebs in corners */
           .theme-halloween .bg-animation::before {
             content: '';
-            position: fixed;
+            position: absolute;
             top: 0;
             left: 0;
             right: 0;
             bottom: 0;
-            pointer-events: none;
-            z-index: 1;
             background-image:
-              url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200"><g stroke="rgba(200,200,200,0.4)" fill="none" stroke-width="1"><path d="M0,0 L60,40 M0,0 L40,60 M0,0 L30,80 M0,0 L20,100 M0,0 L10,120"/><path d="M10,0 L60,40 M20,0 L60,40 M30,0 L60,40 M40,0 L60,40 M50,0 L60,40"/><path d="M0,10 L40,60 M0,20 L40,60 M0,30 L40,60 M0,40 L40,60 M0,50 L40,60"/><circle cx="60" cy="40" r="3" fill="rgba(200,200,200,0.5)"/></g></svg>'),
-              url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200"><g stroke="rgba(200,200,200,0.4)" fill="none" stroke-width="1" transform="scale(-1,1) translate(-200,0)"><path d="M0,0 L60,40 M0,0 L40,60 M0,0 L30,80 M0,0 L20,100 M0,0 L10,120"/><path d="M10,0 L60,40 M20,0 L60,40 M30,0 L60,40 M40,0 L60,40 M50,0 L60,40"/><path d="M0,10 L40,60 M0,20 L40,60 M0,30 L40,60 M0,40 L40,60 M0,50 L40,60"/><circle cx="60" cy="40" r="3" fill="rgba(200,200,200,0.5)"/></g></svg>'),
-              url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="180" height="180" viewBox="0 0 180 180"><g stroke="rgba(200,200,200,0.35)" fill="none" stroke-width="1"><circle cx="90" cy="90" r="60"/><circle cx="90" cy="90" r="45"/><circle cx="90" cy="90" r="30"/><circle cx="90" cy="90" r="15"/><path d="M90,30 L90,150 M30,90 L150,90 M45,45 L135,135 M135,45 L45,135"/><circle cx="90" cy="90" r="4" fill="rgba(200,200,200,0.6)"/></g></svg>');
-            background-position: 0 0, 100% 0, 50% 30%;
-            background-size: 200px 200px, 200px 200px, 180px 180px;
-            background-repeat: no-repeat;
-            opacity: 0.6;
-          }
-
-          /* Flying brooms */
-          .theme-halloween .halloween-broom {
-            position: fixed;
-            width: 80px;
-            height: 40px;
+              url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path d="M10,30 Q15,25 20,30 T30,30" stroke="rgba(200,200,200,0.3)" fill="none" stroke-width="0.5"/><path d="M10,30 L20,40" stroke="rgba(200,200,200,0.3)" fill="none" stroke-width="0.3"/><path d="M30,30 L25,40" stroke="rgba(200,200,200,0.3)" fill="none" stroke-width="0.3"/></svg>'),
+              url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path d="M60,20 Q65,15 70,20 T80,20" stroke="rgba(200,200,200,0.3)" fill="none" stroke-width="0.5"/><path d="M60,20 L70,30" stroke="rgba(200,200,200,0.3)" fill="none" stroke-width="0.3"/><path d="M80,20 L75,30" stroke="rgba(200,200,200,0.3)" fill="none" stroke-width="0.3"/></svg>');
+            background-size: 150px 150px, 120px 120px;
+            background-position: 0 0, 200px 100px;
+            background-repeat: repeat;
             pointer-events: none;
-            z-index: 2;
-            opacity: 0.7;
+            opacity: 0.4;
           }
 
-          .theme-halloween .halloween-broom::before {
-            content: '🧹';
-            font-size: 40px;
-            position: absolute;
-            animation: broom-wobble 2s ease-in-out infinite;
-          }
-
-          @keyframes broom-wobble {
-            0%, 100% { transform: rotate(-5deg); }
-            50% { transform: rotate(5deg); }
-          }
-
-          /* Spider/Pumpkin particles */
           .theme-halloween .particle {
-            position: fixed !important;
-            width: 24px !important;
-            height: 24px !important;
-            background: transparent !important;
-            border-radius: 0 !important;
-            z-index: 5 !important;
+            animation: halloween-float 20s linear infinite, spider-crawl 8s ease-in-out infinite;
+            background: radial-gradient(circle, rgba(255,140,0,0.8) 0%, rgba(204,112,0,0.4) 100%) !important;
           }
 
-          .theme-halloween .particle::before {
+          .theme-halloween .particle::after {
             content: '🕷️';
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            font-size: 24px;
-            animation: spider-wiggle 3s ease-in-out infinite;
+            font-size: 16px;
+            animation: spider-rotate 4s linear infinite;
           }
 
-          .theme-halloween .particle.hide-spiders::before {
-            content: '🎃';
-            font-size: 20px;
+          @keyframes halloween-float {
+            0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-100px) rotate(360deg); opacity: 0; }
           }
 
-          @keyframes spider-wiggle {
+          @keyframes spider-crawl {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(10px); }
+            50% { transform: translateX(-5px); }
+            75% { transform: translateX(8px); }
+          }
+
+          @keyframes spider-rotate {
             0%, 100% { transform: translate(-50%, -50%) rotate(0deg); }
-            25% { transform: translate(-50%, -50%) rotate(-10deg) scale(1.1); }
-            50% { transform: translate(-50%, -50%) rotate(10deg) scale(0.9); }
-            75% { transform: translate(-50%, -50%) rotate(-5deg) scale(1.05); }
+            25% { transform: translate(-50%, -50%) rotate(-15deg); }
+            50% { transform: translate(-50%, -50%) rotate(15deg); }
+            75% { transform: translate(-50%, -50%) rotate(-10deg); }
           }
 
-          /* Arachnophobia toggle */
-          .theme-halloween .arachnophobia-toggle {
-            display: flex !important;
-            align-items: center;
-            gap: 8px;
-            margin-top: 8px;
-            font-size: 12px;
-            color: var(--muted);
-            cursor: pointer;
-            user-select: none;
-          }
-
-          .arachnophobia-toggle input[type="checkbox"] {
-            width: 40px;
-            height: 20px;
-            appearance: none;
-            background: rgba(255,255,255,0.1);
-            border-radius: 10px;
-            position: relative;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            border: 1px solid var(--line);
-          }
-
-          .arachnophobia-toggle input[type="checkbox"]::before {
+          .theme-halloween .bg-animation::after {
             content: '';
             position: absolute;
-            width: 16px;
-            height: 16px;
-            border-radius: 50%;
-            background: #fff;
-            top: 1px;
-            left: 1px;
-            transition: all 0.3s ease;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image:
+              url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 100"><path d="M10,30 L30,20 L20,15 L30,10 L20,5 L25,0" stroke="rgba(139,69,19,0.5)" fill="none" stroke-width="2"/><ellipse cx="35" cy="35" rx="15" ry="8" fill="rgba(139,69,19,0.4)"/></svg>'),
+              url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 100"><path d="M150,40 L170,30 L160,25 L170,20 L160,15 L165,10" stroke="rgba(139,69,19,0.5)" fill="none" stroke-width="2"/><ellipse cx="175" cy="45" rx="15" ry="8" fill="rgba(139,69,19,0.4)"/></svg>');
+            background-size: 250px 150px, 220px 140px;
+            background-position: 10% 15%, 80% 25%;
+            background-repeat: no-repeat;
+            animation: broom-fly 15s linear infinite;
+            pointer-events: none;
+            opacity: 0.6;
           }
 
-          .arachnophobia-toggle input[type="checkbox"]:checked {
-            background: #ff8c00;
-          }
-
-          .arachnophobia-toggle input[type="checkbox"]:checked::before {
-            left: 21px;
+          @keyframes broom-fly {
+            0% { background-position: -300px 15%, 100vw 25%; }
+            100% { background-position: 100vw 15%, -300px 25%; }
           }
         `;
         break;
