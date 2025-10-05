@@ -76,7 +76,8 @@ class ThemeManager {
     loaderBg: 'linear-gradient(145deg, #f8f9fa, #e5e7eb)',
     inputBg: '#ffffff',
     inputBorder: '#e5e7eb',
-    inputText: '#000000'
+    inputText: '#000000',
+    linkColor: '#000000'
   },
   particles: 'rgba(26,26,26,0.3)',
   waves: 'rgba(26,26,26,0.05)',
@@ -830,6 +831,31 @@ class ThemeManager {
       }
     });
 
+    // Fix title color and text shadow
+    const titles = document.querySelectorAll('.title, h1');
+    titles.forEach(title => {
+      title.style.color = theme.colors.text;
+      if (theme.name === 'Light') {
+        title.style.textShadow = '1px 1px 2px rgba(0,0,0,0.3)';
+      } else {
+        title.style.textShadow = '';
+      }
+    });
+
+    // Fix all anchor link colors
+    const links = document.querySelectorAll('a');
+    links.forEach(link => {
+      if (!link.closest('.nav .links')) {
+        if (theme.name === 'Light') {
+          link.style.color = theme.colors.text;
+          link.style.textShadow = '1px 1px 2px rgba(0,0,0,0.5)';
+        } else {
+          link.style.color = theme.colors.text;
+          link.style.textShadow = '';
+        }
+      }
+    });
+
     // Handle theme icon visibility
     const whiteIcons = document.querySelectorAll('.theme-icon-white');
     const blackIcons = document.querySelectorAll('.theme-icon-black');
@@ -842,13 +868,32 @@ class ThemeManager {
       blackIcons.forEach(icon => icon.style.display = 'none');
     }
 
+    // Handle feature icon visibility
+    const darkFeatureIcons = document.querySelectorAll('.feature-icon-dark');
+    const lightFeatureIcons = document.querySelectorAll('.feature-icon-light');
+
+    if (theme.name === 'Light') {
+      darkFeatureIcons.forEach(icon => icon.style.display = 'none');
+      lightFeatureIcons.forEach(icon => icon.style.display = 'block');
+    } else {
+      darkFeatureIcons.forEach(icon => icon.style.display = 'block');
+      lightFeatureIcons.forEach(icon => icon.style.display = 'none');
+    }
+
     // Fix navigation active state for ALL nav links
     const navLinks = document.querySelectorAll('.nav .links a');
     navLinks.forEach(link => {
-      if (link.style.color === '#fff' || link.style.opacity === '1' || link.getAttribute('style')?.includes('color: #fff')) {
+      const isActive = link.style.color === '#fff' ||
+                       link.style.color === 'rgb(255, 255, 255)' ||
+                       link.style.opacity === '1' ||
+                       link.getAttribute('style')?.includes('color: #fff') ||
+                       link.getAttribute('style')?.includes('color:#fff') ||
+                       link.getAttribute('style')?.includes('opacity: 1');
+
+      if (isActive) {
         link.style.color = theme.colors.navActive;
         if (theme.name === 'Light') {
-          link.style.textShadow = '1px 1px 2px rgba(255,255,255,0.8)';
+          link.style.textShadow = '1px 1px 2px rgba(0,0,0,0.5)';
           link.style.fontWeight = '900';
         } else {
           link.style.textShadow = '';
@@ -863,6 +908,8 @@ class ThemeManager {
       eyebrow.style.color = theme.colors.eyebrowColor;
       if (theme.name === 'Light') {
         eyebrow.style.textShadow = '1px 1px 2px rgba(0,0,0,0.3)';
+      } else {
+        eyebrow.style.textShadow = '';
       }
     });
 
@@ -871,6 +918,8 @@ class ThemeManager {
       subtitle.style.color = theme.colors.subtitleColor;
       if (theme.name === 'Light') {
         subtitle.style.textShadow = '1px 1px 2px rgba(0,0,0,0.3)';
+      } else {
+        subtitle.style.textShadow = '';
       }
     });
 
@@ -886,6 +935,7 @@ class ThemeManager {
         input.style.background = theme.colors.card;
         input.style.color = theme.colors.text;
         input.style.border = `1px solid ${theme.colors.line}`;
+        input.style.boxShadow = '';
       }
     });
 
@@ -896,6 +946,10 @@ class ThemeManager {
         btn.style.background = '#e5e7eb';
         btn.style.color = '#000000';
         btn.style.border = '1px solid #d1d5db';
+      } else {
+        btn.style.background = '';
+        btn.style.color = '';
+        btn.style.border = '';
       }
     });
   }
