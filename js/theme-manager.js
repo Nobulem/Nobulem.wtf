@@ -773,9 +773,6 @@ class ThemeManager {
       }
     }
 
-    // Update Nobulem icons based on theme
-    this.updateNobulemIcons(themeName);
-
     // Fix particles positioning
     this.fixParticlePositioning();
   }
@@ -852,22 +849,6 @@ class ThemeManager {
         eyebrow.style.textShadow = '1px 1px 2px rgba(0,0,0,0.3)';
       }
     });
-
-    
- updateNobulemIcons(themeName) {
-    const whiteIcons = document.querySelectorAll('.theme-icon-white');
-    const blackIcons = document.querySelectorAll('.theme-icon-black');
-
-    if (themeName === 'light') {
-      // Light theme: show black icons
-      whiteIcons.forEach(icon => icon.style.display = 'none');
-      blackIcons.forEach(icon => icon.style.display = 'inline-block');
-    } else {
-      // All other themes: show white icons
-      whiteIcons.forEach(icon => icon.style.display = 'inline-block');
-      blackIcons.forEach(icon => icon.style.display = 'none');
-    }
-  }
 
     const subtitles = document.querySelectorAll('.subtitle, .hero-subtitle');
     subtitles.forEach(subtitle => {
@@ -1252,8 +1233,18 @@ class ThemeManager {
           }
 
           .theme-halloween .particle {
-            animation: halloween-float 20s linear infinite;
+            animation: halloween-float 20s linear infinite, spider-crawl 8s ease-in-out infinite;
             background: radial-gradient(circle, rgba(255,140,0,0.8) 0%, rgba(204,112,0,0.4) 100%) !important;
+          }
+
+          .theme-halloween .particle::after {
+            content: '🕷️';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 16px;
+            animation: spider-rotate 4s linear infinite;
           }
 
           @keyframes halloween-float {
@@ -1261,6 +1252,20 @@ class ThemeManager {
             10% { opacity: 1; }
             90% { opacity: 1; }
             100% { transform: translateY(-100px) rotate(360deg); opacity: 0; }
+          }
+
+          @keyframes spider-crawl {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(10px); }
+            50% { transform: translateX(-5px); }
+            75% { transform: translateX(8px); }
+          }
+
+          @keyframes spider-rotate {
+            0%, 100% { transform: translate(-50%, -50%) rotate(0deg); }
+            25% { transform: translate(-50%, -50%) rotate(-15deg); }
+            50% { transform: translate(-50%, -50%) rotate(15deg); }
+            75% { transform: translate(-50%, -50%) rotate(-10deg); }
           }
 
           .theme-halloween .bg-animation::after {
