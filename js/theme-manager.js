@@ -887,21 +887,6 @@ class ThemeManager {
     });
   }
 
-  updateNobulemIcons(themeName) {
-    const whiteIcons = document.querySelectorAll('.theme-icon-white');
-    const blackIcons = document.querySelectorAll('.theme-icon-black');
-
-    if (themeName === 'light') {
-      // Light theme: show black icons
-      whiteIcons.forEach(icon => icon.style.display = 'none');
-      blackIcons.forEach(icon => icon.style.display = 'inline-block');
-    } else {
-      // All other themes: show white icons
-      whiteIcons.forEach(icon => icon.style.display = 'inline-block');
-      blackIcons.forEach(icon => icon.style.display = 'none');
-    }
-  }
-
   fixParticlePositioning() {
     // Fix particles getting stuck at top by ensuring proper positioning
     const particles = document.querySelectorAll('.particle');
