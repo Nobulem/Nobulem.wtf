@@ -648,12 +648,17 @@
       .links{display:none}
       .dev-preview{grid-template-columns:1fr}
     }
-    
+
     @media (max-width: 768px) {
       .particle { display: none; }
       .wave { animation-duration: 40s; }
       .dev-preview{grid-template-columns:1fr}
       .cards{grid-template-columns:1fr}
+
+      .title {
+        flex-direction: column !important;
+        gap: 10px;
+      }
     }
   </style>
 </head>
@@ -691,32 +696,34 @@
     <div class="shape shape-3"></div>
   </div>
 
- <nav class="nav">
-  <div class="container row">
-    <span class="dot"></span>
-    <a href="#home" aria-label="nobulem.wtf">nobulem.wtf</a>
-  </div>
-  
-  <div class="links">
-    <a href="/" style="color: #fff; opacity: 1;">Home</a>
-    <a href="/executors">Executors</a>
-    <a href="https://discord.gg/ExH98C3uFH" target="_blank">Discord</a>
-    <a href="/games">Games & Scripts</a>
-    <a href="/showcases">Showcases</a>
-    <a href="/pricing">Pricing</a>
-    <a href="/developers">Developers</a>
-    <a href="/tos">Terms</a>
-  </div>
-</nav>
+  <nav class="nav">
+    <div class="container row">
+      <div class="brand">
+        <span class="pumpkin-icon" style="display: none;">🎃</span>
+        <span class="dot"></span>
+        <a href="#home" aria-label="nobulem.wtf">nobulem.wtf</a>
+      </div>
 
+      <div class="links">
+        <a href="/" style="color: #fff; opacity: 1;">Home</a>
+        <a href="/executors">Executors</a>
+        <a href="https://discord.gg/ExH98C3uFH" target="_blank">Discord</a>
+        <a href="/games">Games & Scripts</a>
+        <a href="/showcases">Showcases</a>
+        <a href="/pricing">Pricing</a>
+        <a href="/developers">Developers</a>
+        <a href="/tos">Terms</a>
+      </div>
     </div>
   </nav>
 
   <header id="home" class="hero container">
     <div class="eyebrow reveal">undetectability • smooth • fast</div>
-    <h1 class="title reveal typing-container">
-      <img src="https://i.ibb.co/NdNpCJ4v/image-2.png" alt="" class="nobulem-icon theme-icon-white" style="display:inline-block; width:60px; height:60px; vertical-align: middle; margin-right: 10px;">
-      <img src="https://i.ibb.co/Jwj6TdNH/output-onlinepngtools.png" alt="" class="nobulem-icon theme-icon-black" style="display:none; width:60px; height:60px; vertical-align: middle; margin-right: 10px;">
+    <h1 class="title reveal typing-container" style="display: flex; align-items: center; justify-content: center;">
+      <span style="display: inline-flex; align-items: center; flex-shrink: 0;">
+        <img src="https://i.ibb.co/NdNpCJ4v/image-2.png" alt="" class="nobulem-icon theme-icon-white" style="width:60px; height:60px; margin-right: 10px;">
+        <img src="https://i.ibb.co/Jwj6TdNH/output-onlinepngtools.png" alt="" class="nobulem-icon theme-icon-black" style="display:none; width:60px; height:60px; margin-right: 10px;">
+      </span>
       <span id="typing-text" class="typing-text">nobulem.wtf — Quality.</span>
     </h1>
     <p class="subtitle reveal">multiple game support • regular updates • top-quality scripts • no bugs • universal loader</p>
@@ -759,42 +766,9 @@
     <div class="container">
       <h2 class="reveal">Latest Games</h2>
       <p class="muted reveal">Recently added scripts for popular games. <a href="/games" style="color: var(--linkColor, #ffffff) !important; text-decoration: underline; text-shadow: 1px 1px 2px rgba(0,0,0,0.5) !important;">View all games →</a></p>
-      
+
       <div class="grid three" style="margin-top:20px" id="latest-games">
         <!-- Latest games will be loaded dynamically from games page -->
-      </div>
-    </div>
-  </section>
-
-  <section id="developers">
-    <div class="container">
-      <h2 class="reveal">Meet Our Developers</h2>
-      <p class="muted reveal">The talented team behind nobulem.wtf. <a href="/developers" style="color: var(--linkColor, #ffffff) !important; text-decoration: underline; text-shadow: 1px 1px 2px rgba(0,0,0,0.5) !important;">Meet the full team →</a></p>
-      
-      <div class="dev-preview">
-        <div class="dev-card-mini reveal delay-1" onclick="window.location.href='/developers'">
-          <div class="dev-avatar-mini">
-            <img src="https://i.ibb.co/VWWq91PR/Opera-Snapshot-2025-09-15-224308-www-fotor-com.png" alt="Ace (@ac.me)">
-          </div>
-          <h3 class="dev-name-mini">Ace (@ac.me)</h3>
-          <p class="dev-role-mini">Site Developer & UI/UX Designer & Server Manager</p>
-        </div>
-        
-        <div class="dev-card-mini reveal delay-2" onclick="window.location.href='/developers'">
-          <div class="dev-avatar-mini">
-            <img src="https://i.ibb.co/qYCzvC33/dc040980cd3adf203ba6be9bce0d3a95.webp" alt="Emplic (@emplic)">
-          </div>
-          <h3 class="dev-name-mini">Emplic (@emplic)</h3>
-          <p class="dev-role-mini">Lead Script Developer</p>
-        </div>
-        
-        <div class="dev-card-mini reveal delay-3" onclick="window.location.href='/developers'">
-          <div class="dev-avatar-mini">
-            <img src="https://cdn.discordapp.com/avatars/1129062752795762819/72f909da293d19719ffcf8d695fa75d8.webp?size=1024" alt="Snake (@violentsnake)">
-          </div>
-          <h3 class="dev-name-mini">Snake (@violentsnake)</h3>
-          <p class="dev-role-mini">Community Support Specialist & Server Manager</p>
-        </div>
       </div>
     </div>
   </section>
@@ -803,9 +777,42 @@
     <div class="container">
       <h2 class="reveal">Popular Showcases</h2>
       <p class="muted reveal">Most viewed script demonstrations and tutorials. <a href="/showcases" style="color: var(--linkColor, #ffffff) !important; text-decoration: underline; text-shadow: 1px 1px 2px rgba(0,0,0,0.5) !important;">View all showcases →</a></p>
-      
+
       <div class="grid three" style="margin-top:20px" id="popular-showcases">
         <!-- Popular showcases will be loaded dynamically from showcases page -->
+      </div>
+    </div>
+  </section>
+
+  <section id="developers">
+    <div class="container">
+      <h2 class="reveal">Meet Our Developers</h2>
+      <p class="muted reveal">The talented team behind nobulem.wtf. <a href="/developers" style="color: var(--linkColor, #ffffff) !important; text-decoration: underline; text-shadow: 1px 1px 2px rgba(0,0,0,0.5) !important;">Meet the full team →</a></p>
+
+      <div class="dev-preview">
+        <div class="dev-card-mini reveal delay-1" onclick="window.location.href='/developers'">
+          <div class="dev-avatar-mini">
+            <img src="https://i.ibb.co/VWWq91PR/Opera-Snapshot-2025-09-15-224308-www-fotor-com.png" alt="Ace (@ac.me)">
+          </div>
+          <h3 class="dev-name-mini">Ace (@ac.me)</h3>
+          <p class="dev-role-mini">Site Developer & UI/UX Designer & Server Manager</p>
+        </div>
+
+        <div class="dev-card-mini reveal delay-2" onclick="window.location.href='/developers'">
+          <div class="dev-avatar-mini">
+            <img src="https://i.ibb.co/qYCzvC33/dc040980cd3adf203ba6be9bce0d3a95.webp" alt="Emplic (@emplic)">
+          </div>
+          <h3 class="dev-name-mini">Emplic (@emplic)</h3>
+          <p class="dev-role-mini">Lead Script Developer</p>
+        </div>
+
+        <div class="dev-card-mini reveal delay-3" onclick="window.location.href='/developers'">
+          <div class="dev-avatar-mini">
+            <img src="https://cdn.discordapp.com/avatars/1129062752795762819/72f909da293d19719ffcf8d695fa75d8.webp?size=1024" alt="Snake (@violentsnake)">
+          </div>
+          <h3 class="dev-name-mini">Snake (@violentsnake)</h3>
+          <p class="dev-role-mini">Community Support Specialist & Server Manager</p>
+        </div>
       </div>
     </div>
   </section>
