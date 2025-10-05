@@ -43,6 +43,7 @@ class ThemeManager {
           secondary: '#888888',
           cardBg: 'linear-gradient(145deg, #1a1a1a, #0d0d0d)',
           buttonBg: '#ffffff',
+          buttonText: '#000000',
           navActive: '#ffffff',
           eyebrowColor: '#eaeaea',
           subtitleColor: '#cccccc',
