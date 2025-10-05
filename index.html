@@ -272,6 +272,7 @@
     .title{
       font-size: clamp(48px, 8vw, 90px); line-height:1.02; margin:.8rem 0 1rem;
       animation: title-entrance 1.5s ease 0.4s both;
+      white-space: nowrap;
     }
     .subtitle{
       font-size: clamp(18px, 2.5vw, 24px); color:var(--muted);
@@ -309,7 +310,6 @@
       background: var(--buttonBg, #ffffff) !important;
       color: var(--buttonText, #000000) !important;
       animation: btn-glow 2s ease-in-out infinite;
-      text-shadow: 0 0 10px rgba(255,255,255,0.5) !important;
       font-weight: 900;
       border: 2px solid var(--buttonBg, #ffffff) !important;
     }
@@ -350,8 +350,23 @@
       border-color: rgba(255,255,255,0.3);
     }
     .card .icon{
-      font-size:24px; margin-bottom:12px;
-      animation: icon-pulse 2s ease-in-out infinite;
+      margin-bottom:12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .card .icon img {
+      width: 48px;
+      height: 48px;
+      object-fit: contain;
+      animation: none;
+    }
+
+    /* Remove emoji animations */
+    @keyframes icon-pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1); }
     }
     .muted{color:var(--muted)}
     .three{grid-template-columns:repeat(3,1fr)}
@@ -658,6 +673,7 @@
       .title {
         flex-direction: column !important;
         gap: 10px;
+        white-space: normal;
       }
     }
   </style>
@@ -739,22 +755,34 @@
       <p class="center muted reveal" style="margin-bottom:30px">Built by developers for players. Fast And Safe.</p>
       <div class="grid cards">
         <div class="card reveal delay-1">
-          <div class="icon">🛡️</div>
+          <div class="icon">
+            <img src="https://via.placeholder.com/48" alt="Stable & Secure" class="feature-icon-dark">
+            <img src="https://via.placeholder.com/48" alt="Stable & Secure" class="feature-icon-light" style="display: none;">
+          </div>
           <h3>Stable & Secure</h3>
           <p>Ban Prevention, Anti-cheat Bypasses, and Regular Updates for a Safer experience.</p>
         </div>
         <div class="card reveal delay-2">
-          <div class="icon">⚡</div>
+          <div class="icon">
+            <img src="https://via.placeholder.com/48" alt="Weekly Updates" class="feature-icon-dark">
+            <img src="https://via.placeholder.com/48" alt="Weekly Updates" class="feature-icon-light" style="display: none;">
+          </div>
           <h3>Weekly Updates</h3>
           <p>Rapid patches and new game support added constantly to keep you rolling.</p>
         </div>
         <div class="card reveal delay-3">
-          <div class="icon">👥</div>
+          <div class="icon">
+            <img src="https://via.placeholder.com/48" alt="Active Community" class="feature-icon-dark">
+            <img src="https://via.placeholder.com/48" alt="Active Community" class="feature-icon-light" style="display: none;">
+          </div>
           <h3>Active Community</h3>
           <p>Join our Discord to get help, share showcases, and request new features.</p>
         </div>
         <div class="card reveal delay-4">
-          <div class="icon">💬</div>
+          <div class="icon">
+            <img src="https://via.placeholder.com/48" alt="Customer First" class="feature-icon-dark">
+            <img src="https://via.placeholder.com/48" alt="Customer First" class="feature-icon-light" style="display: none;">
+          </div>
           <h3>Customer First</h3>
           <p>Feedback drives the roadmap. If you need it, we prioritize it.</p>
         </div>
