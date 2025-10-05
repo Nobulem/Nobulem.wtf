@@ -768,8 +768,10 @@ class ThemeManager {
     if (nav) {
       if (themeName === 'light') {
         nav.style.background = 'rgba(255,255,255,0.9)';
+        nav.style.borderBottom = '1px solid #e5e7eb';
       } else {
         nav.style.background = 'rgba(0,0,0,0.9)';
+        nav.style.borderBottom = '1px solid var(--line)';
       }
     }
 
@@ -812,26 +814,40 @@ class ThemeManager {
     const buttons = document.querySelectorAll('.btn, .plan-button, .discord-button, .sort-btn, .theme-button, .copy-btn, .modal-copy-btn');
     buttons.forEach(button => {
       if (button.classList.contains('primary') || button.classList.contains('plan-button') || button.classList.contains('copy-btn') || button.classList.contains('modal-copy-btn')) {
-        if (theme.name === 'light') {
+        if (theme.name === 'Light') {
           button.style.background = '#1a1a1a';
           button.style.color = '#ffffff';
           button.style.textShadow = 'none';
           button.style.boxShadow = '1px 1px 3px rgba(0,0,0,0.3)';
-          button.style.border = '1px solid #333333';
+          button.style.border = '2px solid #1a1a1a';
         } else {
           button.style.background = theme.colors.buttonBg || 'rgba(200,200,200,0.15)';
-          button.style.color = theme.colors.buttonText || '#ffffff';
+          button.style.color = theme.colors.buttonText || '#000000';
           button.style.textShadow = 'none';
+          button.style.boxShadow = '';
+          button.style.border = `2px solid ${theme.colors.buttonBg || 'rgba(200,200,200,0.15)'}`;
         }
       }
     });
+
+    // Handle theme icon visibility
+    const whiteIcons = document.querySelectorAll('.theme-icon-white');
+    const blackIcons = document.querySelectorAll('.theme-icon-black');
+
+    if (theme.name === 'Light') {
+      whiteIcons.forEach(icon => icon.style.display = 'none');
+      blackIcons.forEach(icon => icon.style.display = 'inline-block');
+    } else {
+      whiteIcons.forEach(icon => icon.style.display = 'inline-block');
+      blackIcons.forEach(icon => icon.style.display = 'none');
+    }
 
     // Fix navigation active state for ALL nav links
     const navLinks = document.querySelectorAll('.nav .links a');
     navLinks.forEach(link => {
       if (link.style.color === '#fff' || link.style.opacity === '1' || link.getAttribute('style')?.includes('color: #fff')) {
         link.style.color = theme.colors.navActive;
-        if (theme.name === 'light') {
+        if (theme.name === 'Light') {
           link.style.textShadow = '1px 1px 2px rgba(255,255,255,0.8)';
           link.style.fontWeight = '900';
         } else {
@@ -845,7 +861,7 @@ class ThemeManager {
     const eyebrows = document.querySelectorAll('.eyebrow');
     eyebrows.forEach(eyebrow => {
       eyebrow.style.color = theme.colors.eyebrowColor;
-      if (theme.name === 'light') {
+      if (theme.name === 'Light') {
         eyebrow.style.textShadow = '1px 1px 2px rgba(0,0,0,0.3)';
       }
     });
@@ -853,7 +869,7 @@ class ThemeManager {
     const subtitles = document.querySelectorAll('.subtitle, .hero-subtitle');
     subtitles.forEach(subtitle => {
       subtitle.style.color = theme.colors.subtitleColor;
-      if (theme.name === 'light') {
+      if (theme.name === 'Light') {
         subtitle.style.textShadow = '1px 1px 2px rgba(0,0,0,0.3)';
       }
     });
@@ -861,7 +877,7 @@ class ThemeManager {
     // Fix search inputs
     const searchInputs = document.querySelectorAll('input[type="text"], input[type="search"], .search-input');
     searchInputs.forEach(input => {
-      if (theme.name === 'light') {
+      if (theme.name === 'Light') {
         input.style.background = '#ffffff';
         input.style.color = '#000000';
         input.style.border = '2px solid #e5e7eb';
@@ -876,7 +892,7 @@ class ThemeManager {
     // Fix clear buttons
     const clearButtons = document.querySelectorAll('.clear-btn');
     clearButtons.forEach(btn => {
-      if (theme.name === 'light') {
+      if (theme.name === 'Light') {
         btn.style.background = '#e5e7eb';
         btn.style.color = '#000000';
         btn.style.border = '1px solid #d1d5db';
