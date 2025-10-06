@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Me</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            fon
+              t-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #000;
+            color: #fff;
+            overflow-x: hidden;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        #starfield {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+        }
+
+        .container {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 60px 20px 100px;
+            flex: 1;
+        }
+
+        .profile-card {
+            background: rgba(10, 10, 20, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 20px;
+            padding: 40px;
+            backdrop-filter: blur(20px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+
+        .profile-header {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .profile-pic {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            object-fit: cover;
+            box-shadow: 0 4px 16px rgba(255, 255, 255, 0.2);
+        }
+
+        .profile-info h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, #fff 0%, #a0a0ff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .status {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            background: rgba(100, 200, 100, 0.2);
+            border: 1px solid rgba(100, 200, 100, 0.5);
+            border-radius: 20px;
+            font-size: 0.9em;
+            margin-bottom: 10px;
+        }
+
+        .status-indicator {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #43b581;
+            box-shadow: 0 0 10px #43b581;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .status.idle .status-indicator {
+            background: #faa61a;
+            box-shadow: 0 0 10px #faa61a;
+        }
+
+        .status.dnd .status-indicator {
+            background: #f04747;
+            box-shadow: 0 0 10px #f04747;
+        }
+
+        .status.offline .status-indicator {
+            background: #747f8d;
+            box-shadow: 0 0 10px #747f8d;
+        }
+
+        .status.offline {
+            background: rgba(116, 127, 141, 0.2);
+            border-color: rgba(116, 127, 141, 0.5);
+        }
+
+        .status.idle {
+            background: rgba(250, 166, 26, 0.2);
+            border-color: rgba(250, 166, 26, 0.5);
+        }
+
+        .status.dnd {
+            background: rgba(240, 71, 71, 0.2);
+            border-color: rgba(240, 71, 71, 0.5);
+        }
+
+        .bio {
+            margin: 30px 0;
+            line-height: 1.8;
+            font-size: 1.1em;
+            color: #e0e0e0;
+        }
+
+        .section {
+            margin: 30px 0;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .section h2 {
+            font-size: 1.5em;
+            margin-bottom: 15px;
+            color: #a0a0ff;
+        }
+
+        .spotify-card {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px;
+            background: rgba(30, 215, 96, 0.1);
+            border: 1px solid rgba(30, 215, 96, 0.3);
+            border-radius: 12px;
+        }
+
+        .album-art {
+            width: 80px;
+            height: 80px;
+            border-radius: 8px;
+            object-fit: cover;
+        }
+
+        .song-info h3 {
+            font-size: 1.2em;
+            margin-bottom: 5px;
+        }
+
+        .song-info p {
+            color: #b0b0b0;
+            font-size: 0.95em;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .info-item {
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .info-item strong {
+            color: #a0a0ff;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .return-link {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 12px 30px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 25px;
+            color: #fff;
+            text-decoration: none;
+            font-size: 1em;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            z-index: 10;
+        }
+
+        .return-link:hover {
+            background: rgba(255, 255, 255, 0.2);
+            border-color: rgba(255, 255, 255, 0.5);
+            transform: translateX(-50%) translateY(-2px);
+            box-shadow: 0 4px 16px rgba(255, 255, 255, 0.3);
+        }
+
+        @media (max-width: 600px) {
+            .profile-header {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .profile-info h1 {
+                font-size: 2em;
+            }
+
+            .container {
+                padding: 40px 15px 100px;
+            }
+
+            .profile-card {
+                padding: 25px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <canvas id="starfield"></canvas>
+
+    <div class="container">
+        <div class="profile-card">
+            <div class="profile-header">
+                <!-- CUSTOMIZE: Replace src with your profile picture URL -->
+                <img src="https://i.ibb.co/VWWq91PR/Opera-Snapshot-2025-09-15-224308-www-fotor-com.png" alt="Profile Picture" class="profile-pic">
+
+                <div class="profile-info">
+                    <!-- CUSTOMIZE: Replace with your name -->
+                    <h1>Ace (@ac.me)</h1>
+
+                    <!-- CUSTOMIZE: Change status class (status = online, status idle, status dnd, status offline) -->
+                    <div class="status dnd">
+                        <div class="status-indicator"></div>
+                        <span>Hell is Empty.</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CUSTOMIZE: Replace with your bio -->
+            <div class="bio">
+                hey im ace, i try do stuff i think
+            </div>
+
+            <div class="section">
+                <h2>Now Playing</h2>
+                <div id="spotify-now-playing" class="spotify-card">
+                    <img src="https://via.placeholder.com/80" alt="Album Art" class="album-art" id="album-art">
+                    <div class="song-info">
+                        <h3 id="song-title">Not currently playing</h3>
+                        <p id="song-artist">Connect Spotify to see live updates</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>Top Artists</h2>
+                <div id="top-artists" class="info-grid">
+                    <div class="info-item">Connect Spotify to see your top artists</div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>About Me</h2>
+                <div class="info-grid">
+                    <!-- CUSTOMIZE: Edit these info items -->
+                    <div class="info-item">
+                        <strong>Location</strong>
+                        Earth, Milky Way
+                    </div>
+                    <div class="info-item">
+                        <strong>Pronouns</strong>
+                        He/Him
+                    </div>
+                    <div class="info-item">
+                        <strong>Interests</strong>
+                        Music, Space, Programming
+                    </div>
+                    <div class="info-item">
+                        <strong>Favorite Genre</strong>
+                        Rap, Everything else i guess
+                    </div>
+                    <div class="info-item">
+                        <strong>hi ghost</strong>
+                        hi ghost
+                    </div>
+                    <div class="info-item">
+                        <strong>Star Sign</strong>
+                        Virgo ♍
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>Favorite Songs</h2>
+                <!-- CUSTOMIZE: Add your favorite songs -->
+                <div class="info-item" style="margin-top: 10px;">
+                    <strong>1.</strong> World we knew (over and over) - Frank Sinatra
+                </div>
+                <div class="info-item" style="margin-top: 10px;">
+                    <strong>2.</strong> Cleaning out my closet - Eminem
+                </div>
+                <div class="info-item" style="margin-top: 10px;">
+                    <strong>3.</strong> Golden Brown - The Stranglers
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>Fun Facts</h2>
+                <!-- CUSTOMIZE: Add your own fun facts -->
+                <div class="bio">
+                    💫 top 10 yapper rated worldwide<br>
+                    😜 i get a bit freaky at times<br>
+                    🌙 i have the mental capacity of a goldfish after 12:00 pm<br>
+                    ☕ tea & coffee make up 67% of my blood
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- CUSTOMIZE: Update href to your main site URL -->
+    <a href="/" class="return-link">← Return to Site</a>
+
+    <script>
+        // Constellation Animation
+        const canvas = document.getElementById('starfield');
+        const ctx = canvas.getContext('2d');
+
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+
+        // Constellation definitions (simplified star patterns)
+        const constellations = [
+            {
+                name: 'Orion',
+                stars: [
+                    {x: 0.3, y: 0.2}, {x: 0.35, y: 0.25}, {x: 0.4, y: 0.2},
+                    {x: 0.33, y: 0.35}, {x: 0.35, y: 0.4}, {x: 0.37, y: 0.35},
+                    {x: 0.3, y: 0.5}, {x: 0.4, y: 0.5}
+                ],
+                connections: [[0,1], [1,2], [1,3], [3,4], [4,5], [3,6], [5,7]]
+            },
+            {
+                name: 'Ursa Major',
+                stars: [
+                    {x: 0.5, y: 0.3}, {x: 0.55, y: 0.28}, {x: 0.6, y: 0.3},
+                    {x: 0.62, y: 0.35}, {x: 0.58, y: 0.4}, {x: 0.53, y: 0.38},
+                    {x: 0.5, y: 0.35}
+                ],
+                connections: [[0,1], [1,2], [2,3], [3,4], [4,5], [5,6], [6,0]]
+            },
+            {
+                name: 'Gemini',
+                stars: [
+                    {x: 0.25, y: 0.6}, {x: 0.28, y: 0.55}, {x: 0.3, y: 0.5},
+                    {x: 0.35, y: 0.6}, {x: 0.38, y: 0.55}, {x: 0.4, y: 0.5}
+                ],
+                connections: [[0,1], [1,2], [3,4], [4,5], [1,4]]
+            },
+            {
+                name: 'Cepheus',
+                stars: [
+                    {x: 0.65, y: 0.2}, {x: 0.7, y: 0.25}, {x: 0.73, y: 0.3},
+                    {x: 0.7, y: 0.35}, {x: 0.65, y: 0.32}
+                ],
+                connections: [[0,1], [1,2], [2,3], [3,4], [4,0]]
+            }
+        ];
+
+        let currentConstellation = 0;
+        let transitionProgress = 0;
+        const transitionSpeed = 0.0003;
+        const stayDuration = 5000;
+        let lastTransitionTime = Date.now();
+
+        // Background stars
+        const bgStars = [];
+        for (let i = 0; i < 200; i++) {
+            bgStars.push({
+                x: Math.random() * canvas.width,
+                y: Math.random() * canvas.height,
+                size: Math.random() * 1.5,
+                opacity: Math.random() * 0.5 + 0.3,
+                twinkleSpeed: Math.random() * 0.02
+            });
+        }
+
+        function drawStars() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            // Draw background stars
+            bgStars.forEach(star => {
+                ctx.fillStyle = `rgba(255, 255, 255, ${star.opacity})`;
+                ctx.beginPath();
+                ctx.arc(star.x, star.y, star.size, 0, Math.PI * 2);
+                ctx.fill();
+
+                star.opacity += star.twinkleSpeed;
+                if (star.opacity > 0.8 || star.opacity < 0.3) {
+                    star.twinkleSpeed *= -1;
+                }
+            });
+
+            const now = Date.now();
+            if (now - lastTransitionTime > stayDuration) {
+                transitionProgress += transitionSpeed * (now - lastTransitionTime);
+
+                if (transitionProgress >= 1) {
+                    transitionProgress = 0;
+                    currentConstellation = (currentConstellation + 1) % constellations.length;
+                    lastTransitionTime = now;
+                }
+            }
+
+            const current = constellations[currentConstellation];
+            const next = constellations[(currentConstellation + 1) % constellations.length];
+
+            const blend = Math.sin(transitionProgress * Math.PI / 2);
+
+            // Draw constellation stars
+            const drawConstellation = (constellation, opacity) => {
+                constellation.stars.forEach(star => {
+                    const x = star.x * canvas.width;
+                    const y = star.y * canvas.height;
+
+                    ctx.fillStyle = `rgba(200, 200, 255, ${opacity})`;
+                    ctx.beginPath();
+                    ctx.arc(x, y, 3, 0, Math.PI * 2);
+                    ctx.fill();
+
+                    ctx.fillStyle = `rgba(255, 255, 255, ${opacity * 0.5})`;
+                    ctx.beginPath();
+                    ctx.arc(x, y, 5, 0, Math.PI * 2);
+                    ctx.fill();
+                });
+
+                // Draw connections
+                ctx.strokeStyle = `rgba(150, 150, 255, ${opacity * 0.6})`;
+                ctx.lineWidth = 1;
+                constellation.connections.forEach(([start, end]) => {
+                    const startPos = constellation.stars[start];
+                    const endPos = constellation.stars[end];
+                    ctx.beginPath();
+                    ctx.moveTo(startPos.x * canvas.width, startPos.y * canvas.height);
+                    ctx.lineTo(endPos.x * canvas.width, endPos.y * canvas.height);
+                    ctx.stroke();
+                });
+            };
+
+            drawConstellation(current, 1 - blend);
+            if (transitionProgress > 0) {
+                drawConstellation(next, blend);
+            }
+
+            requestAnimationFrame(drawStars);
+        }
+
+        drawStars();
+
+        // ==================== SPOTIFY SETUP GUIDE ====================
+        //
+        // STEP 1: Create a Spotify App
+        // - Go to: https://developer.spotify.com/dashboard
+        // - Click "Create app"
+        // - App name: Whatever you want (e.g., "AceWeb")
+        // - App description: Anything (e.g., "Display my Spotify status")
+        // - Website: Your website URL (or leave blank)
+        // - Redirect URI: http://localhost:8888/callback
+        // - Check "Web API" in the API selection
+        // - Agree to terms and click "Save"
+        //
+        // STEP 2: Get Client ID and Secret
+        // - Click on your newly created app
+        // - Click "Settings" button
+        // - Copy your "Client ID" and paste it below
+        // - Click "View client secret" and copy it, paste it below
+        //
+        // STEP 3: Get Refresh Token
+        // - Go to: https://github.com/benweet/Spotify-refresh-token-generator
+        // - Or use this tool: https://spotify-refresh-token-generator.netlify.app/
+        // - Enter your Client ID and Client Secret
+        // - Set scopes: user-read-currently-playing, user-top-read
+        // - Click "Submit" and authorize with Spotify
+        // - Copy the refresh token and paste it below
+        //
+        // STEP 4: Replace the values below with your actual credentials
+        //
+        // =============================================================
+
+        const SPOTIFY_CLIENT_ID = '211a95f3715a49afa15efe564ab0d471';
+        const SPOTIFY_CLIENT_SECRET = '2441754df7394b95b8b5a06def3f1df8';
+        const SPOTIFY_REFRESH_TOKEN = 'AQAygJQ_reRZP2d255pm3kbmmEmG_glXzcWPCX-dOS8cRG7WpM9BnFEgCP6ImVsJ0hgd8DUMLthHuvMIgs_GDlyhsS1dX9BmJ3uBUW22X-YKbQ5Jmk0zZKqRAMFyGjNThdA';
+
+        async function getAccessToken() {
+            const response = await fetch('https://accounts.spotify.com/api/token', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                    'Authorization': 'Basic ' + btoa(SPOTIFY_CLIENT_ID + ':' + SPOTIFY_CLIENT_SECRET)
+                },
+                body: 'grant_type=refresh_token&refresh_token=' + SPOTIFY_REFRESH_TOKEN
+            });
+            const data = await response.json();
+            return data.access_token;
+        }
+
+        async function getCurrentlyPlaying() {
+            try {
+                const accessToken = await getAccessToken();
+                const response = await fetch('https://api.spotify.com/v1/me/player/currently-playing', {
+                    headers: {
+                        'Authorization': 'Bearer ' + accessToken
+                    }
+                });
+
+                if (response.status === 204 || !response.ok) {
+                    return null;
+                }
+
+                const data = await response.json();
+                return data;
+            } catch (error) {
+                console.error('Error fetching currently playing:', error);
+                return null;
+            }
+        }
+
+        async function getTopArtists() {
+            try {
+                const accessToken = await getAccessToken();
+                const response = await fetch('https://api.spotify.com/v1/me/top/artists?limit=6&time_range=short_term', {
+                    headers: {
+                        'Authorization': 'Bearer ' + accessToken
+                    }
+                });
+                const data = await response.json();
+                return data.items;
+            } catch (error) {
+                console.error('Error fetching top artists:', error);
+                return [];
+            }
+        }
+
+        async function updateSpotifyData() {
+            const nowPlaying = await getCurrentlyPlaying();
+
+            if (nowPlaying && nowPlaying.item) {
+                document.getElementById('song-title').textContent = nowPlaying.item.name;
+                document.getElementById('song-artist').textContent = nowPlaying.item.artists.map(a => a.name).join(', ');
+                document.getElementById('album-art').src = nowPlaying.item.album.images[0]?.url || 'https://via.placeholder.com/80';
+            }
+
+            const topArtists = await getTopArtists();
+            const topArtistsContainer = document.getElementById('top-artists');
+
+            if (topArtists.length > 0) {
+                topArtistsContainer.innerHTML = topArtists.map(artist => `
+                    <div class="info-item">
+                        <strong>${artist.name}</strong>
+                        ${artist.genres.slice(0, 2).join(', ')}
+                    </div>
+                `).join('');
+            }
+        }
+
+        // Only update Spotify data if credentials are set
+        if (SPOTIFY_CLIENT_ID !== 'YOUR_SPOTIFY_CLIENT_ID') {
+            updateSpotifyData();
+            setInterval(updateSpotifyData, 30000); // Update every 30 seconds
+        }
+    </script>
+</body>
+</html>
