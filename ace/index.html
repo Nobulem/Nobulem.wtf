@@ -65,12 +65,23 @@
         #landing-page {
             position: fixed;
             inset: 0;
-            background: linear-gradient(to bottom, #000 0%, #1a0a2e 50%, #000 100%);
+            background-image: url('./public/Night Stars Banner GIF - Night Stars Banner Alisa - Discover & Share GIFs.gif');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
             display: flex;
             align-items: center;
             justify-content: center;
             z-index: 100;
             transition: opacity 0.5s ease-out;
+        }
+
+        #landing-page::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.4);
+            z-index: -1;
         }
 
         #landing-page.hidden {
@@ -84,6 +95,12 @@
             z-index: 101;
         }
 
+        .title-container {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 3rem;
+        }
+
         .landing-title {
             font-size: clamp(4rem, 15vw, 10rem);
             font-weight: bold;
@@ -91,20 +108,21 @@
             text-shadow: 4px 4px 0px rgba(0,0,0,0.5), 8px 8px 20px rgba(99,42,122,0.4);
             font-family: Impact, fantasy, sans-serif;
             letter-spacing: 0.1em;
-            margin-bottom: 2rem;
+            margin: 0;
         }
 
         .splash-text {
+            position: absolute;
+            top: -15%;
+            right: -5%;
             color: #ffd700;
             font-size: clamp(1rem, 3vw, 1.5rem);
             font-style: italic;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
             font-family: Georgia, serif;
             transform: rotate(-15deg);
-            display: inline-block;
             animation: float 3s ease-in-out infinite;
-            margin-bottom: 3rem;
-            height: 3rem;
+            white-space: nowrap;
         }
 
         @keyframes float {
@@ -352,6 +370,12 @@
             .artist-grid {
                 grid-template-columns: repeat(3, 1fr);
             }
+
+            .splash-text {
+                top: -10%;
+                right: -10%;
+                font-size: 0.8rem;
+            }
         }
     </style>
 </head>
@@ -361,8 +385,10 @@
 
     <div id="landing-page">
         <div class="landing-content">
-            <h1 class="landing-title">🕸️ACEY WACEY SPIDER🕸️</h1>
-            <div class="splash-text" id="splash-text"></div>
+            <div class="title-container">
+                <h1 class="landing-title">Ace</h1>
+                <div class="splash-text" id="splash-text"></div>
+            </div>
             <button class="enter-button" onclick="enterSite()">ENTER</button>
         </div>
     </div>
@@ -461,9 +487,9 @@
             "hi emplic",
             "hi loaf",
             "can u stop looking at me",
-            "i like m&m"
-            "without death there would be no life dumbass, you know who you are"
-            "baka!"
+            "i like m&m",
+            "without death there would be no life dumbass, you know who you are",
+            "baka!",
             "fredrick might like this (inside joke)"
         ];
 
@@ -706,7 +732,14 @@
             const topArtistsContainer = document.getElementById('top-artists');
 
             if (topArtists.length > 0) {
-                topArtistsContainer.innerHTML = topArtists.map(artist => `
+                const frankSinatra = {
+                    name: 'Frank Sinatra',
+                    images: [{url: 'https://i.ibb.co/mFXbssN9/fc4e0f474fb4c4cb83617aa884dc9fd9822d4411.jpg'}]
+                };
+
+                const allArtists = [...topArtists, frankSinatra];
+
+                topArtistsContainer.innerHTML = allArtists.map(artist => `
                     <div class="artist-item">
                         <img src="${artist.images[0]?.url || 'https://via.placeholder.com/150'}" alt="${artist.name}">
                         <p>${artist.name}</p>
