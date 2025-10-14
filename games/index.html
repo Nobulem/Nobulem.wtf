@@ -1396,6 +1396,18 @@
       </div>
 
       <div class="games-grid" id="gamesGrid">
+        <div class="game-card reveal delay-1" data-game-id="hypershot" data-status="working" onclick="openGameModal('hypershot')">
+          <img src="https://tr.rbxcdn.com/180DAY-cfd72607133e7f54578439917492dbe2/768/432/Image/Webp/noFilter" alt="Hypershot" class="game-thumbnail">
+          <div class="game-content">
+            <h3 class="game-name">Hypershot</h3>
+            <p class="game-description">Silent Aim, Esp, No Spread, Instant Reload, No Recoil</p>
+            <div class="game-status">
+              <span class="status-badge status-working">Working</span>
+              <span class="game-id"># 17516596118</span>
+            </div>
+          </div>
+        </div>
+
         <div class="game-card reveal delay-1" data-game-id="realm-rampage" data-status="working" onclick="openGameModal('realm-rampage')">
           <img src="https://tr.rbxcdn.com/180DAY-7098a7a80d7cefff48b4099bef501965/768/432/Image/Webp/noFilter" alt="Realm Rampage" class="game-thumbnail">
           <div class="game-content">
@@ -1485,6 +1497,12 @@
     document.getElementById('year').textContent = new Date().getFullYear();
 
     const gameData = {
+      'hypershot': {
+        name: 'Hypershot',
+        id: '17516596118',
+        status: 'Working',
+        features: ['Customizable FOV (Field of View)', 'FOV Circle', 'Target Line', 'Aimbone Selection (Head, LowerTorso, RightFoot)', 'Team Check', 'Visibility Check', 'Player & NPC ESP', 'Boxes', 'Names', 'Health Bar / Text', 'Distance', 'Weapon Display', 'Team Check', 'Team-based Colors', 'Max Distance Slider', 'Full Color & Outline Customization', 'No Spread', 'No Recoil', 'Instant Reload', 'Remove Sniper Scope', 'No Ability Cooldown', 'CFrame Walkspeed (Speed Hack)', 'Fly', 'Auto Respawn', 'Auto Pickup Guns', 'Auto Pickup Items (Ammo/Health)', 'Full Bright', 'FPS Boost', 'Aspect Ratio Modifier', 'Chams (Arms & Weapon) with Material/Color options', 'Full GUI with Tabs (Aimbot, Visuals, Misc)', 'UI Theme & Setting Customization', 'Configuration Saving', 'Discord Invite Prompt']
+      },
       'realm-rampage': {
         name: 'Realm Rampage',
         id: '17129858194',
