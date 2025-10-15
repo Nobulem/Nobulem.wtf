@@ -23,6 +23,10 @@ local Games = {
         ScriptId = "2694d97ea485619561a52b5f3558e333",
         Name = "Hypershot"
     },
+    [100040622766961] = {
+        ScriptId = "2694d97ea485619561a52b5f3558e333",
+        Name = "Hypershot"
+    },
     [108428559529058] = {
         ScriptId = "2694d97ea485619561a52b5f3558e333",
         Name = "[GAMEMODES] Hypershot"
