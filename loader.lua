@@ -6,34 +6,31 @@ local CONFIG = {
     SCRIPT_ENDPOINT = "https://api.luarmor.net/files/v3/loaders/",
 }
 
+--[[
+    nobulem.wtf - loader.luau
+]]
+
 local Games = {
-    [17129858194] = {
-        ScriptId = "fce9f2b938d2826ea10a048fbbccde58",
-        Name = "Realm Rampage"
+    {
+        Name = "Hypershot",
+        ScriptId = "2694d97ea485619561a52b5f3558e333",
+        CheckFunction = function()
+            return game:GetService("ReplicatedStorage"):FindFirstChild("Weapons") ~= nil
+        end
     },
-    [13822562292] = {
+    {
+        Name = "Realm Rampage",
+        ScriptId = "fce9f2b938d2826ea10a048fbbccde58",
+        CheckFunction = function()
+            return game:GetService("ReplicatedStorage"):FindFirstChild("Replicate") ~= nil
+        end
+    },
+    {
+        Name = "Midnight Chasers: Highway Racing",
         ScriptId = "dd089645975086ff98b2d7b9ec36470f",
-        Name = "Midnight Chasers: Highway Racing"
-    },
-    [101874573809584] = {
-        ScriptId = "fce9f2b938d2826ea10a048fbbccde58",
-        Name = "[BR] Realm Rampage"
-    },
-    [86696142930150] = {
-        ScriptId = "2694d97ea485619561a52b5f3558e333",
-        Name = "Hypershot"
-    },
-    [100040622766961] = {
-        ScriptId = "2694d97ea485619561a52b5f3558e333",
-        Name = "Hypershot"
-    },
-    [108428559529058] = {
-        ScriptId = "2694d97ea485619561a52b5f3558e333",
-        Name = "[GAMEMODES] Hypershot"
-    },
-    [114984003116267] = {
-        ScriptId = "fce9f2b938d2826ea10a048fbbccde58",
-        Name = "[QUEUE] Realm Rampage"
+        CheckFunction = function()
+            return game:GetService("ReplicatedStorage"):FindFirstChild("SpawnCar") ~= nil
+        end
     }
 }
 
@@ -46,7 +43,7 @@ local function notify(title, text, duration)
 end
 
 local function loadScript(scriptId)
-    local success, response = false, nil
+    local response = nil
     
     for attempt = 1, CONFIG.RETRY_ATTEMPTS do
         local success, result = pcall(function()
@@ -93,20 +90,41 @@ local function main()
     
     getgenv().loaded.count = getgenv().loaded.count + 1
     
-    local gameData = Games[game.PlaceId]
+    local supportedGames = {}
     
-    if not gameData then
-        notify("nobulem.wtf", "This game is not supported.", 6)
+    for _, gameData in ipairs(Games) do
+        local success, result = pcall(gameData.CheckFunction)
+        if success and result then
+            table.insert(supportedGames, gameData)
+        end
+    end
+    
+    if #supportedGames == 0 then
+        notify("nobulem.wtf", "No supported games detected.", 6)
         return
     end
     
-    notify("nobulem.wtf", "Loading script for " .. gameData.Name .. "...", 3)
+    local targetGame = supportedGames[1]
+    
+    if #supportedGames > 1 then
+        local gameNames = ""
+        for i, game in ipairs(supportedGames) do
+            gameNames = gameNames .. game.Name
+            if i < #supportedGames then
+                gameNames = gameNames .. ", "
+            end
+        end
+        notify("nobulem.wtf", "Multiple games detected: " .. gameNames .. ". Loading " .. targetGame.Name, 4)
+    else
+        notify("nobulem.wtf", .. targetGame.Name .. " loading script...", 3)
+    end
+    
     task.wait(0.5)
     
-    if loadScript(gameData.ScriptId) then
-        notify("nobulem.wtf", "Script loaded successfully for " .. gameData.Name .. "!", 4)
+    if loadScript(targetGame.ScriptId) then
+        notify("nobulem.wtf", "Script loaded successfully for " .. targetGame.Name .. "!", 4)
     else
-        notify("nobulem.wtf", "Failed to load script for " .. gameData.Name .. ".", 6)
+        notify("nobulem.wtf", "Failed to load script for " .. targetGame.Name .. ".", 6)
     end
 end
 
