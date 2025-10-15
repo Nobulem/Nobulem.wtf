@@ -116,7 +116,7 @@ local function main()
         end
         notify("nobulem.wtf", "Multiple games detected: " .. gameNames .. ". Loading " .. targetGame.Name, 4)
     else
-        notify("nobulem.wtf", .. targetGame.Name .. " loading script...", 3)
+        notify("nobulem.wtf", targetGame.Name .. " loading script...", 3)
     end
     
     task.wait(0.5)
