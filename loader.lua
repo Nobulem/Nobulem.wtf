@@ -26,6 +26,11 @@ local Games = {
         CheckFunction = function() return ReplicatedStorage:FindFirstChild("Replicate") ~= nil end
     },
     {
+        Name = "Basketball Arcade",
+        ScriptId = "f877b0ab51646a1c99ba41dbad3e6e15",
+        CheckFunction = function() return game:GetService("ReplicatedStorage"):FindFirstChild("Zone"):WaitForChild("RotatedRegion3") ~= nil end
+    },
+    {
         Name = "Midnight Chasers: Highway Racing",
         ScriptId = "dd089645975086ff98b2d7b9ec36470f",
         CheckFunction = function() return ReplicatedStorage:FindFirstChild("NitrousVFX") ~= nil end
