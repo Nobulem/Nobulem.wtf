@@ -1396,6 +1396,18 @@
       </div>
 
       <div class="games-grid" id="gamesGrid">
+        <div class="game-card reveal delay-1" data-game-id="arcade-basketball" data-status="working" onclick="openGameModal('arcade-basketball')">
+          <img src="https://tr.rbxcdn.com/180DAY-1753f4a9e79a7988a3dd980e876ce11b/768/432/Image/Webp/noFilter" alt="Arcade Basketball" class="game-thumbnail">
+          <div class="game-content">
+            <h3 class="game-name">Arcade Basketball</h3>
+            <p class="game-description">Auto Green, No Shot Miss, Perfect Meter, Auto Dunk, Auto Block</p>
+            <div class="game-status">
+              <span class="status-badge status-working">Working</span>
+              <span class="game-id"># 134558434771720</span>
+            </div>
+          </div>
+        </div>
+
         <div class="game-card reveal delay-1" data-game-id="hypershot" data-status="working" onclick="openGameModal('hypershot')">
           <img src="https://tr.rbxcdn.com/180DAY-cfd72607133e7f54578439917492dbe2/768/432/Image/Webp/noFilter" alt="Hypershot" class="game-thumbnail">
           <div class="game-content">
@@ -1497,6 +1509,12 @@
     document.getElementById('year').textContent = new Date().getFullYear();
 
     const gameData = {
+      'arcade-basketball': {
+        name: 'Arcade Basketball',
+        id: '134558434771720',
+        status: 'Working',
+        features: ['Auto Green', 'No Shot Miss (Hipheight/Void modes)', 'Perfect Meter', 'Always Dunk Meter', 'Auto Dunk', 'Auto Block (adjustable radius & chance)', 'Auto Rebound (adjustable chance)', 'Perfect Dribble (adjustable radius & chance)', 'Auto Guard (Legit/Blatant modes)', 'Blatant Auto Steal', 'Auto Snatch Miss', 'Teleport Guard', 'Prediction Guard', 'Adjustable TP Distance', 'Adjustable Prediction Timing', 'Auto Sprint', 'CFrame Walkspeed (5-50x)', 'Fly Mode (20-500 speed)', 'Noclip', 'Spin Bot (adjustable speed)', 'Dribble Glide (0-35 studs)', 'Player ESP', 'Team Check', 'Box ESP', 'Corner Box ESP', 'Filled Box ESP', 'Chams/Highlights', 'Thermal Effect', 'Visible Check', 'Player Names', 'Distance Display', 'Health Bars', 'Health Text', 'Infinite Stamina', 'Face Opponent', 'No Boundaries', 'Anti Out of Bounds', 'Unlock All Rewards', 'Unlock Premium Pass', 'Unlock All Clothing', 'Adjustable ESP colors', 'Fade-out on distance', 'Gradient effects', 'Custom keybinds', 'Theme manager', 'Config save/load']
+      },
       'hypershot': {
         name: 'Hypershot',
         id: '17516596118',
