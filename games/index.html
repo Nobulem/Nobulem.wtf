@@ -1396,6 +1396,18 @@
       </div>
 
       <div class="games-grid" id="gamesGrid">
+        <div class="game-card reveal delay-1" data-game-id="fps-flick" data-status="working" onclick="openGameModal('fps-flick')">
+          <img src="https://tr.rbxcdn.com/180DAY-6520033018c6162771a61aac035963ef/768/432/Image/Webp/noFilter" alt="[FPS] Flick" class="game-thumbnail">
+          <div class="game-content">
+            <h3 class="game-name">[FPS] Flick</h3>
+            <p class="game-description">Silent aim, No reload, Hitsounds, Hitlogs</p>
+            <div class="game-status">
+              <span class="status-badge status-working">Working</span>
+              <span class="game-id"># 136801880565837</span>
+            </div>
+          </div>
+        </div>
+
         <div class="game-card reveal delay-1" data-game-id="arcade-basketball" data-status="working" onclick="openGameModal('arcade-basketball')">
           <img src="https://tr.rbxcdn.com/180DAY-1753f4a9e79a7988a3dd980e876ce11b/768/432/Image/Webp/noFilter" alt="Arcade Basketball" class="game-thumbnail">
           <div class="game-content">
@@ -1509,6 +1521,12 @@
     document.getElementById('year').textContent = new Date().getFullYear();
 
     const gameData = {
+      'fps-flick': {
+        name: '[FPS] Flick',
+        id: '136801880565837',
+        status: 'Working',
+        features: ['Silent Aim', 'Enable Silent Aim', 'FOV Size Slider', 'FOV Position (Center of mouse / Center of screen)', 'Visibility Check', 'Visualize FOV Circle (with color customization)', 'Visualize Target Line (with color customization)', 'Prioritize Player', 'Whitelist Players', 'Weapon', 'No Reload', 'Hitsounds (Enable, Volume, Custom ID)', 'Hitlogs (Notifications on hit and elimination)', 'Movement', 'Speed Boost (WalkSpeed modifier)', 'Spin Bot (with speed customization)', 'Third Person Toggle', 'Visuals (ESP)', 'Enable ESP', 'Box ESP (2D)', 'Box Fill', '3D Box ESP', 'Chams (Wallhacks)', 'Chams Visible Only', 'Health Bar', 'Health Text', 'Name ESP', 'Distance ESP', 'Weapon ESP', 'Tracers', 'Off-Screen Arrows (with size/radius customization)', 'ESP Max Distance', 'Prioritize Player (Highlight)', 'Whitelist Players (Hide ESP)', 'World', 'Ambient Color Modifier', 'Outdoor Ambient Color Modifier', 'Color Shift Top/Bottom Modifier', 'Time of Day Modifier', 'Saturation Modifier', 'Brightness Modifier', 'Tint Color Modifier', 'Statistics', 'Session Time Display', 'Match Time Display', 'Total Kills Display', 'Total Deaths Display', 'Misc', 'Copy JobId', 'Copy GameId', 'Copy Join Script', 'Rejoin Server', 'Join New Server', 'Menu Keybind', 'Unload Script', 'Theme and Config Manager']
+      },
       'arcade-basketball': {
         name: 'Arcade Basketball',
         id: '134558434771720',
