@@ -1,6 +1,9 @@
 local HitLogs = {}
 HitLogs.__index = HitLogs
 
+local TextService = game:GetService("TextService")
+local RunService = game:GetService("RunService")
+
 local CONFIG = {
 	Position = Vector2.new(0.5, 0.6),
 	Spacing = 16,
@@ -37,6 +40,10 @@ function HitLogs.new()
 	
 	self.Logs = {}
 	
+	self.UpdateConnection = RunService.RenderStepped:Connect(function()
+		self:Update()
+	end)
+	
 	return self
 end
 
@@ -67,7 +74,8 @@ function HitLogs:CreateLog(textParts)
 		shadow.Size = UDim2.new(0, 1000, 1, 0)
 		shadow.Position = UDim2.new(0, xOffset + 1, 0, 1)
 		shadow.Parent = logFrame
-		Instance.new("TextLabel")
+		
+		local text = Instance.new("TextLabel")
 		text.Name = "Text"
 		text.BackgroundTransparency = 1
 		text.Font = CONFIG.Font
@@ -82,7 +90,7 @@ function HitLogs:CreateLog(textParts)
 		
 		table.insert(textLabels, {text = text, shadow = shadow})
 		
-		local textBounds = game:GetService("TextService"):GetTextSize(
+		local textBounds = TextService:GetTextSize(
 			part.text,
 			CONFIG.FontSize,
 			CONFIG.Font,
@@ -208,6 +216,9 @@ function HitLogs:Custom(parts)
 end
 
 function HitLogs:Destroy()
+	if self.UpdateConnection then
+		self.UpdateConnection:Disconnect()
+	end
 	if self.ScreenGui then
 		self.ScreenGui:Destroy()
 	end
