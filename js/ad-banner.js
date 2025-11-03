@@ -1,5 +1,5 @@
 // Promotional Banner Component for nobulem.wtf
-class AdBanner {
+/*class AdBanner {
   constructor() {
     this.init();
   }
