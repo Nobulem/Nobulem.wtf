@@ -1,5 +1,5 @@
 // Advanced Theme System for nobulem.wtf - Fixed Card Backgrounds
-class ThemeManager {
+/*class ThemeManager {
   constructor() {
     this.defaultTheme = 'halloween'; // Configure main theme here
     this.themes = {
@@ -578,7 +578,7 @@ class ThemeManager {
       }
 
       /* Theme-specific preview styles */
-      .theme-preview[data-theme="dark"] .theme-preview-bg { background: linear-gradient(135deg, #000, #1a1a1a); }
+     /* .theme-preview[data-theme="dark"] .theme-preview-bg { background: linear-gradient(135deg, #000, #1a1a1a); }
       .theme-preview[data-theme="dark"] .theme-preview-card { background: #333; }
       .theme-preview[data-theme="dark"] .theme-preview-text { background: #fff; }
 
@@ -1498,4 +1498,4 @@ window.addEventListener('load', () => {
   if (!themeManagerInstance) {
     initThemeManager();
   }
-});
+}); */
