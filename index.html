@@ -235,6 +235,85 @@
       background: rgba(255,255,255,0.08);
     }
 
+    .links a.discord-nav {
+      color: #5865F2 !important;
+      opacity: 1;
+      font-weight: 700;
+      margin-left: auto;
+    }
+
+    .links a.discord-nav:hover {
+      background: rgba(88,101,242,0.15);
+    }
+
+    /* Mobile Menu */
+    .mobile-menu-toggle {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 8px;
+      margin-left: auto;
+    }
+
+    .mobile-menu-toggle span {
+      width: 24px;
+      height: 2px;
+      background: var(--text);
+      transition: all 0.3s ease;
+    }
+
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      top: 61px;
+      left: 0;
+      right: 0;
+      background: rgba(10,10,10,0.98);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--line);
+      padding: 20px;
+      z-index: 49;
+      animation: slideDown 0.3s ease;
+    }
+
+    .mobile-menu.active {
+      display: block;
+    }
+
+    .mobile-menu a {
+      display: block;
+      padding: 14px 20px;
+      margin-bottom: 8px;
+      border-radius: 12px;
+      background: var(--card);
+      border: 1px solid var(--line);
+      transition: all 0.3s ease;
+      text-align: center;
+    }
+
+    .mobile-menu a:hover {
+      background: rgba(255,255,255,0.08);
+      transform: translateX(4px);
+    }
+
+    .mobile-menu a.discord-nav {
+      background: #5865F2;
+      border-color: #5865F2;
+      color: #ffffff;
+    }
+
+    @keyframes slideDown {
+      from {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
     /* ---------- Hero ---------- */
     .hero{
       position:relative; 
@@ -739,6 +818,7 @@
       .dev-preview{grid-template-columns:1fr}
       
       .links{display:none}
+      .mobile-menu-toggle{display:flex}
       
       .hero {
         padding: 60px 0 40px;
@@ -746,6 +826,11 @@
       
       section {
         padding: 40px 0;
+      }
+
+      .btn {
+        padding: 14px 28px;
+        font-size: 14px;
       }
     }
 
@@ -766,15 +851,32 @@
       .actions {
         flex-direction: column;
         width: 100%;
+        padding: 0 20px;
       }
       
       .btn {
         width: 100%;
-        max-width: 300px;
+        max-width: 100%;
+        padding: 16px 24px;
+        font-size: 14px;
+        border-radius: 14px;
       }
       
       section h2 {
         font-size: 24px;
+      }
+
+      .card {
+        padding: 20px;
+      }
+
+      .hero {
+        padding: 40px 0 30px;
+      }
+
+      .subtitle {
+        font-size: 12px;
+        padding: 0 10px;
       }
     }
 
@@ -1223,15 +1325,32 @@
       <div class="links">
         <a href="/" style="opacity: 1;">Home</a>
         <a href="/executors">Executors</a>
-        <a href="https://discord.gg/ExH98C3uFH" target="_blank">Discord</a>
         <a href="/games">Games & Scripts</a>
         <a href="/showcases">Showcases</a>
         <a href="/pricing">Pricing</a>
         <a href="/developers">Developers</a>
         <a href="/tos">Terms</a>
+        <a href="https://discord.gg/ExH98C3uFH" target="_blank" class="discord-nav">Discord</a>
+      </div>
+
+      <div class="mobile-menu-toggle" onclick="toggleMobileMenu()">
+        <span></span>
+        <span></span>
+        <span></span>
       </div>
     </div>
   </nav>
+
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="/">Home</a>
+    <a href="/executors">Executors</a>
+    <a href="/games">Games & Scripts</a>
+    <a href="/showcases">Showcases</a>
+    <a href="/pricing">Pricing</a>
+    <a href="/developers">Developers</a>
+    <a href="/tos">Terms</a>
+    <a href="https://discord.gg/ExH98C3uFH" target="_blank" class="discord-nav">Discord</a>
+  </div>
 
   <header id="home" class="hero container">
     <div class="eyebrow">undetectability • smooth • fast</div>
@@ -1355,6 +1474,31 @@
   <script src="/js/theme-manager.js"></script>
   <script src="/js/ad-banner.js"></script>
   <script>
+    // Mobile menu toggle
+    function toggleMobileMenu() {
+      const menu = document.getElementById('mobileMenu');
+      menu.classList.toggle('active');
+    }
+
+    // Close mobile menu when clicking outside
+    document.addEventListener('click', function(event) {
+      const menu = document.getElementById('mobileMenu');
+      const toggle = document.querySelector('.mobile-menu-toggle');
+      
+      if (menu.classList.contains('active') && 
+          !menu.contains(event.target) && 
+          !toggle.contains(event.target)) {
+        menu.classList.remove('active');
+      }
+    });
+
+    // Close mobile menu on link click
+    document.querySelectorAll('.mobile-menu a').forEach(link => {
+      link.addEventListener('click', () => {
+        document.getElementById('mobileMenu').classList.remove('active');
+      });
+    });
+
     // Set current year
     document.getElementById('year').textContent = new Date().getFullYear();
 
