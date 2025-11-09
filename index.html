@@ -197,16 +197,6 @@
     .brand:hover .brand-icon {
       transform: rotate(360deg) scale(1.1);
     }
-
-    .pumpkin-icon {
-      display: none;
-      font-size: 32px;
-      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-
-    .brand:hover .pumpkin-icon {
-      transform: rotate(360deg) scale(1.1);
-    }
     
     .links{
       margin-left:auto; 
@@ -328,23 +318,30 @@
       font-size:11px; 
       letter-spacing:.2em;
       margin-bottom:16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .eyebrow-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .eyebrow-item svg {
+      width: 14px;
+      height: 14px;
+      stroke: var(--muted);
     }
     
     .title{
       font-size: clamp(32px, 6vw, 56px); 
       line-height:1.1; 
       margin:.6rem 0 .8rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 16px;
-      flex-wrap: wrap;
-    }
-    
-    .nobulem-icon {
-      width: 48px;
-      height: 48px;
-      object-fit: contain;
+      text-align: center;
     }
     
     .typing-text {
@@ -501,10 +498,11 @@
       justify-content: flex-start;
     }
 
-    .card .icon img {
+    .card .icon svg {
       width: 36px;
       height: 36px;
-      object-fit: contain;
+      stroke: var(--text);
+      stroke-width: 1.5;
     }
     
     .card h3 {
@@ -741,9 +739,14 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 36px;
       color: var(--muted);
       transition: all 0.4s ease;
+    }
+
+    .showcase-thumbnail svg {
+      width: 48px;
+      height: 48px;
+      stroke: var(--muted);
     }
 
     .showcase-card:hover .showcase-thumbnail {
@@ -776,6 +779,16 @@
       font-size: 24px;
       margin-bottom: 16px;
       color: var(--text);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+    }
+
+    .pulse-text svg {
+      width: 32px;
+      height: 32px;
+      stroke: var(--text);
     }
     
     .loader {
@@ -879,419 +892,6 @@
         padding: 0 10px;
       }
     }
-
-    /* ---------- Theme-Specific Animations ---------- */
-    /* Galaxy Theme */
-    .theme-galaxy .bg-animation::after {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: 
-        radial-gradient(2px 2px at 20% 30%, #fff, transparent),
-        radial-gradient(2px 2px at 40% 70%, rgba(255,255,255,0.8), transparent),
-        radial-gradient(1px 1px at 90% 40%, #fff, transparent),
-        radial-gradient(1px 1px at 30% 80%, rgba(255,255,255,0.6), transparent),
-        radial-gradient(2px 2px at 60% 30%, #fff, transparent),
-        radial-gradient(1px 1px at 15% 50%, rgba(255,255,255,0.7), transparent),
-        radial-gradient(2px 2px at 80% 60%, #fff, transparent);
-      background-size: 200px 200px;
-      background-repeat: repeat;
-      animation: stars-twinkle 3s ease-in-out infinite, stars-move 60s linear infinite;
-      pointer-events: none;
-      z-index: 1;
-    }
-
-    .theme-galaxy .bg-animation::before {
-      content: '';
-      position: absolute;
-      top: 20%;
-      left: 10%;
-      width: 300px;
-      height: 300px;
-      background: radial-gradient(ellipse at center, 
-        rgba(138,43,226,0.3) 0%, 
-        rgba(147,112,219,0.2) 25%,
-        rgba(138,43,226,0.1) 50%,
-        transparent 70%);
-      border-radius: 50%;
-      animation: nebula-rotate 40s linear infinite, nebula-pulse 8s ease-in-out infinite;
-      pointer-events: none;
-      z-index: 1;
-    }
-
-    .theme-galaxy .particle {
-      background: radial-gradient(circle, #ffffff 0%, rgba(147,112,219,0.8) 70%, transparent 100%);
-      box-shadow: 0 0 10px rgba(255,255,255,0.8);
-    }
-
-    @keyframes stars-twinkle {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.5; }
-    }
-
-    @keyframes stars-move {
-      0% { transform: translateY(0); }
-      100% { transform: translateY(-200px); }
-    }
-
-    @keyframes nebula-rotate {
-      0% { transform: rotate(0deg) scale(1); }
-      50% { transform: rotate(180deg) scale(1.2); }
-      100% { transform: rotate(360deg) scale(1); }
-    }
-
-    @keyframes nebula-pulse {
-      0%, 100% { opacity: 0.6; }
-      50% { opacity: 0.9; }
-    }
-
-    /* Ocean Theme */
-    .theme-ocean .wave {
-      background: linear-gradient(45deg, 
-        transparent 0%, 
-        rgba(0,191,255,0.15) 25%, 
-        transparent 50%, 
-        rgba(30,144,255,0.15) 75%, 
-        transparent 100%);
-      animation-duration: 15s;
-    }
-
-    .theme-ocean .bg-animation::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      height: 150px;
-      background: 
-        linear-gradient(0deg, rgba(0,191,255,0.1) 0%, transparent 100%);
-      animation: ocean-wave 4s ease-in-out infinite;
-      pointer-events: none;
-      z-index: 1;
-    }
-
-    .theme-ocean .particle {
-      background: radial-gradient(circle, rgba(255,255,255,0.9) 0%, rgba(0,191,255,0.5) 70%, transparent 100%);
-      border: 1px solid rgba(0,191,255,0.3);
-      animation: bubble-float 25s linear infinite, bubble-wobble 3s ease-in-out infinite;
-    }
-
-    @keyframes ocean-wave {
-      0%, 100% { 
-        transform: translateY(0);
-        clip-path: polygon(
-          0% 100%,
-          5% 95%,
-          10% 90%,
-          15% 85%,
-          20% 80%,
-          25% 85%,
-          30% 90%,
-          35% 95%,
-          40% 90%,
-          45% 85%,
-          50% 80%,
-          55% 85%,
-          60% 90%,
-          65% 95%,
-          70% 90%,
-          75% 85%,
-          80% 80%,
-          85% 85%,
-          90% 90%,
-          95% 95%,
-          100% 100%,
-          100% 100%,
-          0% 100%
-        );
-      }
-      50% { 
-        transform: translateY(-10px);
-        clip-path: polygon(
-          0% 100%,
-          5% 85%,
-          10% 80%,
-          15% 75%,
-          20% 80%,
-          25% 85%,
-          30% 90%,
-          35% 85%,
-          40% 80%,
-          45% 75%,
-          50% 70%,
-          55% 75%,
-          60% 80%,
-          65% 85%,
-          70% 80%,
-          75% 75%,
-          80% 70%,
-          85% 75%,
-          90% 80%,
-          95% 85%,
-          100% 90%,
-          100% 100%,
-          0% 100%
-        );
-      }
-    }
-
-    @keyframes bubble-float {
-      0% { transform: translateY(100vh) translateX(0); opacity: 0; }
-      10% { opacity: 0.6; }
-      90% { opacity: 0.6; }
-      100% { transform: translateY(-100px) translateX(50px); opacity: 0; }
-    }
-
-    @keyframes bubble-wobble {
-      0%, 100% { transform: translateX(0); }
-      25% { transform: translateX(-10px); }
-      75% { transform: translateX(10px); }
-    }
-
-    /* Sunset Theme */
-    .theme-sunset .bg-animation::before {
-      content: '';
-      position: absolute;
-      bottom: 15%;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 250px;
-      height: 250px;
-      background: radial-gradient(circle at center,
-        rgba(255,220,100,0.6) 0%,
-        rgba(255,140,60,0.4) 30%,
-        rgba(255,107,53,0.2) 60%,
-        transparent 100%);
-      border-radius: 50%;
-      animation: sun-glow 4s ease-in-out infinite;
-      pointer-events: none;
-      z-index: 1;
-    }
-
-    .theme-sunset .bg-animation::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      height: 30%;
-      background: linear-gradient(0deg, 
-        rgba(255,107,53,0.3) 0%, 
-        rgba(247,147,30,0.2) 50%,
-        transparent 100%);
-      pointer-events: none;
-      z-index: 1;
-    }
-
-    .theme-sunset .particle {
-      background: radial-gradient(circle, rgba(255,255,255,0.9) 0%, rgba(255,243,205,0.6) 70%, transparent 100%);
-      box-shadow: 0 0 15px rgba(255,243,205,0.8);
-      animation: sunset-rise 20s linear infinite;
-    }
-
-    @keyframes sun-glow {
-      0%, 100% { 
-        opacity: 0.6; 
-        transform: translateX(-50%) scale(1);
-        box-shadow: 0 0 60px rgba(255,220,100,0.4);
-      }
-      50% { 
-        opacity: 0.8; 
-        transform: translateX(-50%) scale(1.1);
-        box-shadow: 0 0 100px rgba(255,220,100,0.6);
-      }
-    }
-
-    @keyframes sunset-rise {
-      0% { transform: translateY(100vh) translateX(0) scale(0.5); opacity: 0; }
-      10% { opacity: 1; }
-      90% { opacity: 1; }
-      100% { transform: translateY(-100px) translateX(30px) scale(1.2); opacity: 0; }
-    }
-
-    /* Light Theme */
-    .theme-light body {
-      background: #ffffff;
-    }
-
-    .theme-light .bg-animation {
-      opacity: 0.3;
-    }
-
-    .theme-light .particle {
-      background: radial-gradient(circle, rgba(26,26,26,0.4) 0%, rgba(26,26,26,0.2) 70%, transparent 100%);
-      box-shadow: 0 0 5px rgba(26,26,26,0.2);
-    }
-
-    .theme-light .wave {
-      background: linear-gradient(45deg, 
-        transparent 0%, 
-        rgba(26,26,26,0.02) 25%, 
-        transparent 50%, 
-        rgba(26,26,26,0.02) 75%, 
-        transparent 100%);
-    }
-
-    .theme-light .bg-animation::after {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: 
-        radial-gradient(circle at 20% 30%, rgba(248,249,250,0.8) 0%, transparent 40%),
-        radial-gradient(circle at 80% 70%, rgba(229,231,235,0.6) 0%, transparent 40%);
-      animation: light-ambient 10s ease-in-out infinite;
-      pointer-events: none;
-      z-index: 1;
-    }
-
-    @keyframes light-ambient {
-      0%, 100% { opacity: 0.4; transform: scale(1); }
-      50% { opacity: 0.6; transform: scale(1.05); }
-    }
-
-    /* Neon Theme - 90's Vinyl Shop */
-    .theme-neon .bg-animation::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: 
-        repeating-linear-gradient(
-          0deg,
-          transparent,
-          transparent 2px,
-          rgba(0,255,255,0.03) 2px,
-          rgba(0,255,255,0.03) 4px
-        ),
-        repeating-linear-gradient(
-          90deg,
-          transparent,
-          transparent 2px,
-          rgba(255,0,255,0.03) 2px,
-          rgba(255,0,255,0.03) 4px
-        );
-      animation: grid-scroll 20s linear infinite;
-      pointer-events: none;
-      z-index: 1;
-    }
-
-    .theme-neon .bg-animation::after {
-      content: '';
-      position: absolute;
-      top: 10%;
-      left: 5%;
-      width: 100px;
-      height: 100px;
-      background: 
-        radial-gradient(circle, transparent 30%, rgba(0,255,255,0.2) 30%, rgba(0,255,255,0.2) 35%, transparent 35%),
-        radial-gradient(circle, transparent 50%, rgba(255,0,255,0.2) 50%, rgba(255,0,255,0.2) 55%, transparent 55%);
-      border-radius: 50%;
-      animation: vinyl-spin 3s linear infinite, vinyl-float 6s ease-in-out infinite;
-      pointer-events: none;
-      z-index: 1;
-      box-shadow: 
-        0 0 30px rgba(0,255,255,0.5),
-        0 0 60px rgba(255,0,255,0.3);
-    }
-
-    .theme-neon .particle {
-      background: radial-gradient(circle, #00ffff 0%, rgba(0,255,255,0.6) 50%, transparent 100%);
-      box-shadow: 
-        0 0 10px #00ffff,
-        0 0 20px #00ffff,
-        0 0 30px rgba(0,255,255,0.5);
-      animation: neon-float 15s linear infinite, neon-flicker 0.1s infinite;
-    }
-
-    .theme-neon .wave {
-      background: linear-gradient(45deg, 
-        transparent 0%, 
-        rgba(0,255,255,0.1) 25%, 
-        rgba(255,0,255,0.1) 50%, 
-        rgba(0,255,255,0.1) 75%, 
-        transparent 100%);
-    }
-
-    @keyframes grid-scroll {
-      0% { transform: translate(0, 0); }
-      100% { transform: translate(20px, 20px); }
-    }
-
-    @keyframes vinyl-spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
-
-    @keyframes vinyl-float {
-      0%, 100% { 
-        top: 10%; 
-        left: 5%;
-        filter: hue-rotate(0deg);
-      }
-      25% { 
-        top: 70%; 
-        left: 80%;
-        filter: hue-rotate(45deg);
-      }
-      50% { 
-        top: 60%; 
-        left: 10%;
-        filter: hue-rotate(90deg);
-      }
-      75% { 
-        top: 20%; 
-        left: 75%;
-        filter: hue-rotate(135deg);
-      }
-    }
-
-    @keyframes neon-float {
-      0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
-      10% { opacity: 1; }
-      90% { opacity: 1; }
-      100% { transform: translateY(-100px) rotate(360deg); opacity: 0; }
-    }
-
-    @keyframes neon-flicker {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.8; }
-      75% { opacity: 1; }
-      85% { opacity: 0.9; }
-    }
-
-    /* Halloween Theme */
-    .theme-halloween .particle::after {
-      content: '👻';
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      font-size: 12px;
-    }
-
-    .theme-halloween .bg-animation::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background-image:
-        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path d="M10,30 Q15,25 20,30 T30,30" stroke="rgba(139,69,19,0.3)" fill="none" stroke-width="0.5"/></svg>');
-      background-size: 150px 150px;
-      background-repeat: repeat;
-      pointer-events: none;
-      opacity: 0.4;
-      z-index: 1;
-    }
   </style>
 </head>
 <body>
@@ -1316,9 +916,7 @@
   <nav class="nav">
     <div class="container row">
       <div class="brand">
-        <span class="pumpkin-icon" style="display: none;">🎃</span>
-        <img src="https://i.ibb.co/9HfPQdpj/output-onlinepngtools-2.png" alt="Nobulem" class="brand-icon theme-icon-white">
-        <img src="https://i.ibb.co/1Y3ZqYsh/output-onlinepngtools.png" alt="Nobulem" class="brand-icon theme-icon-black" style="display:none;">
+        <img src="https://i.ibb.co/9HfPQdpj/output-onlinepngtools-2.png" alt="Nobulem" class="brand-icon">
         <span class="brand-text">nobulem.wtf</span>
       </div>
 
@@ -1353,13 +951,22 @@
   </div>
 
   <header id="home" class="hero container">
-    <div class="eyebrow">undetectability • smooth • fast</div>
-    <h1 class="title">
-      <span style="display: inline-flex; align-items: center;">
-        <img src="https://i.ibb.co/9HfPQdpj/output-onlinepngtools-2.png" alt="" class="nobulem-icon theme-icon-white">
-        <img src="https://i.ibb.co/1Y3ZqYsh/output-onlinepngtools.png" alt="" class="nobulem-icon theme-icon-black" style="display:none;">
+    <div class="eyebrow">
+      <span class="eyebrow-item">
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"/></svg>
+        undetectability
       </span>
-      <span id="typing-text" class="typing-text">nobulem.wtf – Quality.</span>
+      <span class="eyebrow-item">
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M2 12h20"/></svg>
+        smooth
+      </span>
+      <span class="eyebrow-item">
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+        fast
+      </span>
+    </div>
+    <h1 class="title">
+      <span id="typing-text" class="typing-text">nobulem.wtf</span>
     </h1>
     <p class="subtitle">multiple game support • regular updates • top-quality scripts • no bugs • universal loader</p>
     <div class="actions">
@@ -1375,32 +982,28 @@
       <div class="grid cards">
         <div class="card">
           <div class="icon">
-            <img src="https://i.ibb.co/3ygyTWnL/download-2-removebg-preview.png" alt="Stable & Secure" class="feature-icon-dark">
-            <img src="https://i.ibb.co/v6BptQ2T/image-5.png" alt="Stable & Secure" class="feature-icon-light" style="display: none;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
           </div>
           <h3>Stable & Secure</h3>
           <p>Ban prevention, anti-cheat bypasses, and regular updates for a safer experience.</p>
         </div>
         <div class="card">
           <div class="icon">
-            <img src="https://i.ibb.co/cXQP6zmX/download-4-removebg-preview.png" alt="Weekly Updates" class="feature-icon-dark">
-            <img src="https://i.ibb.co/ccWxqzVp/image-3.png" alt="Weekly Updates" class="feature-icon-light" style="display: none;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"/><path d="M22 12A10 10 0 0 0 12 2v10z"/></svg>
           </div>
           <h3>Weekly Updates</h3>
           <p>Rapid patches and new game support added constantly.</p>
         </div>
         <div class="card">
           <div class="icon">
-            <img src="https://i.ibb.co/9f1P1Ck/download-3-removebg-preview.png" alt="Active Community" class="feature-icon-dark">
-            <img src="https://i.ibb.co/HcPvwzj/image-2.png" alt="Active Community" class="feature-icon-light" style="display: none;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
           </div>
           <h3>Active Community</h3>
           <p>Join our Discord to get help and request new features.</p>
         </div>
         <div class="card">
           <div class="icon">
-            <img src="https://i.ibb.co/tTYMKCkG/output-onlinepngtools-7.png" alt="Customer First" class="feature-icon-dark">
-            <img src="https://i.ibb.co/tMJNS6RC/output-onlinepngtools-5.png" alt="Customer First" class="feature-icon-light" style="display: none;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
           </div>
           <h3>Customer First</h3>
           <p>Feedback drives the roadmap. If you need it, we prioritize it.</p>
@@ -1471,9 +1074,11 @@
     </div>
   </footer>
 
-  <script src="/js/theme-manager.js"></script>
-  <script src="/js/ad-banner.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lucide/0.263.1/umd/lucide.min.js"></script>
   <script>
+    // Initialize Lucide icons
+    lucide.createIcons();
+
     // Mobile menu toggle
     function toggleMobileMenu() {
       const menu = document.getElementById('mobileMenu');
@@ -1504,91 +1109,79 @@
 
     // Typing animation
     const typingText = document.getElementById('typing-text');
-    const baseText = "nobulem.wtf ";
+    const baseText = "nobulem.wtf";
     const suffixes = [
-      "– Quality.",
-      "– Fast.",
-      "– Secure.",
-      "– Reliable.",
-      "– Best."
+      " – Quality.",
+      " – Secure.",
+      " – Reliable.",
+      " – Free.",
+      " – Fast."
     ];
     let suffixIndex = 0;
     let charIndex = 0;
     let isDeleting = false;
-    let typingDelay = 120;
     
     function type() {
       const currentSuffix = suffixes[suffixIndex];
+      let displayText = baseText;
       
-      if (isDeleting) {
-        const currentText = baseText + currentSuffix.substring(0, charIndex - 1);
-        typingText.textContent = currentText;
-        charIndex--;
-        typingDelay = 60;
-      } else {
-        const currentText = baseText + currentSuffix.substring(0, charIndex + 1);
-        typingText.textContent = currentText;
+      if (!isDeleting) {
+        // Typing forward
+        displayText = baseText + currentSuffix.substring(0, charIndex);
+        typingText.textContent = displayText;
         charIndex++;
-        typingDelay = 120;
+        
+        if (charIndex > currentSuffix.length) {
+          // Finished typing this suffix
+          isDeleting = true;
+          setTimeout(type, 2000); // Pause before deleting
+          return;
+        }
+        setTimeout(type, 120);
+      } else {
+        // Deleting backward
+        charIndex--;
+        displayText = baseText + currentSuffix.substring(0, charIndex);
+        typingText.textContent = displayText;
+        
+        if (charIndex === 0) {
+          // Finished deleting, move to next suffix
+          isDeleting = false;
+          suffixIndex = (suffixIndex + 1) % suffixes.length;
+          setTimeout(type, 600); // Pause before typing next
+          return;
+        }
+        setTimeout(type, 60);
       }
-      
-      if (!isDeleting && charIndex === currentSuffix.length) {
-        typingDelay = 2000;
-        isDeleting = true;
-      } else if (isDeleting && charIndex === 0) {
-        isDeleting = false;
-        suffixIndex = (suffixIndex + 1) % suffixes.length;
-        typingDelay = 600;
-      }
-      
-      setTimeout(type, typingDelay);
     }
     
+    // Start the animation
+    typingText.textContent = baseText;
     setTimeout(type, 1500);
 
     // Load latest games
     function loadLatestGames() {
-      fetch('/games')
-        .then(response => response.text())
-        .then(html => {
-          const parser = new DOMParser();
-          const doc = parser.parseFromString(html, 'text/html');
-          const gameCards = doc.querySelectorAll('.game-card');
-          
-          const gamesData = Array.from(gameCards).slice(0, 3).map(card => {
-            const name = card.querySelector('.game-name')?.textContent || 'Game';
-            const description = card.querySelector('.game-description')?.textContent || 'Description';
-            const image = card.querySelector('.game-thumbnail')?.src || 'https://via.placeholder.com/400x200';
-            const id = card.querySelector('.game-id')?.textContent?.replace('#', '') || '0';
-            
-            return { name, description, image, id };
-          });
-          
-          renderLatestGames(gamesData);
-        })
-        .catch(() => {
-          const fallbackGames = [
-            {
-              name: "Untitled Boxing Game",
-              description: "Boxing combat enhancements with perfect dodge timing and advanced ESP systems.",
-              image: "https://tr.rbxcdn.com/180DAY-078e71f7babd821f5bb362c460fc0fd9/768/432/Image/Webp/noFilter",
-              id: "13423334817"
-            },
-            {
-              name: "Marvelous Playground", 
-              description: "Advanced combat scripts with kill aura, ESP, and player targeting systems.",
-              image: "https://tr.rbxcdn.com/180DAY-915535b6a2b0ddd4710ec77320027004/768/432/Image/Webp/noFilter",
-              id: "8657766101"
-            },
-            {
-              name: "Project Power",
-              description: "Comprehensive power-up automation with kill systems and ESP overlays.",
-              image: "https://tr.rbxcdn.com/180DAY-a5173e243710a4393e582089e8f4a773/768/432/Image/Webp/noFilter", 
-              id: "34329168147"
-            }
-          ];
-          renderLatestGames(fallbackGames);
-        });
+      const fallbackGames = [
+        {
+          name: "Untitled Boxing Game",
+          description: "Boxing combat enhancements with perfect dodge timing and advanced ESP systems.",
+          image: "https://tr.rbxcdn.com/180DAY-078e71f7babd821f5bb362c460fc0fd9/768/432/Image/Webp/noFilter",
+          id: "13423334817"
+        },
+        {
+          name: "Marvelous Playground", 
+          description: "Advanced combat scripts with kill aura, ESP, and player targeting systems.",
+          image: "https://tr.rbxcdn.com/180DAY-915535b6a2b0ddd4710ec77320027004/768/432/Image/Webp/noFilter",
+          id: "8657766101"
+        },
+        {
+          name: "Project Power",
+          description: "Comprehensive power-up automation with kill systems and ESP overlays.",
+          image: "https://tr.rbxcdn.com/180DAY-a5173e243710a4393e582089e8f4a773/768/432/Image/Webp/noFilter", 
+          id: "34329168147"
+        }
+      ];
+      renderLatestGames(fallbackGames);
     }
     
     function renderLatestGames(gamesData) {
@@ -1611,55 +1204,17 @@
 
     // Load popular showcases
     function loadPopularShowcases() {
-      fetch('/showcases')
-        .then(response => response.text())
-        .then(html => {
-          const parser = new DOMParser();
-          const doc = parser.parseFromString(html, 'text/html');
-          const videoCards = doc.querySelectorAll('.video-card');
-          
-          if (videoCards.length > 0) {
-            const showcasesData = Array.from(videoCards).slice(0, 3).map(card => {
-              const title = card.querySelector('.video-title')?.textContent || 'Video';
-              const description = card.querySelector('.video-description')?.textContent || 'Description';
-              const thumbnail = card.querySelector('.video-thumbnail')?.src || 'https://via.placeholder.com/400x200';
-              const views = card.querySelector('.video-views')?.textContent || '0 views';
-              
-              return { title, description, thumbnail, views };
-            });
-            
-            renderPopularShowcases(showcasesData);
-          } else {
-            renderEmptyShowcases();
-          }
-        })
-        .catch(() => {
-          renderEmptyShowcases();
-        });
-    }
-    
-    function renderPopularShowcases(showcasesData) {
-      const showcasesContainer = document.getElementById('popular-showcases');
-      const showcasesHTML = showcasesData.map((showcase, index) => `
-        <div class="showcase-card" onclick="window.location.href='/showcases'">
-          <div class="showcase-thumbnail">
-            <img src="${showcase.thumbnail}" alt="${showcase.title}" style="width: 100%; height: 100%; object-fit: cover;">
-          </div>
-          <div class="showcase-content">
-            <h3 class="showcase-title">${showcase.title}</h3>
-            <p style="color: var(--muted); font-size: 12px; margin-bottom: 8px;">${showcase.description}</p>
-            <div class="showcase-views">${showcase.views}</div>
-          </div>
-        </div>
-      `).join('');
-      showcasesContainer.innerHTML = showcasesHTML;
+      renderEmptyShowcases();
     }
     
     function renderEmptyShowcases() {
       const showcasesContainer = document.getElementById('popular-showcases');
       showcasesContainer.innerHTML = `
         <div class="coming-soon">
-          <div class="pulse-text">🎬 Coming Soon!</div>
+          <div class="pulse-text">
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="23 7 16 12 23 17 23 7"/><rect width="15" height="14" x="1" y="5" rx="2" ry="2"/></svg>
+            Coming Soon!
+          </div>
           <p class="muted">Awesome showcase videos are on their way.</p>
           <div class="loader">
             <div class="loader-dot"></div>
