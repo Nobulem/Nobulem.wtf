@@ -7,6 +7,10 @@
   <meta name="description" content="Nobulem.wtf – View our Latest Games And Scripts Supported by our Universal Script Loader">
   <link rel="icon" type="image/png" href="https://i.ibb.co/NdNpCJ4v/image-2.png">
   <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- Prism.js for syntax highlighting -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-lua.min.js"></script>
   <style>
     :root{
       --bg: #0a0a0a;
@@ -439,12 +443,55 @@
       overflow: hidden;
       line-height: 18px;
       cursor: text;
+      white-space: pre;
     }
 
     .script-input:focus {
       outline: none;
       border-color: rgba(255,255,255,0.3);
       background: rgba(255,255,255,0.08);
+    }
+
+    /* Prism.js overrides for dark theme */
+    .script-input code[class*="language-"],
+    .modal-script-input code[class*="language-"] {
+      color: var(--text);
+      background: none;
+      font-family: 'Courier New', Consolas, Monaco, monospace;
+      font-size: 12px;
+      text-shadow: none;
+    }
+
+    .script-input .token.function {
+      color: #82AAFF;
+    }
+
+    .script-input .token.string {
+      color: #C3E88D;
+    }
+
+    .script-input .token.keyword {
+      color: #C792EA;
+    }
+
+    .script-input .token.punctuation {
+      color: #89DDFF;
+    }
+
+    .script-input .token.operator {
+      color: #89DDFF;
+    }
+
+    pre[class*="language-"] {
+      margin: 0;
+      padding: 0;
+      background: transparent;
+      overflow: visible;
+    }
+
+    code[class*="language-"] {
+      background: transparent;
+      white-space: pre;
     }
 
     .copy-btn {
@@ -955,6 +1002,7 @@
       transition: all 0.3s ease;
       resize: none;
       overflow: hidden;
+      white-space: pre;
     }
 
     .modal-script-input:focus {
@@ -962,6 +1010,26 @@
       border-color: rgba(255,255,255,0.3);
       background: rgba(0,0,0,0.6);
       box-shadow: 0 0 20px rgba(255,255,255,0.05);
+    }
+
+    .modal-script-input .token.function {
+      color: #82AAFF;
+    }
+
+    .modal-script-input .token.string {
+      color: #C3E88D;
+    }
+
+    .modal-script-input .token.keyword {
+      color: #C792EA;
+    }
+
+    .modal-script-input .token.punctuation {
+      color: #89DDFF;
+    }
+
+    .modal-script-input .token.operator {
+      color: #89DDFF;
     }
 
     .modal-copy-btn {
@@ -1430,11 +1498,7 @@
       <div class="script-box">
         <h3><i data-lucide="rocket"></i> Universal Script Loader</h3>
         <div class="script-input-container">
-          <textarea
-            class="script-input"
-            readonly
-            id="scriptTextArea"
-            rows="1">loadstring(game:HttpGet("https://nobulem.wtf/loader.lua"))()</textarea>
+          <div class="script-input" id="scriptDisplay"></div>
           <button class="copy-btn" id="mainCopyBtn">
             <i data-lucide="copy"></i>
             <span class="btn-text">Copy</span>
@@ -1619,11 +1683,7 @@
       <div class="modal-body">
         <div class="modal-script-box">
           <h4><i data-lucide="rocket"></i> Script Loader</h4>
-          <textarea
-            class="modal-script-input"
-            readonly
-            id="modalScriptText"
-            rows="1">loadstring(game:HttpGet("https://nobulem.wtf/loader.lua"))()</textarea>
+          <div class="modal-script-input" id="modalScriptDisplay"></div>
           <button class="modal-copy-btn" id="modalCopyBtn">
             <i data-lucide="copy"></i>
             Copy Script
@@ -1665,6 +1725,24 @@
   <script>
     // Initialize Lucide icons
     lucide.createIcons();
+
+    // Lua script content
+    const scriptContent = 'loadstring(game:HttpGet("https://nobulem.wtf/loader.lua"))()';
+
+    // Function to create syntax highlighted code
+    function createHighlightedCode(code) {
+      const highlighted = Prism.highlight(code, Prism.languages.lua, 'lua');
+      return `<pre class="language-lua"><code class="language-lua">${highlighted}</code></pre>`;
+    }
+
+    // Initialize syntax highlighting for main script
+    document.addEventListener('DOMContentLoaded', function() {
+      const scriptDisplay = document.getElementById('scriptDisplay');
+      const modalScriptDisplay = document.getElementById('modalScriptDisplay');
+      
+      scriptDisplay.innerHTML = createHighlightedCode(scriptContent);
+      modalScriptDisplay.innerHTML = createHighlightedCode(scriptContent);
+    });
 
     // Mobile menu toggle
     function toggleMobileMenu() {
@@ -1873,12 +1951,11 @@
 
     // Main copy button functionality
     document.getElementById('mainCopyBtn').addEventListener('click', function() {
-      const scriptTextArea = document.getElementById('scriptTextArea');
       const copyBtn = this;
       const btnText = copyBtn.querySelector('.btn-text');
       const btnIcon = copyBtn.querySelector('i');
       
-      const textToCopy = scriptTextArea.value;
+      const textToCopy = scriptContent;
 
       if (navigator.clipboard && navigator.clipboard.writeText) {
         navigator.clipboard.writeText(textToCopy).then(() => {
@@ -1894,16 +1971,21 @@
             lucide.createIcons();
           }, 2000);
         }).catch(() => {
-          fallbackCopyMain(scriptTextArea, copyBtn, btnText, btnIcon);
+          fallbackCopyMain(textToCopy, copyBtn, btnText, btnIcon);
         });
       } else {
-        fallbackCopyMain(scriptTextArea, copyBtn, btnText, btnIcon);
+        fallbackCopyMain(textToCopy, copyBtn, btnText, btnIcon);
       }
     });
 
-    function fallbackCopyMain(textArea, button, btnText, btnIcon) {
-      textArea.select();
-      textArea.setSelectionRange(0, 99999);
+    function fallbackCopyMain(text, button, btnText, btnIcon) {
+      const tempTextArea = document.createElement('textarea');
+      tempTextArea.value = text;
+      tempTextArea.style.position = 'fixed';
+      tempTextArea.style.opacity = '0';
+      document.body.appendChild(tempTextArea);
+      tempTextArea.select();
+      tempTextArea.setSelectionRange(0, 99999);
       
       try {
         document.execCommand('copy');
@@ -1922,7 +2004,7 @@
         console.error('Copy failed:', err);
       }
       
-      window.getSelection().removeAllRanges();
+      document.body.removeChild(tempTextArea);
     }
 
     function openGameModal(gameId) {
@@ -1963,11 +2045,10 @@
 
     // Modal copy button functionality
     document.getElementById('modalCopyBtn').addEventListener('click', function() {
-      const modalScriptText = document.getElementById('modalScriptText');
       const copyBtn = this;
       const btnIcon = copyBtn.querySelector('i');
       
-      const textToCopy = modalScriptText.value;
+      const textToCopy = scriptContent;
 
       if (navigator.clipboard && navigator.clipboard.writeText) {
         navigator.clipboard.writeText(textToCopy).then(() => {
@@ -1986,60 +2067,42 @@
             lucide.createIcons();
           }, 2000);
         }).catch(() => {
-          fallbackCopyModal(modalScriptText, copyBtn);
+          fallbackCopyModal(textToCopy, copyBtn);
         });
       } else {
-        fallbackCopyModal(modalScriptText, copyBtn);
+        fallbackCopyModal(textToCopy, copyBtn);
       }
     });
 
-    function fallbackCopyModal(textArea, button) {
+    function fallbackCopyModal(text, button) {
+      const tempTextArea = document.createElement('textarea');
+      tempTextArea.value = text;
+      tempTextArea.style.position = 'fixed';
+      tempTextArea.style.opacity = '0';
+      document.body.appendChild(tempTextArea);
+      tempTextArea.select();
+      tempTextArea.setSelectionRange(0, 99999);
+      
       try {
-        textArea.focus();
-        textArea.select();
-        
-        if (textArea.setSelectionRange) {
-          textArea.setSelectionRange(0, 99999);
-        }
-        
-        const successful = document.execCommand('copy');
-        
-        if (successful) {
-          button.innerHTML = '<i data-lucide="check"></i> Copied!';
-          button.style.background = 'rgba(16, 185, 129, 0.2)';
-          button.style.color = '#10B981';
-          button.style.borderColor = 'rgba(16, 185, 129, 0.4)';
-          lucide.createIcons();
-
-          setTimeout(() => {
-            button.innerHTML = '<i data-lucide="copy"></i> Copy Script';
-            button.style.background = '';
-            button.style.color = '';
-            button.style.borderColor = '';
-            lucide.createIcons();
-          }, 2000);
-        } else {
-          button.innerHTML = '<i data-lucide="x"></i> Failed';
-          lucide.createIcons();
-          setTimeout(() => {
-            button.innerHTML = '<i data-lucide="copy"></i> Copy Script';
-            lucide.createIcons();
-          }, 2000);
-        }
-        
-        if (window.getSelection) {
-          window.getSelection().removeAllRanges();
-        }
-        textArea.blur();
-      } catch (err) {
-        console.error('Copy failed:', err);
-        button.innerHTML = '<i data-lucide="x"></i> Failed';
+        document.execCommand('copy');
+        button.innerHTML = '<i data-lucide="check"></i> Copied!';
+        button.style.background = 'rgba(16, 185, 129, 0.2)';
+        button.style.color = '#10B981';
+        button.style.borderColor = 'rgba(16, 185, 129, 0.4)';
         lucide.createIcons();
+
         setTimeout(() => {
           button.innerHTML = '<i data-lucide="copy"></i> Copy Script';
+          button.style.background = '';
+          button.style.color = '';
+          button.style.borderColor = '';
           lucide.createIcons();
         }, 2000);
+      } catch (err) {
+        console.error('Copy failed:', err);
       }
+      
+      document.body.removeChild(tempTextArea);
     }
 
     document.addEventListener('keydown', (e) => {
