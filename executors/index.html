@@ -1,1103 +1,976 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Nobulem.wtf — Executors</title>
-<meta name="description" content="nobulem.wtf — Executors Status Provided by WhatexpsAreOnline.api">
-<link rel="icon" type="image/png" href="https://i.ibb.co/NdNpCJ4v/image-2.png">
-<style>
-:root{
---bg: #000000;
---bg-2: #0a0a0a;
---card: #111111;
---cardBg: linear-gradient(145deg, #1a1a1a, #0d0d0d);
---text: #ffffff;
---muted: #cccccc;
---line: #333333;
---accent: #ffffff;
---navActive: #ffffff;
---shadow: 0 25px 80px rgba(255,255,255,.08);
---radius: 20px;
---speed: 500ms;
-}
-
-*{box-sizing:border-box}
-html,body{height:100%}
-html{scroll-behavior:smooth}
-body{
-margin:0;
-background: var(--bg);
-color:var(--text);
-font: 700 15px/1.6 ui-sans-serif, -apple-system, system-ui, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
-letter-spacing:.2px;
-overflow-x:hidden;
-cursor: auto;
-position: relative;
-transition: background 0.3s ease, color 0.3s ease;
-}
-
-h1,h2,h3,h4,strong,b{font-weight:800; margin:0 0 .6rem}
-p{margin:0 0 1rem; color:var(--muted)}
-a{color:var(--text); text-decoration:none; font-weight:800; transition: all 0.3s ease;}
-a:hover{transform: translateY(-2px);}
-.container{width:min(1150px, 92vw); margin-inline:auto}
-
-.bg-animation {
-position: fixed;
-top: 0;
-left: 0;
-width: 100%;
-height: 100%;
-z-index: 0;
-pointer-events: none;
-overflow: hidden;
-}
-
-.particle {
-position: absolute;
-background: rgba(255,255,255,0.4);
-border-radius: 50%;
-pointer-events: none;
-}
-
-.particle-1 {
-width: 4px;
-height: 4px;
-animation: float-1 20s linear infinite;
-}
-
-.particle-2 {
-width: 6px;
-height: 6px;
-animation: float-2 25s linear infinite;
-}
-
-.particle-3 {
-width: 3px;
-height: 3px;
-animation: float-3 15s linear infinite;
-}
-
-.particle-4 {
-width: 8px;
-height: 8px;
-animation: float-4 30s linear infinite;
-}
-
-@keyframes float-1 {
-0% { transform: translateY(100vh) translateX(0) rotate(0deg); opacity: 0; }
-10% { opacity: 1; }
-90% { opacity: 1; }
-100% { transform: translateY(-100px) translateX(100px) rotate(360deg); opacity: 0; }
-}
-
-@keyframes float-2 {
-0% { transform: translateY(100vh) translateX(0) rotate(0deg); opacity: 0; }
-10% { opacity: 0.8; }
-90% { opacity: 0.8; }
-100% { transform: translateY(-100px) translateX(-50px) rotate(-360deg); opacity: 0; }
-}
-
-@keyframes float-3 {
-0% { transform: translateY(100vh) translateX(0) rotate(0deg); opacity: 0; }
-10% { opacity: 1; }
-90% { opacity: 1; }
-100% { transform: translateY(-100px) translateX(200px) rotate(720deg); opacity: 0; }
-}
-
-@keyframes float-4 {
-0% { transform: translateY(100vh) translateX(0) rotate(0deg); opacity: 0; }
-10% { opacity: 0.6; }
-90% { opacity: 0.6; }
-100% { transform: translateY(-100px) translateX(-100px) rotate(-720deg); opacity: 0; }
-}
-
-.wave {
-position: absolute;
-width: 200%;
-height: 200%;
-background: linear-gradient(45deg,
-transparent 0%,
-rgba(255,255,255,0.02) 25%,
-transparent 50%,
-rgba(255,255,255,0.02) 75%,
-transparent 100%);
-}
-
-.wave-1 {
-top: -50%;
-left: -50%;
-animation: wave-motion-1 20s linear infinite;
-}
-
-.wave-2 {
-top: -50%;
-right: -50%;
-animation: wave-motion-2 25s linear infinite reverse;
-}
-
-.wave-3 {
-bottom: -50%;
-left: -50%;
-animation: wave-motion-3 30s linear infinite;
-}
-
-@keyframes wave-motion-1 {
-0% { transform: rotate(0deg) scale(1); }
-100% { transform: rotate(360deg) scale(1.1); }
-}
-
-@keyframes wave-motion-2 {
-0% { transform: rotate(0deg) scale(1.05); }
-100% { transform: rotate(-360deg) scale(0.95); }
-}
-
-@keyframes wave-motion-3 {
-0% { transform: rotate(45deg) scale(1.02); }
-100% { transform: rotate(405deg) scale(1.08); }
-}
-
-.shape {
-position: absolute;
-border: 1px solid rgba(255,255,255,0.1);
-pointer-events: none;
-}
-
-.shape-1 {
-width: 100px;
-height: 100px;
-top: 20%;
-left: 10%;
-animation: geometric-float-1 15s ease-in-out infinite;
-}
-
-.shape-2 {
-width: 60px;
-height: 60px;
-top: 60%;
-right: 15%;
-animation: geometric-float-2 12s ease-in-out infinite;
-border-radius: 50%;
-}
-
-.shape-3 {
-width: 80px;
-height: 80px;
-bottom: 30%;
-left: 20%;
-animation: geometric-float-3 18s ease-in-out infinite;
-transform: rotate(45deg);
-}
-
-@keyframes geometric-float-1 {
-0%, 100% { transform: translateY(0) rotate(0deg); }
-25% { transform: translateY(-30px) rotate(90deg); }
-50% { transform: translateY(-10px) rotate(180deg); }
-75% { transform: translateY(-40px) rotate(270deg); }
-}
-
-@keyframes geometric-float-2 {
-0%, 100% { transform: scale(1) translateX(0); }
-33% { transform: scale(1.2) translateX(20px); }
-66% { transform: scale(0.8) translateX(-15px); }
-}
-
-@keyframes geometric-float-3 {
-0%, 100% { transform: rotate(45deg) translateY(0); }
-50% { transform: rotate(225deg) translateY(-25px); }
-}
-
-.nav{
-position:sticky; top:0; z-index:50;
-backdrop-filter:saturate(140%) blur(15px);
-background: rgba(0,0,0,0.7);
-border-bottom:1px solid var(--line);
-animation: slide-down 0.8s ease;
-transition: background 0.3s ease;
-}
-
-.nav .row{display:flex; align-items:center; gap:16px; padding:16px 0}
-
-.brand{
-display:flex; align-items:center; gap:12px; font-size:24px; letter-spacing:.3px;
-animation: brand-glow 3s ease-in-out infinite;
-}
-
-.brand .dot{
-width:12px; height:12px; border-radius:999px; background:#fff;
-box-shadow:0 0 20px #fff, 0 0 40px #fff;
-animation: pulse-dot 2s ease-in-out infinite;
-}
-
-.links{margin-left:auto; display:flex; gap:20px; flex-wrap:wrap; align-items: center;}
-
-.links a{
-opacity:.9;
-transition: all 0.3s ease;
-position: relative;
-padding: 8px 0;
-}
-
-.links a::after {
-content: '';
-position: absolute;
-bottom: 0;
-left: 0;
-width: 0;
-height: 2px;
-background: var(--accent);
-transition: width 0.3s ease;
-}
-
-.links a:hover {
-opacity:1;
-transform:translateY(-2px);
-}
-
-.links a:hover::after {
-width: 100%;
-}
-
-.links a.active {
-color: var(--navActive);
-opacity: 1;
-font-weight: 900;
-}
-
-.warning-banner {
-margin: 20px auto;
-display: flex;
-justify-content: center;
-align-items: center;
-width: fit-content;
-gap: 10px;
-padding: 12px 20px;
-border-radius: var(--radius);
-font-size: 15px;
-font-weight: 700;
-color: #fff;
-background: rgba(239, 68, 68, 0.15);
-border: 1px solid rgba(239, 68, 68, 0.5);
-box-shadow: 0 0 20px rgba(239, 68, 68, 0.4);
-animation: pulse-red 1.5s infinite, warning-float 4s ease-in-out infinite;
-position: relative;
-overflow: hidden;
-}
-
-.warning-banner::before {
-content: '';
-position: absolute;
-top: 0;
-left: -100%;
-width: 100%;
-height: 100%;
-background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
-animation: warning-shine 3s infinite;
-}
-
-.warning-icon {
-font-size: 20px;
-animation: bounce 1s infinite;
-}
-
-@keyframes pulse-red {
-0%, 100% { box-shadow: 0 0 15px rgba(239, 68, 68, 0.4); }
-50% { box-shadow: 0 0 30px rgba(239, 68, 68, 0.8); }
-}
-
-@keyframes bounce {
-0%, 100% { transform: translateY(0); }
-50% { transform: translateY(-4px); }
-}
-
-@keyframes warning-float {
-0%, 100% { transform: translateY(0) scale(1); }
-50% { transform: translateY(-5px) scale(1.02); }
-}
-
-@keyframes warning-shine {
-0% { left: -100%; }
-100% { left: 100%; }
-}
-
-section{position:relative; z-index:20; padding:80px 0; border-top:1px solid var(--line)}
-.grid{display:grid; gap:20px}
-
-.card{
-background: var(--cardBg);
-border:1px solid var(--line);
-border-radius:var(--radius); padding:26px;
-box-shadow:var(--shadow); min-height:180px;
-position:relative; overflow:hidden;
-transition: all 0.4s ease;
-animation: card-entrance 0.8s ease both;
-}
-
-.card::before {
-content: '';
-position: absolute;
-top: 0;
-left: 0;
-right: 0;
-height: 1px;
-background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
-opacity: 0;
-transition: opacity 0.3s ease;
-}
-
-.card:hover::before {
-opacity: 1;
-}
-
-.card:hover {
-transform: translateY(-8px) scale(1.02);
-box-shadow: 0 30px 100px rgba(255,255,255,0.15);
-border-color: rgba(255,255,255,0.3);
-}
-
-.muted{color:var(--muted)}
-.two{grid-template-columns:repeat(2,1fr)}
-.center{text-align:center}
-
-.executor-card {
-background: var(--cardBg);
-border: 1px solid var(--line);
-border-radius: var(--radius);
-padding: 24px;
-box-shadow: var(--shadow);
-transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-animation: card-entrance 0.8s ease both;
-position: relative;
-overflow: hidden;
-color: var(--text);
-}
-
-.executor-card::before {
-content: '';
-position: absolute;
-top: 0;
-left: 0;
-right: 0;
-height: 2px;
-background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
-opacity: 0;
-transition: opacity 0.4s ease;
-}
-
-.executor-card::after {
-content: '';
-position: absolute;
-top: -2px;
-left: -2px;
-right: -2px;
-bottom: -2px;
-background: linear-gradient(45deg,
-transparent 0%,
-rgba(255,255,255,0.1) 25%,
-transparent 50%,
-rgba(255,255,255,0.1) 75%,
-transparent 100%);
-border-radius: var(--radius);
-z-index: -1;
-opacity: 0;
-transition: opacity 0.4s ease;
-}
-
-.executor-card:hover {
-transform: translateY(-12px) scale(1.03) rotateX(5deg);
-box-shadow: 0 40px 120px rgba(255,255,255,0.2), 0 0 60px rgba(255,255,255,0.1);
-border-color: rgba(255,255,255,0.4);
-}
-
-.executor-card:hover::before,
-.executor-card:hover::after {
-opacity: 1;
-}
-
-.executor-header {
-display: flex;
-justify-content: space-between;
-align-items: center;
-gap: 15px;
-margin-bottom: 15px;
-}
-
-.name-container {
-flex-grow: 1;
-animation: slide-in-left 0.8s ease both;
-}
-
-.executor-name {
-font-size: 22px;
-font-weight: 800;
-transition: all 0.3s ease;
-background: linear-gradient(45deg, var(--text), var(--muted));
-background-size: 200% 200%;
--webkit-background-clip: text;
--webkit-text-fill-color: transparent;
-animation: gradient-text-executor 3s ease infinite;
-}
-
-.executor-name:hover {
-transform: scale(1.05);
-}
-
-.executor-version {
-font-size: 12px;
-color: var(--muted);
-background: rgba(255,255,255,0.1);
-padding: 6px 12px;
-border-radius: 12px;
-margin-top: 6px;
-display: inline-block;
-transition: all 0.3s ease;
-animation: version-pulse 3s ease-in-out infinite;
-}
-
-.executor-version:hover {
-background: rgba(255,255,255,0.2);
-transform: scale(1.1);
-}
-
-.executor-details {
-display: grid;
-grid-template-columns: 1fr 1fr;
-gap: 12px;
-margin-top: 18px;
-}
-
-.executor-detail {
-font-size: 14px;
-display: flex;
-align-items: center;
-gap: 8px;
-padding: 8px 12px;
-background: rgba(255,255,255,0.05);
-border-radius: 10px;
-transition: all 0.3s ease;
-animation: detail-slide-in 0.6s ease both;
-}
-
-.executor-detail:nth-child(1) { animation-delay: 0.1s; }
-.executor-detail:nth-child(2) { animation-delay: 0.2s; }
-.executor-detail:nth-child(3) { animation-delay: 0.3s; }
-.executor-detail:nth-child(4) { animation-delay: 0.4s; }
-
-.executor-detail:hover {
-background: rgba(255,255,255,0.12);
-transform: translateY(-2px) scale(1.05);
-}
-
-.status-indicator {
-width: 60px;
-height: 60px;
-border-radius: 50%;
-display: flex;
-align-items: center;
-justify-content: center;
-flex-shrink: 0;
-animation: status-float 4s ease-in-out infinite;
-position: relative;
-overflow: hidden;
-}
-
-.status-indicator::before {
-content: '';
-position: absolute;
-top: -2px;
-left: -2px;
-right: -2px;
-bottom: -2px;
-border-radius: 50%;
-z-index: -1;
-transition: opacity 0.4s ease;
-}
-
-.status-indicator svg {
-width: 32px;
-height: 32px;
-transition: all 0.4s ease;
-}
-
-.status-indicator.up {
-background: rgba(16, 185, 129, 0.15);
-border: 2px solid rgba(16, 185, 129, 0.6);
-color: #10B981;
-animation: status-float 4s ease-in-out infinite, pulse-glow-green 2.5s infinite;
-}
-
-.status-indicator.up::before {
-background: linear-gradient(45deg, rgba(16, 185, 129, 0.3), rgba(16, 185, 129, 0.1));
-opacity: 1;
-}
-
-.status-indicator.down {
-background: rgba(239, 68, 68, 0.15);
-border: 2px solid rgba(239, 68, 68, 0.6);
-color: #EF4444;
-animation: status-float 4s ease-in-out infinite, pulse-glow-red 2.5s infinite;
-}
-
-.status-indicator.down::before {
-background: linear-gradient(45deg, rgba(239, 68, 68, 0.3), rgba(239, 68, 68, 0.1));
-opacity: 1;
-}
-
-.status-indicator:hover svg {
-transform: scale(1.2) rotate(10deg);
-}
-
-@keyframes pulse-glow-green {
-0%, 100% { box-shadow: 0 0 20px rgba(16, 185, 129, 0.6), inset 0 0 20px rgba(16, 185, 129, 0.1); }
-50% { box-shadow: 0 0 40px rgba(16, 185, 129, 1), inset 0 0 30px rgba(16, 185, 129, 0.2); }
-}
-
-@keyframes pulse-glow-red {
-0%, 100% { box-shadow: 0 0 20px rgba(239, 68, 68, 0.6), inset 0 0 20px rgba(239, 68, 68, 0.1); }
-50% { box-shadow: 0 0 40px rgba(239, 68, 68, 1), inset 0 0 30px rgba(239, 68, 68, 0.2); }
-}
-
-@keyframes status-float {
-0%, 100% { transform: translateY(0) rotate(0deg); }
-25% { transform: translateY(-8px) rotate(5deg); }
-75% { transform: translateY(-4px) rotate(-5deg); }
-}
-
-.stats {
-display: grid;
-grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-gap: 20px;
-margin: 30px 0 40px 0;
-}
-
-.stat-card {
-background: var(--cardBg);
-border: 1px solid var(--line);
-border-radius: var(--radius);
-padding: 25px;
-text-align: center;
-transition: all 0.4s ease;
-animation: stat-entrance 0.8s ease both;
-position: relative;
-overflow: hidden;
-}
-
-.stat-card::before {
-content: '';
-position: absolute;
-top: 0;
-left: -100%;
-width: 100%;
-height: 100%;
-background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
-transition: left 0.6s ease;
-}
-
-.stat-card:hover::before {
-left: 100%;
-}
-
-.stat-card:hover {
-transform: translateY(-8px) scale(1.05);
-box-shadow: 0 30px 100px rgba(255,255,255,0.15);
-}
-
-.stat-number {
-font-size: 40px;
-font-weight: 800;
-margin-bottom: 8px;
-animation: number-count 2s ease both, number-glow 3s ease-in-out infinite;
-background: linear-gradient(45deg, var(--text), var(--muted));
-background-size: 200% 200%;
--webkit-background-clip: text;
--webkit-text-fill-color: transparent;
-}
-
-.stat-label {
-font-size: 14px;
-color: var(--muted);
-text-transform: uppercase;
-letter-spacing: 0.1em;
-animation: fade-in-up 1s ease 0.5s both;
-}
-
-.hero {
-position: relative;
-z-index: 20;
-padding: 100px 0 60px;
-text-align: center;
-}
-
-.hero-title {
-font-size: clamp(36px, 6vw, 72px);
-line-height: 1.1;
-margin: 0.8rem 0 1rem;
-animation: title-entrance 1.5s ease 0.2s both;
-color: var(--text);
-}
-
-.hero-subtitle {
-font-size: clamp(16px, 2vw, 20px);
-color: var(--muted);
-animation: fade-in-up 1s ease 0.6s both;
-margin-bottom: 20px;
-}
-
-footer{
-border-top:1px solid var(--line);
-padding:30px 0 70px;
-color:var(--muted);
-text-align:center;
-animation: footer-entrance 1s ease both;
-position: relative;
-z-index: 20;
-}
-
-footer strong {
-color: var(--text);
-}
-
-@keyframes pulse-dot {
-0%, 100% { transform: scale(1); box-shadow: 0 0 20px #fff; }
-50% { transform: scale(1.2); box-shadow: 0 0 30px #fff, 0 0 60px #fff; }
-}
-
-@keyframes brand-glow {
-0%, 100% { text-shadow: 0 0 10px rgba(255,255,255,0.3); }
-50% { text-shadow: 0 0 20px rgba(255,255,255,0.6), 0 0 30px rgba(255,255,255,0.4); }
-}
-
-@keyframes slide-down {
-from { transform: translateY(-100%); }
-to { transform: translateY(0); }
-}
-
-@keyframes fade-in-up {
-from { opacity: 0; transform: translateY(30px); }
-to { opacity: 1; transform: translateY(0); }
-}
-
-@keyframes title-entrance {
-from { opacity: 0; transform: translateY(50px) scale(0.9); }
-to { opacity: 1; transform: translateY(0) scale(1); }
-}
-
-@keyframes card-entrance {
-from { opacity: 0; transform: translateY(40px) rotateX(15deg); }
-to { opacity: 1; transform: translateY(0) rotateX(0deg); }
-}
-
-@keyframes stat-entrance {
-from { opacity: 0; transform: translateY(30px) scale(0.95); }
-to { opacity: 1; transform: translateY(0) scale(1); }
-}
-
-@keyframes slide-in-left {
-from { opacity: 0; transform: translateX(-30px); }
-to { opacity: 1; transform: translateX(0); }
-}
-
-@keyframes detail-slide-in {
-from { opacity: 0; transform: translateX(-20px) scale(0.95); }
-to { opacity: 1; transform: translateX(0) scale(1); }
-}
-
-@keyframes gradient-text-executor {
-0% { background-position: 0% 50%; }
-50% { background-position: 100% 50%; }
-100% { background-position: 0% 50%; }
-}
-
-@keyframes version-pulse {
-0%, 100% { transform: scale(1); }
-50% { transform: scale(1.05); }
-}
-
-@keyframes number-count {
-from { transform: scale(0.5) rotateY(90deg); opacity: 0; }
-to { transform: scale(1) rotateY(0deg); opacity: 1; }
-}
-
-@keyframes number-glow {
-0%, 100% { text-shadow: 0 0 15px rgba(255,255,255,0.3); }
-50% { text-shadow: 0 0 30px rgba(255,255,255,0.6); }
-}
-
-@keyframes footer-entrance {
-from { opacity: 0; transform: translateY(30px); }
-to { opacity: 1; transform: translateY(0); }
-}
-
-.reveal{
-opacity:0; transform:translateY(20px);
-transition:opacity var(--speed) ease, transform var(--speed) ease;
-}
-.reveal.in{opacity:1; transform:translateY(0)}
-
-.delay-1 { animation-delay: 0.2s; }
-.delay-2 { animation-delay: 0.4s; }
-.delay-3 { animation-delay: 0.6s; }
-.delay-4 { animation-delay: 0.8s; }
-.delay-5 { animation-delay: 1.0s; }
-
-.loading-spinner {
-display: inline-flex;
-gap: 8px;
-margin: 20px 0;
-}
-
-.loading-dot {
-width: 12px;
-height: 12px;
-border-radius: 50%;
-background: var(--text);
-animation: loading-bounce 1.4s infinite ease-in-out both;
-}
-
-.loading-dot:nth-child(1) { animation-delay: -0.32s; }
-.loading-dot:nth-child(2) { animation-delay: -0.16s; }
-.loading-dot:nth-child(3) { animation-delay: 0s; }
-
-@keyframes loading-bounce {
-0%, 80%, 100% { transform: scale(0) rotate(0deg); }
-40% { transform: scale(1) rotate(180deg); }
-}
-
-@media (max-width: 980px){
-.two{grid-template-columns:1fr}
-.stats {grid-template-columns: repeat(2, 1fr);}
-}
-
-@media (max-width: 768px) {
-.particle { display: none; }
-.wave { animation-duration: 40s; }
-.stats {grid-template-columns: 1fr;}
-.executor-details {grid-template-columns: 1fr;}
-.links {display:none}
-}
-</style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>nobulem.wtf – Executors</title>
+  <meta name="description" content="nobulem.wtf – Live executor status and information">
+  <link rel="icon" type="image/png" href="https://i.ibb.co/NdNpCJ4v/image-2.png">
+  <style>
+    /* ---------- Base / Theme ---------- */
+    :root{
+      --bg: #0a0a0a;
+      --bg-2: #111111;
+      --card: #151515;
+      --text: #e0e0e0;
+      --muted: #999999;
+      --line: #222222;
+      --accent: #d0d0d0;
+      --shadow: 0 8px 32px rgba(0,0,0,.4);
+      --radius: 24px;
+      --speed: 400ms;
+    }
+    *{box-sizing:border-box; margin:0; padding:0;}
+    html,body{height:100%}
+    html{scroll-behavior:smooth}
+    body{
+      background: var(--bg);
+      color:var(--text);
+      font: 600 14px/1.5 ui-sans-serif, -apple-system, system-ui, Segoe UI, Roboto, Helvetica, Arial;
+      letter-spacing:0.3px;
+      overflow-x:hidden;
+    }
+    h1,h2,h3,h4{font-weight:700; margin:0 0 .5rem}
+    p{margin:0 0 .8rem; color:var(--muted); font-size:14px;}
+    a{color:var(--text); text-decoration:none; font-weight:700; transition: all 0.3s ease;}
+    .container{width:min(1100px, 90vw); margin-inline:auto}
+
+    /* ---------- Animated Background ---------- */
+    .bg-animation {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      pointer-events: none;
+      overflow: hidden;
+      opacity: 0.6;
+    }
+
+    .particle {
+      position: absolute;
+      background: rgba(200,200,200,0.15);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+
+    .particle-1 {
+      width: 3px;
+      height: 3px;
+      animation: float-1 20s linear infinite;
+    }
+
+    .particle-2 {
+      width: 4px;
+      height: 4px;
+      animation: float-2 25s linear infinite;
+    }
+
+    .particle-3 {
+      width: 2px;
+      height: 2px;
+      animation: float-3 15s linear infinite;
+    }
+
+    .particle-4 {
+      width: 5px;
+      height: 5px;
+      animation: float-4 30s linear infinite;
+    }
+
+    @keyframes float-1 {
+      0% { transform: translateY(100vh) translateX(0) rotate(0deg); opacity: 0; }
+      10% { opacity: 0.4; }
+      90% { opacity: 0.4; }
+      100% { transform: translateY(-100px) translateX(100px) rotate(360deg); opacity: 0; }
+    }
+
+    @keyframes float-2 {
+      0% { transform: translateY(100vh) translateX(0) rotate(0deg); opacity: 0; }
+      10% { opacity: 0.3; }
+      90% { opacity: 0.3; }
+      100% { transform: translateY(-100px) translateX(-50px) rotate(-360deg); opacity: 0; }
+    }
+
+    @keyframes float-3 {
+      0% { transform: translateY(100vh) translateX(0) rotate(0deg); opacity: 0; }
+      10% { opacity: 0.5; }
+      90% { opacity: 0.5; }
+      100% { transform: translateY(-100px) translateX(200px) rotate(720deg); opacity: 0; }
+    }
+
+    @keyframes float-4 {
+      0% { transform: translateY(100vh) translateX(0) rotate(0deg); opacity: 0; }
+      10% { opacity: 0.2; }
+      90% { opacity: 0.2; }
+      100% { transform: translateY(-100px) translateX(-100px) rotate(-720deg); opacity: 0; }
+    }
+
+    .wave {
+      position: absolute;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(45deg, 
+        transparent 0%, 
+        rgba(255,255,255,0.01) 25%, 
+        transparent 50%, 
+        rgba(255,255,255,0.01) 75%, 
+        transparent 100%);
+    }
+
+    .wave-1 {
+      top: -50%;
+      left: -50%;
+      animation: wave-motion-1 20s linear infinite;
+    }
+
+    .wave-2 {
+      top: -50%;
+      right: -50%;
+      animation: wave-motion-2 25s linear infinite reverse;
+    }
+
+    @keyframes wave-motion-1 {
+      0% { transform: rotate(0deg) scale(1); }
+      100% { transform: rotate(360deg) scale(1.1); }
+    }
+
+    @keyframes wave-motion-2 {
+      0% { transform: rotate(0deg) scale(1.05); }
+      100% { transform: rotate(-360deg) scale(0.95); }
+    }
+
+    /* ---------- Navigation ---------- */
+    .nav{
+      position:sticky; 
+      top:0; 
+      z-index:50;
+      backdrop-filter:blur(20px);
+      background: rgba(10,10,10,0.85);
+      border-bottom:1px solid var(--line);
+    }
+    
+    .nav .row{
+      display:flex; 
+      align-items:center; 
+      gap:24px; 
+      padding:12px 0;
+      height: 60px;
+    }
+    
+    .brand{
+      display:flex; 
+      align-items:center; 
+      gap:0; 
+      font-size:16px;
+      font-weight:700;
+      cursor:pointer;
+      position:relative;
+      overflow:hidden;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    .brand-icon {
+      width: 32px;
+      height: 32px;
+      object-fit: contain;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      flex-shrink: 0;
+    }
+    
+    .brand-text {
+      max-width: 0;
+      opacity: 0;
+      overflow: hidden;
+      white-space: nowrap;
+      margin-left: 0;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    .brand:hover .brand-text {
+      max-width: 150px;
+      opacity: 1;
+      margin-left: 12px;
+    }
+    
+    .brand:hover .brand-icon {
+      transform: rotate(360deg) scale(1.1);
+    }
+    
+    .links{
+      margin-left:auto; 
+      display:flex; 
+      gap:20px; 
+      align-items:center;
+    }
+    
+    .links a{
+      opacity:.7; 
+      transition: all 0.3s ease;
+      padding: 8px 16px;
+      border-radius: 12px;
+      font-size: 13px;
+    }
+    
+    .links a:hover {
+      opacity:1; 
+      background: rgba(255,255,255,0.05);
+      transform: translateY(-1px);
+    }
+    
+    .links a.active {
+      opacity: 1;
+      background: rgba(255,255,255,0.08);
+    }
+
+    .links a.discord-nav {
+      color: #5865F2 !important;
+      opacity: 1;
+      font-weight: 700;
+      margin-left: auto;
+    }
+
+    .links a.discord-nav:hover {
+      background: rgba(88,101,242,0.15);
+    }
+
+    /* Mobile Menu */
+    .mobile-menu-toggle {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 8px;
+      margin-left: auto;
+    }
+
+    .mobile-menu-toggle span {
+      width: 24px;
+      height: 2px;
+      background: var(--text);
+      transition: all 0.3s ease;
+    }
+
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      top: 61px;
+      left: 0;
+      right: 0;
+      background: rgba(10,10,10,0.98);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--line);
+      padding: 20px;
+      z-index: 49;
+      animation: slideDown 0.3s ease;
+    }
+
+    .mobile-menu.active {
+      display: block;
+    }
+
+    .mobile-menu a {
+      display: block;
+      padding: 14px 20px;
+      margin-bottom: 8px;
+      border-radius: 12px;
+      background: var(--card);
+      border: 1px solid var(--line);
+      transition: all 0.3s ease;
+      text-align: center;
+    }
+
+    .mobile-menu a:hover {
+      background: rgba(255,255,255,0.08);
+      transform: translateX(4px);
+    }
+
+    .mobile-menu a.discord-nav {
+      background: #5865F2;
+      border-color: #5865F2;
+      color: #ffffff;
+    }
+
+    @keyframes slideDown {
+      from {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* ---------- Hero ---------- */
+    .hero{
+      position:relative; 
+      z-index:20; 
+      padding:80px 0 60px; 
+      text-align:center;
+    }
+    
+    .title{
+      font-size: clamp(32px, 6vw, 56px); 
+      line-height:1.1; 
+      margin:.6rem 0 .8rem;
+      text-align: center;
+    }
+    
+    .subtitle{
+      font-size: 13px; 
+      color:var(--muted);
+      max-width: 600px;
+      margin: 0 auto 32px;
+    }
+
+    /* ---------- Warning Banner ---------- */
+    .warning-banner {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 24px;
+      border-radius: 16px;
+      background: rgba(239, 68, 68, 0.15);
+      border: 1px solid rgba(239, 68, 68, 0.5);
+      margin-bottom: 32px;
+      animation: pulse-warning 2s ease-in-out infinite;
+    }
+
+    .warning-banner.success {
+      background: rgba(16, 185, 129, 0.15);
+      border-color: rgba(16, 185, 129, 0.5);
+      animation: pulse-success 2s ease-in-out infinite;
+    }
+
+    .warning-banner svg {
+      width: 20px;
+      height: 20px;
+      flex-shrink: 0;
+    }
+
+    @keyframes pulse-warning {
+      0%, 100% { box-shadow: 0 0 15px rgba(239, 68, 68, 0.3); }
+      50% { box-shadow: 0 0 25px rgba(239, 68, 68, 0.5); }
+    }
+
+    @keyframes pulse-success {
+      0%, 100% { box-shadow: 0 0 15px rgba(16, 185, 129, 0.3); }
+      50% { box-shadow: 0 0 25px rgba(16, 185, 129, 0.5); }
+    }
+
+    /* ---------- Stats Grid ---------- */
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+      margin-bottom: 60px;
+    }
+
+    .stat-card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 24px;
+      text-align: center;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    .stat-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      border-radius: var(--radius);
+      padding: 1px;
+      background: linear-gradient(135deg, rgba(255,255,255,0.1), transparent);
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .stat-card:hover::before {
+      opacity: 1;
+    }
+
+    .stat-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 32px rgba(0,0,0,0.3);
+      border-color: rgba(255,255,255,0.15);
+    }
+
+    .stat-number {
+      font-size: 36px;
+      font-weight: 700;
+      margin-bottom: 8px;
+      line-height: 1;
+    }
+
+    .stat-label {
+      font-size: 12px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    /* ---------- Sections ---------- */
+    section{
+      position:relative; 
+      z-index:20; 
+      padding:60px 0; 
+      border-top:1px solid var(--line);
+    }
+    
+    section h2 {
+      font-size: clamp(24px, 4vw, 32px);
+      margin-bottom: 8px;
+    }
+    
+    section > .container > p {
+      margin-bottom: 32px;
+    }
+    
+    .grid{
+      display:grid; 
+      gap:16px;
+    }
+
+    .two{
+      grid-template-columns:repeat(auto-fit, minmax(280px, 1fr));
+    }
+
+    /* ---------- Executor Cards ---------- */
+    .executor-card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 24px;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    .executor-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      border-radius: var(--radius);
+      padding: 1px;
+      background: linear-gradient(135deg, rgba(255,255,255,0.1), transparent);
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .executor-card:hover::before {
+      opacity: 1;
+    }
+
+    .executor-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 32px rgba(0,0,0,0.3);
+      border-color: rgba(255,255,255,0.15);
+    }
+
+    .executor-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+
+    .executor-name {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 6px;
+      transition: all 0.3s ease;
+    }
+
+    .executor-name:hover {
+      transform: translateX(2px);
+    }
+
+    .executor-version {
+      font-size: 11px;
+      color: var(--muted);
+      background: rgba(255,255,255,0.05);
+      padding: 4px 10px;
+      border-radius: 8px;
+      display: inline-block;
+    }
+
+    .status-indicator {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: all 0.3s ease;
+    }
+
+    .status-indicator svg {
+      width: 24px;
+      height: 24px;
+    }
+
+    .status-indicator.up {
+      background: rgba(16, 185, 129, 0.15);
+      border: 2px solid rgba(16, 185, 129, 0.6);
+      color: #10B981;
+    }
+
+    .status-indicator.down {
+      background: rgba(239, 68, 68, 0.15);
+      border: 2px solid rgba(239, 68, 68, 0.6);
+      color: #EF4444;
+    }
+
+    .executor-card:hover .status-indicator {
+      transform: scale(1.1);
+    }
+
+    .executor-details {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+    }
+
+    .executor-detail {
+      font-size: 13px;
+      padding: 10px 14px;
+      background: rgba(255,255,255,0.03);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.3s ease;
+    }
+
+    .executor-detail svg {
+      width: 16px;
+      height: 16px;
+      stroke: var(--muted);
+      flex-shrink: 0;
+    }
+
+    .executor-detail:hover {
+      background: rgba(255,255,255,0.06);
+      transform: translateX(2px);
+    }
+
+    /* ---------- Loading ---------- */
+    .loading {
+      text-align: center;
+      padding: 40px 20px;
+    }
+
+    .loader {
+      display: inline-flex;
+      gap: 8px;
+      margin: 24px 0;
+    }
+
+    .loader-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--muted);
+      animation: loader-bounce 1.4s infinite ease-in-out both;
+    }
+
+    .loader-dot:nth-child(1) { animation-delay: -0.32s; }
+    .loader-dot:nth-child(2) { animation-delay: -0.16s; }
+    .loader-dot:nth-child(3) { animation-delay: 0s; }
+
+    @keyframes loader-bounce {
+      0%, 80%, 100% { transform: scale(0); }
+      40% { transform: scale(1); }
+    }
+
+    /* ---------- Footer ---------- */
+    footer{
+      border-top:1px solid var(--line); 
+      padding:24px 0 40px; 
+      color:var(--muted); 
+      text-align:center;
+      font-size: 12px;
+    }
+
+    /* ---------- Mobile Responsive ---------- */
+    @media (max-width: 980px){
+      .two{grid-template-columns:repeat(2, 1fr)}
+      .stats{grid-template-columns:repeat(2, 1fr)}
+      
+      .links{display:none}
+      .mobile-menu-toggle{display:flex}
+      
+      .hero {
+        padding: 60px 0 40px;
+      }
+      
+      section {
+        padding: 40px 0;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .two{grid-template-columns:1fr}
+      .stats{grid-template-columns:1fr}
+      
+      .title {
+        font-size: 28px;
+      }
+      
+      .hero {
+        padding: 40px 0 30px;
+      }
+
+      .subtitle {
+        font-size: 12px;
+        padding: 0 10px;
+      }
+
+      .executor-details {
+        grid-template-columns: 1fr;
+      }
+
+      .stat-number {
+        font-size: 28px;
+      }
+    }
+  </style>
 </head>
 <body>
-<div class="bg-animation">
-<div class="particle particle-1" style="left: 10%; animation-delay: 0s;"></div>
-<div class="particle particle-2" style="left: 20%; animation-delay: 2s;"></div>
-<div class="particle particle-3" style="left: 30%; animation-delay: 4s;"></div>
-<div class="particle particle-1" style="left: 40%; animation-delay: 6s;"></div>
-<div class="particle particle-4" style="left: 50%; animation-delay: 8s;"></div>
-<div class="particle particle-2" style="left: 60%; animation-delay: 10s;"></div>
-<div class="particle particle-3" style="left: 70%; animation-delay: 12s;"></div>
-<div class="particle particle-1" style="left: 80%; animation-delay: 14s;"></div>
-<div class="particle particle-4" style="left: 90%; animation-delay: 16s;"></div>
-<div class="particle particle-2" style="left: 15%; animation-delay: 18s;"></div>
-<div class="particle particle-3" style="left: 25%; animation-delay: 20s;"></div>
-<div class="particle particle-1" style="left: 35%; animation-delay: 22s;"></div>
-<div class="particle particle-4" style="left: 45%; animation-delay: 24s;"></div>
-<div class="particle particle-2" style="left: 55%; animation-delay: 26s;"></div>
-<div class="particle particle-3" style="left: 65%; animation-delay: 28s;"></div>
-<div class="particle particle-1" style="left: 75%; animation-delay: 30s;"></div>
-<div class="particle particle-4" style="left: 85%; animation-delay: 32s;"></div>
-<div class="particle particle-2" style="left: 95%; animation-delay: 34s;"></div>
+  <!-- Animated Background -->
+  <div class="bg-animation">
+    <!-- Floating Particles -->
+    <div class="particle particle-1" style="left: 10%; animation-delay: 0s;"></div>
+    <div class="particle particle-2" style="left: 20%; animation-delay: 2s;"></div>
+    <div class="particle particle-3" style="left: 30%; animation-delay: 4s;"></div>
+    <div class="particle particle-1" style="left: 40%; animation-delay: 6s;"></div>
+    <div class="particle particle-4" style="left: 50%; animation-delay: 8s;"></div>
+    <div class="particle particle-2" style="left: 60%; animation-delay: 10s;"></div>
+    <div class="particle particle-3" style="left: 70%; animation-delay: 12s;"></div>
+    <div class="particle particle-1" style="left: 80%; animation-delay: 14s;"></div>
+    <div class="particle particle-4" style="left: 90%; animation-delay: 16s;"></div>
 
-<div class="wave wave-1"></div>
-<div class="wave wave-2"></div>
-<div class="wave wave-3"></div>
+    <!-- Animated Waves -->
+    <div class="wave wave-1"></div>
+    <div class="wave wave-2"></div>
+  </div>
 
-<div class="shape shape-1"></div>
-<div class="shape shape-2"></div>
-<div class="shape shape-3"></div>
-</div>
+  <nav class="nav">
+    <div class="container row">
+      <div class="brand">
+        <img src="https://i.ibb.co/9HfPQdpj/output-onlinepngtools-2.png" alt="Nobulem" class="brand-icon">
+        <span class="brand-text">nobulem.wtf</span>
+      </div>
 
-<nav class="nav">
-<div class="container row">
-<div class="brand">
-<span class="dot"></span>
-<a href="/" aria-label="nobulem.wtf">nobulem.wtf</a>
-</div>
-<div class="links">
-<a href="/">Home</a>
-<a href="/executors" class="active">Executors</a>
-<a href="https://discord.gg/ExH98C3uFH" target="_blank">Discord</a>
-<a href="/games">Games & Scripts</a>
-<a href="/showcases">Showcases</a>
-<a href="/pricing">Pricing</a>
-<a href="/developers">Developers</a>
-<a href="/tos">Terms</a>
-</div>
-</div>
-</nav>
+      <div class="links">
+        <a href="/">Home</a>
+        <a href="/executors" class="active">Executors</a>
+        <a href="/games">Games & Scripts</a>
+        <a href="/showcases">Showcases</a>
+        <a href="/pricing">Pricing</a>
+        <a href="/developers">Developers</a>
+        <a href="/tos">Terms</a>
+        <a href="https://discord.gg/ExH98C3uFH" target="_blank" class="discord-nav">Discord</a>
+      </div>
 
-<main>
-<section class="hero">
-<div class="container">
-<h1 class="hero-title reveal">Executor Status</h1>
-<p class="hero-subtitle reveal">Live status information for our recommended executors</p>
+      <div class="mobile-menu-toggle" onclick="toggleMobileMenu()">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+  </nav>
 
-<div class="warning-banner reveal" id="warning-banner">
-<span class="warning-icon">⚠️</span>
-<span class="warning-text">Checking executor status...</span>
-</div>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="/">Home</a>
+    <a href="/executors" class="active">Executors</a>
+    <a href="/games">Games & Scripts</a>
+    <a href="/showcases">Showcases</a>
+    <a href="/pricing">Pricing</a>
+    <a href="/developers">Developers</a>
+    <a href="/tos">Terms</a>
+    <a href="https://discord.gg/ExH98C3uFH" target="_blank" class="discord-nav">Discord</a>
+  </div>
 
-<div class="stats reveal">
-<div class="stat-card delay-1">
-<div class="stat-number" id="stats-total">0</div>
-<div class="stat-label">Tracked</div>
-</div>
-<div class="stat-card delay-2">
-<div class="stat-number" id="stats-working">0</div>
-<div class="stat-label">Working</div>
-</div>
-<div class="stat-card delay-3">
-<div class="stat-number" id="stats-avg">0%</div>
-<div class="stat-label">Avg. UNC</div>
-</div>
-<div class="stat-card delay-4">
-<div class="stat-number" id="stats-updated">0</div>
-<div class="stat-label">Recently Updated</div>
-</div>
-</div>
-</div>
-</section>
+  <header class="hero container">
+    <h1 class="title">Executor Status</h1>
+    <p class="subtitle">Live status information for our recommended executors</p>
+    
+    <div class="warning-banner" id="warningBanner">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg>
+      <span id="warningText">Checking executor status...</span>
+    </div>
 
-<section id="executors">
-<div class="container">
-<div id="executor-grid-container">
-<div class="center">
-<div class="loading-spinner reveal">
-<div class="loading-dot"></div>
-<div class="loading-dot"></div>
-<div class="loading-dot"></div>
-</div>
-<p class="muted reveal">Fetching live executor status...</p>
-</div>
-</div>
-</div>
-</section>
-</main>
+    <div class="stats">
+      <div class="stat-card">
+        <div class="stat-number" id="statsTotal">0</div>
+        <div class="stat-label">Tracked</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number" id="statsWorking">0</div>
+        <div class="stat-label">Working</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number" id="statsAvg">0%</div>
+        <div class="stat-label">Avg. UNC</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number" id="statsUpdated">0</div>
+        <div class="stat-label">Recently Updated</div>
+      </div>
+    </div>
+  </header>
 
-<footer>
-<div class="container">
-<div style="margin-bottom:12px"><strong>nobulem.wtf</strong> — undetected</div>
-<div>© <span id="year"></span> nobulem.wtf • All rights reserved • Executors • Real-time Status</div>
-</div>
-</footer>
+  <section id="executors">
+    <div class="container">
+      <div id="executorGrid">
+        <div class="loading">
+          <div class="loader">
+            <div class="loader-dot"></div>
+            <div class="loader-dot"></div>
+            <div class="loader-dot"></div>
+          </div>
+          <p>Fetching live executor status...</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
-<script src="../js/theme-manager.js"></script>
-<script src="../js/ad-banner.js"></script>
-<script>
-const SUPABASE_URL = 'https://qmjzoiausxegjffzjhzr.supabase.co';
-const API_URL = `${SUPABASE_URL}/functions/v1/executor-status`;
-const ALLOWED_EXECUTORS = ['volcano', 'wave', 'zenith', 'swift', 'potassium', 'nucleus'];
+  <footer>
+    <div class="container">
+      <div style="margin-bottom:8px"><strong>nobulem.wtf</strong> – undetected</div>
+      <div>© <span id="year"></span> nobulem.wtf • All rights reserved</div>
+    </div>
+  </footer>
 
-let allExecutors = [];
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lucide/0.263.1/umd/lucide.min.js"></script>
+  <script>
+    // Initialize Lucide icons
+    lucide.createIcons();
 
-document.getElementById('year').textContent = new Date().getFullYear();
+    // Mobile menu toggle
+    function toggleMobileMenu() {
+      const menu = document.getElementById('mobileMenu');
+      menu.classList.toggle('active');
+    }
 
-const io = new IntersectionObserver((entries)=>{
-entries.forEach((e, index)=>{
-if(e.isIntersecting){
-setTimeout(() => {
-e.target.classList.add('in');
-}, index * 100);
-io.unobserve(e.target);
-}
-})
-}, {threshold:.1});
+    // Close mobile menu when clicking outside
+    document.addEventListener('click', function(event) {
+      const menu = document.getElementById('mobileMenu');
+      const toggle = document.querySelector('.mobile-menu-toggle');
+      
+      if (menu.classList.contains('active') && 
+          !menu.contains(event.target) && 
+          !toggle.contains(event.target)) {
+        menu.classList.remove('active');
+      }
+    });
 
-document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+    // Close mobile menu on link click
+    document.querySelectorAll('.mobile-menu a').forEach(link => {
+      link.addEventListener('click', () => {
+        document.getElementById('mobileMenu').classList.remove('active');
+      });
+    });
 
-function createParticle() {
-const particle = document.createElement('div');
-particle.className = `particle particle-${Math.floor(Math.random() * 4) + 1}`;
-particle.style.left = Math.random() * 100 + '%';
-particle.style.animationDelay = '0s';
+    // Set current year
+    document.getElementById('year').textContent = new Date().getFullYear();
 
-const bgAnimation = document.querySelector('.bg-animation');
-if (bgAnimation) {
-bgAnimation.appendChild(particle);
+    // API Configuration
+    const API_URL = 'https://weao.xyz/api/status/exploits';
+    const ALLOWED_EXECUTORS = ['bunni.lol', 'swift', 'potassium', 'seliware', 'wave', 'zenith'];
 
-setTimeout(() => {
-if (particle.parentNode) {
-particle.parentNode.removeChild(particle);
-}
-}, 35000);
-}
-}
+    let allExecutors = [];
 
-setInterval(createParticle, 3000);
+    // Fetch executor data
+    async function fetchExecutorData() {
+      try {
+        const response = await fetch(API_URL, {
+          headers: {
+            'User-Agent': 'WEAO-3PService'
+          }
+        });
+        
+        if (!response.ok) {
+          throw new Error(`API error! status: ${response.status}`);
+        }
 
-window.addEventListener('scroll', () => {
-const scrolled = window.pageYOffset;
-const shapes = document.querySelectorAll('.shape');
-shapes.forEach((shape, index) => {
-const speed = 0.5 + (index * 0.2);
-shape.style.transform = `translateY(${scrolled * speed}px)`;
-});
-});
+        let fetchedData = await response.json();
 
-const brandDot = document.querySelector('.brand .dot');
-if (brandDot) {
-setInterval(() => {
-brandDot.style.transform = 'scale(1.3)';
-setTimeout(() => {
-brandDot.style.transform = 'scale(1)';
-}, 200);
-}, 3000);
-}
+        allExecutors = fetchedData.filter(ex =>
+          ALLOWED_EXECUTORS.includes(ex.title.toLowerCase()) &&
+          ex.extype &&
+          (ex.extype === 'wexecutor' || ex.extype === 'mexecutor' || ex.extype === 'aexecutor')
+        );
 
-const gridContainer = document.getElementById('executor-grid-container');
-const statsTotal = document.getElementById('stats-total');
-const statsWorking = document.getElementById('stats-working');
-const statsAvg = document.getElementById('stats-avg');
-const statsUpdated = document.getElementById('stats-updated');
-const warningBanner = document.getElementById('warning-banner');
+        allExecutors.sort((a, b) => a.title.localeCompare(b.title));
 
-async function fetchData() {
-if (!gridContainer) return;
+        updateStats(allExecutors);
+        updateWarningBanner(allExecutors);
+        renderExecutors(allExecutors);
+      } catch (error) {
+        console.error('Failed to fetch executor data:', error);
+        document.getElementById('executorGrid').innerHTML = `
+          <div class="loading">
+            <p style="color: #EF4444;">Failed to load executor status. Please try again later.</p>
+          </div>
+        `;
+      }
+    }
 
-try {
-const response = await fetch(API_URL);
-if (!response.ok) {
-throw new Error(`API error! status: ${response.status}`);
-}
+    // Update statistics
+    function updateStats(data) {
+      const total = data.length;
+      const working = data.filter(e => e.updateStatus === true && e.detected === false).length;
+      const avgUnc = data.length > 0 ? Math.round(data.reduce((sum, e) => sum + (e.uncPercentage || 0), 0) / data.length) : 0;
+      const recentlyUpdated = data.filter(e => e.updateStatus === true).length;
 
-let fetchedData = await response.json();
+      animateNumber(document.getElementById('statsTotal'), total);
+      animateNumber(document.getElementById('statsWorking'), working);
+      animateNumber(document.getElementById('statsAvg'), avgUnc, '%');
+      animateNumber(document.getElementById('statsUpdated'), recentlyUpdated);
+    }
 
-allExecutors = fetchedData.filter(ex =>
-ALLOWED_EXECUTORS.includes(ex.title.toLowerCase()) &&
-ex.extype &&
-(ex.extype === 'wexecutor' || ex.extype === 'mexecutor' || ex.extype === 'aexecutor')
-);
+    // Animate number counting
+    function animateNumber(element, target, suffix = '') {
+      let current = 0;
+      const increment = target / 30;
+      const timer = setInterval(() => {
+        current += increment;
+        if (current >= target) {
+          current = target;
+          clearInterval(timer);
+        }
+        element.textContent = Math.floor(current) + suffix;
+      }, 50);
+    }
 
-allExecutors.sort((a, b) => a.title.localeCompare(b.title));
+    // Update warning banner
+    function updateWarningBanner(data) {
+      const banner = document.getElementById('warningBanner');
+      const text = document.getElementById('warningText');
+      
+      const allDetected = data.every(e => e.detected === true);
+      
+      if (allDetected) {
+        text.textContent = 'All executors are currently detected';
+        banner.classList.remove('success');
+      } else {
+        const undetectedCount = data.filter(e => e.detected === false).length;
+        text.textContent = `${undetectedCount} executor${undetectedCount !== 1 ? 's' : ''} undetected`;
+        banner.classList.add('success');
+      }
+    }
 
-updateStats(allExecutors);
-updateWarningBanner(allExecutors);
-renderExecutors(allExecutors);
-} catch (error) {
-console.error('Failed to fetch executor data:', error);
-gridContainer.innerHTML = '<div class="center"><p class="muted reveal in">Failed to load executor status. Please try again later.</p></div>';
-}
-}
+    // Render executor cards
+    function renderExecutors(executors) {
+      const grid = document.getElementById('executorGrid');
+      
+      if (executors.length === 0) {
+        grid.innerHTML = '<div class="loading"><p>Could not find specified executors.</p></div>';
+        return;
+      }
 
-function updateStats(data) {
-if (!statsTotal || !statsWorking) return;
+      const html = executors.map((ex) => {
+        const isUpdated = ex.updateStatus === true;
+        const isDetected = ex.detected === true;
+        const statusClass = isUpdated && !isDetected ? 'up' : 'down';
 
-const total = data.length;
-const working = data.filter(e => e.updateStatus === true && e.detected === false).length;
-const avgUnc = data.length > 0 ? Math.round(data.reduce((sum, e) => sum + (e.uncPercentage || 0), 0) / data.length) : 0;
-const recentlyUpdated = data.filter(e => e.updateStatus === true).length;
+        const statusIcon = statusClass === 'up'
+          ? '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"/></svg>'
+          : '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>';
 
-animateNumber(statsTotal, total);
-animateNumber(statsWorking, working);
-animateNumber(statsAvg, avgUnc, '%');
-animateNumber(statsUpdated, recentlyUpdated);
-}
+        const costDisplay = ex.free ? 'Free' : (ex.cost || 'Paid');
+        const uncColor = (ex.uncPercentage || 0) > 80 ? '#10B981' : (ex.uncPercentage || 0) > 50 ? '#F59E0B' : '#EF4444';
+        const statusText = isDetected ? 'Detected' : 'Undetected';
+        const statusColor = isDetected ? '#EF4444' : '#10B981';
 
-function updateWarningBanner(data) {
-if (!warningBanner) return;
+        return `
+          <div class="executor-card">
+            <div class="executor-header">
+              <div>
+                <a href="${ex.websitelink || '#'}" target="_blank" rel="noopener noreferrer" class="executor-name">${ex.title}</a>
+                <div class="executor-version">${ex.version || 'N/A'}</div>
+              </div>
+              <div class="status-indicator ${statusClass}">
+                ${statusIcon}
+              </div>
+            </div>
+            <div class="executor-details">
+              <div class="executor-detail">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="20" x="5" y="2" rx="2" ry="2"/><path d="M12 18h.01"/></svg>
+                <span>${ex.platform || 'N/A'}</span>
+              </div>
+              <div class="executor-detail">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" x2="12" y1="2" y2="22"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                <span>${costDisplay}</span>
+              </div>
+              <div class="executor-detail">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+                <span style="color: ${uncColor}; font-weight: 700;">
+                  ${typeof ex.uncPercentage === 'number' ? ex.uncPercentage + '%' : '0%'} UNC
+                </span>
+              </div>
+              <div class="executor-detail">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"/></svg>
+                <span style="color: ${statusColor}; font-weight: 700;">
+                  ${statusText}
+                </span>
+              </div>
+            </div>
+          </div>
+        `;
+      }).join('');
 
-const allDetected = data.every(e => e.detected === true);
-const warningText = warningBanner.querySelector('.warning-text');
+      grid.innerHTML = `<div class="grid two">${html}</div>`;
+      
+      // Reinitialize Lucide icons
+      setTimeout(() => {
+        lucide.createIcons();
+      }, 100);
+    }
 
-if (allDetected) {
-warningText.textContent = 'All executors are currently detected';
-} else {
-const undetectedCount = data.filter(e => e.detected === false).length;
-warningText.textContent = `${undetectedCount} executor${undetectedCount !== 1 ? 's' : ''} undetected`;
-warningBanner.style.background = 'rgba(16, 185, 129, 0.15)';
-warningBanner.style.borderColor = 'rgba(16, 185, 129, 0.5)';
-warningBanner.style.boxShadow = '0 0 20px rgba(16, 185, 129, 0.4)';
-}
-}
+    // Add particle regeneration
+    function createParticle() {
+      const particle = document.createElement('div');
+      particle.className = `particle particle-${Math.floor(Math.random() * 4) + 1}`;
+      particle.style.left = Math.random() * 100 + '%';
+      particle.style.animationDelay = '0s';
+      
+      const bgAnimation = document.querySelector('.bg-animation');
+      if (bgAnimation) {
+        bgAnimation.appendChild(particle);
+        
+        setTimeout(() => {
+          if (particle.parentNode) {
+            particle.parentNode.removeChild(particle);
+          }
+        }, 35000);
+      }
+    }
 
-function animateNumber(element, target, suffix = '') {
-let current = 0;
-const increment = target / 30;
-const timer = setInterval(() => {
-current += increment;
-if (current >= target) {
-current = target;
-clearInterval(timer);
-}
-element.textContent = Math.floor(current) + suffix;
-}, 50);
-}
+    setInterval(createParticle, 3000);
 
-function renderExecutors(executors) {
-if (executors.length === 0) {
-gridContainer.innerHTML = '<div class="center"><p class="muted reveal in">Could not find specified executors.</p></div>';
-return;
-}
-
-const html = executors.map((ex, index) => {
-const isUpdated = ex.updateStatus === true;
-const isDetected = ex.detected === true;
-const statusClass = isUpdated && !isDetected ? 'up' : 'down';
-
-const arrowIcon = statusClass === 'up'
-? `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path></svg>`
-: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6z"></path></svg>`;
-
-const costDisplay = ex.free ? 'Free' : (ex.cost || 'Paid');
-const uncColor = (ex.uncPercentage || 0) > 80 ? '#10B981' : (ex.uncPercentage || 0) > 50 ? '#F59E0B' : '#EF4444';
-const statusText = isDetected ? 'Detected' : 'Undetected';
-const statusColor = isDetected ? '#EF4444' : '#10B981';
-
-return `
-<div class="executor-card reveal delay-${Math.min(index + 1, 5)}">
-<div class="executor-header">
-<div class="name-container">
-<a href="${ex.websitelink || '#'}" target="_blank" rel="noopener noreferrer" class="executor-name">${ex.title}</a>
-<div class="executor-version">${ex.version || 'N/A'}</div>
-</div>
-<div class="status-indicator ${statusClass}">
-${arrowIcon}
-</div>
-</div>
-<div class="executor-details">
-<div class="executor-detail">
-<strong>${ex.platform || 'N/A'}</strong>
-</div>
-<div class="executor-detail">
-<strong>${costDisplay}</strong>
-</div>
-<div class="executor-detail">
-<strong style="color: ${uncColor};">
-${typeof ex.uncPercentage === 'number' ? ex.uncPercentage + '%' : '0%'} UNC
-</strong>
-</div>
-<div class="executor-detail">
-<strong style="color: ${statusColor};">
-${statusText}
-</strong>
-</div>
-</div>
-</div>
-`;
-}).join('');
-
-gridContainer.innerHTML = `<div class="grid two reveal in">${html}</div>`;
-
-setTimeout(() => {
-document.querySelectorAll('.executor-card.reveal').forEach(el => io.observe(el));
-}, 100);
-}
-
-fetchData();
-setInterval(fetchData, 30000);
-
-setInterval(() => {
-const particles = document.querySelectorAll('.particle');
-particles.forEach((particle, index) => {
-setTimeout(() => {
-particle.style.opacity = Math.random() * 0.8 + 0.2;
-setTimeout(() => {
-particle.style.opacity = '';
-}, 500);
-}, index * 200);
-});
-}, 5000);
-</script>
+    // Initial fetch and periodic updates
+    fetchExecutorData();
+    setInterval(fetchExecutorData, 30000); // Update every 30 seconds
+  </script>
 </body>
 </html>
