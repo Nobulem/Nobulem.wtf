@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>nobulem.wtf – Free Scripts Hub</title>
-  <meta name="description" content="nobulem.wtf – Quality scripts hub. Bold. Fast. Clean.">
+  <title>nobulem.wtf — Free Scripts Hub</title>
+  <meta name="description" content="nobulem.wtf — Quality scripts hub. Bold. Fast. Clean.">
   <link rel="icon" type="image/png" href="https://i.ibb.co/NdNpCJ4v/image-2.png">
   <style>
     /* ---------- Base / Theme ---------- */
@@ -735,22 +735,60 @@
     .showcase-thumbnail {
       width: 100%;
       height: 150px;
-      background: rgba(255,255,255,0.03);
+      position: relative;
+      overflow: hidden;
+      background: #000;
+    }
+
+    .showcase-thumbnail img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.4s ease;
+    }
+
+    .showcase-card:hover .showcase-thumbnail img {
+      transform: scale(1.05);
+    }
+
+    .play-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0,0,0,0.5);
       display: flex;
       align-items: center;
       justify-content: center;
-      color: var(--muted);
-      transition: all 0.4s ease;
+      opacity: 0;
+      transition: all 0.3s ease;
     }
 
-    .showcase-thumbnail svg {
+    .showcase-card:hover .play-overlay {
+      opacity: 1;
+    }
+
+    .play-button {
       width: 48px;
       height: 48px;
-      stroke: var(--muted);
+      background: rgba(255,255,255,0.95);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
     }
 
-    .showcase-card:hover .showcase-thumbnail {
-      background: rgba(255,255,255,0.05);
+    .play-button svg {
+      width: 20px;
+      height: 20px;
+      stroke: #000;
+      margin-left: 2px;
+    }
+
+    .showcase-card:hover .play-button {
+      transform: scale(1.15);
     }
 
     .showcase-content {
@@ -761,6 +799,10 @@
       font-size: 15px;
       font-weight: 700;
       margin-bottom: 6px;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
     }
 
     .showcase-views {
@@ -1069,7 +1111,7 @@
 
   <footer>
     <div class="container">
-      <div style="margin-bottom:8px"><strong>nobulem.wtf</strong> – undetected</div>
+      <div style="margin-bottom:8px"><strong>nobulem.wtf</strong> — undetected</div>
       <div>© <span id="year"></span> nobulem.wtf • All rights reserved</div>
     </div>
   </footer>
@@ -1111,11 +1153,11 @@
     const typingText = document.getElementById('typing-text');
     const baseText = "nobulem.wtf";
     const suffixes = [
-      " – Quality.",
-      " – Secure.",
-      " – Reliable.",
-      " – Free.",
-      " – Fast."
+      " — Quality.",
+      " — Secure.",
+      " — Reliable.",
+      " — Free.",
+      " — Fast."
     ];
     let suffixIndex = 0;
     let charIndex = 0;
@@ -1159,34 +1201,58 @@
     typingText.textContent = baseText;
     setTimeout(type, 1500);
 
+    // Game data from games page
+    const gamesData = [
+      {
+        name: "Bulked Up",
+        description: "Auto kill player, Auto Pickup Gems/Bombs, Achieve all trophies, Autofarm Gems.",
+        image: "https://tr.rbxcdn.com/180DAY-a8d89bbea01c9e153955bd78d872bea0/768/432/Image/Webp/noFilter",
+        id: "6847090259"
+      },
+      {
+        name: "[FPS] Flick",
+        description: "Silent aim, No reload, Hitsounds, Hitlogs",
+        image: "https://tr.rbxcdn.com/180DAY-6520033018c6162771a61aac035963ef/768/432/Image/Webp/noFilter",
+        id: "136801880565837"
+      },
+      {
+        name: "Arcade Basketball",
+        description: "Auto Green, No Shot Miss, Perfect Meter, Auto Dunk, Auto Block",
+        image: "https://tr.rbxcdn.com/180DAY-1753f4a9e79a7988a3dd980e876ce11b/768/432/Image/Webp/noFilter",
+        id: "134558434771720"
+      }
+    ];
+
+    // Showcase data from showcases page
+    const showcasesData = [
+      {
+        title: "Hypershot Script *NO KEY* | Silent Aim | Aimbot | Fly | ESP & More | Mobile & PC | *KILL ALL*",
+        thumbnail: "https://i.ytimg.com/vi/vn7IsmPlnEU/hqdefault.jpg",
+        views: "343 views",
+        url: "https://www.youtube.com/watch?v=vn7IsmPlnEU"
+      },
+      {
+        title: "HYPERSHOT SCRIPT | Silent Aimbot, Kill All, Gun Mods, Hitbox, ESP, OP, No Key | 2025 Roblox",
+        thumbnail: "https://i.ytimg.com/vi/9WePJIO872k/hqdefault.jpg",
+        views: "327 views",
+        url: "https://www.youtube.com/watch?v=9WePJIO872k"
+      },
+      {
+        title: "💥Realm Rampage Script Pastebin **NO KEY** TP-KILL AUTOFARM NEAREST PLAYERS | AIMBOT SKILLS OP UPDATE",
+        thumbnail: "https://i.ytimg.com/vi/GkDl6Qap9kI/hqdefault.jpg",
+        views: "426 views",
+        url: "https://www.youtube.com/watch?v=GkDl6Qap9kI"
+      }
+    ];
+
     // Load latest games
     function loadLatestGames() {
-      const fallbackGames = [
-        {
-          name: "Untitled Boxing Game",
-          description: "Boxing combat enhancements with perfect dodge timing and advanced ESP systems.",
-          image: "https://tr.rbxcdn.com/180DAY-078e71f7babd821f5bb362c460fc0fd9/768/432/Image/Webp/noFilter",
-          id: "13423334817"
-        },
-        {
-          name: "Marvelous Playground", 
-          description: "Advanced combat scripts with kill aura, ESP, and player targeting systems.",
-          image: "https://tr.rbxcdn.com/180DAY-915535b6a2b0ddd4710ec77320027004/768/432/Image/Webp/noFilter",
-          id: "8657766101"
-        },
-        {
-          name: "Project Power",
-          description: "Comprehensive power-up automation with kill systems and ESP overlays.",
-          image: "https://tr.rbxcdn.com/180DAY-a5173e243710a4393e582089e8f4a773/768/432/Image/Webp/noFilter", 
-          id: "34329168147"
-        }
-      ];
-      renderLatestGames(fallbackGames);
+      renderLatestGames(gamesData);
     }
     
-    function renderLatestGames(gamesData) {
+    function renderLatestGames(games) {
       const gamesContainer = document.getElementById('latest-games');
-      const gamesHTML = gamesData.map((game, index) => `
+      const gamesHTML = games.map(game => `
         <div class="game-card" onclick="window.location.href='/games'">
           <img src="${game.image}" alt="${game.name}" class="game-thumbnail">
           <div class="game-content">
@@ -1204,25 +1270,28 @@
 
     // Load popular showcases
     function loadPopularShowcases() {
-      renderEmptyShowcases();
+      renderShowcases(showcasesData);
     }
     
-    function renderEmptyShowcases() {
+    function renderShowcases(showcases) {
       const showcasesContainer = document.getElementById('popular-showcases');
-      showcasesContainer.innerHTML = `
-        <div class="coming-soon">
-          <div class="pulse-text">
-            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="23 7 16 12 23 17 23 7"/><rect width="15" height="14" x="1" y="5" rx="2" ry="2"/></svg>
-            Coming Soon!
+      const showcasesHTML = showcases.map(showcase => `
+        <div class="showcase-card" onclick="window.open('${showcase.url}', '_blank')">
+          <div class="showcase-thumbnail">
+            <img src="${showcase.thumbnail}" alt="${showcase.title}">
+            <div class="play-overlay">
+              <div class="play-button">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+              </div>
+            </div>
           </div>
-          <p class="muted">Awesome showcase videos are on their way.</p>
-          <div class="loader">
-            <div class="loader-dot"></div>
-            <div class="loader-dot"></div>
-            <div class="loader-dot"></div>
+          <div class="showcase-content">
+            <h3 class="showcase-title">${showcase.title}</h3>
+            <p class="showcase-views">${showcase.views}</p>
           </div>
         </div>
-      `;
+      `).join('');
+      showcasesContainer.innerHTML = showcasesHTML;
     }
 
     // Initialize content loading
