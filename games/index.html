@@ -1566,6 +1566,24 @@
       </div>
 
       <div class="games-grid" id="gamesGrid">
+        <div class="game-card" data-game-id="bulked-up" data-status="working" onclick="openGameModal('bulked-up')">
+          <img src="https://tr.rbxcdn.com/180DAY-a8d89bbea01c9e153955bd78d872bea0/768/432/Image/Webp/noFilter" alt="Bulked Up" class="game-thumbnail">
+          <div class="game-content">
+            <h3 class="game-name">Bulked Up</h3>
+            <p class="game-description">Auto kill player, Auto Pickup Gems/Bombs, Achieve all trophies, Autofarm Gems.</p>
+            <div class="game-status">
+              <span class="status-badge status-working">
+                <i data-lucide="circle-check"></i>
+                Working
+              </span>
+              <span class="game-id">
+                <i data-lucide="hash"></i>
+                6847090259
+              </span>
+            </div>
+          </div>
+        </div>
+
         <div class="game-card" data-game-id="fps-flick" data-status="working" onclick="openGameModal('fps-flick')">
           <img src="https://tr.rbxcdn.com/180DAY-6520033018c6162771a61aac035963ef/768/432/Image/Webp/noFilter" alt="[FPS] Flick" class="game-thumbnail">
           <div class="game-content">
@@ -1650,7 +1668,7 @@
               </span>
               <span class="game-id">
                 <i data-lucide="hash"></i>
-                13822562292
+                136801880565837
               </span>
             </div>
           </div>
@@ -1770,11 +1788,17 @@
     document.getElementById('year').textContent = new Date().getFullYear();
 
     const gameData = {
+      'bulked-up': {
+        name: 'Bulked Up',
+        id: '6847090259',
+        status: 'Working',
+        features: ['Auto Kill Selected Player', 'Auto Kill Visualizer', 'Select Player Dropdown', 'Expand Hitbox', 'Reset Hitbox', 'Spectate Target', 'Stop Spectate', 'Noclip Toggle', 'Auto Pickup Gems', 'Auto Pickup Bombs', 'Auto Farm Buildings', 'Auto Farm Noob (Gems)', 'Auto Farm Meteorites', 'Anti-Ragdoll', 'Achieve All Trophies', 'Fly Toggle', 'Fly Speed Slider', 'CFrame Walkspeed Toggle', 'CFrame Speed Slider', 'Copy JobId', 'Copy Join Script', 'Rejoin Server', 'Username Display', 'User ID Display', 'Players Count Display', 'Ping Display', 'Status Display', 'Gems Display', 'Box ESP (2D)', 'Box Fill', '3D Box ESP', 'Chams (Wallhacks)', 'Chams Visible Only', 'Health Bar & Text', 'Name ESP', 'Distance ESP', 'Weapon ESP', 'Tracers', 'Tracer Origin', 'Off-Screen Arrows', 'Arrow Size Slider', 'Arrow Radius Slider', 'Limit ESP Distance', 'ESP Max Distance', 'Text Size Slider', 'Prioritize Player Highlight', 'Whitelist Players', 'Meteor ESP', 'Car ESP', 'NPC ESP', 'Menu Keybind', 'Unload Button', 'Theme Manager', 'Config Manager']
+      },
       'fps-flick': {
         name: '[FPS] Flick',
         id: '136801880565837',
         status: 'Working',
-        features: ['Silent Aim', 'Enable Silent Aim', 'FOV Size Slider', 'FOV Position', 'Visibility Check', 'Visualize FOV Circle', 'Visualize Target Line', 'Prioritize Player', 'Whitelist Players', 'No Reload', 'Hitsounds', 'Hitlogs', 'Speed Boost', 'Spin Bot', 'Third Person Toggle', 'Box ESP (2D)', 'Box Fill', '3D Box ESP', 'Chams (Wallhacks)', 'Health Bar & Text', 'Name ESP', 'Distance ESP', 'Weapon ESP', 'Tracers', 'Off-Screen Arrows', 'ESP Max Distance', 'Ambient Color Modifier', 'Time of Day Modifier', 'Saturation Modifier', 'Brightness Modifier', 'Session Time Display', 'Match Time Display', 'Total Kills Display', 'Copy JobId', 'Rejoin Server', 'Menu Keybind', 'Theme Manager']
+        features: ['Silent Aim', 'Enable Silent Aim', 'FOV Size Slider', 'FOV Position', 'Visibility Check', 'Visualize FOV Circle', 'Visualize Target Line', 'Prioritize Player', 'Whitelist Players', 'No Reload', 'Hitsounds', 'Hitlogs', 'Speed Boost', 'Spin Bot', 'Third Person Toggle', 'Box ESP (2D)', 'Box Fill', '3D Box ESP', 'Chams (Wallhacks)', 'Health Bar & Text', 'Name ESP', 'Distance ESP', 'Weapon ESP', 'Tracers', 'Off-Screen Arrows', 'ESP Max Distance', 'Ambient Color Modifier', 'Time of Day Modifier', 'Saturation Modifier', 'Brightness Modifier', 'Session Time Display', 'Match Time Display', 'Total Kills Display', 'Copy JobId', 'Rejoin Server', 'Menu Keybind', 'Theme Manager', 'Knife bot', 'Targer visualizer', 'Knife range']
       },
       'arcade-basketball': {
         name: 'Arcade Basketball',
@@ -1796,9 +1820,9 @@
       },
       'midnight-chasers-highway-racing': {
         name: 'Midnight Chasers: Highway Racing',
-        id: '13822562292',
+        id: '136801880565837',
         status: 'Working',
-        features: ['Auto farm money', 'Anti-AFK System', 'Mod Detection', 'Fly functionality', 'Rainbow Paint effect', 'Neon Material effect', 'Auto Claim Playtime Rewards', 'Vehicle status display', 'FE Smoke Spam', 'FE Backfire Spam', 'Webhook integration', 'Player ESP features', 'User interface settings', 'Live player stats display', 'Webhook sending of game stats', 'UI toggles and sliders', 'Vehicle speed hack', 'Mobile support']
+        features: ['Auto farm money', 'Anti-AFK System', 'Mod Detection', 'Fly functionality', 'Rainbow Paint effect', 'Neon Material effect', 'Auto Claim Playtime Rewards', 'Vehicle status display', 'FE Smoke Spam', 'FE Backfire Spam', 'Webhook integration', 'Player ESP features', 'User interface settings', 'Live player stats display', 'Webhook sending of game stats', 'UI toggles and sliders', 'Vehicle speed hack', 'Mobile support', 'Auto race tab', 'Auto sit in car', 'Tp to platform', 'Anti ragdoll on crash']
       },
     };
 
