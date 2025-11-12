@@ -1167,16 +1167,16 @@
 
         const parser = new DOMParser();
         const doc = parser.parseFromString(html, 'text/html');
-        const gameCards = doc.querySelectorAll('.game-card');
+        const gameCards = doc.querySelectorAll('game-card');
 
         const games = [];
         gameCards.forEach((card, index) => {
           if (index < 3) {
-            const thumbnail = card.querySelector('.game-thumbnail');
-            const name = card.querySelector('.game-name');
-            const description = card.querySelector('.game-description');
-            const gameId = card.querySelector('.game-id');
-            const statusBadge = card.querySelector('.status-badge');
+            const thumbnail = card.querySelector('game-thumbnail');
+            const name = card.querySelector('data-game-id');
+            const description = card.querySelector('game-description');
+            const gameId = card.querySelector('game-id');
+            const statusBadge = card.querySelector('status-badge');
 
             if (thumbnail && name && description) {
               games.push({
