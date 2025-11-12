@@ -3,41 +3,37 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Nobulem.wtf — Pricing</title>
-  <meta name="description" content="nobulem.wtf — Pricing Page, Pick out wether to continue as Freemium or Buy Premium .">
+  <title>Nobulem.wtf – Pricing</title>
+  <meta name="description" content="nobulem.wtf – Pricing Page. Pick freemium or premium for lifetime access.">
   <link rel="icon" type="image/png" href="https://i.ibb.co/NdNpCJ4v/image-2.png">
   <style>
     /* ---------- Base / Theme ---------- */
     :root{
-      --bg: #000000;
-      --bg-2: #0a0a0a;
-      --card: #111111;
-      --text: #ffffff;
-      --muted: #cccccc;
-      --line: #333333;
-      --accent: #ffffff;
-      --shadow: 0 25px 80px rgba(255,255,255,.08);
-      --radius: 20px;
-      --speed: 500ms;
+      --bg: #0a0a0a;
+      --bg-2: #111111;
+      --card: #151515;
+      --text: #e0e0e0;
+      --muted: #999999;
+      --line: #222222;
+      --accent: #d0d0d0;
+      --shadow: 0 8px 32px rgba(0,0,0,.4);
+      --radius: 24px;
+      --speed: 400ms;
     }
-    *{box-sizing:border-box}
+    *{box-sizing:border-box; margin:0; padding:0;}
     html,body{height:100%}
     html{scroll-behavior:smooth}
     body{
-      margin:0;
-      background: #000000;
+      background: var(--bg);
       color:var(--text);
-      font: 700 15px/1.6 ui-sans-serif, -apple-system, system-ui, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
-      letter-spacing:.2px;
+      font: 600 14px/1.5 ui-sans-serif, -apple-system, system-ui, Segoe UI, Roboto, Helvetica, Arial;
+      letter-spacing:0.3px;
       overflow-x:hidden;
-      cursor: auto;
-      position: relative;
     }
-    h1,h2,h3,h4,strong,b{font-weight:800; margin:0 0 .6rem}
-    p{margin:0 0 1rem; color:var(--muted)}
-    a{color:var(--text); text-decoration:none; font-weight:800; transition: all 0.3s ease;}
-    a:hover{transform: translateY(-2px);}
-    .container{width:min(1150px, 92vw); margin-inline:auto}
+    h1,h2,h3,h4{font-weight:700; margin:0 0 .5rem}
+    p{margin:0 0 .8rem; color:var(--muted); font-size:14px;}
+    a{color:var(--text); text-decoration:none; font-weight:700; transition: all 0.3s ease;}
+    .container{width:min(1100px, 90vw); margin-inline:auto}
 
     /* ---------- Animated Background ---------- */
     .bg-animation {
@@ -49,78 +45,77 @@
       z-index: 0;
       pointer-events: none;
       overflow: hidden;
+      opacity: 0.6;
     }
 
-    /* Floating Particles */
     .particle {
       position: absolute;
-      background: rgba(255,255,255,0.4);
+      background: rgba(200,200,200,0.15);
       border-radius: 50%;
       pointer-events: none;
     }
 
     .particle-1 {
-      width: 4px;
-      height: 4px;
+      width: 3px;
+      height: 3px;
       animation: float-1 20s linear infinite;
     }
 
     .particle-2 {
-      width: 6px;
-      height: 6px;
+      width: 4px;
+      height: 4px;
       animation: float-2 25s linear infinite;
     }
 
     .particle-3 {
-      width: 3px;
-      height: 3px;
+      width: 2px;
+      height: 2px;
       animation: float-3 15s linear infinite;
     }
 
     .particle-4 {
-      width: 8px;
-      height: 8px;
+      width: 5px;
+      height: 5px;
       animation: float-4 30s linear infinite;
     }
 
     @keyframes float-1 {
       0% { transform: translateY(100vh) translateX(0) rotate(0deg); opacity: 0; }
-      10% { opacity: 1; }
-      90% { opacity: 1; }
+      10% { opacity: 0.4; }
+      90% { opacity: 0.4; }
       100% { transform: translateY(-100px) translateX(100px) rotate(360deg); opacity: 0; }
     }
 
     @keyframes float-2 {
       0% { transform: translateY(100vh) translateX(0) rotate(0deg); opacity: 0; }
-      10% { opacity: 0.8; }
-      90% { opacity: 0.8; }
+      10% { opacity: 0.3; }
+      90% { opacity: 0.3; }
       100% { transform: translateY(-100px) translateX(-50px) rotate(-360deg); opacity: 0; }
     }
 
     @keyframes float-3 {
       0% { transform: translateY(100vh) translateX(0) rotate(0deg); opacity: 0; }
-      10% { opacity: 1; }
-      90% { opacity: 1; }
+      10% { opacity: 0.5; }
+      90% { opacity: 0.5; }
       100% { transform: translateY(-100px) translateX(200px) rotate(720deg); opacity: 0; }
     }
 
     @keyframes float-4 {
       0% { transform: translateY(100vh) translateX(0) rotate(0deg); opacity: 0; }
-      10% { opacity: 0.6; }
-      90% { opacity: 0.6; }
+      10% { opacity: 0.2; }
+      90% { opacity: 0.2; }
       100% { transform: translateY(-100px) translateX(-100px) rotate(-720deg); opacity: 0; }
     }
 
-    /* Animated Waves */
     .wave {
       position: absolute;
       width: 200%;
       height: 200%;
       background: linear-gradient(45deg, 
         transparent 0%, 
-        rgba(255,255,255,0.02) 25%, 
+        rgba(255,255,255,0.01) 25%, 
         transparent 50%, 
-        rgba(255,255,255,0.02) 75%, 
+        rgba(255,255,255,0.01) 75%, 
         transparent 100%);
     }
 
@@ -136,12 +131,6 @@
       animation: wave-motion-2 25s linear infinite reverse;
     }
 
-    .wave-3 {
-      bottom: -50%;
-      left: -50%;
-      animation: wave-motion-3 30s linear infinite;
-    }
-
     @keyframes wave-motion-1 {
       0% { transform: rotate(0deg) scale(1); }
       100% { transform: rotate(360deg) scale(1.1); }
@@ -152,557 +141,561 @@
       100% { transform: rotate(-360deg) scale(0.95); }
     }
 
-    @keyframes wave-motion-3 {
-      0% { transform: rotate(45deg) scale(1.02); }
-      100% { transform: rotate(405deg) scale(1.08); }
-    }
-
-    /* Geometric Floating Shapes */
-    .shape {
-      position: absolute;
-      border: 1px solid rgba(255,255,255,0.1);
-      pointer-events: none;
-    }
-
-    .shape-1 {
-      width: 100px;
-      height: 100px;
-      top: 20%;
-      left: 10%;
-      animation: geometric-float-1 15s ease-in-out infinite;
-    }
-
-    .shape-2 {
-      width: 60px;
-      height: 60px;
-      top: 60%;
-      right: 15%;
-      animation: geometric-float-2 12s ease-in-out infinite;
-      border-radius: 50%;
-    }
-
-    .shape-3 {
-      width: 80px;
-      height: 80px;
-      bottom: 30%;
-      left: 20%;
-      animation: geometric-float-3 18s ease-in-out infinite;
-      transform: rotate(45deg);
-    }
-
-    @keyframes geometric-float-1 {
-      0%, 100% { transform: translateY(0) rotate(0deg); }
-      25% { transform: translateY(-30px) rotate(90deg); }
-      50% { transform: translateY(-10px) rotate(180deg); }
-      75% { transform: translateY(-40px) rotate(270deg); }
-    }
-
-    @keyframes geometric-float-2 {
-      0%, 100% { transform: scale(1) translateX(0); }
-      33% { transform: scale(1.2) translateX(20px); }
-      66% { transform: scale(0.8) translateX(-15px); }
-    }
-
-    @keyframes geometric-float-3 {
-      0%, 100% { transform: rotate(45deg) translateY(0); }
-      50% { transform: rotate(225deg) translateY(-25px); }
-    }
-
     /* ---------- Navigation ---------- */
     .nav{
-      position:sticky; top:0; z-index:50;
-      backdrop-filter:saturate(140%) blur(15px);
-      background: rgba(0,0,0,0.9);
+      position:sticky; 
+      top:0; 
+      z-index:50;
+      backdrop-filter:blur(20px);
+      background: rgba(10,10,10,0.85);
       border-bottom:1px solid var(--line);
-      animation: slide-down 0.8s ease;
     }
-    .nav .row{display:flex; align-items:center; gap:16px; padding:16px 0}
+    
+    .nav .row{
+      display:flex; 
+      align-items:center; 
+      gap:24px; 
+      padding:12px 0;
+      height: 60px;
+    }
+    
     .brand{
-      display:flex; align-items:center; gap:12px; font-size:24px; letter-spacing:.3px;
-      animation: brand-glow 3s ease-in-out infinite;
+      display:flex; 
+      align-items:center; 
+      gap:0; 
+      font-size:16px;
+      font-weight:700;
+      cursor:pointer;
+      position:relative;
+      overflow:hidden;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     }
-    .brand .dot{
-      width:12px; height:12px; border-radius:999px; background:#fff; 
-      box-shadow:0 0 20px #fff, 0 0 40px #fff;
-      animation: pulse-dot 2s ease-in-out infinite;
+    
+    .brand-icon {
+      width: 32px;
+      height: 32px;
+      object-fit: contain;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      flex-shrink: 0;
     }
-    .links{margin-left:auto; display:flex; gap:20px; flex-wrap:wrap}
+    
+    .brand-text {
+      max-width: 0;
+      opacity: 0;
+      overflow: hidden;
+      white-space: nowrap;
+      margin-left: 0;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    .brand:hover .brand-text {
+      max-width: 150px;
+      opacity: 1;
+      margin-left: 12px;
+    }
+    
+    .brand:hover .brand-icon {
+      transform: rotate(360deg) scale(1.1);
+    }
+    
+    .links{
+      margin-left:auto; 
+      display:flex; 
+      gap:20px; 
+      align-items:center;
+    }
+    
     .links a{
-      opacity:.9; 
+      opacity:.7; 
       transition: all 0.3s ease;
-      position: relative;
-      padding: 8px 0;
+      padding: 8px 16px;
+      border-radius: 12px;
+      font-size: 13px;
     }
-    .links a::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 0;
-      height: 2px;
-      background: #fff;
-      transition: width 0.3s ease;
-    }
+    
     .links a:hover {
       opacity:1; 
-      transform:translateY(-2px);
+      background: rgba(255,255,255,0.05);
+      transform: translateY(-1px);
     }
-    .links a:hover::after {
-      width: 100%;
+    
+    .links a[style*="color: #fff"],
+    .links a[style*="opacity: 1"] {
+      opacity: 1;
+      background: rgba(255,255,255,0.08);
     }
 
-    /* ---------- Hero Section ---------- */
-    .hero {
-      position: relative;
-      z-index: 20;
-      padding: 100px 0 60px;
+    .links a.discord-nav {
+      color: #5865F2 !important;
+      opacity: 1;
+      font-weight: 700;
+      margin-left: auto;
+    }
+
+    .links a.discord-nav:hover {
+      background: rgba(88,101,242,0.15);
+    }
+
+    /* Mobile Menu */
+    .mobile-menu-toggle {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 8px;
+      margin-left: auto;
+    }
+
+    .mobile-menu-toggle span {
+      width: 24px;
+      height: 2px;
+      background: var(--text);
+      transition: all 0.3s ease;
+    }
+
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      top: 61px;
+      left: 0;
+      right: 0;
+      background: rgba(10,10,10,0.98);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--line);
+      padding: 20px;
+      z-index: 49;
+      animation: slideDown 0.3s ease;
+    }
+
+    .mobile-menu.active {
+      display: block;
+    }
+
+    .mobile-menu a {
+      display: block;
+      padding: 14px 20px;
+      margin-bottom: 8px;
+      border-radius: 12px;
+      background: var(--card);
+      border: 1px solid var(--line);
+      transition: all 0.3s ease;
       text-align: center;
     }
 
-    .eyebrow {
-      color: var(--eyebrowColor, #ffffff) !important;
-      text-transform: uppercase;
-      font-size: 14px;
-      letter-spacing: .3em;
-      animation: fade-in-up 1s ease 0.2s both;
-      text-shadow: 1px 1px 2px rgba(0,0,0,0.5) !important;
+    .mobile-menu a:hover {
+      background: rgba(255,255,255,0.08);
+      transform: translateX(4px);
     }
 
-    .title {
-      font-size: clamp(48px, 8vw, 90px);
-      line-height: 1.02;
-      margin: .8rem 0 1rem;
-      animation: title-entrance 1.5s ease 0.4s both;
-      background: linear-gradient(45deg, #fff, #e0e0e0, #fff);
-      background-size: 200% 200%;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      animation: gradient-text 3s ease infinite, title-entrance 1.5s ease 0.4s both;
+    .mobile-menu a.discord-nav {
+      background: #5865F2;
+      border-color: #5865F2;
+      color: #ffffff;
     }
 
-    .subtitle {
-      font-size: clamp(18px, 2.5vw, 24px);
-      color: var(--subtitleColor, #cccccc) !important;
-      animation: fade-in-up 1s ease 0.8s both;
-      text-shadow: 1px 1px 2px rgba(0,0,0,0.5) !important;
+    @keyframes slideDown {
+      from {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
-    /* ---------- Pricing Cards ---------- */
-    .pricing-section {
-      position: relative;
-      z-index: 20;
-      padding: 80px 0;
+    /* ---------- Hero ---------- */
+    .hero{
+      position:relative; 
+      z-index:20; 
+      padding:80px 0 60px; 
+      text-align:center;
+    }
+    
+    .eyebrow{
+      color: var(--muted); 
+      text-transform:uppercase; 
+      font-size:11px; 
+      letter-spacing:.2em;
+      margin-bottom:16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .eyebrow-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .eyebrow-item svg {
+      width: 14px;
+      height: 14px;
+      stroke: var(--muted);
+    }
+    
+    .title{
+      font-size: clamp(32px, 6vw, 56px); 
+      line-height:1.1; 
+      margin:.6rem 0 .8rem;
+      text-align: center;
+    }
+    
+    .subtitle{
+      font-size: 13px; 
+      color:var(--muted);
+      max-width: 600px;
+      margin: 0 auto 32px;
+    }
+
+    /* ---------- Pricing Section ---------- */
+    section{
+      position:relative; 
+      z-index:20; 
+      padding:60px 0; 
     }
 
     .pricing-grid {
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 40px;
-      max-width: 800px;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 24px;
+      max-width: 900px;
       margin: 0 auto;
     }
 
     .plan {
-      background: var(--cardBg, linear-gradient(145deg, #1a1a1a, #0d0d0d)) !important;
-      border: 1px solid var(--borderColor, #333333) !important;
+      background: var(--card);
+      border: 1px solid var(--line);
       border-radius: var(--radius);
-      padding: 40px 35px;
-      box-shadow: var(--shadow);
-      transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-      animation: plan-entrance 0.8s ease both;
+      padding: 32px;
+      transition: all 0.3s ease;
       position: relative;
-      overflow: hidden;
-      color: var(--text, #ffffff) !important;
     }
 
     .plan::before {
       content: '';
       position: absolute;
-      top: -2px;
-      left: -2px;
-      right: -2px;
-      bottom: -2px;
-      background: linear-gradient(45deg, 
-        transparent 0%, 
-        rgba(255,255,255,0.1) 25%, 
-        transparent 50%, 
-        rgba(255,255,255,0.1) 75%, 
-        transparent 100%);
-      border-radius: var(--radius);
-      z-index: -1;
-      opacity: 0;
-      transition: opacity 0.4s ease;
-    }
-
-    .plan::after {
-      content: '';
-      position: absolute;
       top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
-      transition: left 0.6s ease;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      border-radius: var(--radius);
+      padding: 1px;
+      background: linear-gradient(135deg, rgba(255,255,255,0.1), transparent);
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      opacity: 0;
+      transition: opacity 0.3s ease;
     }
 
     .plan:hover::before {
       opacity: 1;
     }
 
-    .plan:hover::after {
-      left: 100%;
-    }
-
     .plan:hover {
-      transform: translateY(-15px) scale(1.03);
-      box-shadow: 0 50px 150px rgba(255,255,255,0.25), 0 0 100px rgba(255,255,255,0.1);
-      border-color: rgba(255,255,255,0.4);
+      transform: translateY(-4px);
+      box-shadow: 0 12px 32px rgba(0,0,0,0.3);
+      border-color: rgba(255,255,255,0.15);
     }
 
     .plan.premium {
       border-color: #4ade80;
-      background: var(--cardBg, linear-gradient(145deg, #1a2a1a, #0d1a0d));
     }
 
     .plan.premium::before {
-      background: linear-gradient(45deg, 
-        transparent 0%, 
-        rgba(74,222,128,0.2) 25%, 
-        transparent 50%, 
-        rgba(74,222,128,0.2) 75%, 
-        transparent 100%);
+      background: linear-gradient(135deg, rgba(74,222,128,0.3), transparent);
     }
 
     .plan-header {
       text-align: center;
-      margin-bottom: 30px;
+      margin-bottom: 24px;
+      padding-bottom: 24px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .plan-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 16px;
+    }
+
+    .plan-icon svg {
+      width: 48px;
+      height: 48px;
+      stroke: var(--text);
+      stroke-width: 1.5;
+    }
+
+    .plan.premium .plan-icon svg {
+      stroke: #4ade80;
     }
 
     .plan-name {
-      font-size: 28px;
-      font-weight: 800;
-      margin-bottom: 10px;
-      animation: text-glow 3s ease-in-out infinite;
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 8px;
     }
 
     .plan-price {
-      font-size: 56px;
-      font-weight: 800;
-      margin-bottom: 8px;
-      background: linear-gradient(45deg, #fff, #e0e0e0);
-      background-size: 200% 200%;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      animation: gradient-text-price 3s ease infinite;
+      font-size: 48px;
+      font-weight: 700;
+      margin-bottom: 4px;
     }
 
     .plan.premium .plan-price {
-      background: linear-gradient(45deg, #4ade80, #22c55e);
-      background-size: 200% 200%;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      animation: gradient-text-premium 3s ease infinite;
+      color: #4ade80;
     }
 
     .plan-duration {
+      font-size: 12px;
       color: var(--muted);
-      font-size: 16px;
-      margin-bottom: 20px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
     }
 
     .plan-description {
+      font-size: 13px;
       color: var(--muted);
-      font-size: 16px;
       text-align: center;
-      margin-bottom: 30px;
+      margin-bottom: 24px;
       line-height: 1.5;
     }
 
     .plan-features {
       list-style: none;
       padding: 0;
-      margin: 0 0 35px;
+      margin: 0 0 24px;
     }
 
     .plan-features li {
       display: flex;
       align-items: flex-start;
       gap: 12px;
-      padding: 12px 0;
-      border-bottom: 1px dashed #333;
-      animation: feature-slide 0.6s ease both;
-      position: relative;
+      padding: 10px 0;
+      font-size: 13px;
+      line-height: 1.5;
     }
 
-    .plan-features li:nth-child(1) { animation-delay: 0.1s; }
-    .plan-features li:nth-child(2) { animation-delay: 0.2s; }
-    .plan-features li:nth-child(3) { animation-delay: 0.3s; }
-    .plan-features li:nth-child(4) { animation-delay: 0.4s; }
-    .plan-features li:nth-child(5) { animation-delay: 0.5s; }
-    .plan-features li:nth-child(6) { animation-delay: 0.6s; }
-    .plan-features li:nth-child(7) { animation-delay: 0.7s; }
-
-    .plan-features li:last-child {
-      border-bottom: none;
+    .plan-features li svg {
+      width: 18px;
+      height: 18px;
+      stroke: #4ade80;
+      stroke-width: 2;
+      flex-shrink: 0;
+      margin-top: 2px;
     }
 
-    .feature-icon {
-      color: #4ade80;
-      font-size: 18px;
-      animation: icon-pulse 2s ease-in-out infinite;
-    }
-
-    .feature-text {
-      flex: 1;
-      line-height: 1.4;
-    }
-
-    .plan-button {
+    .btn {
       display: block;
       width: 100%;
-      padding: 16px 24px;
-      background: var(--buttonBg, #ffffff) !important;
-      color: var(--buttonText, #000000) !important;
-      border: none;
-      border-radius: 15px;
-      font-size: 16px;
-      font-weight: 800;
+      padding: 14px 24px;
+      background: var(--text);
+      color: var(--bg);
+      border: 1px solid var(--text);
+      border-radius: 16px;
+      font-size: 13px;
+      font-weight: 700;
       text-align: center;
-      text-decoration: none;
-      transition: all 0.4s ease;
+      transition: all 0.3s ease;
+      cursor: pointer;
       position: relative;
       overflow: hidden;
-      cursor: pointer;
-      box-shadow: 0 8px 25px rgba(255,255,255,0.2);
-      text-shadow: none !important;
     }
 
-    .plan.premium .plan-button {
-      background: #4ade80 !important;
-      color: #ffffff !important;
-      box-shadow: 0 8px 25px rgba(74,222,128,0.3);
-      text-shadow: 0 0 10px rgba(255,255,255,0.8) !important;
-    }
-
-    .plan-button::before {
+    .btn::before {
       content: '';
       position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(0,0,0,0.1), transparent);
-      transition: left 0.6s ease;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 0;
+      border-radius: 50%;
+      background: rgba(0,0,0,0.1);
+      transform: translate(-50%, -50%);
+      transition: width 0.5s ease, height 0.5s ease;
     }
 
-    .plan-button:hover::before {
-      left: 100%;
+    .btn:hover::before {
+      width: 300px;
+      height: 300px;
     }
 
-    .plan-button:hover {
-      transform: translateY(-3px) scale(1.02);
-      box-shadow: 0 15px 50px rgba(255,255,255,0.4);
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(255,255,255,0.1);
     }
 
-    .plan.premium .plan-button:hover {
-      box-shadow: 0 15px 50px rgba(74,222,128,0.5);
+    .btn.premium {
+      background: #4ade80;
+      border-color: #4ade80;
+      color: #ffffff;
+    }
+
+    .btn.premium:hover {
+      background: #22c55e;
+      border-color: #22c55e;
     }
 
     /* ---------- Discord CTA ---------- */
     .discord-cta {
-      margin-top: 60px;
+      margin-top: 48px;
       text-align: center;
-      padding: 40px;
-      background: var(--cardBg);
-      border: 1px solid #5865f2;
+      padding: 40px 32px;
+      background: var(--card);
+      border: 1px solid #5865F2;
       border-radius: var(--radius);
-      animation: discord-entrance 1s ease 1.4s both;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+      transition: all 0.3s ease;
+    }
+
+    .discord-cta:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 32px rgba(88,101,242,0.2);
+      border-color: rgba(88,101,242,0.6);
     }
 
     .discord-icon {
-      font-size: 48px;
-      margin-bottom: 20px;
-      animation: discord-pulse 2s ease-in-out infinite;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 16px;
+    }
+
+    .discord-icon svg {
+      width: 56px;
+      height: 56px;
+      stroke: #5865F2;
+      stroke-width: 1.5;
     }
 
     .discord-title {
-      font-size: 28px;
-      font-weight: 800;
-      margin-bottom: 15px;
-      color: #5865f2;
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 12px;
+      color: #5865F2;
     }
 
     .discord-text {
-      font-size: 18px;
+      font-size: 14px;
       color: var(--muted);
-      margin-bottom: 25px;
-      line-height: 1.5;
+      margin-bottom: 24px;
+      line-height: 1.6;
     }
 
     .discord-button {
       display: inline-flex;
       align-items: center;
-      gap: 12px;
-      padding: 16px 32px;
-      background: #5865f2;
-      color: #fff;
-      border: none;
-      border-radius: 15px;
-      font-size: 16px;
-      font-weight: 800;
-      text-decoration: none;
+      justify-content: center;
+      gap: 10px;
+      padding: 14px 32px;
+      background: #5865F2;
+      color: #ffffff;
+      border: 1px solid #5865F2;
+      border-radius: 16px;
+      font-size: 13px;
+      font-weight: 700;
       transition: all 0.3s ease;
-      box-shadow: 0 8px 25px rgba(88,101,242,0.3);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .discord-button svg {
+      width: 20px;
+      height: 20px;
+      stroke: #ffffff;
+      stroke-width: 2;
+    }
+
+    .discord-button::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 0;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.1);
+      transform: translate(-50%, -50%);
+      transition: width 0.5s ease, height 0.5s ease;
+    }
+
+    .discord-button:hover::before {
+      width: 300px;
+      height: 300px;
     }
 
     .discord-button:hover {
-      transform: translateY(-3px) scale(1.05);
-      background: #4752c4;
-      box-shadow: 0 15px 50px rgba(88,101,242,0.5);
+      transform: translateY(-2px);
+      background: #4752C4;
+      border-color: #4752C4;
+      box-shadow: 0 8px 24px rgba(88,101,242,0.3);
     }
 
-    .payment-methods-text {
+    .payment-methods {
       margin-top: 20px;
-      font-size: 14px;
-      color: var(--subtitleColor, #cccccc) !important;
-      text-align: center;
-      opacity: 0.7;
-      animation: fade-in-up 1s ease 1.6s both;
-      text-shadow: 1px 1px 2px rgba(0,0,0,0.5) !important;
+      font-size: 12px;
+      color: var(--muted);
     }
 
     /* ---------- Footer ---------- */
-    footer {
-      border-top: 1px solid var(--line);
-      padding: 30px 0 70px;
-      color: var(--muted);
-      text-align: center;
-      position: relative;
-      z-index: 20;
-      animation: footer-entrance 1s ease both;
-    }
-    
-    footer strong {
-      color: var(--text) !important;
-      text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+    footer{
+      border-top:1px solid var(--line); 
+      padding:24px 0 40px; 
+      color:var(--muted); 
+      text-align:center;
+      font-size: 12px;
     }
 
-    /* ---------- Animation Keyframes ---------- */
-    @keyframes slide-down {
-      from { transform: translateY(-100%); }
-      to { transform: translateY(0); }
-    }
-
-    @keyframes brand-glow {
-      0%, 100% { text-shadow: 0 0 10px rgba(255,255,255,0.3); }
-      50% { text-shadow: 0 0 20px rgba(255,255,255,0.6), 0 0 30px rgba(255,255,255,0.4); }
-    }
-
-    @keyframes pulse-dot {
-      0%, 100% { transform: scale(1); box-shadow: 0 0 20px #fff, 0 0 40px #fff; }
-      50% { transform: scale(1.2); box-shadow: 0 0 30px #fff, 0 0 60px #fff, 0 0 80px #fff; }
-    }
-
-    @keyframes fade-in-up {
-      from { opacity: 0; transform: translateY(30px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    @keyframes title-entrance {
-      from { opacity: 0; transform: translateY(50px) scale(0.9); }
-      to { opacity: 1; transform: translateY(0) scale(1); }
-    }
-
-    @keyframes gradient-text {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
-    }
-
-    @keyframes plan-entrance {
-      from { opacity: 0; transform: translateY(50px) rotateX(15deg); }
-      to { opacity: 1; transform: translateY(0) rotateX(0deg); }
-    }
-
-    @keyframes text-glow {
-      0%, 100% { text-shadow: 0 0 10px rgba(255,255,255,0.3); }
-      50% { text-shadow: 0 0 20px rgba(255,255,255,0.6); }
-    }
-
-    @keyframes gradient-text-price {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
-    }
-
-    @keyframes gradient-text-premium {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
-    }
-
-    @keyframes feature-slide {
-      from { opacity: 0; transform: translateX(-20px); }
-      to { opacity: 1; transform: translateX(0); }
-    }
-
-    @keyframes icon-pulse {
-      0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.1); }
-    }
-
-    @keyframes discord-entrance {
-      from { opacity: 0; transform: translateY(40px) scale(0.95); }
-      to { opacity: 1; transform: translateY(0) scale(1); }
-    }
-
-    @keyframes discord-pulse {
-      0%, 100% { transform: scale(1); color: #5865f2; }
-      50% { transform: scale(1.1); color: #4752c4; }
-    }
-
-    @keyframes footer-entrance {
-      from { opacity: 0; transform: translateY(30px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    /* ---------- Scroll Reveal ---------- */
-    .reveal{
-      opacity:0; transform:translateY(20px); 
-      transition:opacity var(--speed) ease, transform var(--speed) ease;
-    }
-    .reveal.in{opacity:1; transform:translateY(0)}
-
-    /* ---------- Animation Delays ---------- */
-    .delay-1 { animation-delay: 0.2s; }
-    .delay-2 { animation-delay: 0.4s; }
-
-    /* Fix active nav link visibility */
-    .links a[style*="color: #fff"],
-    .links a[style*="opacity: 1"] {
-      color: var(--navActive) !important;
-      text-shadow: 1px 1px 2px rgba(0,0,0,0.3) !important;
-      font-weight: 900;
-    }
-
-    /* ---------- Responsive ---------- */
+    /* ---------- Mobile Responsive ---------- */
     @media (max-width: 980px){
       .links{display:none}
-      .pricing-grid{
-        grid-template-columns: 1fr;
-        gap: 30px;
+      .mobile-menu-toggle{display:flex}
+      
+      .hero {
+        padding: 60px 0 40px;
       }
-    }
-    
-    @media (max-width: 768px) {
-      .particle { display: none; }
-      .wave { animation-duration: 40s; }
+      
+      section {
+        padding: 40px 0;
+      }
+
       .pricing-grid {
         grid-template-columns: 1fr;
         gap: 20px;
       }
+    }
+
+    @media (max-width: 768px) {
+      .title {
+        font-size: 28px;
+      }
+
+      .hero {
+        padding: 40px 0 30px;
+      }
+
+      .subtitle {
+        font-size: 12px;
+        padding: 0 10px;
+      }
+
       .plan {
-        margin: 0 10px;
+        padding: 24px;
+      }
+
+      .plan-price {
+        font-size: 40px;
+      }
+
+      .discord-cta {
+        padding: 32px 24px;
       }
     }
   </style>
@@ -720,173 +713,213 @@
     <div class="particle particle-3" style="left: 70%; animation-delay: 12s;"></div>
     <div class="particle particle-1" style="left: 80%; animation-delay: 14s;"></div>
     <div class="particle particle-4" style="left: 90%; animation-delay: 16s;"></div>
-    <div class="particle particle-2" style="left: 15%; animation-delay: 18s;"></div>
-    <div class="particle particle-3" style="left: 25%; animation-delay: 20s;"></div>
-    <div class="particle particle-1" style="left: 35%; animation-delay: 22s;"></div>
-    <div class="particle particle-4" style="left: 45%; animation-delay: 24s;"></div>
-    <div class="particle particle-2" style="left: 55%; animation-delay: 26s;"></div>
-    <div class="particle particle-3" style="left: 65%; animation-delay: 28s;"></div>
-    <div class="particle particle-1" style="left: 75%; animation-delay: 30s;"></div>
-    <div class="particle particle-4" style="left: 85%; animation-delay: 32s;"></div>
-    <div class="particle particle-2" style="left: 95%; animation-delay: 34s;"></div>
 
     <!-- Animated Waves -->
     <div class="wave wave-1"></div>
     <div class="wave wave-2"></div>
-    <div class="wave wave-3"></div>
-
-    <!-- Floating Geometric Shapes -->
-    <div class="shape shape-1"></div>
-    <div class="shape shape-2"></div>
-    <div class="shape shape-3"></div>
   </div>
 
   <nav class="nav">
     <div class="container row">
       <div class="brand">
-        <span class="dot"></span>
-        <a href="/" aria-label="nobulem.wtf">nobulem.wtf</a>
+        <img src="https://i.ibb.co/9HfPQdpj/output-onlinepngtools-2.png" alt="Nobulem" class="brand-icon">
+        <span class="brand-text">nobulem.wtf</span>
       </div>
+
       <div class="links">
         <a href="/">Home</a>
         <a href="/executors">Executors</a>
-        <a href="https://discord.gg/ExH98C3uFH" target="_blank">Discord</a>
         <a href="/games">Games & Scripts</a>
         <a href="/showcases">Showcases</a>
-        <a href="/pricing" style="color: #fff; opacity: 1;">Pricing</a>
+        <a href="/pricing" style="opacity: 1;">Pricing</a>
         <a href="/developers">Developers</a>
         <a href="/tos">Terms</a>
+        <a href="https://discord.gg/ExH98C3uFH" target="_blank" class="discord-nav">Discord</a>
+      </div>
+
+      <div class="mobile-menu-toggle" onclick="toggleMobileMenu()">
+        <span></span>
+        <span></span>
+        <span></span>
       </div>
     </div>
   </nav>
 
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="/">Home</a>
+    <a href="/executors">Executors</a>
+    <a href="/games">Games & Scripts</a>
+    <a href="/showcases">Showcases</a>
+    <a href="/pricing">Pricing</a>
+    <a href="/developers">Developers</a>
+    <a href="/tos">Terms</a>
+    <a href="https://discord.gg/ExH98C3uFH" target="_blank" class="discord-nav">Discord</a>
+  </div>
+
   <header class="hero container">
-    <div class="eyebrow reveal">choose your plan • Premium access • Premium features</div>
-    <h1 class="title reveal">Pricing</h1>
-    <p class="subtitle reveal">Choose the perfect plan for your needs. Start freemium or go premium for Lifetime key access.</p>
+    <div class="eyebrow">
+      <span class="eyebrow-item">
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+        lifetime access
+      </span>
+      <span class="eyebrow-item">
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"/></svg>
+        premium features
+      </span>
+      <span class="eyebrow-item">
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        priority support
+      </span>
+    </div>
+    <h1 class="title">Pricing</h1>
+    <p class="subtitle">Choose the perfect plan for your needs. Start freemium or go premium for lifetime access.</p>
   </header>
 
   <section class="pricing-section">
     <div class="container">
       <div class="pricing-grid">
         <!-- Free Plan -->
-        <div class="plan reveal delay-1">
+        <div class="plan">
           <div class="plan-header">
+            <div class="plan-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            </div>
             <h3 class="plan-name">Freemium</h3>
             <div class="plan-price">$0</div>
             <div class="plan-duration">Forever Free</div>
-            <p class="plan-description">Normal basic script access</p>
           </div>
+          
+          <p class="plan-description">Get started with basic script access and community support.</p>
           
           <ul class="plan-features">
             <li>
-              <span class="feature-icon">✅</span>
-              <span class="feature-text">Basic scripts access</span>
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              <span>Basic scripts access</span>
             </li>
             <li>
-              <span class="feature-icon">🔑</span>
-              <span class="feature-text">Two checkpoints (key) every 12 hours</span>
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              <span>Two checkpoints every 12 hours</span>
             </li>
             <li>
-              <span class="feature-icon">💬</span>
-              <span class="feature-text">Community support</span>
-               </li>
-            <li>
-              <span class="feature-icon">📢</span>
-              <span class="feature-text">Custom script requests</span>
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              <span>Community support</span>
             </li>
             <li>
-              <span class="feature-icon">📱</span>
-              <span class="feature-text">Standard updates</span>
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              <span>Custom script requests</span>
+            </li>
+            <li>
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              <span>Standard updates</span>
             </li>
           </ul>
           
-          <a href="/games" class="plan-button">Use For Free</a>
+          <a href="/games" class="btn">Use For Free</a>
         </div>
 
         <!-- Premium Plan -->
-        <div class="plan premium reveal delay-2">
+        <div class="plan premium">
           <div class="plan-header">
+            <div class="plan-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15.477 12.89 1.515 8.526a.5.5 0 0 1-.81.47l-3.58-2.687a1 1 0 0 0-1.197 0l-3.586 2.686a.5.5 0 0 1-.81-.469l1.514-8.526"/><circle cx="12" cy="8" r="6"/></svg>
+            </div>
             <h3 class="plan-name">Premium</h3>
             <div class="plan-price">$5</div>
             <div class="plan-duration">Lifetime Access</div>
-            <p class="plan-description">Unlock all premium features with lifetime access</p>
           </div>
+          
+          <p class="plan-description">Unlock all premium features with lifetime access and priority support.</p>
           
           <ul class="plan-features">
             <li>
-              <span class="feature-icon">✅</span>
-              <span class="feature-text">All scripts unlocked</span>
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              <span>All scripts unlocked</span>
             </li>
             <li>
-              <span class="feature-icon">🔓</span>
-              <span class="feature-text">NO Checkpoints (lifetime key)</span>
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              <span>NO checkpoints (lifetime key)</span>
             </li>
             <li>
-              <span class="feature-icon">🚀</span>
-              <span class="feature-text">Priority support</span>
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              <span>Priority support</span>
             </li>
             <li>
-              <span class="feature-icon">🎯</span>
-              <span class="feature-text">Early access to new scripts</span>
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              <span>Early access to new scripts</span>
             </li>
             <li>
-              <span class="feature-icon">⭐</span>
-              <span class="feature-text">Favored Custom script requests</span>
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              <span>Favored custom script requests</span>
             </li>
             <li>
-              <span class="feature-icon">🔑</span>
-              <span class="feature-text">Lifetime access</span>
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              <span>Lifetime access guarantee</span>
             </li>
           </ul>
           
-          <a href="#discord-cta" class="plan-button" onclick="scrollToDiscord(event)">Get Premium</a>
+          <a href="#discord-cta" class="btn premium" onclick="scrollToDiscord(event)">Get Premium</a>
         </div>
       </div>
 
       <!-- Discord CTA -->
-      <div class="discord-cta reveal" id="discord-cta">
-        <div class="discord-icon">🎮</div>
-        <h3 class="discord-title">Want to get Premium?</h3>
+      <div class="discord-cta" id="discord-cta">
+        <div class="discord-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        </div>
+        <h3 class="discord-title">Ready to Get Premium?</h3>
         <p class="discord-text">
-          Join our Discord server and create a "Premium" ticket to purchase your lifetime access and unlock all premium features.
+          Join our Discord server and create a "Premium" ticket to purchase your lifetime access and unlock all premium features instantly.
         </p>
         <a href="https://discord.gg/ExH98C3uFH" target="_blank" class="discord-button">
-          <span>🔗</span>
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
           <span>Join Discord Server</span>
         </a>
-        <div class="payment-methods-text">
+        <p class="payment-methods">
           We accept: Robux • PayPal • CashApp • Crypto • Card • Giftcards • Custom offers
-        </div>
+        </p>
       </div>
     </div>
   </section>
 
   <footer>
     <div class="container">
-      <div style="margin-bottom:12px"><strong>nobulem.wtf</strong> — premium scripts</div>
-      <div>© <span id="year"></span> nobulem.wtf • All rights reserved • Pricing • Premium • Quality • Fast</div>
+      <div style="margin-bottom:8px"><strong>nobulem.wtf</strong> – premium scripts</div>
+      <div>© <span id="year"></span> nobulem.wtf • All rights reserved</div>
     </div>
   </footer>
 
-  <script src="/js/theme-manager.js"></script>
-  <script src="/js/ad-banner.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lucide/0.263.1/umd/lucide.min.js"></script>
   <script>
+    // Initialize Lucide icons
+    lucide.createIcons();
+
+    // Mobile menu toggle
+    function toggleMobileMenu() {
+      const menu = document.getElementById('mobileMenu');
+      menu.classList.toggle('active');
+    }
+
+    // Close mobile menu when clicking outside
+    document.addEventListener('click', function(event) {
+      const menu = document.getElementById('mobileMenu');
+      const toggle = document.querySelector('.mobile-menu-toggle');
+      
+      if (menu.classList.contains('active') && 
+          !menu.contains(event.target) && 
+          !toggle.contains(event.target)) {
+        menu.classList.remove('active');
+      }
+    });
+
+    // Close mobile menu on link click
+    document.querySelectorAll('.mobile-menu a').forEach(link => {
+      link.addEventListener('click', () => {
+        document.getElementById('mobileMenu').classList.remove('active');
+      });
+    });
+
     // Set current year
     document.getElementById('year').textContent = new Date().getFullYear();
-
-    // Enhanced reveal on scroll with staggered animations
-    const io = new IntersectionObserver((entries)=>{
-      entries.forEach((e, index)=>{
-        if(e.isIntersecting){ 
-          setTimeout(() => {
-            e.target.classList.add('in');
-          }, index * 100);
-          io.unobserve(e.target); 
-        }
-      })
-    }, {threshold:.1});
-    document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
 
     // Add particle regeneration
     function createParticle() {
@@ -907,47 +940,7 @@
       }
     }
 
-    // Create new particles periodically
     setInterval(createParticle, 3000);
-
-    // Add parallax effect to shapes on scroll
-    window.addEventListener('scroll', () => {
-      const scrolled = window.pageYOffset;
-      const shapes = document.querySelectorAll('.shape');
-      
-      shapes.forEach((shape, index) => {
-        const speed = 0.5 + (index * 0.2);
-        shape.style.transform = `translateY(${scrolled * speed}px)`;
-      });
-    });
-
-    // Add pulsing effect to brand dot
-    const brandDot = document.querySelector('.brand .dot');
-    if (brandDot) {
-      setInterval(() => {
-        brandDot.style.transform = 'scale(1.3)';
-        setTimeout(() => {
-          brandDot.style.transform = 'scale(1)';
-        }, 200);
-      }, 3000);
-    }
-
-    // Add dynamic glow effects to plans
-    const plans = document.querySelectorAll('.plan');
-    plans.forEach(plan => {
-      plan.addEventListener('mouseenter', () => {
-        const isPremium = plan.classList.contains('premium');
-        if (isPremium) {
-          plan.style.boxShadow = '0 50px 150px rgba(74,222,128,0.3), 0 0 100px rgba(74,222,128,0.15)';
-        } else {
-          plan.style.boxShadow = '0 50px 150px rgba(255,255,255,0.25), 0 0 100px rgba(255,255,255,0.1)';
-        }
-      });
-      
-      plan.addEventListener('mouseleave', () => {
-        plan.style.boxShadow = 'var(--shadow)';
-      });
-    });
 
     // Smooth scroll to Discord CTA
     function scrollToDiscord(event) {
@@ -960,13 +953,24 @@
         });
         
         // Add a subtle highlight effect
-        discordSection.style.transform = 'scale(1.02)';
-        discordSection.style.transition = 'transform 0.3s ease';
+        discordSection.style.transform = 'translateY(-4px) scale(1.02)';
         setTimeout(() => {
-          discordSection.style.transform = 'scale(1)';
+          discordSection.style.transform = '';
         }, 300);
       }
     }
+
+    // Smooth anchor navigation
+    document.querySelectorAll('a[href^="#"]').forEach(a=>{
+      a.addEventListener('click', e=>{
+        const id = a.getAttribute('href').slice(1);
+        const el = document.getElementById(id);
+        if(el){
+          e.preventDefault();
+          window.scrollTo({top: el.getBoundingClientRect().top + window.scrollY - 70, behavior:'smooth'});
+        }
+      });
+    });
   </script>
 </body>
 </html>
