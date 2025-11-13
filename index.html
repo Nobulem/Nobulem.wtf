@@ -1162,7 +1162,7 @@
     // Load latest games from games page
     async function loadLatestGames() {
       try {
-        const response = await fetch('/games/index.html');
+        const response = await fetch('/games');
         const html = await response.text();
 
         const parser = new DOMParser();
@@ -1248,7 +1248,7 @@
     // Load popular showcases from showcases page
     async function loadPopularShowcases() {
       try {
-        const response = await fetch('./showcases/index.html');
+        const response = await fetch('/showcases');
         const html = await response.text();
 
         const parser = new DOMParser();
