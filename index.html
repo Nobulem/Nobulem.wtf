@@ -1154,89 +1154,62 @@
         setTimeout(type, 60);
       }
     }
-    
-    // Start the animation
-    typingText.textContent = baseText;
-    setTimeout(type, 1500);
 
-    // Load latest games from games page
-    async function loadLatestGames() {
-      try {
-        const response = await fetch('/games');
-        const html = await response.text();
-
-        const parser = new DOMParser();
-        const doc = parser.parseFromString(html, 'text/html');
-        const gameCards = doc.querySelectorAll('.game-card');
-
-        const games = [];
-        gameCards.forEach((card, index) => {
-          if (index < 3) {
-            const thumbnail = card.querySelector('.game-thumbnail');
-            const name = card.querySelector('.game-name');
-            const description = card.querySelector('.game-description');
-            const gameId = card.querySelector('.game-id');
-            const statusBadge = card.querySelector('.status-badge');
-
-            if (thumbnail && name && description) {
-              games.push({
-                name: name.textContent.trim(),
-                description: description.textContent.trim(),
-                image: thumbnail.src || thumbnail.getAttribute('src'),
-                id: gameId ? gameId.textContent.trim().replace('#', '').trim() : '',
-                status: statusBadge ? statusBadge.textContent.trim() : 'Working'
-              });
+ // Load latest games
+    function loadLatestGames() {
+      fetch('/games')
+        .then(response => response.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const doc = parser.parseFromString(html, 'text/html');
+          const gameCards = doc.querySelectorAll('.game-card');
+          
+          const gamesData = Array.from(gameCards).slice(0, 3).map(card => {
+            const name = card.querySelector('.game-name')?.textContent || 'Game';
+            const description = card.querySelector('.game-description')?.textContent || 'Description';
+            const image = card.querySelector('.game-thumbnail')?.src || 'https://via.placeholder.com/400x200';
+            const id = card.querySelector('.game-id')?.textContent?.replace('#', '') || '0';
+            
+            return { name, description, image, id };
+          });
+          
+          renderLatestGames(gamesData);
+        })
+        .catch(() => {
+          const fallbackGames = [
+            {
+              name: "Untitled Boxing Game",
+              description: "Boxing combat enhancements with perfect dodge timing and advanced ESP systems.",
+              image: "https://tr.rbxcdn.com/180DAY-078e71f7babd821f5bb362c460fc0fd9/768/432/Image/Webp/noFilter",
+              id: "13423334817"
+            },
+            {
+              name: "Marvelous Playground", 
+              description: "Advanced combat scripts with kill aura, ESP, and player targeting systems.",
+              image: "https://tr.rbxcdn.com/180DAY-915535b6a2b0ddd4710ec77320027004/768/432/Image/Webp/noFilter",
+              id: "8657766101"
+            },
+            {
+              name: "Project Power",
+              description: "Comprehensive power-up automation with kill systems and ESP overlays.",
+              image: "https://tr.rbxcdn.com/180DAY-a5173e243710a4393e582089e8f4a773/768/432/Image/Webp/noFilter", 
+              id: "34329168147"
             }
-          }
+          ];
+          renderLatestGames(fallbackGames);
         });
-
-        if (games.length > 0) {
-          renderLatestGames(games);
-        } else {
-          renderLatestGames(getFallbackGames());
-        }
-      } catch (error) {
-        console.error('Could not fetch games:', error);
-        renderLatestGames(getFallbackGames());
-      }
     }
-
-    function getFallbackGames() {
-      return [
-        {
-          name: "Bulked Up",
-          description: "Auto kill player, Auto Pickup Gems/Bombs, Achieve all trophies, Autofarm Gems.",
-          image: "https://tr.rbxcdn.com/180DAY-a8d89bbea01c9e153955bd78d872bea0/768/432/Image/Webp/noFilter",
-          id: "6847090259",
-          status: "Working"
-        },
-        {
-          name: "[FPS] Flick",
-          description: "Silent aim, No reload, Hitsounds, Hitlogs",
-          image: "https://tr.rbxcdn.com/180DAY-6520033018c6162771a61aac035963ef/768/432/Image/Webp/noFilter",
-          id: "136801880565837",
-          status: "Working"
-        },
-        {
-          name: "Arcade Basketball",
-          description: "Auto Green, No Shot Miss, Perfect Meter, Auto Dunk, Auto Block",
-          image: "https://tr.rbxcdn.com/180DAY-1753f4a9e79a7988a3dd980e876ce11b/768/432/Image/Webp/noFilter",
-          id: "134558434771720",
-          status: "Working"
-        }
-      ];
-    }
-
+    
     function renderLatestGames(gamesData) {
       const gamesContainer = document.getElementById('latest-games');
-      const gamesHTML = gamesData.map((game) => `
+      const gamesHTML = gamesData.map((game, index) => `
         <div class="game-card" onclick="window.location.href='/games'">
           <img src="${game.image}" alt="${game.name}" class="game-thumbnail">
           <div class="game-content">
             <h3 class="game-name">${game.name}</h3>
             <p class="game-description">${game.description}</p>
             <div class="game-status">
-              <span class="status-badge status-working">${game.status}</span>
+              <span class="status-badge status-working">Working</span>
               <span class="game-id">#${game.id}</span>
             </div>
           </div>
@@ -1245,103 +1218,57 @@
       gamesContainer.innerHTML = gamesHTML;
     }
 
-    // Load popular showcases from showcases page
-    async function loadPopularShowcases() {
-      try {
-        const response = await fetch('/showcases');
-        const html = await response.text();
-
-        const parser = new DOMParser();
-        const doc = parser.parseFromString(html, 'text/html');
-        const videoCards = doc.querySelectorAll('.video-card');
-
-        const showcases = [];
-        videoCards.forEach((card, index) => {
-          if (index < 3) {
-            const thumbnail = card.querySelector('.video-thumbnail');
-            const title = card.querySelector('.video-title');
-            const description = card.querySelector('.video-description');
-            const views = card.querySelector('.video-views');
-            const channel = card.querySelector('.video-channel');
-            const duration = card.querySelector('.video-duration');
-            const date = card.querySelector('.video-date span');
-            const videoUrl = card.getAttribute('onclick');
-
-            if (thumbnail && title) {
-              let url = '';
-              if (videoUrl) {
-                const match = videoUrl.match(/openVideo\('([^']+)'\)/);
-                if (match) {
-                  url = match[1];
-                }
-              }
-
-              showcases.push({
-                title: title.textContent.trim(),
-                description: description ? description.textContent.trim() : '',
-                thumbnail: thumbnail.src,
-                views: views ? views.textContent.trim() : '',
-                channel: channel ? channel.textContent.trim() : '',
-                duration: duration ? duration.textContent.trim() : '',
-                date: date ? date.textContent.trim() : '',
-                url: url
-              });
-            }
+    // Load popular showcases
+    function loadPopularShowcases() {
+      fetch('/showcases')
+        .then(response => response.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const doc = parser.parseFromString(html, 'text/html');
+          const videoCards = doc.querySelectorAll('.video-card');
+          
+          if (videoCards.length > 0) {
+            const showcasesData = Array.from(videoCards).slice(0, 3).map(card => {
+              const title = card.querySelector('.video-title')?.textContent || 'Video';
+              const description = card.querySelector('.video-description')?.textContent || 'Description';
+              const thumbnail = card.querySelector('.video-thumbnail')?.src || 'https://via.placeholder.com/400x200';
+              const views = card.querySelector('.video-views')?.textContent || '0 views';
+              
+              return { title, description, thumbnail, views };
+            });
+            
+            renderPopularShowcases(showcasesData);
+          } else {
+            renderEmptyShowcases();
           }
-        });
-
-        if (showcases.length > 0) {
-          renderShowcases(showcases);
-        } else {
+        })
+        .catch(() => {
           renderEmptyShowcases();
-        }
-      } catch (error) {
-        console.log('Could not fetch showcases');
-        renderEmptyShowcases();
-      }
+        });
     }
-
-    function renderShowcases(showcases) {
+    
+    function renderPopularShowcases(showcasesData) {
       const showcasesContainer = document.getElementById('popular-showcases');
-      const showcasesHTML = showcases.map(showcase => `
-        <div class="showcase-card" onclick="window.open('${showcase.url}', '_blank')">
-          <div style="position: relative; overflow: hidden; height: 150px; background: #000;">
-            <img src="${showcase.thumbnail}" alt="${showcase.title}" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s ease;">
-            <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.3s ease;" class="showcase-play-overlay">
-              <div style="width: 48px; height: 48px; background: rgba(255,255,255,0.95); border-radius: 50%; display: flex; align-items: center; justify-content: center;">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-              </div>
-            </div>
-            ${showcase.duration ? `<div style="position: absolute; bottom: 8px; right: 8px; background: rgba(0,0,0,0.85); color: #fff; padding: 3px 6px; border-radius: 4px; font-size: 10px; font-weight: 700;">${showcase.duration}</div>` : ''}
+      const showcasesHTML = showcasesData.map((showcase, index) => `
+        <div class="showcase-card" onclick="window.location.href='/showcases'">
+          <div class="showcase-thumbnail">
+            <img src="${showcase.thumbnail}" alt="${showcase.title}" style="width: 100%; height: 100%; object-fit: cover;">
           </div>
           <div class="showcase-content">
             <h3 class="showcase-title">${showcase.title}</h3>
-            ${showcase.views ? `<div class="showcase-views">${showcase.views}</div>` : ''}
+            <p style="color: var(--muted); font-size: 12px; margin-bottom: 8px;">${showcase.description}</p>
+            <div class="showcase-views">${showcase.views}</div>
           </div>
         </div>
       `).join('');
       showcasesContainer.innerHTML = showcasesHTML;
-
-      document.querySelectorAll('.showcase-card').forEach(card => {
-        card.addEventListener('mouseenter', function() {
-          const overlay = this.querySelector('.showcase-play-overlay');
-          if (overlay) overlay.style.opacity = '1';
-        });
-        card.addEventListener('mouseleave', function() {
-          const overlay = this.querySelector('.showcase-play-overlay');
-          if (overlay) overlay.style.opacity = '0';
-        });
-      });
     }
-
+    
     function renderEmptyShowcases() {
       const showcasesContainer = document.getElementById('popular-showcases');
       showcasesContainer.innerHTML = `
         <div class="coming-soon">
-          <div class="pulse-text">
-            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="23 7 16 12 23 17 23 7"/><rect width="15" height="14" x="1" y="5" rx="2" ry="2"/></svg>
-            Coming Soon!
-          </div>
+          <div class="pulse-text">🎬 Coming Soon!</div>
           <p class="muted">Awesome showcase videos are on their way.</p>
           <div class="loader">
             <div class="loader-dot"></div>
@@ -1357,6 +1284,12 @@
       loadLatestGames();
       loadPopularShowcases();
     });
+    
+    // Start the animation
+    typingText.textContent = baseText;
+    setTimeout(type, 1500);
+
+  
 
     // Add particle regeneration
     function createParticle() {
