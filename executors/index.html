@@ -728,8 +728,8 @@
         <div class="stat-label">Working</div>
       </div>
       <div class="stat-card">
-        <div class="stat-number" id="statsAvg">0%</div>
-        <div class="stat-label">Avg. UNC</div>
+        <div class="stat-number" id="statsAvg">0h</div>
+        <div class="stat-label">Avg. Wait Time</div>
       </div>
       <div class="stat-card">
         <div class="stat-number" id="statsUpdated">0</div>
@@ -794,33 +794,122 @@
     document.getElementById('year').textContent = new Date().getFullYear();
 
     // API Configuration
-    const API_URL = 'https://weao.xyz/api/status/exploits';
-    const ALLOWED_EXECUTORS = ['bunni.lol', 'swift', 'potassium', 'seliware', 'wave', 'zenith'];
+    const API_URL = 'https://api.voxlis.com/v1/status';
+    
+    // Executor configurations - maps API names to display info
+    const EXECUTOR_CONFIG = {
+      'bunni': {
+        displayName: 'Bunni',
+        website: 'https://bunni.lol',
+        platform: 'Windows',
+        free: true
+      },
+      'swift': {
+        displayName: 'Swift',
+        website: 'https://swift.lol',
+        platform: 'iOS',
+        free: false
+      },
+      'potassium': {
+        displayName: 'Potassium',
+        website: 'https://potassium.lol',
+        platform: 'macOS',
+        free: false
+      },
+      'seliware': {
+        displayName: 'Seliware',
+        website: 'https://seliware.com',
+        platform: 'Windows',
+        free: false
+      },
+      'wave': {
+        displayName: 'Wave',
+        website: 'https://getwave.gg',
+        platform: 'Windows',
+        free: true
+      },
+      'zenith': {
+        displayName: 'Zenith',
+        website: 'https://zenith.win',
+        platform: 'Windows',
+        free: false
+      }
+    };
 
     let allExecutors = [];
 
-    // Fetch executor data
+    // Fetch executor data from voxlis API
     async function fetchExecutorData() {
       try {
-        const response = await fetch(API_URL, {
-          headers: {
-            'User-Agent': 'WEAO-3PService'
-          }
-        });
+        const response = await fetch(API_URL);
         
         if (!response.ok) {
           throw new Error(`API error! status: ${response.status}`);
         }
 
-        let fetchedData = await response.json();
+        const data = await response.json();
+        
+        // Process all platforms
+        allExecutors = [];
+        
+        // Process Windows executors
+        if (data.windows) {
+          Object.keys(data.windows).forEach(key => {
+            if (EXECUTOR_CONFIG[key]) {
+              allExecutors.push({
+                name: key,
+                platform: 'windows',
+                data: data.windows[key],
+                config: EXECUTOR_CONFIG[key]
+              });
+            }
+          });
+        }
+        
+        // Process macOS executors
+        if (data.macos) {
+          Object.keys(data.macos).forEach(key => {
+            if (EXECUTOR_CONFIG[key]) {
+              allExecutors.push({
+                name: key,
+                platform: 'macos',
+                data: data.macos[key],
+                config: EXECUTOR_CONFIG[key]
+              });
+            }
+          });
+        }
+        
+        // Process iOS executors
+        if (data.ios) {
+          Object.keys(data.ios).forEach(key => {
+            if (EXECUTOR_CONFIG[key]) {
+              allExecutors.push({
+                name: key,
+                platform: 'ios',
+                data: data.ios[key],
+                config: EXECUTOR_CONFIG[key]
+              });
+            }
+          });
+        }
+        
+        // Process Android executors
+        if (data.android) {
+          Object.keys(data.android).forEach(key => {
+            if (EXECUTOR_CONFIG[key]) {
+              allExecutors.push({
+                name: key,
+                platform: 'android',
+                data: data.android[key],
+                config: EXECUTOR_CONFIG[key]
+              });
+            }
+          });
+        }
 
-        allExecutors = fetchedData.filter(ex =>
-          ALLOWED_EXECUTORS.includes(ex.title.toLowerCase()) &&
-          ex.extype &&
-          (ex.extype === 'wexecutor' || ex.extype === 'mexecutor' || ex.extype === 'aexecutor')
-        );
-
-        allExecutors.sort((a, b) => a.title.localeCompare(b.title));
+        // Sort alphabetically
+        allExecutors.sort((a, b) => a.config.displayName.localeCompare(b.config.displayName));
 
         updateStats(allExecutors);
         updateWarningBanner(allExecutors);
@@ -838,13 +927,29 @@
     // Update statistics
     function updateStats(data) {
       const total = data.length;
-      const working = data.filter(e => e.updateStatus === true && e.detected === false).length;
-      const avgUnc = data.length > 0 ? Math.round(data.reduce((sum, e) => sum + (e.uncPercentage || 0), 0) / data.length) : 0;
-      const recentlyUpdated = data.filter(e => e.updateStatus === true).length;
+      const working = data.filter(e => e.data.updated === true).length;
+      
+      // Calculate average wait time from all executors
+      let totalHours = 0;
+      let countWithTime = 0;
+      
+      data.forEach(e => {
+        if (e.data.avg && typeof e.data.avg === 'object') {
+          const avgValues = Object.values(e.data.avg);
+          if (avgValues.length > 0) {
+            const avgTime = avgValues.reduce((sum, val) => sum + val, 0) / avgValues.length;
+            totalHours += avgTime;
+            countWithTime++;
+          }
+        }
+      });
+      
+      const avgWaitTime = countWithTime > 0 ? Math.round(totalHours / countWithTime) : 0;
+      const recentlyUpdated = data.filter(e => e.data.updated === true).length;
 
       animateNumber(document.getElementById('statsTotal'), total);
       animateNumber(document.getElementById('statsWorking'), working);
-      animateNumber(document.getElementById('statsAvg'), avgUnc, '%');
+      animateNumber(document.getElementById('statsAvg'), avgWaitTime, 'h');
       animateNumber(document.getElementById('statsUpdated'), recentlyUpdated);
     }
 
@@ -867,15 +972,37 @@
       const banner = document.getElementById('warningBanner');
       const text = document.getElementById('warningText');
       
-      const allDetected = data.every(e => e.detected === true);
+      const workingCount = data.filter(e => e.data.updated === true).length;
       
-      if (allDetected) {
-        text.textContent = 'All executors are currently detected';
+      if (workingCount === 0) {
+        text.textContent = 'All executors are currently outdated';
         banner.classList.remove('success');
       } else {
-        const undetectedCount = data.filter(e => e.detected === false).length;
-        text.textContent = `${undetectedCount} executor${undetectedCount !== 1 ? 's' : ''} undetected`;
+        text.textContent = `${workingCount} executor${workingCount !== 1 ? 's' : ''} updated`;
         banner.classList.add('success');
+      }
+    }
+
+    // Get wait time display
+    function getWaitTimeDisplay(executor) {
+      if (!executor.data.avg || typeof executor.data.avg !== 'object') {
+        return 'N/A';
+      }
+      
+      const avgValues = Object.values(executor.data.avg);
+      if (avgValues.length === 0) {
+        return 'N/A';
+      }
+      
+      const avgTime = Math.round(avgValues.reduce((sum, val) => sum + val, 0) / avgValues.length);
+      
+      if (avgTime < 1) {
+        return '< 1h';
+      } else if (avgTime >= 24) {
+        const days = Math.round(avgTime / 24);
+        return `~${days}d`;
+      } else {
+        return `~${avgTime}h`;
       }
     }
 
@@ -884,30 +1011,32 @@
       const grid = document.getElementById('executorGrid');
       
       if (executors.length === 0) {
-        grid.innerHTML = '<div class="loading"><p>Could not find specified executors.</p></div>';
+        grid.innerHTML = '<div class="loading"><p>No executors found.</p></div>';
         return;
       }
 
       const html = executors.map((ex) => {
-        const isUpdated = ex.updateStatus === true;
-        const isDetected = ex.detected === true;
-        const statusClass = isUpdated && !isDetected ? 'up' : 'down';
+        const isUpdated = ex.data.updated === true;
+        const statusClass = isUpdated ? 'up' : 'down';
 
         const statusIcon = statusClass === 'up'
           ? '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"/></svg>'
           : '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>';
 
-        const costDisplay = ex.free ? 'Free' : (ex.cost || 'Paid');
-        const uncColor = (ex.uncPercentage || 0) > 80 ? '#10B981' : (ex.uncPercentage || 0) > 50 ? '#F59E0B' : '#EF4444';
-        const statusText = isDetected ? 'Detected' : 'Undetected';
-        const statusColor = isDetected ? '#EF4444' : '#10B981';
+        const costDisplay = ex.config.free ? 'Free' : 'Paid';
+        const version = ex.data.version ? ex.data.version.replace('version-', '') : 'N/A';
+        const shortVersion = version.length > 16 ? version.substring(0, 16) + '...' : version;
+        const waitTime = getWaitTimeDisplay(ex);
+        const statusText = isUpdated ? 'Updated' : 'Outdated';
+        const statusColor = isUpdated ? '#10B981' : '#EF4444';
+        const waitTimeColor = isUpdated ? '#10B981' : '#F59E0B';
 
         return `
           <div class="executor-card">
             <div class="executor-header">
               <div>
-                <a href="${ex.websitelink || '#'}" target="_blank" rel="noopener noreferrer" class="executor-name">${ex.title}</a>
-                <div class="executor-version">${ex.version || 'N/A'}</div>
+                <a href="${ex.config.website}" target="_blank" rel="noopener noreferrer" class="executor-name">${ex.config.displayName}</a>
+                <div class="executor-version" title="${version}">${shortVersion}</div>
               </div>
               <div class="status-indicator ${statusClass}">
                 ${statusIcon}
@@ -916,16 +1045,16 @@
             <div class="executor-details">
               <div class="executor-detail">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="20" x="5" y="2" rx="2" ry="2"/><path d="M12 18h.01"/></svg>
-                <span>${ex.platform || 'N/A'}</span>
+                <span>${ex.config.platform}</span>
               </div>
               <div class="executor-detail">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" x2="12" y1="2" y2="22"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
                 <span>${costDisplay}</span>
               </div>
               <div class="executor-detail">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
-                <span style="color: ${uncColor}; font-weight: 700;">
-                  ${typeof ex.uncPercentage === 'number' ? ex.uncPercentage + '%' : '0%'} UNC
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                <span style="color: ${waitTimeColor}; font-weight: 700;">
+                  ${waitTime} wait
                 </span>
               </div>
               <div class="executor-detail">
