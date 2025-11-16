@@ -826,6 +826,7 @@
         const version = await fetchVersions();
         const executors = await fetchAllExecutors();
 
+        console.log('Executors raw:', executors);
         allExecutors = executors.filter(ex => ex && ex.name);
 
         updateStats(allExecutors, version);
