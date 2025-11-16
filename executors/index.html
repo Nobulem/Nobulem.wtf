@@ -16,9 +16,10 @@
       --line: #222222;
       --accent: #d0d0d0;
       --shadow: 0 8px 32px rgba(0,0,0,.4);
-      --radius: 24px;
+      --radius: 16px;
       --speed: 400ms;
       --green: #10B981;
+      --red: #EF4444;
     }
     *{box-sizing:border-box; margin:0; padding:0;}
     html,body{height:100%}
@@ -30,10 +31,36 @@
       letter-spacing:0.3px;
       overflow-x:hidden;
     }
+    
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 12px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: var(--bg);
+      border-left: 1px solid var(--line);
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: var(--card);
+      border-radius: 6px;
+      border: 2px solid var(--bg);
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: #252525;
+    }
+
+    * {
+      scrollbar-width: thin;
+      scrollbar-color: var(--card) var(--bg);
+    }
+    
     h1,h2,h3,h4{font-weight:700; margin:0 0 .5rem}
     p{margin:0 0 .8rem; color:var(--muted); font-size:14px;}
     a{color:var(--text); text-decoration:none; font-weight:700; transition: all 0.3s ease;}
-    .container{width:min(1100px, 90vw); margin-inline:auto}
+    .container{width:min(1200px, 90vw); margin-inline:auto}
 
     .bg-animation {
       position: fixed;
@@ -462,155 +489,140 @@
 
     section h2 {
       font-size: clamp(24px, 4vw, 32px);
-      margin-bottom: 8px;
-    }
-
-    section > .container > p {
       margin-bottom: 32px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
     }
 
-    .grid{
-      display:grid;
-      gap:16px;
+    section h2 svg {
+      width: 32px;
+      height: 32px;
     }
 
-    .two{
-      grid-template-columns:repeat(auto-fit, minmax(280px, 1fr));
+    .executor-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
     }
 
-    .executor-card {
+    .executor-item {
       background: var(--card);
       border: 1px solid var(--line);
+      border-left: 4px solid var(--line);
       border-radius: var(--radius);
-      padding: 24px;
+      padding: 20px 24px;
       transition: all 0.3s ease;
+      cursor: pointer;
       position: relative;
     }
 
-    .executor-card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      border-radius: var(--radius);
-      padding: 1px;
-      background: linear-gradient(135deg, rgba(255,255,255,0.1), transparent);
-      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-      -webkit-mask-composite: xor;
-      mask-composite: exclude;
-      opacity: 0;
-      transition: opacity 0.3s ease;
+    .executor-item.working {
+      border-left-color: var(--green);
     }
 
-    .executor-card:hover::before {
-      opacity: 1;
+    .executor-item.down {
+      border-left-color: var(--red);
     }
 
-    .executor-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 12px 32px rgba(0,0,0,0.3);
+    .executor-item:hover {
+      transform: translateX(4px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.3);
       border-color: rgba(255,255,255,0.15);
     }
 
-    .executor-header {
+    .executor-top {
       display: flex;
       justify-content: space-between;
-      align-items: flex-start;
+      align-items: center;
+      margin-bottom: 12px;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .executor-left {
+      display: flex;
+      align-items: center;
       gap: 16px;
-      margin-bottom: 16px;
+      flex-wrap: wrap;
     }
 
-    .executor-name {
-      font-size: 18px;
+    .executor-name-link {
+      font-size: 20px;
       font-weight: 700;
-      margin-bottom: 6px;
+      color: var(--text);
+      text-decoration: none;
       transition: all 0.3s ease;
     }
 
-    .executor-name:hover {
-      transform: translateX(2px);
+    .executor-name-link:hover {
+      color: var(--green);
     }
 
-    .executor-version {
-      font-size: 11px;
-      color: var(--muted);
-      background: rgba(255,255,255,0.05);
-      padding: 4px 10px;
-      border-radius: 8px;
-      display: inline-block;
-    }
-
-    .status-indicator {
-      width: 48px;
-      height: 48px;
-      border-radius: 50%;
+    .executor-badges {
       display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-      transition: all 0.3s ease;
-    }
-
-    .status-indicator svg {
-      width: 24px;
-      height: 24px;
-    }
-
-    .status-indicator.up {
-      background: rgba(16, 185, 129, 0.15);
-      border: 2px solid rgba(16, 185, 129, 0.6);
-      color: #10B981;
-    }
-
-    .status-indicator.down {
-      background: rgba(239, 68, 68, 0.15);
-      border: 2px solid rgba(239, 68, 68, 0.6);
-      color: #EF4444;
-    }
-
-    .executor-card:hover .status-indicator {
-      transform: scale(1.1);
-    }
-
-    .executor-details {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 10px;
-    }
-
-    .executor-detail {
-      font-size: 13px;
-      padding: 10px 14px;
-      background: rgba(255,255,255,0.03);
-      border-radius: 12px;
-      display: flex;
-      align-items: center;
       gap: 8px;
-      transition: all 0.3s ease;
+      flex-wrap: wrap;
     }
 
-    .executor-detail svg {
-      width: 16px;
-      height: 16px;
-      stroke: var(--muted);
-      flex-shrink: 0;
+    .badge {
+      padding: 4px 12px;
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 700;
+      white-space: nowrap;
     }
 
-    .executor-detail:hover {
-      background: rgba(255,255,255,0.06);
-      transform: translateX(2px);
+    .badge.version {
+      background: rgba(255,255,255,0.08);
+      color: var(--text);
     }
 
-    .executor-detail.download-btn {
-      cursor: pointer;
-      background: rgba(16, 185, 129, 0.1);
+    .badge.unc {
+      background: rgba(139, 92, 246, 0.15);
+      color: #A78BFA;
+      border: 1px solid rgba(139, 92, 246, 0.3);
     }
 
-    .executor-detail.download-btn:hover {
-      background: rgba(16, 185, 129, 0.2);
-      transform: translateX(2px);
+    .badge.price {
+      background: rgba(59, 130, 246, 0.15);
+      color: #60A5FA;
+      border: 1px solid rgba(59, 130, 246, 0.3);
+    }
+
+    .badge.free {
+      background: rgba(16, 185, 129, 0.15);
+      color: var(--green);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+    }
+
+    .badge.keysystem {
+      background: rgba(245, 158, 11, 0.15);
+      color: #FBBF24;
+      border: 1px solid rgba(245, 158, 11, 0.3);
+    }
+
+    .executor-status-badge {
+      padding: 8px 16px;
+      border-radius: 12px;
+      font-size: 13px;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .executor-status-badge.updated {
+      background: var(--green);
+      color: #ffffff;
+    }
+
+    .executor-status-badge.not-updated {
+      background: var(--red);
+      color: #ffffff;
+    }
+
+    .executor-bottom {
+      color: var(--muted);
+      font-size: 13px;
     }
 
     .loading {
@@ -641,31 +653,6 @@
       40% { transform: scale(1); }
     }
 
-    /* Custom Scrollbar */
-    ::-webkit-scrollbar {
-      width: 12px;
-    }
-
-    ::-webkit-scrollbar-track {
-      background: var(--bg);
-      border-left: 1px solid var(--line);
-    }
-
-    ::-webkit-scrollbar-thumb {
-      background: var(--card);
-      border-radius: 6px;
-      border: 2px solid var(--bg);
-    }
-
-    ::-webkit-scrollbar-thumb:hover {
-      background: #252525;
-    }
-
-    * {
-      scrollbar-width: thin;
-      scrollbar-color: var(--card) var(--bg);
-    }
-
     footer{
       border-top:1px solid var(--line);
       padding:24px 0 40px;
@@ -689,7 +676,6 @@
     }
 
     @media (max-width: 980px){
-      .two{grid-template-columns:repeat(2, 1fr)}
       .stats{grid-template-columns:repeat(2, 1fr)}
 
       .links{display:none}
@@ -705,7 +691,6 @@
     }
 
     @media (max-width: 768px) {
-      .two{grid-template-columns:1fr}
       .stats{grid-template-columns:1fr}
 
       .title {
@@ -721,10 +706,6 @@
         padding: 0 10px;
       }
 
-      .executor-details {
-        grid-template-columns: 1fr;
-      }
-
       .stat-number {
         font-size: 28px;
       }
@@ -736,6 +717,15 @@
       .platform-btn {
         padding: 10px 18px;
         font-size: 13px;
+      }
+
+      .executor-top {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .executor-badges {
+        width: 100%;
       }
     }
   </style>
@@ -838,6 +828,11 @@
         </button>
       </div>
 
+      <h2 id="platformTitle">
+        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="currentColor"><path d="M0 3.449L9.75 2.1v9.451H0m10.949-9.602L24 0v11.4H10.949M0 12.6h9.75v9.451L0 20.699M10.949 12.6H24V24l-12.9-1.801"/></svg>
+        Windows Executors
+      </h2>
+
       <div id="executorGrid">
         <div class="loading">
           <div class="loader">
@@ -928,7 +923,16 @@
         if (Array.isArray(data)) {
           console.log('Number of executors received:', data.length);
           data.forEach((ex, i) => {
-            console.log(`Executor ${i}:`, ex.title, '- Platform:', ex.platform, '- Updated:', ex.updateStatus, '- Detected:', ex.detected);
+            console.log(`Executor ${i}:`, {
+              title: ex.title,
+              platform: ex.platform,
+              updateStatus: ex.updateStatus,
+              detected: ex.detected,
+              free: ex.free,
+              cost: ex.cost,
+              keysystem: ex.keysystem,
+              uncStatus: ex.uncStatus
+            });
           });
         }
         
@@ -943,11 +947,9 @@
       if (!dateString || dateString === 'Unknown') return 'Unknown';
       
       try {
-        // Parse the date string - it might be in format "MM/DD/YYYY at HH:MM AM/PM UTC"
         let date;
         
         if (dateString.includes(' at ')) {
-          // Parse custom format: "07/24/2025 at 3:47 PM UTC"
           const [datePart, timePart] = dateString.split(' at ');
           const [month, day, year] = datePart.split('/');
           const timeStr = timePart.replace(' UTC', '').trim();
@@ -988,10 +990,11 @@
 
         console.log('Executors raw:', executors);
         
-        // Filter for allowed executors only
         allExecutors = executors.filter(ex => 
           ex && ex.title && ALLOWED_EXECUTORS.includes(ex.title.toLowerCase())
         );
+
+        console.log('Filtered executors:', allExecutors);
 
         updateStats(allExecutors, version);
         updateWarningBanner(allExecutors);
@@ -1009,9 +1012,8 @@
     function updateStats(data, version) {
       const total = data.length;
       const working = data.filter(e => e.updateStatus === true && e.detected === false).length;
-      const down = data.filter(e => e.updateStatus === false || e.detected === true).length;
+      const down = data.filter(e => !(e.updateStatus === true && e.detected === false)).length;
       
-      // Calculate average UNC percentage correctly
       const uncPercentages = data
         .map(e => e.uncPercentage || 0)
         .filter(u => u > 0);
@@ -1043,7 +1045,7 @@
       const banner = document.getElementById('warningBanner');
       const text = document.getElementById('warningText');
 
-      const allDown = data.every(e => e.updateStatus === false || e.detected === true);
+      const allDown = data.every(e => !(e.updateStatus === true && e.detected === false));
       const workingCount = data.filter(e => e.updateStatus === true && e.detected === false).length;
 
       if (allDown) {
@@ -1058,20 +1060,34 @@
     function switchPlatform(platform) {
       currentPlatform = platform;
       
-      // Update button states
       document.querySelectorAll('.platform-btn').forEach(btn => {
         btn.classList.remove('active');
       });
       document.querySelector(`[data-platform="${platform}"]`).classList.add('active');
       
-      // Re-render executors
+      const titleEl = document.getElementById('platformTitle');
+      let icon = '';
+      let title = '';
+      
+      if (platform === 'windows') {
+        icon = '<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="currentColor"><path d="M0 3.449L9.75 2.1v9.451H0m10.949-9.602L24 0v11.4H10.949M0 12.6h9.75v9.451L0 20.699M10.949 12.6H24V24l-12.9-1.801"/></svg>';
+        title = 'Windows Executors';
+      } else if (platform === 'mac') {
+        icon = '<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>';
+        title = 'Mac Executors';
+      } else {
+        icon = '<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="20" x="5" y="2" rx="2" ry="2"/><path d="M12 18h.01"/></svg>';
+        title = 'Mobile Executors';
+      }
+      
+      titleEl.innerHTML = icon + title;
+      
       renderExecutors(allExecutors);
     }
 
     function renderExecutors(executors) {
       const grid = document.getElementById('executorGrid');
 
-      // Filter by platform
       let filteredExecutors = executors.filter(ex => {
         const platform = ex.platform ? ex.platform.toLowerCase() : '';
         if (currentPlatform === 'windows') return platform === 'windows';
@@ -1086,83 +1102,65 @@
       }
 
       const html = filteredExecutors.map((ex) => {
-        // Fix status detection logic
         const isWorking = ex.updateStatus === true && ex.detected === false;
-        const statusClass = isWorking ? 'up' : 'down';
+        const statusClass = isWorking ? 'working' : 'down';
 
-        const statusIcon = statusClass === 'up'
-          ? '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>'
-          : '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>';
-
-        // Determine status text
-        let statusText = 'Down';
+        let statusText = 'Not Updated';
         if (ex.updateStatus === true && ex.detected === false) {
-          statusText = 'Working';
+          statusText = 'Updated';
         } else if (ex.updateStatus === false && ex.detected === true) {
-          statusText = 'Patched';
+          statusText = 'Not Updated';
         } else if (ex.updateStatus === false && ex.detected === false) {
           statusText = 'Not Updated';
         } else if (ex.updateStatus === true && ex.detected === true) {
-          statusText = 'Detected';
+          statusText = 'Not Updated';
         }
         
-        const statusColor = isWorking ? '#10B981' : '#EF4444';
         const timeAgo = getTimeAgo(ex.updatedDate);
-        
         const exploitLink = ex.websitelink || ex.purchaselink || '#';
         
-        // Determine if paid or free, and what to show
-        const isFree = ex.free === true;
-        let paymentInfo = '';
+        let badges = [];
         
-        if (isFree) {
-          // Show key system for free executors
-          const hasKey = ex.keysystem === true ? 'Yes' : 'No';
-          paymentInfo = `
-            <div class="executor-detail">
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-              <span>Key: ${hasKey}</span>
-            </div>
-          `;
-        } else {
-          // Show paid status for paid executors
-          paymentInfo = `
-            <div class="executor-detail">
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="2" x2="12" y2="22"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
-              <span>Paid</span>
-            </div>
-          `;
+        // Version badge
+        if (ex.version) {
+          badges.push(`<span class="badge version">${ex.version}</span>`);
+        }
+        
+        // UNC badge
+        if (ex.uncStatus) {
+          badges.push(`<span class="badge unc">sUNC</span>`);
+        }
+        
+        // Price/Free badge
+        if (ex.free === true) {
+          badges.push(`<span class="badge free">Free${ex.keysystem ? ' (Key System)' : ''}</span>`);
+        } else if (ex.cost) {
+          badges.push(`<span class="badge price">${ex.cost}</span>`);
         }
 
         return `
-          <div class="executor-card">
-            <div class="executor-header">
-              <div>
-                <a href="${exploitLink}" target="_blank" rel="noopener noreferrer" class="executor-name">${ex.title || 'Unknown'}</a>
-                <div class="executor-version">${ex.version || 'N/A'}</div>
+          <div class="executor-item ${statusClass}" onclick="window.open('${exploitLink}', '_blank')">
+            <div class="executor-top">
+              <div class="executor-left">
+                <a href="${exploitLink}" target="_blank" rel="noopener noreferrer" class="executor-name-link" onclick="event.stopPropagation()">
+                  ${ex.title || 'Unknown'}
+                </a>
+                <div class="executor-badges">
+                  ${badges.join('')}
+                </div>
               </div>
-              <div class="status-indicator ${statusClass}">
-                ${statusIcon}
+              <div class="executor-status-badge ${isWorking ? 'updated' : 'not-updated'}">
+                ${statusText}
               </div>
             </div>
-            <div class="executor-details">
-              <div class="executor-detail">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"/></svg>
-                <span style="color: ${statusColor}; font-weight: 700;">
-                  ${statusText}
-                </span>
-              </div>
-              ${paymentInfo}
-              <div class="executor-detail">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-                <span>${timeAgo}</span>
-              </div>
+            <div class="executor-bottom">
+              Last updated: ${timeAgo}
             </div>
           </div>
         `;
       }).join('');
 
-      grid.innerHTML = `<div class="grid two">${html}</div>`;
+      grid.innerHTML = `<div class="executor-list">${html}</div>`;
     }
 
     function createParticle() {
