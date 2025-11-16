@@ -18,6 +18,7 @@
       --shadow: 0 8px 32px rgba(0,0,0,.4);
       --radius: 24px;
       --speed: 400ms;
+      --green: #10B981;
     }
     *{box-sizing:border-box; margin:0; padding:0;}
     html,body{height:100%}
@@ -412,6 +413,46 @@
       letter-spacing: 0.1em;
     }
 
+    .platform-toggle {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin-bottom: 40px;
+      flex-wrap: wrap;
+    }
+
+    .platform-btn {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 24px;
+      border-radius: 16px;
+      background: var(--card);
+      border: 2px solid var(--line);
+      color: var(--text);
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .platform-btn svg {
+      width: 20px;
+      height: 20px;
+    }
+
+    .platform-btn:hover {
+      background: rgba(255,255,255,0.05);
+      border-color: rgba(255,255,255,0.2);
+      transform: translateY(-2px);
+    }
+
+    .platform-btn.active {
+      background: var(--green);
+      border-color: var(--green);
+      color: #ffffff;
+    }
+
     section{
       position:relative;
       z-index:20;
@@ -562,6 +603,16 @@
       transform: translateX(2px);
     }
 
+    .executor-detail.download-btn {
+      cursor: pointer;
+      background: rgba(16, 185, 129, 0.1);
+    }
+
+    .executor-detail.download-btn:hover {
+      background: rgba(16, 185, 129, 0.2);
+      transform: translateX(2px);
+    }
+
     .loading {
       text-align: center;
       padding: 40px 20px;
@@ -596,6 +647,20 @@
       color:var(--muted);
       text-align:center;
       font-size: 12px;
+    }
+
+    .api-credit {
+      margin-top: 16px;
+      font-size: 13px;
+    }
+
+    .api-credit a {
+      color: var(--green);
+      font-weight: 700;
+    }
+
+    .api-credit a:hover {
+      text-decoration: underline;
     }
 
     @media (max-width: 980px){
@@ -637,6 +702,15 @@
 
       .stat-number {
         font-size: 28px;
+      }
+
+      .platform-toggle {
+        gap: 8px;
+      }
+
+      .platform-btn {
+        padding: 10px 18px;
+        font-size: 13px;
       }
     }
   </style>
@@ -724,6 +798,21 @@
 
   <section id="executors">
     <div class="container">
+      <div class="platform-toggle">
+        <button class="platform-btn active" data-platform="windows" onclick="switchPlatform('windows')">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M0 3.449L9.75 2.1v9.451H0m10.949-9.602L24 0v11.4H10.949M0 12.6h9.75v9.451L0 20.699M10.949 12.6H24V24l-12.9-1.801"/></svg>
+          Windows
+        </button>
+        <button class="platform-btn" data-platform="mac" onclick="switchPlatform('mac')">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+          Mac
+        </button>
+        <button class="platform-btn" data-platform="mobile" onclick="switchPlatform('mobile')">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="20" x="5" y="2" rx="2" ry="2"/><path d="M12 18h.01"/></svg>
+          Mobile
+        </button>
+      </div>
+
       <div id="executorGrid">
         <div class="loading">
           <div class="loader">
@@ -741,6 +830,7 @@
     <div class="container">
       <div style="margin-bottom:8px"><strong>nobulem.wtf</strong> – undetected</div>
       <div>© <span id="year"></span> nobulem.wtf • All rights reserved</div>
+      <div class="api-credit">Powered by <a href="https://weao.xyz" target="_blank">WhatExpsAre.Online API</a></div>
     </div>
   </footer>
 
@@ -775,6 +865,8 @@
     ];
     let currentVersion = null;
     let allExecutors = [];
+    let currentPlatform = 'windows';
+    const ALLOWED_EXECUTORS = ['bunni.lol', 'swift', 'potassium', 'seliware', 'wave', 'zenith'];
 
     async function tryFetch(url) {
       for (const baseUrl of BASE_URLS) {
@@ -801,26 +893,38 @@
       }
     }
 
-    async function fetchExecutorStatus(executorName) {
-      try {
-        const response = await tryFetch(`/status/exploits/${executorName.toLowerCase()}`);
-        return await response.json();
-      } catch (error) {
-        console.error(`Error fetching ${executorName}:`, error);
-        return null;
-      }
-    }
-
     async function fetchAllExecutors() {
       try {
         const response = await tryFetch('/status/exploits');
         const data = await response.json();
         console.log('Raw API response:', data);
-        // The API returns an array directly
         return Array.isArray(data) ? data : [];
       } catch (error) {
         console.error('Error fetching all executors:', error);
         return [];
+      }
+    }
+
+    function getTimeAgo(dateString) {
+      try {
+        const date = new Date(dateString);
+        const now = new Date();
+        const diffMs = now - date;
+        const diffSeconds = Math.floor(diffMs / 1000);
+        const diffMinutes = Math.floor(diffSeconds / 60);
+        const diffHours = Math.floor(diffMinutes / 60);
+        const diffDays = Math.floor(diffHours / 24);
+        const diffWeeks = Math.floor(diffDays / 7);
+        const diffMonths = Math.floor(diffDays / 30);
+
+        if (diffSeconds < 60) return 'Just now';
+        if (diffMinutes < 60) return `${diffMinutes} minute${diffMinutes !== 1 ? 's' : ''} ago`;
+        if (diffHours < 24) return `${diffHours} hour${diffHours !== 1 ? 's' : ''} ago`;
+        if (diffDays < 7) return `${diffDays} day${diffDays !== 1 ? 's' : ''} ago`;
+        if (diffWeeks < 4) return `${diffWeeks} week${diffWeeks !== 1 ? 's' : ''} ago`;
+        return `${diffMonths} month${diffMonths !== 1 ? 's' : ''} ago`;
+      } catch (e) {
+        return dateString;
       }
     }
 
@@ -830,7 +934,11 @@
         const executors = await fetchAllExecutors();
 
         console.log('Executors raw:', executors);
-        allExecutors = executors.filter(ex => ex && ex.title);
+        
+        // Filter for allowed executors only
+        allExecutors = executors.filter(ex => 
+          ex && ex.title && ALLOWED_EXECUTORS.includes(ex.title.toLowerCase())
+        );
 
         updateStats(allExecutors, version);
         updateWarningBanner(allExecutors);
@@ -849,8 +957,15 @@
       const total = data.length;
       const working = data.filter(e => e.updateStatus === true && e.detected === false).length;
       const down = data.filter(e => e.updateStatus === false || e.detected === true).length;
-      const uncPercentages = data.map(e => e.uncPercentage || 0).filter(u => u > 0);
-      const avgUnc = uncPercentages.length > 0 ? Math.round(uncPercentages.reduce((a, b) => a + b, 0) / uncPercentages.length) : 0;
+      
+      // Calculate average UNC percentage correctly
+      const uncPercentages = data
+        .map(e => e.uncPercentage || 0)
+        .filter(u => u > 0);
+      
+      const avgUnc = uncPercentages.length > 0 
+        ? Math.round(uncPercentages.reduce((a, b) => a + b, 0) / uncPercentages.length) 
+        : 0;
 
       animateNumber(document.getElementById('statsTotal'), total);
       animateNumber(document.getElementById('statsWorking'), working);
@@ -887,16 +1002,37 @@
       }
     }
 
+    function switchPlatform(platform) {
+      currentPlatform = platform;
+      
+      // Update button states
+      document.querySelectorAll('.platform-btn').forEach(btn => {
+        btn.classList.remove('active');
+      });
+      document.querySelector(`[data-platform="${platform}"]`).classList.add('active');
+      
+      // Re-render executors
+      renderExecutors(allExecutors);
+    }
+
     function renderExecutors(executors) {
       const grid = document.getElementById('executorGrid');
 
-      if (executors.length === 0) {
-        grid.innerHTML = '<div class="loading"><p>No executors found.</p></div>';
+      // Filter by platform
+      let filteredExecutors = executors.filter(ex => {
+        const platform = ex.platform ? ex.platform.toLowerCase() : '';
+        if (currentPlatform === 'windows') return platform === 'windows';
+        if (currentPlatform === 'mac') return platform === 'mac';
+        if (currentPlatform === 'mobile') return platform === 'android' || platform === 'ios';
+        return true;
+      });
+
+      if (filteredExecutors.length === 0) {
+        grid.innerHTML = '<div class="loading"><p>No executors found for this platform.</p></div>';
         return;
       }
 
-      const html = executors.map((ex) => {
-        // Map API fields correctly
+      const html = filteredExecutors.map((ex) => {
         const isWorking = ex.updateStatus === true && ex.detected === false;
         const statusClass = isWorking ? 'up' : 'down';
 
@@ -906,8 +1042,8 @@
 
         const statusText = isWorking ? 'Working' : (ex.detected ? 'Detected' : 'Down');
         const statusColor = isWorking ? '#10B981' : '#EF4444';
-        const lastUpdate = ex.updatedDate || 'Unknown';
-        const keySystem = ex.keysystem !== undefined ? (ex.keysystem ? 'Yes' : 'No') : 'Unknown';
+        const timeAgo = getTimeAgo(ex.updatedDate);
+        const keySystem = ex.keysystem === true ? 'Yes' : (ex.keysystem === false ? 'No' : (ex.free ? 'No' : 'N/A'));
         const exploitLink = ex.websitelink || '#';
 
         return `
@@ -934,11 +1070,11 @@
               </div>
               <div class="executor-detail">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-                <span>${lastUpdate}</span>
+                <span>${timeAgo}</span>
               </div>
-              <div class="executor-detail">
+              <div class="executor-detail download-btn" onclick="window.open('${exploitLink}', '_blank')">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
-                <a href="${exploitLink}" target="_blank" rel="noopener noreferrer" style="color: var(--text);">Download</a>
+                <span>Download</span>
               </div>
             </div>
           </div>
