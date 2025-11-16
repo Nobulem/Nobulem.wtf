@@ -716,8 +716,8 @@
         <div class="stat-label">Down</div>
       </div>
       <div class="stat-card">
-        <div class="stat-number" id="statsVersion">-</div>
-        <div class="stat-label">Current Version</div>
+        <div class="stat-number" id="statsUNC">-</div>
+        <div class="stat-label">Avg UNC %</div>
       </div>
     </div>
   </header>
@@ -769,7 +769,7 @@
 
     document.getElementById('year').textContent = new Date().getFullYear();
 
-    const BASE_URL = 'http://farts.fadedis.xyz:25505/api';
+    const BASE_URL = 'https://farts.fadedis.xyz:25505/api';
     let currentVersion = null;
     let allExecutors = [];
 
@@ -833,11 +833,13 @@
       const total = data.length;
       const working = data.filter(e => e.status === 'Working' || e.status === 'Updated').length;
       const down = data.filter(e => e.status === 'Down' || e.status === 'Not Updated').length;
+      const uncPercentages = data.map(e => e.uncPercentage || 0).filter(u => u > 0);
+      const avgUnc = uncPercentages.length > 0 ? Math.round(uncPercentages.reduce((a, b) => a + b, 0) / uncPercentages.length) : 0;
 
       animateNumber(document.getElementById('statsTotal'), total);
       animateNumber(document.getElementById('statsWorking'), working);
       animateNumber(document.getElementById('statsDown'), down);
-      document.getElementById('statsVersion').textContent = version || '-';
+      animateNumber(document.getElementById('statsUNC'), avgUnc, '%');
     }
 
     function animateNumber(element, target, suffix = '') {
@@ -896,7 +898,7 @@
             <div class="executor-header">
               <div>
                 <a href="${exploitLink}" target="_blank" rel="noopener noreferrer" class="executor-name">${ex.name || 'Unknown'}</a>
-                <div class="executor-version">${ex.version || currentVersion || 'N/A'}</div>
+                <div class="executor-version">${ex.version || 'N/A'}</div>
               </div>
               <div class="status-indicator ${statusClass}">
                 ${statusIcon}
