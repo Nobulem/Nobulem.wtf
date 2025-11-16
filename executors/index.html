@@ -1105,16 +1105,16 @@
         const isWorking = ex.updateStatus === true && ex.detected === false;
         const statusClass = isWorking ? 'working' : 'down';
 
+        // Fixed status text logic
         let statusText = 'Not Updated';
+        let statusBadgeClass = 'not-updated';
+        
         if (ex.updateStatus === true && ex.detected === false) {
           statusText = 'Updated';
-        } else if (ex.updateStatus === false && ex.detected === true) {
-          statusText = 'Not Updated';
-        } else if (ex.updateStatus === false && ex.detected === false) {
-          statusText = 'Not Updated';
-        } else if (ex.updateStatus === true && ex.detected === true) {
-          statusText = 'Not Updated';
+          statusBadgeClass = 'updated';
         }
+        
+        console.log(`${ex.title}: updateStatus=${ex.updateStatus}, detected=${ex.detected}, statusText=${statusText}`);
         
         const timeAgo = getTimeAgo(ex.updatedDate);
         const exploitLink = ex.websitelink || ex.purchaselink || '#';
@@ -1149,7 +1149,7 @@
                   ${badges.join('')}
                 </div>
               </div>
-              <div class="executor-status-badge ${isWorking ? 'updated' : 'not-updated'}">
+              <div class="executor-status-badge ${statusBadgeClass}">
                 ${statusText}
               </div>
             </div>
