@@ -641,6 +641,31 @@
       40% { transform: scale(1); }
     }
 
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 12px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: var(--bg);
+      border-left: 1px solid var(--line);
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: var(--card);
+      border-radius: 6px;
+      border: 2px solid var(--bg);
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: #252525;
+    }
+
+    * {
+      scrollbar-width: thin;
+      scrollbar-color: var(--card) var(--bg);
+    }
+
     footer{
       border-top:1px solid var(--line);
       padding:24px 0 40px;
@@ -650,7 +675,7 @@
     }
 
     .api-credit {
-      margin-top: 16px;
+      margin-bottom: 16px;
       font-size: 13px;
     }
 
@@ -828,9 +853,9 @@
 
   <footer>
     <div class="container">
+      <div class="api-credit">Powered by <a href="https://weao.xyz" target="_blank">WhatExpsAre.Online API</a></div>
       <div style="margin-bottom:8px"><strong>nobulem.wtf</strong> – undetected</div>
       <div>© <span id="year"></span> nobulem.wtf • All rights reserved</div>
-      <div class="api-credit">Powered by <a href="https://weao.xyz" target="_blank">WhatExpsAre.Online API</a></div>
     </div>
   </footer>
 
@@ -906,8 +931,26 @@
     }
 
     function getTimeAgo(dateString) {
+      if (!dateString || dateString === 'Unknown') return 'Unknown';
+      
       try {
-        const date = new Date(dateString);
+        // Parse the date string - it might be in format "MM/DD/YYYY at HH:MM AM/PM UTC"
+        let date;
+        
+        if (dateString.includes(' at ')) {
+          // Parse custom format: "07/24/2025 at 3:47 PM UTC"
+          const [datePart, timePart] = dateString.split(' at ');
+          const [month, day, year] = datePart.split('/');
+          const timeStr = timePart.replace(' UTC', '').trim();
+          date = new Date(`${year}-${month}-${day} ${timeStr} UTC`);
+        } else {
+          date = new Date(dateString);
+        }
+        
+        if (isNaN(date.getTime())) {
+          return dateString;
+        }
+        
         const now = new Date();
         const diffMs = now - date;
         const diffSeconds = Math.floor(diffMs / 1000);
@@ -924,6 +967,7 @@
         if (diffWeeks < 4) return `${diffWeeks} week${diffWeeks !== 1 ? 's' : ''} ago`;
         return `${diffMonths} month${diffMonths !== 1 ? 's' : ''} ago`;
       } catch (e) {
+        console.error('Error parsing date:', dateString, e);
         return dateString;
       }
     }
@@ -1043,8 +1087,19 @@
         const statusText = isWorking ? 'Working' : (ex.detected ? 'Detected' : 'Down');
         const statusColor = isWorking ? '#10B981' : '#EF4444';
         const timeAgo = getTimeAgo(ex.updatedDate);
-        const keySystem = ex.keysystem === true ? 'Yes' : (ex.keysystem === false ? 'No' : (ex.free ? 'No' : 'N/A'));
-        const exploitLink = ex.websitelink || '#';
+        
+        // Fix key system logic
+        let keySystem = 'No';
+        if (ex.keysystem === true) {
+          keySystem = 'Yes';
+        } else if (ex.keysystem === false) {
+          keySystem = 'No';
+        } else if (ex.free === false) {
+          // Paid executors without explicit keysystem field
+          keySystem = 'No';
+        }
+        
+        const exploitLink = ex.websitelink || ex.purchaselink || '#';
 
         return `
           <div class="executor-card">
@@ -1072,9 +1127,9 @@
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
                 <span>${timeAgo}</span>
               </div>
-              <div class="executor-detail download-btn" onclick="window.open('${exploitLink}', '_blank')">
+              <div class="executor-detail download-btn" onclick="event.stopPropagation(); window.open('${exploitLink}', '_blank', 'noopener,noreferrer');">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
-                <span>Download</span>
+                <span style="cursor: pointer;">Download</span>
               </div>
             </div>
           </div>
