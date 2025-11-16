@@ -769,10 +769,10 @@
 
     document.getElementById('year').textContent = new Date().getFullYear();
 
-     const BASE_URLS = [
-    'https://executorapi.nobulemv2.workers.dev/?url=http://farts.fadedis.xyz:25505/api',
-    'https://executorapi.nobulemv2.workers.dev/?url=https://farts.fadedis.xyz:25505/api'
-  ];
+    const BASE_URLS = [
+      'https://executorapi.nobulemv2.workers.dev/?url=http://farts.fadedis.xyz:25505/api',
+      'https://executorapi.nobulemv2.workers.dev/?url=https://farts.fadedis.xyz:25505/api'
+    ];
     let currentVersion = null;
     let allExecutors = [];
 
@@ -814,7 +814,10 @@
     async function fetchAllExecutors() {
       try {
         const response = await tryFetch('/status/exploits');
-        return await response.json();
+        const data = await response.json();
+        console.log('Raw API response:', data);
+        // The API returns an array directly
+        return Array.isArray(data) ? data : [];
       } catch (error) {
         console.error('Error fetching all executors:', error);
         return [];
@@ -827,7 +830,7 @@
         const executors = await fetchAllExecutors();
 
         console.log('Executors raw:', executors);
-        allExecutors = executors.filter(ex => ex && ex.name);
+        allExecutors = executors.filter(ex => ex && ex.title);
 
         updateStats(allExecutors, version);
         updateWarningBanner(allExecutors);
@@ -844,8 +847,8 @@
 
     function updateStats(data, version) {
       const total = data.length;
-      const working = data.filter(e => e.status === 'Working' || e.status === 'Updated').length;
-      const down = data.filter(e => e.status === 'Down' || e.status === 'Not Updated').length;
+      const working = data.filter(e => e.updateStatus === true && e.detected === false).length;
+      const down = data.filter(e => e.updateStatus === false || e.detected === true).length;
       const uncPercentages = data.map(e => e.uncPercentage || 0).filter(u => u > 0);
       const avgUnc = uncPercentages.length > 0 ? Math.round(uncPercentages.reduce((a, b) => a + b, 0) / uncPercentages.length) : 0;
 
@@ -872,8 +875,8 @@
       const banner = document.getElementById('warningBanner');
       const text = document.getElementById('warningText');
 
-      const allDown = data.every(e => e.status === 'Down' || e.status === 'Not Updated');
-      const workingCount = data.filter(e => e.status === 'Working' || e.status === 'Updated').length;
+      const allDown = data.every(e => e.updateStatus === false || e.detected === true);
+      const workingCount = data.filter(e => e.updateStatus === true && e.detected === false).length;
 
       if (allDown) {
         text.textContent = 'All executors are currently down';
@@ -893,24 +896,25 @@
       }
 
       const html = executors.map((ex) => {
-        const isWorking = ex.status === 'Working' || ex.status === 'Updated';
+        // Map API fields correctly
+        const isWorking = ex.updateStatus === true && ex.detected === false;
         const statusClass = isWorking ? 'up' : 'down';
 
         const statusIcon = statusClass === 'up'
           ? '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>'
           : '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>';
 
-        const statusText = ex.status || 'Unknown';
+        const statusText = isWorking ? 'Working' : (ex.detected ? 'Detected' : 'Down');
         const statusColor = isWorking ? '#10B981' : '#EF4444';
-        const lastUpdate = ex.lastUpdate || 'Unknown';
-        const keySystem = ex.keySystem !== undefined ? (ex.keySystem ? 'Yes' : 'No') : 'Unknown';
-        const exploitLink = ex.link || '#';
+        const lastUpdate = ex.updatedDate || 'Unknown';
+        const keySystem = ex.keysystem !== undefined ? (ex.keysystem ? 'Yes' : 'No') : 'Unknown';
+        const exploitLink = ex.websitelink || '#';
 
         return `
           <div class="executor-card">
             <div class="executor-header">
               <div>
-                <a href="${exploitLink}" target="_blank" rel="noopener noreferrer" class="executor-name">${ex.name || 'Unknown'}</a>
+                <a href="${exploitLink}" target="_blank" rel="noopener noreferrer" class="executor-name">${ex.title || 'Unknown'}</a>
                 <div class="executor-version">${ex.version || 'N/A'}</div>
               </div>
               <div class="status-indicator ${statusClass}">
