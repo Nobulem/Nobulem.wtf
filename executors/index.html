@@ -769,14 +769,29 @@
 
     document.getElementById('year').textContent = new Date().getFullYear();
 
-    const BASE_URL = 'https://farts.fadedis.xyz:25505/api';
+    const BASE_URLS = [
+      'https://farts.fadedis.xyz:25505/api',
+      'http://farts.fadedis.xyz:25505/api'
+    ];
     let currentVersion = null;
     let allExecutors = [];
 
+    async function tryFetch(url) {
+      for (const baseUrl of BASE_URLS) {
+        try {
+          const response = await fetch(baseUrl + url);
+          if (response.ok) return response;
+        } catch (error) {
+          console.log(`Failed with ${baseUrl}:`, error);
+          continue;
+        }
+      }
+      throw new Error('All fetch attempts failed');
+    }
+
     async function fetchVersions() {
       try {
-        const response = await fetch(`${BASE_URL}/versions/current`);
-        if (!response.ok) throw new Error('Failed to fetch versions');
+        const response = await tryFetch('/versions/current');
         const data = await response.json();
         currentVersion = data.clientVersionUpload || data.version || 'Unknown';
         return currentVersion;
@@ -788,8 +803,7 @@
 
     async function fetchExecutorStatus(executorName) {
       try {
-        const response = await fetch(`${BASE_URL}/status/exploits/${executorName.toLowerCase()}`);
-        if (!response.ok) throw new Error(`Failed to fetch ${executorName}`);
+        const response = await tryFetch(`/status/exploits/${executorName.toLowerCase()}`);
         return await response.json();
       } catch (error) {
         console.error(`Error fetching ${executorName}:`, error);
@@ -799,10 +813,8 @@
 
     async function fetchAllExecutors() {
       try {
-        const response = await fetch(`${BASE_URL}/status/exploits`);
-        if (!response.ok) throw new Error('Failed to fetch all executors');
-        const data = await response.json();
-        return data;
+        const response = await tryFetch('/status/exploits');
+        return await response.json();
       } catch (error) {
         console.error('Error fetching all executors:', error);
         return [];
