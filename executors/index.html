@@ -675,6 +675,245 @@
       text-decoration: underline;
     }
 
+    /* sUNC Modal Styles */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.85);
+      z-index: 1000;
+      backdrop-filter: blur(8px);
+      animation: fadeIn 0.3s ease;
+    }
+
+    .modal-overlay.active {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .modal-content {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      width: 100%;
+      max-width: 1000px;
+      max-height: 90vh;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      animation: slideUp 0.3s ease;
+    }
+
+    @keyframes slideUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 24px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .modal-header h3 {
+      font-size: 24px;
+      margin: 0;
+    }
+
+    .modal-close {
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      background: rgba(255,255,255,0.05);
+      border: none;
+      color: var(--text);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+    }
+
+    .modal-close:hover {
+      background: rgba(255,255,255,0.1);
+    }
+
+    .modal-body {
+      padding: 24px;
+      overflow-y: auto;
+    }
+
+    .sunc-warning {
+      background: rgba(245, 158, 11, 0.15);
+      border: 1px solid rgba(245, 158, 11, 0.3);
+      border-radius: 12px;
+      padding: 16px;
+      margin-bottom: 24px;
+      display: flex;
+      gap: 12px;
+    }
+
+    .sunc-warning strong {
+      color: #FBBF24;
+    }
+
+    .sunc-stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .sunc-stat-box {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .sunc-stat-number {
+      font-size: 48px;
+      font-weight: 700;
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+
+    .sunc-stat-number.green {
+      color: var(--green);
+    }
+
+    .sunc-stat-number.red {
+      color: var(--red);
+    }
+
+    .sunc-stat-label {
+      font-size: 13px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    .sunc-circle {
+      width: 200px;
+      height: 200px;
+      margin: 0 auto 24px;
+      position: relative;
+    }
+
+    .sunc-circle svg {
+      transform: rotate(-90deg);
+    }
+
+    .sunc-circle-bg {
+      fill: none;
+      stroke: rgba(255,255,255,0.05);
+      stroke-width: 12;
+    }
+
+    .sunc-circle-progress {
+      fill: none;
+      stroke: var(--green);
+      stroke-width: 12;
+      stroke-linecap: round;
+      transition: stroke-dashoffset 1s ease;
+    }
+
+    .sunc-circle-text {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+    }
+
+    .sunc-circle-percentage {
+      font-size: 48px;
+      font-weight: 700;
+      line-height: 1;
+    }
+
+    .sunc-circle-subtitle {
+      font-size: 13px;
+      color: var(--muted);
+      margin-top: 8px;
+    }
+
+    .sunc-functions-list {
+      max-height: 400px;
+      overflow-y: auto;
+      background: rgba(255,255,255,0.02);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 12px;
+    }
+
+    .sunc-function-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px;
+      margin-bottom: 8px;
+      background: rgba(255,255,255,0.03);
+      border-radius: 8px;
+      transition: all 0.3s ease;
+    }
+
+    .sunc-function-item:hover {
+      background: rgba(255,255,255,0.06);
+    }
+
+    .sunc-function-name {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 600;
+    }
+
+    .sunc-function-status {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .sunc-function-status.passed {
+      background: rgba(16, 185, 129, 0.2);
+      color: var(--green);
+    }
+
+    .sunc-function-status.failed {
+      background: rgba(239, 68, 68, 0.2);
+      color: var(--red);
+    }
+
+    .sunc-function-category {
+      padding: 4px 12px;
+      background: rgba(255,255,255,0.08);
+      border-radius: 6px;
+      font-size: 12px;
+    }
+
     @media (max-width: 980px){
       .stats{grid-template-columns:repeat(2, 1fr)}
 
@@ -1011,8 +1250,8 @@
 
     function updateStats(data, version) {
       const total = data.length;
-      const working = data.filter(e => e.updateStatus === true && e.detected === false).length;
-      const down = data.filter(e => !(e.updateStatus === true && e.detected === false)).length;
+      const working = data.filter(e => e.updateStatus === true).length;
+      const down = data.filter(e => e.updateStatus !== true).length;
       
       const uncPercentages = data
         .map(e => e.uncPercentage || 0)
@@ -1045,8 +1284,8 @@
       const banner = document.getElementById('warningBanner');
       const text = document.getElementById('warningText');
 
-      const allDown = data.every(e => !(e.updateStatus === true && e.detected === false));
-      const workingCount = data.filter(e => e.updateStatus === true && e.detected === false).length;
+      const allDown = data.every(e => e.updateStatus !== true);
+      const workingCount = data.filter(e => e.updateStatus === true).length;
 
       if (allDown) {
         text.textContent = 'All executors are currently down';
