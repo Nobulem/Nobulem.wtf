@@ -1011,8 +1011,8 @@
 
     function updateStats(data, version) {
       const total = data.length;
-      const working = data.filter(e => e.updateStatus === true && e.detected === true).length;
-      const down = data.filter(e => !(e.updateStatus === false && e.detected === true)).length;
+      const working = data.filter(e => e.updateStatus === true && e.detected === false).length;
+      const down = data.filter(e => !(e.updateStatus === true && e.detected === false)).length;
       
       const uncPercentages = data
         .map(e => e.uncPercentage || 0)
@@ -1102,19 +1102,15 @@
       }
 
       const html = filteredExecutors.map((ex) => {
-        const isWorking = ex.updateStatus === true && ex.detected === false;
+        // Determine if working based on updateStatus only
+        const isWorking = ex.updateStatus === true;
         const statusClass = isWorking ? 'working' : 'down';
 
-        // Fixed status text logic
-        let statusText = 'Not Updated';
-        let statusBadgeClass = 'not-updated';
+        // Status text and badge
+        let statusText = isWorking ? 'Updated' : 'Not Updated';
+        let statusBadgeClass = isWorking ? 'updated' : 'not-updated';
         
-        if (ex.updateStatus === true && ex.detected === false) {
-          statusText = 'Updated';
-          statusBadgeClass = 'updated';
-        }
-        
-        console.log(`${ex.title}: updateStatus=${ex.updateStatus}, detected=${ex.detected}, statusText=${statusText}`);
+        console.log(`${ex.title}: updateStatus=${ex.updateStatus}, detected=${ex.detected}, isWorking=${isWorking}, statusText=${statusText}`);
         
         const timeAgo = getTimeAgo(ex.updatedDate);
         const exploitLink = ex.websitelink || ex.purchaselink || '#';
