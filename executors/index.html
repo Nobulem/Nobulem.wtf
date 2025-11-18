@@ -1093,6 +1093,28 @@
     </div>
   </footer>
 
+  <!-- sUNC Modal -->
+  <div class="modal-overlay" id="suncModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>sUNC Results</h3>
+        <button class="modal-close" onclick="closeSuncModal()">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+      <div class="modal-body" id="suncModalBody">
+        <div class="loading">
+          <div class="loader">
+            <div class="loader-dot"></div>
+            <div class="loader-dot"></div>
+            <div class="loader-dot"></div>
+          </div>
+          <p>Loading sUNC data...</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <script>
     function toggleMobileMenu() {
       const menu = document.getElementById('mobileMenu');
@@ -1234,6 +1256,8 @@
         );
 
         console.log('Filtered executors:', allExecutors);
+        console.log('Working count:', allExecutors.filter(e => e.updateStatus === true).length);
+        console.log('Down count:', allExecutors.filter(e => e.updateStatus !== true).length);
 
         updateStats(allExecutors, version);
         updateWarningBanner(allExecutors);
@@ -1361,9 +1385,11 @@
           badges.push(`<span class="badge version">${ex.version}</span>`);
         }
         
-        // UNC badge
-        if (ex.uncStatus) {
-          badges.push(`<span class="badge unc">sUNC</span>`);
+        // UNC badge - make it clickable
+        if (ex.uncStatus && ex.sunc) {
+          const suncKey = ex.sunc.suncKey || '';
+          const suncScrap = ex.sunc.suncScrap || '';
+          badges.push(`<span class="badge unc" onclick="event.stopPropagation(); event.preventDefault(); showSuncModal('${ex.title.replace(/'/g, "\\'")}', '${suncKey}', '${suncScrap}'); return false;" style="cursor: pointer;">sUNC</span>`);
         }
         
         // Price/Free badge
@@ -1420,6 +1446,155 @@
 
     fetchExecutorData();
     setInterval(fetchExecutorData, 30000);
+
+    // sUNC Modal Functions
+    function showSuncModal(executorName, suncKey, suncScrap) {
+      const modal = document.getElementById('suncModal');
+      const modalBody = document.getElementById('suncModalBody');
+      
+      modal.classList.add('active');
+      document.body.style.overflow = 'hidden';
+      
+      modalBody.innerHTML = `
+        <div class="loading">
+          <div class="loader">
+            <div class="loader-dot"></div>
+            <div class="loader-dot"></div>
+            <div class="loader-dot"></div>
+          </div>
+          <p>Loading sUNC data...</p>
+        </div>
+      `;
+      
+      // Fetch sUNC data
+      fetchSuncData(executorName, suncKey, suncScrap);
+    }
+
+    function closeSuncModal() {
+      const modal = document.getElementById('suncModal');
+      modal.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    // Close modal on overlay click
+    document.getElementById('suncModal').addEventListener('click', function(e) {
+      if (e.target === this) {
+        closeSuncModal();
+      }
+    });
+
+    // Close modal on escape key
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') {
+        closeSuncModal();
+      }
+    });
+
+    async function fetchSuncData(executorName, suncKey, suncScrap) {
+      try {
+        const response = await fetch(`https://sunc.numelon.com/api/v1/results/${suncKey}/${suncScrap}`);
+        const data = await response.json();
+        
+        console.log('sUNC data:', data);
+        
+        const modalBody = document.getElementById('suncModalBody');
+        
+        const passed = data.results.filter(r => r.state === 'passed').length;
+        const failed = data.results.filter(r => r.state === 'failed').length;
+        const total = data.results.length;
+        const percentage = Math.round((passed / total) * 100);
+        
+        const circumference = 2 * Math.PI * 90;
+        const offset = circumference - (percentage / 100) * circumference;
+        
+        const functionsByCategory = {};
+        data.results.forEach(func => {
+          if (!functionsByCategory[func.category]) {
+            functionsByCategory[func.category] = [];
+          }
+          functionsByCategory[func.category].push(func);
+        });
+        
+        let functionsHTML = '';
+        Object.keys(functionsByCategory).sort().forEach(category => {
+          functionsByCategory[category].forEach(func => {
+            const statusIcon = func.state === 'passed' 
+              ? '<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>'
+              : '<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>';
+            
+            functionsHTML += `
+              <div class="sunc-function-item">
+                <div class="sunc-function-name">
+                  <div class="sunc-function-status ${func.state}">
+                    ${statusIcon}
+                  </div>
+                  ${func.function}
+                </div>
+                <div class="sunc-function-category">${func.category}</div>
+              </div>
+            `;
+          });
+        });
+        
+        modalBody.innerHTML = `
+          <div class="sunc-warning">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0; margin-top: 2px;"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg>
+            <div>
+              <strong>Important:</strong> Failed tests don't always mean functions won't work. They just indicate that the functions didn't pass sUNC's specific compatibility checks.
+            </div>
+          </div>
+          
+          <div style="display: flex; gap: 24px; margin-bottom: 24px; flex-wrap: wrap;">
+            <div style="flex: 1; min-width: 200px;">
+              <div class="sunc-circle">
+                <svg width="200" height="200" viewBox="0 0 200 200">
+                  <circle class="sunc-circle-bg" cx="100" cy="100" r="90"/>
+                  <circle class="sunc-circle-progress" cx="100" cy="100" r="90" 
+                    stroke-dasharray="${circumference}" 
+                    stroke-dashoffset="${offset}"/>
+                </svg>
+                <div class="sunc-circle-text">
+                  <div class="sunc-circle-percentage">${percentage}%</div>
+                  <div class="sunc-circle-subtitle">${passed}/${total}</div>
+                </div>
+              </div>
+              <h4 style="text-align: center; margin-bottom: 8px;">${executorName}</h4>
+              <p style="text-align: center; color: var(--muted); font-size: 13px;">sUNC ${data.version}</p>
+            </div>
+            
+            <div style="flex: 1; min-width: 300px;">
+              <div class="sunc-stats-grid">
+                <div class="sunc-stat-box">
+                  <div class="sunc-stat-number green">${passed}</div>
+                  <div class="sunc-stat-label">Passed</div>
+                </div>
+                <div class="sunc-stat-box">
+                  <div class="sunc-stat-number red">${failed}</div>
+                  <div class="sunc-stat-label">Failed</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <h4 style="margin-bottom: 16px;">Functions</h4>
+          <div class="sunc-functions-list">
+            ${functionsHTML}
+          </div>
+          
+          <div style="margin-top: 16px; text-align: center; padding-top: 16px; border-top: 1px solid var(--line);">
+            <p style="font-size: 12px; color: var(--muted);">Powered by <a href="https://sunc.numelon.com" target="_blank" style="color: var(--green);">Numelon</a></p>
+          </div>
+        `;
+      } catch (error) {
+        console.error('Error fetching sUNC data:', error);
+        const modalBody = document.getElementById('suncModalBody');
+        modalBody.innerHTML = `
+          <div class="loading">
+            <p style="color: #EF4444;">Failed to load sUNC data. Please try again later.</p>
+          </div>
+        `;
+      }
+    }
   </script>
 </body>
 </html>
