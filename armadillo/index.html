@@ -117,10 +117,9 @@
             max-width: 90%;
         }
 
-        .mute-button {
+        .mute-button, .socials-button {
             position: fixed;
             bottom: 1.5rem;
-            left: 1.5rem;
             width: 55px;
             height: 55px;
             background: rgba(15, 15, 15, 0.8);
@@ -135,15 +134,168 @@
             backdrop-filter: blur(10px);
         }
 
-        .mute-button:hover {
+        .mute-button {
+            left: 1.5rem;
+        }
+
+        .socials-button {
+            left: 6rem;
+        }
+
+        .mute-button:hover, .socials-button:hover {
             background: rgba(25, 25, 25, 0.9);
             border-color: rgba(70, 70, 70, 0.7);
         }
 
-        .mute-button svg {
+        .mute-button svg, .socials-button svg {
             color: #555;
             width: 26px;
             height: 26px;
+        }
+
+        .tooltip {
+            position: absolute;
+            bottom: 110%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(20, 20, 20, 0.95);
+            color: #888;
+            padding: 0.5rem 0.75rem;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+            border: 1px solid rgba(50, 50, 50, 0.5);
+        }
+
+        .mute-button:hover .tooltip,
+        .socials-button:hover .tooltip {
+            opacity: 1;
+        }
+
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(8px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .modal {
+            background: rgba(15, 15, 15, 0.95);
+            border: 2px solid rgba(50, 50, 50, 0.5);
+            border-radius: 16px;
+            padding: 2.5rem;
+            max-width: 500px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .modal-title {
+            font-size: 2rem;
+            color: #555;
+            font-weight: bold;
+        }
+
+        .close-button {
+            background: none;
+            border: none;
+            color: #555;
+            cursor: pointer;
+            padding: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: color 0.3s ease;
+        }
+
+        .close-button:hover {
+            color: #777;
+        }
+
+        .close-button svg {
+            width: 24px;
+            height: 24px;
+        }
+
+        .social-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            background: rgba(20, 20, 20, 0.6);
+            border: 1px solid rgba(50, 50, 50, 0.4);
+            border-radius: 10px;
+            margin-bottom: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .social-item:hover {
+            background: rgba(30, 30, 30, 0.7);
+            border-color: rgba(70, 70, 70, 0.6);
+            transform: translateX(5px);
+        }
+
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .social-icon svg {
+            width: 28px;
+            height: 28px;
+            color: #555;
+        }
+
+        .social-content {
+            flex: 1;
+        }
+
+        .social-label {
+            font-size: 0.85rem;
+            color: #666;
+            margin-bottom: 0.25rem;
+        }
+
+        .social-link {
+            color: #888;
+            text-decoration: none;
+            font-size: 1rem;
+            transition: color 0.3s ease;
+        }
+
+        .social-link:hover {
+            color: #aaa;
+        }
+
+        .social-text {
+            color: #888;
+            font-size: 1rem;
         }
 
         @keyframes jump {
@@ -348,26 +500,21 @@
                 max-width: 85%;
             }
 
-            .mute-button {
+            .mute-button, .socials-button {
                 bottom: 1rem;
-                left: 1rem;
                 width: 50px;
                 height: 50px;
             }
 
-            .mute-button svg {
-                width: 24px;
-                height: 24px;
+            .mute-button {
+                left: 1rem;
             }
 
             .socials-button {
-                bottom: 1rem;
-                left: 4.5rem;
-                width: 50px;
-                height: 50px;
+                left: 5rem;
             }
 
-            .socials-button svg {
+            .mute-button svg, .socials-button svg {
                 width: 24px;
                 height: 24px;
             }
@@ -391,7 +538,7 @@
     </audio>
 
     <button class="mute-button" id="muteButton" aria-label="Mute/Unmute">
-        <i data-lucide="volume-2"></i>
+        <i data-lucide="volume-2" id="muteIcon"></i>
         <span class="tooltip" id="muteTooltip">Mute</span>
     </button>
 
@@ -508,7 +655,7 @@
             <div class="wide-grid">
                 <div class="info-item">
                     <strong>Location</strong>
-                    <p>Somewhere in the Universe (Egypt)<</p>
+                    <p>Somewhere in the Universe (Egypt)</p>
                 </div>
                 <div class="info-item">
                     <strong>Pronouns</strong>
@@ -577,19 +724,42 @@
         // Mute button functionality
         const bgMusic = document.getElementById('bgMusic');
         const muteButton = document.getElementById('muteButton');
+        const muteIcon = document.getElementById('muteIcon');
+        const muteTooltip = document.getElementById('muteTooltip');
         let isMuted = false;
 
-        muteButton.addEventListener('click', () => {
+        muteButton.addEventListener('click', function() {
             isMuted = !isMuted;
             bgMusic.muted = isMuted;
             
-            const icon = muteButton.querySelector('i');
             if (isMuted) {
-                icon.setAttribute('data-lucide', 'volume-x');
+                muteIcon.setAttribute('data-lucide', 'volume-x');
+                muteTooltip.textContent = 'Unmute';
             } else {
-                icon.setAttribute('data-lucide', 'volume-2');
+                muteIcon.setAttribute('data-lucide', 'volume-2');
+                muteTooltip.textContent = 'Mute';
             }
             lucide.createIcons();
+        });
+
+        // Socials modal functionality
+        const socialsButton = document.getElementById('socialsButton');
+        const modalOverlay = document.getElementById('modalOverlay');
+        const closeModal = document.getElementById('closeModal');
+
+        socialsButton.addEventListener('click', function() {
+            modalOverlay.classList.add('active');
+            lucide.createIcons();
+        });
+
+        closeModal.addEventListener('click', function() {
+            modalOverlay.classList.remove('active');
+        });
+
+        modalOverlay.addEventListener('click', function(e) {
+            if (e.target === modalOverlay) {
+                modalOverlay.classList.remove('active');
+            }
         });
 
         // Create rain effect
