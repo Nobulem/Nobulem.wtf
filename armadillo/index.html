@@ -366,7 +366,7 @@
     <div id="rain-container"></div>
 
     <audio id="bgMusic" loop>
-        <source src="Schubert - Serenade (arr. Liszt).mp3" type="audio/mpeg">
+        <source src="Schubert%20-%20Serenade%20(arr.%20Liszt).mp3" type="audio/mpeg">
     </audio>
 
     <button class="mute-button" id="muteButton" aria-label="Mute/Unmute">
@@ -506,9 +506,12 @@
         createRain();
 
         // Loading screen - simple timeout
+        console.log('Starting loading timeout...');
         setTimeout(function() {
+            console.log('Timeout fired! Hiding loading screen...');
             document.getElementById('loading-screen').classList.add('hidden');
             document.getElementById('main-content').classList.add('visible');
+            console.log('Loading screen hidden, main content visible');
             
             // Try to play music
             bgMusic.play().catch(function(err) {
