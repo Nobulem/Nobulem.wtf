@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>nobulem.wtf – Free Scripts Hub</title>
-  <meta name="description" content="nobulem.wtf – Quality scripts hub. Bold. Fast. Clean.">
+  <title>nobulem.wtf — Free Scripts Hub</title>
+  <meta name="description" content="nobulem.wtf — Quality scripts hub. Bold. Fast. Clean.">
   <link rel="icon" type="image/png" href="https://i.ibb.co/NdNpCJ4v/image-2.png">
   <style>
     /* ---------- Base / Theme ---------- */
@@ -735,22 +735,12 @@
     .showcase-thumbnail {
       width: 100%;
       height: 150px;
-      background: rgba(255,255,255,0.03);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--muted);
+      object-fit: cover;
       transition: all 0.4s ease;
     }
 
-    .showcase-thumbnail svg {
-      width: 48px;
-      height: 48px;
-      stroke: var(--muted);
-    }
-
     .showcase-card:hover .showcase-thumbnail {
-      background: rgba(255,255,255,0.05);
+      transform: scale(1.05);
     }
 
     .showcase-content {
@@ -761,6 +751,10 @@
       font-size: 15px;
       font-weight: 700;
       margin-bottom: 6px;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
     }
 
     .showcase-views {
@@ -1069,7 +1063,7 @@
 
   <footer>
     <div class="container">
-      <div style="margin-bottom:8px"><strong>nobulem.wtf</strong> – undetected</div>
+      <div style="margin-bottom:8px"><strong>nobulem.wtf</strong> — undetected</div>
       <div>© <span id="year"></span> nobulem.wtf • All rights reserved</div>
     </div>
   </footer>
@@ -1111,11 +1105,11 @@
     const typingText = document.getElementById('typing-text');
     const baseText = "nobulem.wtf";
     const suffixes = [
-      " – Quality.",
-      " – Secure.",
-      " – Reliable.",
-      " – Free.",
-      " – Fast."
+      " — Quality.",
+      " — Secure.",
+      " — Reliable.",
+      " — Free.",
+      " — Fast."
     ];
     let suffixIndex = 0;
     let charIndex = 0;
@@ -1126,83 +1120,91 @@
       let displayText = baseText;
       
       if (!isDeleting) {
-        // Typing forward
         displayText = baseText + currentSuffix.substring(0, charIndex);
         typingText.textContent = displayText;
         charIndex++;
         
         if (charIndex > currentSuffix.length) {
-          // Finished typing this suffix
           isDeleting = true;
-          setTimeout(type, 2000); // Pause before deleting
+          setTimeout(type, 2000);
           return;
         }
         setTimeout(type, 120);
       } else {
-        // Deleting backward
         charIndex--;
         displayText = baseText + currentSuffix.substring(0, charIndex);
         typingText.textContent = displayText;
         
         if (charIndex === 0) {
-          // Finished deleting, move to next suffix
           isDeleting = false;
           suffixIndex = (suffixIndex + 1) % suffixes.length;
-          setTimeout(type, 600); // Pause before typing next
+          setTimeout(type, 600);
           return;
         }
         setTimeout(type, 60);
       }
     }
 
- // Load latest games
+    // Load latest games from games page
     function loadLatestGames() {
-      fetch('/games')
-        .then(response => response.text())
+      const gamesContainer = document.getElementById('latest-games');
+      
+      // Show loading state
+      gamesContainer.innerHTML = '<div style="grid-column: 1/-1; text-align: center; color: var(--muted); padding: 20px;">Loading games...</div>';
+      
+      fetch('/games/index.html')
+        .then(response => {
+          if (!response.ok) throw new Error('Failed to fetch');
+          return response.text();
+        })
         .then(html => {
           const parser = new DOMParser();
           const doc = parser.parseFromString(html, 'text/html');
           const gameCards = doc.querySelectorAll('.game-card');
           
-          const gamesData = Array.from(gameCards).slice(0, 3).map(card => {
-            const name = card.querySelector('.game-name')?.textContent || 'Game';
-            const description = card.querySelector('.game-description')?.textContent || 'Description';
-            const image = card.querySelector('.game-thumbnail')?.src || 'https://via.placeholder.com/400x200';
-            const id = card.querySelector('.game-id')?.textContent?.replace('#', '') || '0';
+          if (gameCards.length > 0) {
+            // Get first 3 games
+            const top3Games = Array.from(gameCards).slice(0, 3);
             
-            return { name, description, image, id };
-          });
-          
-          renderLatestGames(gamesData);
+            gamesContainer.innerHTML = '';
+            top3Games.forEach(card => {
+              const clonedCard = card.cloneNode(true);
+              gamesContainer.appendChild(clonedCard);
+            });
+          } else {
+            renderFallbackGames();
+          }
         })
-        .catch(() => {
-          const fallbackGames = [
-            {
-              name: "Untitled Boxing Game",
-              description: "Boxing combat enhancements with perfect dodge timing and advanced ESP systems.",
-              image: "https://tr.rbxcdn.com/180DAY-078e71f7babd821f5bb362c460fc0fd9/768/432/Image/Webp/noFilter",
-              id: "13423334817"
-            },
-            {
-              name: "Marvelous Playground", 
-              description: "Advanced combat scripts with kill aura, ESP, and player targeting systems.",
-              image: "https://tr.rbxcdn.com/180DAY-915535b6a2b0ddd4710ec77320027004/768/432/Image/Webp/noFilter",
-              id: "8657766101"
-            },
-            {
-              name: "Project Power",
-              description: "Comprehensive power-up automation with kill systems and ESP overlays.",
-              image: "https://tr.rbxcdn.com/180DAY-a5173e243710a4393e582089e8f4a773/768/432/Image/Webp/noFilter", 
-              id: "34329168147"
-            }
-          ];
-          renderLatestGames(fallbackGames);
+        .catch(error => {
+          console.log('Fetch error, using fallback data:', error);
+          renderFallbackGames();
         });
     }
     
-    function renderLatestGames(gamesData) {
+    function renderFallbackGames() {
       const gamesContainer = document.getElementById('latest-games');
-      const gamesHTML = gamesData.map((game, index) => `
+      const fallbackGames = [
+        {
+          name: "Bulked Up",
+          description: "Auto kill player, Auto Pickup Gems/Bombs, Achieve all trophies, Autofarm Gems.",
+          image: "https://tr.rbxcdn.com/180DAY-a8d89bbea01c9e153955bd78d872bea0/768/432/Image/Webp/noFilter",
+          id: "6847090259"
+        },
+        {
+          name: "[FPS] Flick",
+          description: "Silent aim, No reload, Hitsounds, Hitlogs",
+          image: "https://tr.rbxcdn.com/180DAY-6520033018c6162771a61aac035963ef/768/432/Image/Webp/noFilter",
+          id: "136801880565837"
+        },
+        {
+          name: "Arcade Basketball",
+          description: "Auto Green, No Shot Miss, Perfect Meter, Auto Dunk, Auto Block",
+          image: "https://tr.rbxcdn.com/180DAY-1753f4a9e79a7988a3dd980e876ce11b/768/432/Image/Webp/noFilter",
+          id: "134558434771720"
+        }
+      ];
+      
+      const gamesHTML = fallbackGames.map(game => `
         <div class="game-card" onclick="window.location.href='/games'">
           <img src="${game.image}" alt="${game.name}" class="game-thumbnail">
           <div class="game-content">
@@ -1215,59 +1217,65 @@
           </div>
         </div>
       `).join('');
+      
       gamesContainer.innerHTML = gamesHTML;
     }
 
-    // Load popular showcases
+    // Load popular showcases from showcases page
     function loadPopularShowcases() {
-      fetch('/showcases')
-        .then(response => response.text())
+      const showcasesContainer = document.getElementById('popular-showcases');
+      
+      // Show loading state
+      showcasesContainer.innerHTML = '<div style="grid-column: 1/-1; text-align: center; color: var(--muted); padding: 20px;">Loading showcases...</div>';
+      
+      fetch('/showcases/index.html')
+        .then(response => {
+          if (!response.ok) throw new Error('Failed to fetch');
+          return response.text();
+        })
         .then(html => {
           const parser = new DOMParser();
           const doc = parser.parseFromString(html, 'text/html');
           const videoCards = doc.querySelectorAll('.video-card');
           
           if (videoCards.length > 0) {
-            const showcasesData = Array.from(videoCards).slice(0, 3).map(card => {
-              const title = card.querySelector('.video-title')?.textContent || 'Video';
-              const description = card.querySelector('.video-description')?.textContent || 'Description';
-              const thumbnail = card.querySelector('.video-thumbnail')?.src || 'https://via.placeholder.com/400x200';
-              const views = card.querySelector('.video-views')?.textContent || '0 views';
-              
-              return { title, description, thumbnail, views };
-            });
+            // Get first 3 showcases
+            const top3Videos = Array.from(videoCards).slice(0, 3);
             
-            renderPopularShowcases(showcasesData);
+            showcasesContainer.innerHTML = '';
+            top3Videos.forEach(card => {
+              // Create showcase card from video card
+              const thumbnail = card.querySelector('.video-thumbnail');
+              const title = card.querySelector('.video-title');
+              const views = card.querySelector('.video-views');
+              const videoUrl = card.getAttribute('onclick').match(/'([^']+)'/)[1];
+              
+              const showcaseCard = document.createElement('div');
+              showcaseCard.className = 'showcase-card';
+              showcaseCard.onclick = () => window.open(videoUrl, '_blank');
+              showcaseCard.innerHTML = `
+                <img src="${thumbnail?.src || 'https://via.placeholder.com/400x200'}" alt="${title?.textContent || 'Video'}" class="showcase-thumbnail">
+                <div class="showcase-content">
+                  <h3 class="showcase-title">${title?.textContent || 'Video Showcase'}</h3>
+                  <div class="showcase-views">${views?.textContent || '0 views'}</div>
+                </div>
+              `;
+              showcasesContainer.appendChild(showcaseCard);
+            });
           } else {
             renderEmptyShowcases();
           }
         })
-        .catch(() => {
+        .catch(error => {
+          console.log('Fetch error, showing empty state:', error);
           renderEmptyShowcases();
         });
-    }
-    
-    function renderPopularShowcases(showcasesData) {
-      const showcasesContainer = document.getElementById('popular-showcases');
-      const showcasesHTML = showcasesData.map((showcase, index) => `
-        <div class="showcase-card" onclick="window.location.href='/showcases'">
-          <div class="showcase-thumbnail">
-            <img src="${showcase.thumbnail}" alt="${showcase.title}" style="width: 100%; height: 100%; object-fit: cover;">
-          </div>
-          <div class="showcase-content">
-            <h3 class="showcase-title">${showcase.title}</h3>
-            <p style="color: var(--muted); font-size: 12px; margin-bottom: 8px;">${showcase.description}</p>
-            <div class="showcase-views">${showcase.views}</div>
-          </div>
-        </div>
-      `).join('');
-      showcasesContainer.innerHTML = showcasesHTML;
     }
     
     function renderEmptyShowcases() {
       const showcasesContainer = document.getElementById('popular-showcases');
       showcasesContainer.innerHTML = `
-        <div class="coming-soon">
+        <div class="coming-soon" style="grid-column: 1/-1;">
           <div class="pulse-text">🎬 Coming Soon!</div>
           <p class="muted">Awesome showcase videos are on their way.</p>
           <div class="loader">
@@ -1285,11 +1293,9 @@
       loadPopularShowcases();
     });
     
-    // Start the animation
+    // Start the typing animation
     typingText.textContent = baseText;
     setTimeout(type, 1500);
-
-  
 
     // Add particle regeneration
     function createParticle() {
