@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ace (@ac.me)</title>
     <link rel="icon" type="image/x-icon" href="https://i.pinimg.com/736x/e4/2e/77/e42e7768c6d2cc5fbd0f3bc09338d145.jpg">
+    <script src="https://unpkg.com/lucide@latest"></script>
     <style>
         * {
             margin: 0;
@@ -304,11 +305,16 @@
     <div id="rain-container"></div>
 
     <audio id="bgMusic" loop>
-        <source src="https://voca.ro/130J3srdfxoG" type="audio/mpeg">
+        <source src="background-music.mp3" type="audio/mpeg">
     </audio>
+
+    <button class="mute-button" id="muteButton" aria-label="Mute/Unmute">
+        <i data-lucide="volume-2"></i>
+    </button>
 
     <div id="loading-screen">
         <div class="loading-text">Loading...</div>
+        <div class="splash-text" id="splash-text"></div>
     </div>
 
     <div id="main-content">
@@ -389,6 +395,40 @@
     </div>
 
     <script>
+        // Splash text
+        const splashTexts = [
+            "hey its me Ace",
+            "hi ghost",
+            "hi quicksy",
+            "hi emplic",
+            "hi loaf",
+            "can u stop looking at me",
+            "i like m&m",
+            "hi pawzy",
+            "baka!",
+            "fredrick might like this (inside joke)",
+            "All cAts eAt!",
+        ];
+
+        document.getElementById('splash-text').textContent = splashTexts[Math.floor(Math.random() * splashTexts.length)];
+
+        // Initialize Lucide icons
+        lucide.createIcons();
+
+        // Mute button functionality
+        const bgMusic = document.getElementById('bgMusic');
+        const muteButton = document.getElementById('muteButton');
+        let isMuted = false;
+
+        muteButton.addEventListener('click', () => {
+            isMuted = !isMuted;
+            bgMusic.muted = isMuted;
+            
+            const icon = muteButton.querySelector('i');
+            icon.setAttribute('data-lucide', isMuted ? 'volume-x' : 'volume-2');
+            lucide.createIcons();
+        });
+
         // Create rain effect
         function createRain() {
             const rainContainer = document.getElementById('rain-container');
@@ -405,7 +445,6 @@
         createRain();
 
         // Loading screen and audio
-        const bgMusic = document.getElementById('bgMusic');
         const loadingScreen = document.getElementById('loading-screen');
         const mainContent = document.getElementById('main-content');
 
