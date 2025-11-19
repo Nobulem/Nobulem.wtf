@@ -506,25 +506,28 @@
         createRain();
 
         // Loading screen - simple timeout
-        console.log('Starting loading timeout...');
         setTimeout(function() {
-            console.log('Timeout fired! Hiding loading screen...');
             document.getElementById('loading-screen').classList.add('hidden');
             document.getElementById('main-content').classList.add('visible');
-            console.log('Loading screen hidden, main content visible');
             
-            // Try to play music
-            bgMusic.play().catch(function(err) {
-                console.log('Autoplay blocked:', err);
+            // Try to play music immediately
+            bgMusic.play().then(function() {
+                console.log('Music playing successfully!');
+            }).catch(function(err) {
+                console.log('Autoplay blocked - click anywhere to play music');
             });
         }, 2000);
 
         // Backup: play music on any user interaction
-        document.body.addEventListener('click', () => {
+        document.addEventListener('click', function playOnClick() {
             if (bgMusic.paused && !isMuted) {
-                bgMusic.play().catch(err => console.log('Cannot play audio'));
+                bgMusic.play().then(function() {
+                    console.log('Music started after user interaction');
+                }).catch(function(err) {
+                    console.log('Error playing audio:', err);
+                });
             }
-        }, { once: true });
+        });
 
         // Spotify API
         const SPOTIFY_CLIENT_ID = '211a95f3715a49afa15efe564ab0d471';
