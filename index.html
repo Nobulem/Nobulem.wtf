@@ -973,7 +973,7 @@
       <p class="muted">Recently added scripts for popular games. <a href="/games" style="text-decoration: underline;">View all games →</a></p>
 
       <div class="grid three" style="margin-top:20px" id="latest-games">
-        <!-- Games will be loaded here -->
+        <!-- Games will be loaded dynamically -->
       </div>
     </div>
   </section>
@@ -984,7 +984,7 @@
       <p class="muted">Most viewed script demonstrations and tutorials. <a href="/showcases" style="text-decoration: underline;">View all showcases →</a></p>
 
       <div class="grid three" style="margin-top:20px" id="popular-showcases">
-        <!-- Showcases will be loaded here -->
+        <!-- Showcases will be loaded dynamically -->
       </div>
     </div>
   </section>
@@ -1029,10 +1029,7 @@
     </div>
   </footer>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/lucide/0.263.1/umd/lucide.min.js"></script>
   <script>
-    // Initialize Lucide icons
-    lucide.createIcons();
 
     // Mobile menu toggle
     function toggleMobileMenu() {
@@ -1106,100 +1103,104 @@
       }
     }
 
-    // Hardcoded games data - the first 3 games from your games page
-    const gamesData = [
-      {
-        name: "Bulked Up",
-        description: "Auto kill player, Auto Pickup Gems/Bombs, Achieve all trophies, Autofarm Gems.",
-        image: "https://tr.rbxcdn.com/180DAY-a8d89bbea01c9e153955bd78d872bea0/768/432/Image/Webp/noFilter",
-        id: "6847090259"
-      },
-      {
-        name: "[FPS] Flick",
-        description: "Silent aim, No reload, Hitsounds, Hitlogs",
-        image: "https://tr.rbxcdn.com/180DAY-6520033018c6162771a61aac035963ef/768/432/Image/Webp/noFilter",
-        id: "136801880565837"
-      },
-      {
-        name: "Arcade Basketball",
-        description: "Auto Green, No Shot Miss, Perfect Meter, Auto Dunk, Auto Block",
-        image: "https://tr.rbxcdn.com/180DAY-1753f4a9e79a7988a3dd980e876ce11b/768/432/Image/Webp/noFilter",
-        id: "134558434771720"
-      }
-    ];
+    // Start typing animation
+    typingText.textContent = baseText;
+    setTimeout(type, 1500);
 
-    // Hardcoded showcases data - the first 3 videos from your showcases page
-    const showcasesData = [
-      {
-        title: "Hypershot Script *NO KEY* | Silent Aim | Aimbot | Fly | ESP & More | Mobile & PC | *KILL ALL*",
-        description: "Showcases the Silent Aim, Fov, Esp, Features in our Nobulem Hypershot Script",
-        thumbnail: "https://i.ytimg.com/vi/vn7IsmPlnEU/hqdefault.jpg",
-        views: "343 views",
-        url: "https://www.youtube.com/watch?v=vn7IsmPlnEU"
-      },
-      {
-        title: "HYPERSHOT SCRIPT | Silent Aimbot, Kill All, Gun Mods, Hitbox, ESP, OP, No Key | 2025 Roblox",
-        description: "Showcases the Silent aim, Flight, ESP Features in our Nobulem Hypershot Script",
-        thumbnail: "https://i.ytimg.com/vi/9WePJIO872k/hqdefault.jpg",
-        views: "327 views",
-        url: "https://www.youtube.com/watch?v=9WePJIO872k"
-      },
-      {
-        title: "💥Realm Rampage Script Pastebin **NO KEY** TP-KILL AUTOFARM NEAREST PLAYERS | AIMBOT SKILLS OP UPDATE",
-        description: "Showcases Nobulem's Realm Rampage Kill Aura Script",
-        thumbnail: "https://i.ytimg.com/vi/GkDl6Qap9kI/hqdefault.jpg",
-        views: "426 views",
-        url: "https://www.youtube.com/watch?v=GkDl6Qap9kI"
-      }
-    ];
-
-    // Render games
-    function renderGames() {
+    // Function to load games dynamically from /games/index.html
+    async function loadLatestGames() {
       const gamesContainer = document.getElementById('latest-games');
       
-      const gamesHTML = gamesData.map(game => `
-        <div class="game-card" onclick="window.location.href='/games'">
-          <img src="${game.image}" alt="${game.name}" class="game-thumbnail">
-          <div class="game-content">
-            <h3 class="game-name">${game.name}</h3>
-            <p class="game-description">${game.description}</p>
-            <div class="game-status">
-              <span class="status-badge status-working">Working</span>
-              <span class="game-id">#${game.id}</span>
-            </div>
-          </div>
-        </div>
-      `).join('');
-      
-      gamesContainer.innerHTML = gamesHTML;
+      try {
+        const response = await fetch('/games/index.html');
+        const html = await response.text();
+        
+        // Create a temporary div to parse the HTML
+        const tempDiv = document.createElement('div');
+        tempDiv.innerHTML = html;
+        
+        // Find all game cards
+        const gameCards = tempDiv.querySelectorAll('.game-card');
+        
+        // Clear container
+        gamesContainer.innerHTML = '';
+        
+        // Get first 3 games and clone them
+        for (let i = 0; i < Math.min(3, gameCards.length); i++) {
+          const clonedCard = gameCards[i].cloneNode(true);
+          gamesContainer.appendChild(clonedCard);
+        }
+        
+        console.log('✅ Games loaded successfully:', gameCards.length);
+      } catch (error) {
+        console.error('❌ Error loading games:', error);
+        gamesContainer.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: var(--muted);">Failed to load games. <a href="/games">View all games →</a></p>';
+      }
     }
 
-    // Render showcases
-    function renderShowcases() {
+    // Function to load showcases dynamically from /showcases/index.html
+    async function loadPopularShowcases() {
       const showcasesContainer = document.getElementById('popular-showcases');
       
-      const showcasesHTML = showcasesData.map(showcase => `
-        <div class="showcase-card" onclick="window.open('${showcase.url}', '_blank')">
-          <img src="${showcase.thumbnail}" alt="${showcase.title}" class="showcase-thumbnail">
-          <div class="showcase-content">
-            <h3 class="showcase-title">${showcase.title}</h3>
-            <p class="showcase-description">${showcase.description}</p>
-            <div class="showcase-views">${showcase.views}</div>
-          </div>
-        </div>
-      `).join('');
-      
-      showcasesContainer.innerHTML = showcasesHTML;
+      try {
+        const response = await fetch('/showcases/index.html');
+        const html = await response.text();
+        
+        // Create a temporary div to parse the HTML
+        const tempDiv = document.createElement('div');
+        tempDiv.innerHTML = html;
+        
+        // Find all video cards
+        const videoCards = tempDiv.querySelectorAll('.video-card');
+        
+        // Clear container
+        showcasesContainer.innerHTML = '';
+        
+        // Get first 3 videos and convert to showcase cards
+        for (let i = 0; i < Math.min(3, videoCards.length); i++) {
+          const videoCard = videoCards[i];
+          
+          // Extract data from video card
+          const thumbnail = videoCard.querySelector('.video-thumbnail');
+          const title = videoCard.querySelector('.video-title');
+          const views = videoCard.querySelector('.video-views');
+          const onclickAttr = videoCard.getAttribute('onclick');
+          
+          // Extract URL from onclick attribute
+          let videoUrl = '#';
+          if (onclickAttr) {
+            const urlMatch = onclickAttr.match(/'([^']+)'/);
+            if (urlMatch) videoUrl = urlMatch[1];
+          }
+          
+          // Create showcase card
+          const showcaseCard = document.createElement('div');
+          showcaseCard.className = 'showcase-card';
+          showcaseCard.onclick = function() { window.open(videoUrl, '_blank'); };
+          
+          showcaseCard.innerHTML = `
+            <img src="${thumbnail ? thumbnail.src : ''}" alt="${title ? title.textContent : 'Video'}" class="showcase-thumbnail">
+            <div class="showcase-content">
+              <h3 class="showcase-title">${title ? title.textContent : 'Video Showcase'}</h3>
+              <div class="showcase-views">${views ? views.textContent : '0 views'}</div>
+            </div>
+          `;
+          
+          showcasesContainer.appendChild(showcaseCard);
+        }
+        
+        console.log('✅ Showcases loaded successfully:', videoCards.length);
+      } catch (error) {
+        console.error('❌ Error loading showcases:', error);
+        showcasesContainer.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: var(--muted);">Failed to load showcases. <a href="/showcases">View all showcases →</a></p>';
+      }
     }
 
-    // Initialize everything on load
-    window.addEventListener('DOMContentLoaded', () => {
-      renderGames();
-      renderShowcases();
-      
-      // Start typing animation
-      typingText.textContent = baseText;
-      setTimeout(type, 1500);
+    // Load content when page is ready
+    document.addEventListener('DOMContentLoaded', function() {
+      console.log('🚀 Page loaded, fetching content...');
+      loadLatestGames();
+      loadPopularShowcases();
     });
 
     // Add particle regeneration
