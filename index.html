@@ -757,56 +757,17 @@
       overflow: hidden;
     }
 
+    .showcase-description {
+      font-size: 12px;
+      color: var(--muted);
+      margin-bottom: 10px;
+      line-height: 1.4;
+    }
+
     .showcase-views {
       font-size: 11px;
       color: var(--muted);
       opacity: 0.6;
-    }
-
-    /* ---------- Coming Soon ---------- */
-    .coming-soon {
-      text-align: center;
-      padding: 40px 20px;
-    }
-    
-    .pulse-text {
-      font-size: 24px;
-      margin-bottom: 16px;
-      color: var(--text);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 12px;
-    }
-
-    .pulse-text svg {
-      width: 32px;
-      height: 32px;
-      stroke: var(--text);
-    }
-    
-    .loader {
-      display: flex;
-      justify-content: center;
-      gap: 8px;
-      margin: 24px 0;
-    }
-    
-    .loader-dot {
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-      background: var(--muted);
-      animation: loader-bounce 1.4s infinite ease-in-out both;
-    }
-    
-    .loader-dot:nth-child(1) { animation-delay: -0.32s; }
-    .loader-dot:nth-child(2) { animation-delay: -0.16s; }
-    .loader-dot:nth-child(3) { animation-delay: 0s; }
-
-    @keyframes loader-bounce {
-      0%, 80%, 100% { transform: scale(0); }
-      40% { transform: scale(1); }
     }
 
     /* ---------- Footer ---------- */
@@ -1012,7 +973,7 @@
       <p class="muted">Recently added scripts for popular games. <a href="/games" style="text-decoration: underline;">View all games →</a></p>
 
       <div class="grid three" style="margin-top:20px" id="latest-games">
-        <!-- Latest games will be loaded dynamically -->
+        <!-- Games will be loaded here -->
       </div>
     </div>
   </section>
@@ -1023,7 +984,7 @@
       <p class="muted">Most viewed script demonstrations and tutorials. <a href="/showcases" style="text-decoration: underline;">View all showcases →</a></p>
 
       <div class="grid three" style="margin-top:20px" id="popular-showcases">
-        <!-- Popular showcases will be loaded dynamically -->
+        <!-- Showcases will be loaded here -->
       </div>
     </div>
   </section>
@@ -1145,66 +1106,58 @@
       }
     }
 
-    // Load latest games from games page
-    function loadLatestGames() {
+    // Hardcoded games data - the first 3 games from your games page
+    const gamesData = [
+      {
+        name: "Bulked Up",
+        description: "Auto kill player, Auto Pickup Gems/Bombs, Achieve all trophies, Autofarm Gems.",
+        image: "https://tr.rbxcdn.com/180DAY-a8d89bbea01c9e153955bd78d872bea0/768/432/Image/Webp/noFilter",
+        id: "6847090259"
+      },
+      {
+        name: "[FPS] Flick",
+        description: "Silent aim, No reload, Hitsounds, Hitlogs",
+        image: "https://tr.rbxcdn.com/180DAY-6520033018c6162771a61aac035963ef/768/432/Image/Webp/noFilter",
+        id: "136801880565837"
+      },
+      {
+        name: "Arcade Basketball",
+        description: "Auto Green, No Shot Miss, Perfect Meter, Auto Dunk, Auto Block",
+        image: "https://tr.rbxcdn.com/180DAY-1753f4a9e79a7988a3dd980e876ce11b/768/432/Image/Webp/noFilter",
+        id: "134558434771720"
+      }
+    ];
+
+    // Hardcoded showcases data - the first 3 videos from your showcases page
+    const showcasesData = [
+      {
+        title: "Hypershot Script *NO KEY* | Silent Aim | Aimbot | Fly | ESP & More | Mobile & PC | *KILL ALL*",
+        description: "Showcases the Silent Aim, Fov, Esp, Features in our Nobulem Hypershot Script",
+        thumbnail: "https://i.ytimg.com/vi/vn7IsmPlnEU/hqdefault.jpg",
+        views: "343 views",
+        url: "https://www.youtube.com/watch?v=vn7IsmPlnEU"
+      },
+      {
+        title: "HYPERSHOT SCRIPT | Silent Aimbot, Kill All, Gun Mods, Hitbox, ESP, OP, No Key | 2025 Roblox",
+        description: "Showcases the Silent aim, Flight, ESP Features in our Nobulem Hypershot Script",
+        thumbnail: "https://i.ytimg.com/vi/9WePJIO872k/hqdefault.jpg",
+        views: "327 views",
+        url: "https://www.youtube.com/watch?v=9WePJIO872k"
+      },
+      {
+        title: "💥Realm Rampage Script Pastebin **NO KEY** TP-KILL AUTOFARM NEAREST PLAYERS | AIMBOT SKILLS OP UPDATE",
+        description: "Showcases Nobulem's Realm Rampage Kill Aura Script",
+        thumbnail: "https://i.ytimg.com/vi/GkDl6Qap9kI/hqdefault.jpg",
+        views: "426 views",
+        url: "https://www.youtube.com/watch?v=GkDl6Qap9kI"
+      }
+    ];
+
+    // Render games
+    function renderGames() {
       const gamesContainer = document.getElementById('latest-games');
       
-      // Show loading state
-      gamesContainer.innerHTML = '<div style="grid-column: 1/-1; text-align: center; color: var(--muted); padding: 20px;">Loading games...</div>';
-      
-      fetch('/games/index.html')
-        .then(response => {
-          if (!response.ok) throw new Error('Failed to fetch');
-          return response.text();
-        })
-        .then(html => {
-          const parser = new DOMParser();
-          const doc = parser.parseFromString(html, 'text/html');
-          const gameCards = doc.querySelectorAll('.game-card');
-          
-          if (gameCards.length > 0) {
-            // Get first 3 games
-            const top3Games = Array.from(gameCards).slice(0, 3);
-            
-            gamesContainer.innerHTML = '';
-            top3Games.forEach(card => {
-              const clonedCard = card.cloneNode(true);
-              gamesContainer.appendChild(clonedCard);
-            });
-          } else {
-            renderFallbackGames();
-          }
-        })
-        .catch(error => {
-          console.log('Fetch error, using fallback data:', error);
-          renderFallbackGames();
-        });
-    }
-    
-    function renderFallbackGames() {
-      const gamesContainer = document.getElementById('latest-games');
-      const fallbackGames = [
-        {
-          name: "Bulked Up",
-          description: "Auto kill player, Auto Pickup Gems/Bombs, Achieve all trophies, Autofarm Gems.",
-          image: "https://tr.rbxcdn.com/180DAY-a8d89bbea01c9e153955bd78d872bea0/768/432/Image/Webp/noFilter",
-          id: "6847090259"
-        },
-        {
-          name: "[FPS] Flick",
-          description: "Silent aim, No reload, Hitsounds, Hitlogs",
-          image: "https://tr.rbxcdn.com/180DAY-6520033018c6162771a61aac035963ef/768/432/Image/Webp/noFilter",
-          id: "136801880565837"
-        },
-        {
-          name: "Arcade Basketball",
-          description: "Auto Green, No Shot Miss, Perfect Meter, Auto Dunk, Auto Block",
-          image: "https://tr.rbxcdn.com/180DAY-1753f4a9e79a7988a3dd980e876ce11b/768/432/Image/Webp/noFilter",
-          id: "134558434771720"
-        }
-      ];
-      
-      const gamesHTML = fallbackGames.map(game => `
+      const gamesHTML = gamesData.map(game => `
         <div class="game-card" onclick="window.location.href='/games'">
           <img src="${game.image}" alt="${game.name}" class="game-thumbnail">
           <div class="game-content">
@@ -1221,81 +1174,33 @@
       gamesContainer.innerHTML = gamesHTML;
     }
 
-    // Load popular showcases from showcases page
-    function loadPopularShowcases() {
+    // Render showcases
+    function renderShowcases() {
       const showcasesContainer = document.getElementById('popular-showcases');
       
-      // Show loading state
-      showcasesContainer.innerHTML = '<div style="grid-column: 1/-1; text-align: center; color: var(--muted); padding: 20px;">Loading showcases...</div>';
-      
-      fetch('/showcases/index.html')
-        .then(response => {
-          if (!response.ok) throw new Error('Failed to fetch');
-          return response.text();
-        })
-        .then(html => {
-          const parser = new DOMParser();
-          const doc = parser.parseFromString(html, 'text/html');
-          const videoCards = doc.querySelectorAll('.video-card');
-          
-          if (videoCards.length > 0) {
-            // Get first 3 showcases
-            const top3Videos = Array.from(videoCards).slice(0, 3);
-            
-            showcasesContainer.innerHTML = '';
-            top3Videos.forEach(card => {
-              // Create showcase card from video card
-              const thumbnail = card.querySelector('.video-thumbnail');
-              const title = card.querySelector('.video-title');
-              const views = card.querySelector('.video-views');
-              const videoUrl = card.getAttribute('onclick').match(/'([^']+)'/)[1];
-              
-              const showcaseCard = document.createElement('div');
-              showcaseCard.className = 'showcase-card';
-              showcaseCard.onclick = () => window.open(videoUrl, '_blank');
-              showcaseCard.innerHTML = `
-                <img src="${thumbnail?.src || 'https://via.placeholder.com/400x200'}" alt="${title?.textContent || 'Video'}" class="showcase-thumbnail">
-                <div class="showcase-content">
-                  <h3 class="showcase-title">${title?.textContent || 'Video Showcase'}</h3>
-                  <div class="showcase-views">${views?.textContent || '0 views'}</div>
-                </div>
-              `;
-              showcasesContainer.appendChild(showcaseCard);
-            });
-          } else {
-            renderEmptyShowcases();
-          }
-        })
-        .catch(error => {
-          console.log('Fetch error, showing empty state:', error);
-          renderEmptyShowcases();
-        });
-    }
-    
-    function renderEmptyShowcases() {
-      const showcasesContainer = document.getElementById('popular-showcases');
-      showcasesContainer.innerHTML = `
-        <div class="coming-soon" style="grid-column: 1/-1;">
-          <div class="pulse-text">🎬 Coming Soon!</div>
-          <p class="muted">Awesome showcase videos are on their way.</p>
-          <div class="loader">
-            <div class="loader-dot"></div>
-            <div class="loader-dot"></div>
-            <div class="loader-dot"></div>
+      const showcasesHTML = showcasesData.map(showcase => `
+        <div class="showcase-card" onclick="window.open('${showcase.url}', '_blank')">
+          <img src="${showcase.thumbnail}" alt="${showcase.title}" class="showcase-thumbnail">
+          <div class="showcase-content">
+            <h3 class="showcase-title">${showcase.title}</h3>
+            <p class="showcase-description">${showcase.description}</p>
+            <div class="showcase-views">${showcase.views}</div>
           </div>
         </div>
-      `;
+      `).join('');
+      
+      showcasesContainer.innerHTML = showcasesHTML;
     }
 
-    // Initialize content loading
+    // Initialize everything on load
     window.addEventListener('DOMContentLoaded', () => {
-      loadLatestGames();
-      loadPopularShowcases();
+      renderGames();
+      renderShowcases();
+      
+      // Start typing animation
+      typingText.textContent = baseText;
+      setTimeout(type, 1500);
     });
-    
-    // Start the typing animation
-    typingText.textContent = baseText;
-    setTimeout(type, 1500);
 
     // Add particle regeneration
     function createParticle() {
