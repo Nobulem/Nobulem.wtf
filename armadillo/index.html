@@ -91,6 +91,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            flex-direction: column;
             z-index: 9999;
             transition: opacity 0.8s ease-out;
         }
@@ -105,6 +106,44 @@
             color: #444;
             font-weight: bold;
             animation: jump 0.6s ease-in-out infinite;
+            margin-bottom: 1.5rem;
+        }
+
+        .splash-text {
+            font-size: 1.2rem;
+            color: #555;
+            font-style: italic;
+            text-align: center;
+            max-width: 90%;
+        }
+
+        .mute-button {
+            position: fixed;
+            bottom: 1.5rem;
+            left: 1.5rem;
+            width: 55px;
+            height: 55px;
+            background: rgba(15, 15, 15, 0.8);
+            border: 2px solid rgba(50, 50, 50, 0.5);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 1000;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .mute-button:hover {
+            background: rgba(25, 25, 25, 0.9);
+            border-color: rgba(70, 70, 70, 0.7);
+        }
+
+        .mute-button svg {
+            color: #555;
+            width: 26px;
+            height: 26px;
         }
 
         @keyframes jump {
@@ -298,6 +337,28 @@
                 flex-direction: column;
                 text-align: center;
             }
+
+            .loading-text {
+                font-size: 2.5rem;
+                margin-bottom: 2rem;
+            }
+
+            .splash-text {
+                font-size: 1rem;
+                max-width: 85%;
+            }
+
+            .mute-button {
+                bottom: 1rem;
+                left: 1rem;
+                width: 50px;
+                height: 50px;
+            }
+
+            .mute-button svg {
+                width: 24px;
+                height: 24px;
+            }
         }
     </style>
 </head>
@@ -445,58 +506,18 @@
         createRain();
 
         // Loading screen and audio
-        const loadingScreen = document.getElementById('loading-screen');
-        const mainContent = document.getElementById('main-content');
-
-        window.addEventListener('load', () => {
-            setTimeout(() => {
-                loadingScreen.classList.add('hidden');
-                mainContent.classList.add('visible');
-                
-                // Auto-play music after loading
-                bgMusic.play().catch(err => {
-                    console.log('Autoplay prevented. Music will play on first interaction.');
-                });
-            }, 2000);
-        });
-
-        // Backup: play music on any user interaction
-        document.body.addEventListener('click', () => {
-            if (bgMusic.paused && !isMuted) {
-                bgMusic.play().catch(err => console.log('Cannot play audio'));
-            }
-        }, { once: true });
-
-        // Create rain effect
-        function createRain() {
-            const rainContainer = document.getElementById('rain-container');
-            for (let i = 0; i < 100; i++) {
-                const drop = document.createElement('div');
-                drop.className = 'raindrop';
-                drop.style.left = Math.random() * 100 + '%';
-                drop.style.animationDuration = (Math.random() * 1 + 0.5) + 's';
-                drop.style.animationDelay = Math.random() * 2 + 's';
-                rainContainer.appendChild(drop);
-            }
-        }
-
-        createRain();
-
-        // Loading screen and audio
-        const loadingScreen = document.getElementById('loading-screen');
-        const mainContent = document.getElementById('main-content');
-
-        window.addEventListener('load', () => {
-            setTimeout(() => {
-                loadingScreen.classList.add('hidden');
-                mainContent.classList.add('visible');
-                
-                // Auto-play music after loading
-                bgMusic.play().catch(err => {
-                    console.log('Autoplay prevented. Music will play on first interaction.');
-                });
-            }, 2000);
-        });
+        setTimeout(() => {
+            const loadingScreen = document.getElementById('loading-screen');
+            const mainContent = document.getElementById('main-content');
+            
+            loadingScreen.classList.add('hidden');
+            mainContent.classList.add('visible');
+            
+            // Auto-play music after loading
+            bgMusic.play().catch(err => {
+                console.log('Autoplay prevented. Music will play on first interaction.');
+            });
+        }, 2000);
 
         // Backup: play music on any user interaction
         document.body.addEventListener('click', () => {
