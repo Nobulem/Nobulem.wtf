@@ -1128,6 +1128,21 @@
         // Get first 3 games and clone them
         for (let i = 0; i < Math.min(3, gameCards.length); i++) {
           const clonedCard = gameCards[i].cloneNode(true);
+          
+          // Get the game ID from the card
+          const gameId = clonedCard.getAttribute('data-game-id');
+          
+          // Override the onclick to go to games page with hash
+          if (gameId) {
+            clonedCard.onclick = function() {
+              window.location.href = `/games#${gameId}`;
+            };
+          } else {
+            clonedCard.onclick = function() {
+              window.location.href = '/games';
+            };
+          }
+          
           gamesContainer.appendChild(clonedCard);
         }
         
@@ -1164,19 +1179,13 @@
           const thumbnail = videoCard.querySelector('.video-thumbnail');
           const title = videoCard.querySelector('.video-title');
           const views = videoCard.querySelector('.video-views');
-          const onclickAttr = videoCard.getAttribute('onclick');
-          
-          // Extract URL from onclick attribute
-          let videoUrl = '#';
-          if (onclickAttr) {
-            const urlMatch = onclickAttr.match(/'([^']+)'/);
-            if (urlMatch) videoUrl = urlMatch[1];
-          }
           
           // Create showcase card
           const showcaseCard = document.createElement('div');
           showcaseCard.className = 'showcase-card';
-          showcaseCard.onclick = function() { window.open(videoUrl, '_blank'); };
+          showcaseCard.onclick = function() { 
+            window.location.href = '/showcases';
+          };
           
           showcaseCard.innerHTML = `
             <img src="${thumbnail ? thumbnail.src : ''}" alt="${title ? title.textContent : 'Video'}" class="showcase-thumbnail">
