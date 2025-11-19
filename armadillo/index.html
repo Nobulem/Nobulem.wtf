@@ -453,15 +453,57 @@
                 loadingScreen.classList.add('hidden');
                 mainContent.classList.add('visible');
                 
-                // Try to play music (may require user interaction)
+                // Auto-play music after loading
                 bgMusic.play().catch(err => {
-                    console.log('Autoplay prevented. Click anywhere to play music.');
-                    document.body.addEventListener('click', () => {
-                        bgMusic.play();
-                    }, { once: true });
+                    console.log('Autoplay prevented. Music will play on first interaction.');
                 });
             }, 2000);
         });
+
+        // Backup: play music on any user interaction
+        document.body.addEventListener('click', () => {
+            if (bgMusic.paused && !isMuted) {
+                bgMusic.play().catch(err => console.log('Cannot play audio'));
+            }
+        }, { once: true });
+
+        // Create rain effect
+        function createRain() {
+            const rainContainer = document.getElementById('rain-container');
+            for (let i = 0; i < 100; i++) {
+                const drop = document.createElement('div');
+                drop.className = 'raindrop';
+                drop.style.left = Math.random() * 100 + '%';
+                drop.style.animationDuration = (Math.random() * 1 + 0.5) + 's';
+                drop.style.animationDelay = Math.random() * 2 + 's';
+                rainContainer.appendChild(drop);
+            }
+        }
+
+        createRain();
+
+        // Loading screen and audio
+        const loadingScreen = document.getElementById('loading-screen');
+        const mainContent = document.getElementById('main-content');
+
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                loadingScreen.classList.add('hidden');
+                mainContent.classList.add('visible');
+                
+                // Auto-play music after loading
+                bgMusic.play().catch(err => {
+                    console.log('Autoplay prevented. Music will play on first interaction.');
+                });
+            }, 2000);
+        });
+
+        // Backup: play music on any user interaction
+        document.body.addEventListener('click', () => {
+            if (bgMusic.paused && !isMuted) {
+                bgMusic.play().catch(err => console.log('Cannot play audio'));
+            }
+        }, { once: true });
 
         // Spotify API
         const SPOTIFY_CLIENT_ID = '211a95f3715a49afa15efe564ab0d471';
