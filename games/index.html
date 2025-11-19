@@ -2159,6 +2159,18 @@
     }
 
     setInterval(createParticle, 3000);
+    // Check URL hash on page load and open modal if game ID is present
+window.addEventListener('DOMContentLoaded', () => {
+  const hash = window.location.hash.substring(1); // Remove the # symbol
+  
+  if (hash) {
+    console.log('Opening modal for game:', hash);
+    // Small delay to ensure page is fully loaded
+    setTimeout(() => {
+      openGameModal(hash);
+    }, 300);
+  }
+});
   </script>
 </body>
 </html>
