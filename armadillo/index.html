@@ -366,7 +366,7 @@
     <div id="rain-container"></div>
 
     <audio id="bgMusic" loop>
-        <source src="background-music.mp3" type="audio/mpeg">
+        <source src="Schubert - Serenade (arr. Liszt).mp3" type="audio/mpeg">
     </audio>
 
     <button class="mute-button" id="muteButton" aria-label="Mute/Unmute">
@@ -505,17 +505,14 @@
 
         createRain();
 
-        // Loading screen and audio
-        setTimeout(() => {
-            const loadingScreen = document.getElementById('loading-screen');
-            const mainContent = document.getElementById('main-content');
+        // Loading screen - simple timeout
+        setTimeout(function() {
+            document.getElementById('loading-screen').classList.add('hidden');
+            document.getElementById('main-content').classList.add('visible');
             
-            loadingScreen.classList.add('hidden');
-            mainContent.classList.add('visible');
-            
-            // Auto-play music after loading
-            bgMusic.play().catch(err => {
-                console.log('Autoplay prevented. Music will play on first interaction.');
+            // Try to play music
+            bgMusic.play().catch(function(err) {
+                console.log('Autoplay blocked:', err);
             });
         }, 2000);
 
