@@ -2159,7 +2159,29 @@
     }
 
     setInterval(createParticle, 3000);
-    // Check URL hash on page load and open modal if game ID is present
+function closeGameModal() {
+  const modal = document.getElementById('gameModal');
+  modal.classList.remove('active');
+  document.body.style.overflow = '';
+  
+  // Remove the hash from URL without reloading the page
+  history.pushState("", document.title, window.location.pathname + window.location.search);
+}
+
+function handleModalClick(event) {
+  if (event.target.classList.contains('modal-overlay')) {
+    closeGameModal();
+  }
+}
+
+// Close modal with Escape key
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') {
+    closeGameModal();
+  }
+});
+
+// Check URL hash on page load and open modal if game ID is present
 window.addEventListener('DOMContentLoaded', () => {
   const hash = window.location.hash.substring(1); // Remove the # symbol
   
@@ -2169,6 +2191,17 @@ window.addEventListener('DOMContentLoaded', () => {
     setTimeout(() => {
       openGameModal(hash);
     }, 300);
+  }
+});
+
+// Listen for hash changes (if user uses back/forward buttons)
+window.addEventListener('hashchange', () => {
+  const hash = window.location.hash.substring(1);
+  
+  if (hash) {
+    openGameModal(hash);
+  } else {
+    closeGameModal();
   }
 });
   </script>
