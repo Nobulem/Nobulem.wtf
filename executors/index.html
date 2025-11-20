@@ -1158,14 +1158,22 @@
     async function tryFetch(url) {
       for (const baseUrl of BASE_URLS) {
         try {
+          console.log('Attempting fetch from:', baseUrl + url);
           const response = await fetch(baseUrl + url);
-          if (response.ok) return response;
+          console.log('Response status:', response.status);
+          
+          if (response.ok) {
+            return response;
+          } else if (response.status === 429) {
+            console.log('Rate limited, trying next URL...');
+            continue;
+          }
         } catch (error) {
           console.log(`Failed with ${baseUrl}:`, error);
           continue;
         }
       }
-      throw new Error('All fetch attempts failed');
+      throw new Error('All fetch attempts failed - possible rate limit or API issue');
     }
 
     async function fetchVersions() {
@@ -1193,6 +1201,7 @@
             console.log(`Executor ${i}:`, {
               title: ex.title,
               platform: ex.platform,
+              extype: ex.extype,
               updateStatus: ex.updateStatus,
               detected: ex.detected,
               free: ex.free,
@@ -1344,12 +1353,9 @@
       } else if (platform === 'mac') {
         icon = '<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>';
         title = 'Mac Executors';
-      } else if (platform === 'android') {
-        icon = '<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="currentColor"><path d="M17.6 9.48l1.84-3.18c.16-.31.04-.69-.26-.85a.637.637 0 0 0-.83.22l-1.88 3.24a11.463 11.463 0 0 0-8.94 0L5.65 5.67a.643.643 0 0 0-.87-.2c-.28.18-.37.54-.22.83L6.4 9.48A10.78 10.78 0 0 0 1 18h22a10.78 10.78 0 0 0-5.4-8.52M7 15.25a1.25 1.25 0 1 1 0-2.5 1.25 1.25 0 0 1 0 2.5m10 0a1.25 1.25 0 1 1 0-2.5 1.25 1.25 0 0 1 0 2.5"/></svg>';
-        title = 'Android Executors';
-      } else if (platform === 'ios') {
-        icon = '<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>';
-        title = 'iOS Executors';
+      } else if (platform === 'mobile') {
+        icon = '<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="20" x="5" y="2" rx="2" ry="2"/><path d="M12 18h.01"/></svg>';
+        title = 'Mobile Executors';
       }
       
       titleEl.innerHTML = icon + title;
@@ -1360,26 +1366,91 @@
     function renderExecutors(executors) {
       const grid = document.getElementById('executorGrid');
 
-      let filteredExecutors = executors.filter(ex => {
-        const platform = ex.platform ? ex.platform.toLowerCase() : '';
-        if (currentPlatform === 'windows') return platform === 'windows';
-        if (currentPlatform === 'mac') return platform === 'mac';
-        if (currentPlatform === 'android') return platform === 'android';
-        if (currentPlatform === 'ios') return platform === 'ios';
-        return true;
-      });
+      if (currentPlatform === 'mobile') {
+        // Mobile view shows both Android and iOS sections
+        const androidExecutors = executors.filter(ex => {
+          const platform = ex.platform ? ex.platform.toLowerCase() : '';
+          const extype = ex.extype ? ex.extype.toLowerCase() : '';
+          // Check for Android platform OR mexecutor/aexecutor type
+          return platform === 'android' || extype === 'aexecutor' || extype === 'android';
+        });
+        
+        const iosExecutors = executors.filter(ex => {
+          const platform = ex.platform ? ex.platform.toLowerCase() : '';
+          const extype = ex.extype ? ex.extype.toLowerCase() : '';
+          // Check for iOS platform OR iexecutor type
+          return platform === 'ios' || extype === 'iexecutor' || extype === 'ios';
+        });
+        
+        console.log('Android executors:', androidExecutors.map(e => e.title));
+        console.log('iOS executors:', iosExecutors.map(e => e.title));
+        
+        let html = '';
+        
+        // Android Section
+        if (androidExecutors.length > 0) {
+          html += `
+            <h3 style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px; margin-top: 0;">
+              <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M17.6 9.48l1.84-3.18c.16-.31.04-.69-.26-.85a.637.637 0 0 0-.83.22l-1.88 3.24a11.463 11.463 0 0 0-8.94 0L5.65 5.67a.643.643 0 0 0-.87-.2c-.28.18-.37.54-.22.83L6.4 9.48A10.78 10.78 0 0 0 1 18h22a10.78 10.78 0 0 0-5.4-8.52M7 15.25a1.25 1.25 0 1 1 0-2.5 1.25 1.25 0 0 1 0 2.5m10 0a1.25 1.25 0 1 1 0-2.5 1.25 1.25 0 0 1 0 2.5"/></svg>
+              Android
+            </h3>
+            <div class="executor-list" style="margin-bottom: 40px;">
+              ${renderExecutorItems(androidExecutors)}
+            </div>
+          `;
+        }
+        
+        // iOS Section
+        if (iosExecutors.length > 0) {
+          html += `
+            <h3 style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
+              <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+              iOS
+            </h3>
+            <div class="executor-list">
+              ${renderExecutorItems(iosExecutors)}
+            </div>
+          `;
+        }
+        
+        if (androidExecutors.length === 0 && iosExecutors.length === 0) {
+          html = '<div class="loading"><p>No mobile executors found.</p></div>';
+        }
+        
+        grid.innerHTML = html;
+        
+        // Add click handlers
+        attachExecutorClickHandlers([...androidExecutors, ...iosExecutors]);
+        
+      } else {
+        // Windows or Mac view
+        let filteredExecutors = executors.filter(ex => {
+          const platform = ex.platform ? ex.platform.toLowerCase() : '';
+          const extype = ex.extype ? ex.extype.toLowerCase() : '';
+          
+          if (currentPlatform === 'windows') {
+            return platform === 'windows' || extype === 'wexecutor' || extype === 'wexternal';
+          }
+          if (currentPlatform === 'mac') {
+            return platform === 'mac' || extype === 'mexecutor';
+          }
+          return true;
+        });
 
-      if (filteredExecutors.length === 0) {
-        grid.innerHTML = '<div class="loading"><p>No executors found for this platform.</p></div>';
-        return;
+        if (filteredExecutors.length === 0) {
+          grid.innerHTML = '<div class="loading"><p>No executors found for this platform.</p></div>';
+          return;
+        }
+
+        grid.innerHTML = `<div class="executor-list">${renderExecutorItems(filteredExecutors)}</div>`;
+        attachExecutorClickHandlers(filteredExecutors);
       }
-
-      const html = filteredExecutors.map((ex) => {
-        // Determine if working based on updateStatus only
+    }
+    
+    function renderExecutorItems(executors) {
+      return executors.map((ex) => {
         const isWorking = ex.updateStatus === true;
         const statusClass = isWorking ? 'working' : 'down';
-
-        // Status text and badge
         let statusText = isWorking ? 'Updated' : 'Not Updated';
         let statusBadgeClass = isWorking ? 'updated' : 'not-updated';
         
@@ -1390,24 +1461,20 @@
         
         let badges = [];
         
-        // Version badge
         if (ex.version) {
           badges.push(`<span class="badge version">${ex.version}</span>`);
         }
         
-        // UNC badge - make it clickable
         if (ex.uncStatus && ex.sunc) {
           const suncKey = ex.sunc.suncKey || '';
           const suncScrap = ex.sunc.suncScrap || '';
           badges.push(`<span class="badge unc" onclick="event.stopPropagation(); event.preventDefault(); showSuncModal('${ex.title.replace(/'/g, "\\'")}', '${suncKey}', '${suncScrap}'); return false;" style="cursor: pointer;">sUNC</span>`);
         }
         
-        // Not Fully Supported badge for Volcano
         if (ex.title.toLowerCase() === 'volcano') {
           badges.push(`<span class="badge unsupported">Not Fully Supported</span>`);
         }
         
-        // Price/Free badge
         if (ex.free === true) {
           badges.push(`<span class="badge free">Free${ex.keysystem ? ' (Key System)' : ''}</span>`);
         } else if (ex.cost) {
@@ -1435,16 +1502,16 @@
           </div>
         `;
       }).join('');
-
-      grid.innerHTML = `<div class="executor-list">${html}</div>`;
-      
-      // Add click handlers to the executor items (but not the badges)
+    }
+    
+    function attachExecutorClickHandlers(executors) {
       document.querySelectorAll('.executor-item').forEach((item, index) => {
-        const executor = filteredExecutors[index];
+        const executor = executors[index];
+        if (!executor) return;
+        
         const link = executor.websitelink || executor.purchaselink || '#';
         
         item.addEventListener('click', function(e) {
-          // Don't navigate if clicking on badge or name link
           if (e.target.closest('.badge') || e.target.closest('.executor-name-link')) {
             return;
           }
