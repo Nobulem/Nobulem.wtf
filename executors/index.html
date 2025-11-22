@@ -20,6 +20,8 @@
       --speed: 400ms;
       --green: #10B981;
       --red: #EF4444;
+      --blue: #3B82F6;
+      --purple: #8B5CF6;
     }
     *{box-sizing:border-box; margin:0; padding:0;}
     html,body{height:100%}
@@ -62,110 +64,22 @@
     a{color:var(--text); text-decoration:none; font-weight:700; transition: all 0.3s ease;}
     .container{width:min(1200px, 90vw); margin-inline:auto}
 
-    .bg-animation {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: 0;
-      pointer-events: none;
-      overflow: hidden;
-      opacity: 0.6;
-    }
-
-    .particle {
-      position: absolute;
-      background: rgba(200,200,200,0.15);
-      border-radius: 50%;
-      pointer-events: none;
-    }
-
-    .particle-1 {
-      width: 3px;
-      height: 3px;
-      animation: float-1 20s linear infinite;
-    }
-
-    .particle-2 {
-      width: 4px;
-      height: 4px;
-      animation: float-2 25s linear infinite;
-    }
-
-    .particle-3 {
-      width: 2px;
-      height: 2px;
-      animation: float-3 15s linear infinite;
-    }
-
-    .particle-4 {
-      width: 5px;
-      height: 5px;
-      animation: float-4 30s linear infinite;
-    }
-
-    @keyframes float-1 {
-      0% { transform: translateY(100vh) translateX(0) rotate(0deg); opacity: 0; }
-      10% { opacity: 0.4; }
-      90% { opacity: 0.4; }
-      100% { transform: translateY(-100px) translateX(100px) rotate(360deg); opacity: 0; }
-    }
-
-    @keyframes float-2 {
-      0% { transform: translateY(100vh) translateX(0) rotate(0deg); opacity: 0; }
-      10% { opacity: 0.3; }
-      90% { opacity: 0.3; }
-      100% { transform: translateY(-100px) translateX(-50px) rotate(-360deg); opacity: 0; }
-    }
-
-    @keyframes float-3 {
-      0% { transform: translateY(100vh) translateX(0) rotate(0deg); opacity: 0; }
-      10% { opacity: 0.5; }
-      90% { opacity: 0.5; }
-      100% { transform: translateY(-100px) translateX(200px) rotate(720deg); opacity: 0; }
-    }
-
-    @keyframes float-4 {
-      0% { transform: translateY(100vh) translateX(0) rotate(0deg); opacity: 0; }
-      10% { opacity: 0.2; }
-      90% { opacity: 0.2; }
-      100% { transform: translateY(-100px) translateX(-100px) rotate(-720deg); opacity: 0; }
-    }
-
-    .wave {
-      position: absolute;
-      width: 200%;
-      height: 200%;
-      background: linear-gradient(45deg,
-        transparent 0%,
-        rgba(255,255,255,0.01) 25%,
-        transparent 50%,
-        rgba(255,255,255,0.01) 75%,
-        transparent 100%);
-    }
-
-    .wave-1 {
-      top: -50%;
-      left: -50%;
-      animation: wave-motion-1 20s linear infinite;
-    }
-
-    .wave-2 {
-      top: -50%;
-      right: -50%;
-      animation: wave-motion-2 25s linear infinite reverse;
-    }
-
-    @keyframes wave-motion-1 {
-      0% { transform: rotate(0deg) scale(1); }
-      100% { transform: rotate(360deg) scale(1.1); }
-    }
-
-    @keyframes wave-motion-2 {
-      0% { transform: rotate(0deg) scale(1.05); }
-      100% { transform: rotate(-360deg) scale(0.95); }
-    }
+    /* ... [Previous Animations kept same] ... */
+    .bg-animation { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; overflow: hidden; opacity: 0.6; }
+    .particle { position: absolute; background: rgba(200,200,200,0.15); border-radius: 50%; pointer-events: none; }
+    .particle-1 { width: 3px; height: 3px; animation: float-1 20s linear infinite; }
+    .particle-2 { width: 4px; height: 4px; animation: float-2 25s linear infinite; }
+    .particle-3 { width: 2px; height: 2px; animation: float-3 15s linear infinite; }
+    .particle-4 { width: 5px; height: 5px; animation: float-4 30s linear infinite; }
+    @keyframes float-1 { 0% { transform: translateY(100vh) translateX(0) rotate(0deg); opacity: 0; } 10% { opacity: 0.4; } 90% { opacity: 0.4; } 100% { transform: translateY(-100px) translateX(100px) rotate(360deg); opacity: 0; } }
+    @keyframes float-2 { 0% { transform: translateY(100vh) translateX(0) rotate(0deg); opacity: 0; } 10% { opacity: 0.3; } 90% { opacity: 0.3; } 100% { transform: translateY(-100px) translateX(-50px) rotate(-360deg); opacity: 0; } }
+    @keyframes float-3 { 0% { transform: translateY(100vh) translateX(0) rotate(0deg); opacity: 0; } 10% { opacity: 0.5; } 90% { opacity: 0.5; } 100% { transform: translateY(-100px) translateX(200px) rotate(720deg); opacity: 0; } }
+    @keyframes float-4 { 0% { transform: translateY(100vh) translateX(0) rotate(0deg); opacity: 0; } 10% { opacity: 0.2; } 90% { opacity: 0.2; } 100% { transform: translateY(-100px) translateX(-100px) rotate(-720deg); opacity: 0; } }
+    .wave { position: absolute; width: 200%; height: 200%; background: linear-gradient(45deg, transparent 0%, rgba(255,255,255,0.01) 25%, transparent 50%, rgba(255,255,255,0.01) 75%, transparent 100%); }
+    .wave-1 { top: -50%; left: -50%; animation: wave-motion-1 20s linear infinite; }
+    .wave-2 { top: -50%; right: -50%; animation: wave-motion-2 25s linear infinite reverse; }
+    @keyframes wave-motion-1 { 0% { transform: rotate(0deg) scale(1); } 100% { transform: rotate(360deg) scale(1.1); } }
+    @keyframes wave-motion-2 { 0% { transform: rotate(0deg) scale(1.05); } 100% { transform: rotate(-360deg) scale(0.95); } }
 
     .nav{
       position:sticky;
@@ -196,782 +110,263 @@
       transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
-    .brand-icon {
-      width: 32px;
-      height: 32px;
-      object-fit: contain;
-      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-      flex-shrink: 0;
+    .brand-icon { width: 32px; height: 32px; object-fit: contain; transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); flex-shrink: 0; }
+    .brand-text { max-width: 0; opacity: 0; overflow: hidden; white-space: nowrap; margin-left: 0; transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
+    .brand:hover .brand-text { max-width: 150px; opacity: 1; margin-left: 12px; }
+    .brand:hover .brand-icon { transform: rotate(360deg) scale(1.1); }
+
+    .links{ margin-left:auto; display:flex; gap:20px; align-items:center; }
+    .links a{ opacity:.7; transition: all 0.3s ease; padding: 8px 16px; border-radius: 12px; font-size: 13px; }
+    .links a:hover { opacity:1; background: rgba(255,255,255,0.05); transform: translateY(-1px); }
+    .links a.active { opacity: 1; background: rgba(255,255,255,0.08); }
+    .links a.discord-nav { color: #5865F2; opacity: 1; font-weight: 700; margin-left: auto; }
+    .links a.discord-nav:hover { background: rgba(88,101,242,0.15); }
+
+    .mobile-menu-toggle { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 8px; margin-left: auto; }
+    .mobile-menu-toggle span { width: 24px; height: 2px; background: var(--text); transition: all 0.3s ease; }
+    .mobile-menu { display: none; position: fixed; top: 61px; left: 0; right: 0; background: rgba(10,10,10,0.98); backdrop-filter: blur(20px); border-bottom: 1px solid var(--line); padding: 20px; z-index: 49; animation: slideDown 0.3s ease; }
+    .mobile-menu.active { display: block; }
+    .mobile-menu a { display: block; padding: 14px 20px; margin-bottom: 8px; border-radius: 12px; background: var(--card); border: 1px solid var(--line); transition: all 0.3s ease; text-align: center; }
+    .mobile-menu a:hover { background: rgba(255,255,255,0.08); transform: translateX(4px); }
+    .mobile-menu a.discord-nav { background: #5865F2; border-color: #5865F2; color: #ffffff; }
+    @keyframes slideDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+
+    .hero{ position:relative; z-index:20; padding:80px 0 40px; text-align:center; }
+    .title{ font-size: clamp(32px, 6vw, 56px); line-height:1.1; margin:.6rem 0 .8rem; text-align: center; }
+    .subtitle{ font-size: 13px; color:var(--muted); max-width: 600px; margin: 0 auto 32px; }
+
+    .warning-banner { display: inline-flex; align-items: center; gap: 10px; padding: 12px 24px; border-radius: 16px; background: rgba(239, 68, 68, 0.15); border: 1px solid rgba(239, 68, 68, 0.5); margin-bottom: 32px; animation: pulse-warning 2s ease-in-out infinite; }
+    .warning-banner.success { background: rgba(16, 185, 129, 0.15); border-color: rgba(16, 185, 129, 0.5); animation: pulse-success 2s ease-in-out infinite; }
+    .warning-banner svg { width: 20px; height: 20px; flex-shrink: 0; }
+    @keyframes pulse-warning { 0%, 100% { box-shadow: 0 0 15px rgba(239, 68, 68, 0.3); } 50% { box-shadow: 0 0 25px rgba(239, 68, 68, 0.5); } }
+    @keyframes pulse-success { 0%, 100% { box-shadow: 0 0 15px rgba(16, 185, 129, 0.3); } 50% { box-shadow: 0 0 25px rgba(16, 185, 129, 0.5); } }
+
+    .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-bottom: 40px; }
+    .stat-card { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 24px; text-align: center; transition: all 0.3s ease; position: relative; }
+    .stat-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; border-radius: var(--radius); padding: 1px; background: linear-gradient(135deg, rgba(255,255,255,0.1), transparent); -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); -webkit-mask-composite: xor; mask-composite: exclude; opacity: 0; transition: opacity 0.3s ease; }
+    .stat-card:hover::before { opacity: 1; }
+    .stat-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(0,0,0,0.3); border-color: rgba(255,255,255,0.15); }
+    .stat-number { font-size: 36px; font-weight: 700; margin-bottom: 8px; line-height: 1; }
+    .stat-label { font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.1em; }
+
+    /* --- NEW VERSION TRACKER STYLES --- */
+    .version-tracker {
+      display: flex;
+      justify-content: center;
+      gap: 24px;
+      margin-bottom: 48px;
+      flex-wrap: wrap;
     }
 
-    .brand-text {
-      max-width: 0;
-      opacity: 0;
-      overflow: hidden;
-      white-space: nowrap;
-      margin-left: 0;
-      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-
-    .brand:hover .brand-text {
-      max-width: 150px;
-      opacity: 1;
-      margin-left: 12px;
-    }
-
-    .brand:hover .brand-icon {
-      transform: rotate(360deg) scale(1.1);
-    }
-
-    .links{
-      margin-left:auto;
-      display:flex;
-      gap:20px;
-      align-items:center;
-    }
-
-    .links a{
-      opacity:.7;
-      transition: all 0.3s ease;
-      padding: 8px 16px;
-      border-radius: 12px;
-      font-size: 13px;
-    }
-
-    .links a:hover {
-      opacity:1;
-      background: rgba(255,255,255,0.05);
-      transform: translateY(-1px);
-    }
-
-    .links a.active {
-      opacity: 1;
-      background: rgba(255,255,255,0.08);
-    }
-
-    .links a.discord-nav {
-      color: #5865F2;
-      opacity: 1;
-      font-weight: 700;
-      margin-left: auto;
-    }
-
-    .links a.discord-nav:hover {
-      background: rgba(88,101,242,0.15);
-    }
-
-    .mobile-menu-toggle {
-      display: none;
-      flex-direction: column;
-      gap: 5px;
-      cursor: pointer;
-      padding: 8px;
-      margin-left: auto;
-    }
-
-    .mobile-menu-toggle span {
-      width: 24px;
-      height: 2px;
-      background: var(--text);
-      transition: all 0.3s ease;
-    }
-
-    .mobile-menu {
-      display: none;
-      position: fixed;
-      top: 61px;
-      left: 0;
-      right: 0;
-      background: rgba(10,10,10,0.98);
-      backdrop-filter: blur(20px);
-      border-bottom: 1px solid var(--line);
-      padding: 20px;
-      z-index: 49;
-      animation: slideDown 0.3s ease;
-    }
-
-    .mobile-menu.active {
-      display: block;
-    }
-
-    .mobile-menu a {
-      display: block;
-      padding: 14px 20px;
-      margin-bottom: 8px;
-      border-radius: 12px;
-      background: var(--card);
+    .version-card {
+      background: rgba(21, 21, 21, 0.6);
+      backdrop-filter: blur(10px);
       border: 1px solid var(--line);
-      transition: all 0.3s ease;
-      text-align: center;
-    }
-
-    .mobile-menu a:hover {
-      background: rgba(255,255,255,0.08);
-      transform: translateX(4px);
-    }
-
-    .mobile-menu a.discord-nav {
-      background: #5865F2;
-      border-color: #5865F2;
-      color: #ffffff;
-    }
-
-    @keyframes slideDown {
-      from {
-        opacity: 0;
-        transform: translateY(-10px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    .hero{
-      position:relative;
-      z-index:20;
-      padding:80px 0 60px;
-      text-align:center;
-    }
-
-    .title{
-      font-size: clamp(32px, 6vw, 56px);
-      line-height:1.1;
-      margin:.6rem 0 .8rem;
-      text-align: center;
-    }
-
-    .subtitle{
-      font-size: 13px;
-      color:var(--muted);
-      max-width: 600px;
-      margin: 0 auto 32px;
-    }
-
-    .warning-banner {
-      display: inline-flex;
+      border-radius: 20px;
+      padding: 20px 32px;
+      display: flex;
       align-items: center;
-      gap: 10px;
-      padding: 12px 24px;
-      border-radius: 16px;
-      background: rgba(239, 68, 68, 0.15);
-      border: 1px solid rgba(239, 68, 68, 0.5);
-      margin-bottom: 32px;
-      animation: pulse-warning 2s ease-in-out infinite;
-    }
-
-    .warning-banner.success {
-      background: rgba(16, 185, 129, 0.15);
-      border-color: rgba(16, 185, 129, 0.5);
-      animation: pulse-success 2s ease-in-out infinite;
-    }
-
-    .warning-banner svg {
-      width: 20px;
-      height: 20px;
-      flex-shrink: 0;
-    }
-
-    @keyframes pulse-warning {
-      0%, 100% { box-shadow: 0 0 15px rgba(239, 68, 68, 0.3); }
-      50% { box-shadow: 0 0 25px rgba(239, 68, 68, 0.5); }
-    }
-
-    @keyframes pulse-success {
-      0%, 100% { box-shadow: 0 0 15px rgba(16, 185, 129, 0.3); }
-      50% { box-shadow: 0 0 25px rgba(16, 185, 129, 0.5); }
-    }
-
-    .stats {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 16px;
-      margin-bottom: 60px;
-    }
-
-    .stat-card {
-      background: var(--card);
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      padding: 24px;
-      text-align: center;
-      transition: all 0.3s ease;
+      gap: 20px;
+      min-width: 260px;
       position: relative;
+      overflow: hidden;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      cursor: default;
     }
 
-    .stat-card::before {
+    .version-card::after {
       content: '';
       position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      border-radius: var(--radius);
+      inset: 0;
+      border-radius: 20px;
       padding: 1px;
-      background: linear-gradient(135deg, rgba(255,255,255,0.1), transparent);
+      background: linear-gradient(135deg, transparent, rgba(255, 255, 255, 0.1));
       -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
       -webkit-mask-composite: xor;
       mask-composite: exclude;
-      opacity: 0;
-      transition: opacity 0.3s ease;
+      pointer-events: none;
     }
 
-    .stat-card:hover::before {
-      opacity: 1;
-    }
-
-    .stat-card:hover {
+    .version-card.windows:hover {
+      border-color: rgba(59, 130, 246, 0.4);
+      box-shadow: 0 0 30px rgba(59, 130, 246, 0.15);
       transform: translateY(-4px);
-      box-shadow: 0 12px 32px rgba(0,0,0,0.3);
-      border-color: rgba(255,255,255,0.15);
     }
 
-    .stat-number {
-      font-size: 36px;
-      font-weight: 700;
-      margin-bottom: 8px;
-      line-height: 1;
+    .version-card.mac:hover {
+      border-color: rgba(139, 92, 246, 0.4);
+      box-shadow: 0 0 30px rgba(139, 92, 246, 0.15);
+      transform: translateY(-4px);
     }
 
-    .stat-label {
+    .version-icon-wrapper {
+      width: 48px;
+      height: 48px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      transition: all 0.3s ease;
+    }
+
+    .version-card:hover .version-icon-wrapper {
+      background: rgba(255, 255, 255, 0.08);
+      transform: scale(1.05);
+    }
+
+    .version-card.windows .version-icon-wrapper { color: var(--blue); }
+    .version-card.mac .version-icon-wrapper { color: var(--purple); }
+
+    .version-info {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 4px;
+    }
+
+    .version-label {
       font-size: 12px;
       color: var(--muted);
       text-transform: uppercase;
-      letter-spacing: 0.1em;
-    }
-
-    .platform-toggle {
-      display: flex;
-      justify-content: center;
-      gap: 12px;
-      margin-bottom: 40px;
-      flex-wrap: wrap;
-    }
-
-    .platform-btn {
+      letter-spacing: 1px;
+      font-weight: 700;
       display: flex;
       align-items: center;
-      gap: 10px;
-      padding: 12px 24px;
-      border-radius: 16px;
-      background: var(--card);
-      border: 2px solid var(--line);
-      color: var(--text);
-      font-size: 14px;
-      font-weight: 700;
-      cursor: pointer;
-      transition: all 0.3s ease;
+      gap: 6px;
     }
 
-    .platform-btn svg {
-      width: 20px;
-      height: 20px;
-    }
-
-    .platform-btn:hover {
-      background: rgba(255,255,255,0.05);
-      border-color: rgba(255,255,255,0.2);
-      transform: translateY(-2px);
-    }
-
-    .platform-btn.active {
-      background: var(--green);
-      border-color: var(--green);
-      color: #ffffff;
-    }
-
-    section{
-      position:relative;
-      z-index:20;
-      padding:60px 0;
-      border-top:1px solid var(--line);
-    }
-
-    section h2 {
-      font-size: clamp(24px, 4vw, 32px);
-      margin-bottom: 32px;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    section h2 svg {
-      width: 32px;
-      height: 32px;
-    }
-
-    .executor-list {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-
-    .executor-item {
-      background: var(--card);
-      border: 1px solid var(--line);
-      border-left: 4px solid var(--line);
-      border-radius: var(--radius);
-      padding: 20px 24px;
-      transition: all 0.3s ease;
-      cursor: pointer;
-      position: relative;
-    }
-
-    .executor-item.working {
-      border-left-color: var(--green);
-    }
-
-    .executor-item.down {
-      border-left-color: var(--red);
-    }
-
-    .executor-item:hover {
-      transform: translateX(4px);
-      box-shadow: 0 8px 24px rgba(0,0,0,0.3);
-      border-color: rgba(255,255,255,0.15);
-    }
-
-    .executor-top {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 12px;
-      flex-wrap: wrap;
-      gap: 12px;
-    }
-
-    .executor-left {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      flex-wrap: wrap;
-    }
-
-    .executor-name-link {
-      font-size: 20px;
-      font-weight: 700;
-      color: var(--text);
-      text-decoration: none;
-      transition: all 0.3s ease;
-    }
-
-    .executor-name-link:hover {
-      color: var(--green);
-    }
-
-    .executor-badges {
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-    }
-
-    .badge {
-      padding: 4px 12px;
-      border-radius: 8px;
-      font-size: 12px;
-      font-weight: 700;
-      white-space: nowrap;
-    }
-
-    .badge.version {
-      background: rgba(255,255,255,0.08);
-      color: var(--text);
-    }
-
-    .badge.unc {
-      background: rgba(139, 92, 246, 0.15);
-      color: #A78BFA;
-      border: 1px solid rgba(139, 92, 246, 0.3);
-    }
-
-    .badge.price {
-      background: rgba(59, 130, 246, 0.15);
-      color: #60A5FA;
-      border: 1px solid rgba(59, 130, 246, 0.3);
-    }
-
-    .badge.free {
-      background: rgba(16, 185, 129, 0.15);
-      color: var(--green);
-      border: 1px solid rgba(16, 185, 129, 0.3);
-    }
-
-    .badge.keysystem {
-      background: rgba(245, 158, 11, 0.15);
-      color: #FBBF24;
-      border: 1px solid rgba(245, 158, 11, 0.3);
-    }
-
-    .badge.unsupported {
-      background: rgba(249, 115, 22, 0.15);
-      color: #FB923C;
-      border: 1px solid rgba(249, 115, 22, 0.3);
-    }
-
-    .executor-status-badge {
-      padding: 8px 16px;
-      border-radius: 12px;
-      font-size: 13px;
-      font-weight: 700;
-      white-space: nowrap;
-    }
-
-    .executor-status-badge.updated {
-      background: var(--green);
-      color: #ffffff;
-    }
-
-    .executor-status-badge.not-updated {
-      background: var(--red);
-      color: #ffffff;
-    }
-
-    .executor-bottom {
-      color: var(--muted);
-      font-size: 13px;
-    }
-
-    .loading {
-      text-align: center;
-      padding: 40px 20px;
-    }
-
-    .loader {
-      display: inline-flex;
-      gap: 8px;
-      margin: 24px 0;
-    }
-
-    .loader-dot {
-      width: 10px;
-      height: 10px;
+    .live-dot {
+      width: 6px;
+      height: 6px;
       border-radius: 50%;
-      background: var(--muted);
-      animation: loader-bounce 1.4s infinite ease-in-out both;
+      background: var(--green);
+      box-shadow: 0 0 8px var(--green);
+      animation: pulse-dot 2s infinite;
     }
 
+    @keyframes pulse-dot {
+      0% { opacity: 0.5; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.2); }
+      100% { opacity: 0.5; transform: scale(1); }
+    }
+
+    .version-number {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--text);
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    }
+
+    .version-date {
+        font-size: 11px;
+        color: var(--muted);
+        opacity: 0.6;
+    }
+
+    /* --- END VERSION TRACKER STYLES --- */
+
+    .platform-toggle { display: flex; justify-content: center; gap: 12px; margin-bottom: 40px; flex-wrap: wrap; }
+    .platform-btn { display: flex; align-items: center; gap: 10px; padding: 12px 24px; border-radius: 16px; background: var(--card); border: 2px solid var(--line); color: var(--text); font-size: 14px; font-weight: 700; cursor: pointer; transition: all 0.3s ease; }
+    .platform-btn svg { width: 20px; height: 20px; }
+    .platform-btn:hover { background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.2); transform: translateY(-2px); }
+    .platform-btn.active { background: var(--green); border-color: var(--green); color: #ffffff; }
+
+    section{ position:relative; z-index:20; padding:60px 0; border-top:1px solid var(--line); }
+    section h2 { font-size: clamp(24px, 4vw, 32px); margin-bottom: 32px; display: flex; align-items: center; gap: 12px; }
+    section h2 svg { width: 32px; height: 32px; }
+
+    .executor-list { display: flex; flex-direction: column; gap: 12px; }
+    .executor-item { background: var(--card); border: 1px solid var(--line); border-left: 4px solid var(--line); border-radius: var(--radius); padding: 20px 24px; transition: all 0.3s ease; cursor: pointer; position: relative; }
+    .executor-item.working { border-left-color: var(--green); }
+    .executor-item.down { border-left-color: var(--red); }
+    .executor-item:hover { transform: translateX(4px); box-shadow: 0 8px 24px rgba(0,0,0,0.3); border-color: rgba(255,255,255,0.15); }
+    .executor-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; flex-wrap: wrap; gap: 12px; }
+    .executor-left { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+    .executor-name-link { font-size: 20px; font-weight: 700; color: var(--text); text-decoration: none; transition: all 0.3s ease; }
+    .executor-name-link:hover { color: var(--green); }
+    .executor-badges { display: flex; gap: 8px; flex-wrap: wrap; }
+    .badge { padding: 4px 12px; border-radius: 8px; font-size: 12px; font-weight: 700; white-space: nowrap; }
+    .badge.version { background: rgba(255,255,255,0.08); color: var(--text); }
+    .badge.unc { background: rgba(139, 92, 246, 0.15); color: #A78BFA; border: 1px solid rgba(139, 92, 246, 0.3); }
+    .badge.price { background: rgba(59, 130, 246, 0.15); color: #60A5FA; border: 1px solid rgba(59, 130, 246, 0.3); }
+    .badge.free { background: rgba(16, 185, 129, 0.15); color: var(--green); border: 1px solid rgba(16, 185, 129, 0.3); }
+    .badge.keysystem { background: rgba(245, 158, 11, 0.15); color: #FBBF24; border: 1px solid rgba(245, 158, 11, 0.3); }
+    .badge.unsupported { background: rgba(249, 115, 22, 0.15); color: #FB923C; border: 1px solid rgba(249, 115, 22, 0.3); }
+    .executor-status-badge { padding: 8px 16px; border-radius: 12px; font-size: 13px; font-weight: 700; white-space: nowrap; }
+    .executor-status-badge.updated { background: var(--green); color: #ffffff; }
+    .executor-status-badge.not-updated { background: var(--red); color: #ffffff; }
+    .executor-bottom { color: var(--muted); font-size: 13px; }
+
+    .loading { text-align: center; padding: 40px 20px; }
+    .loader { display: inline-flex; gap: 8px; margin: 24px 0; }
+    .loader-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--muted); animation: loader-bounce 1.4s infinite ease-in-out both; }
     .loader-dot:nth-child(1) { animation-delay: -0.32s; }
     .loader-dot:nth-child(2) { animation-delay: -0.16s; }
     .loader-dot:nth-child(3) { animation-delay: 0s; }
+    @keyframes loader-bounce { 0%, 80%, 100% { transform: scale(0); } 40% { transform: scale(1); } }
 
-    @keyframes loader-bounce {
-      0%, 80%, 100% { transform: scale(0); }
-      40% { transform: scale(1); }
-    }
+    footer{ border-top:1px solid var(--line); padding:24px 0 40px; color:var(--muted); text-align:center; font-size: 12px; }
+    .api-credit { margin-bottom: 16px; font-size: 13px; }
+    .api-credit a { color: var(--green); font-weight: 700; }
+    .api-credit a:hover { text-decoration: underline; }
 
-    footer{
-      border-top:1px solid var(--line);
-      padding:24px 0 40px;
-      color:var(--muted);
-      text-align:center;
-      font-size: 12px;
-    }
-
-    .api-credit {
-      margin-bottom: 16px;
-      font-size: 13px;
-    }
-
-    .api-credit a {
-      color: var(--green);
-      font-weight: 700;
-    }
-
-    .api-credit a:hover {
-      text-decoration: underline;
-    }
-
-    /* sUNC Modal Styles */
-    .modal-overlay {
-      display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: rgba(0, 0, 0, 0.85);
-      z-index: 1000;
-      backdrop-filter: blur(8px);
-      animation: fadeIn 0.3s ease;
-    }
-
-    .modal-overlay.active {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
-
-    .modal-content {
-      background: var(--card);
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      width: 100%;
-      max-width: 1000px;
-      max-height: 90vh;
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-      animation: slideUp 0.3s ease;
-    }
-
-    @keyframes slideUp {
-      from {
-        opacity: 0;
-        transform: translateY(30px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    .modal-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 24px;
-      border-bottom: 1px solid var(--line);
-    }
-
-    .modal-header h3 {
-      font-size: 24px;
-      margin: 0;
-    }
-
-    .modal-close {
-      width: 36px;
-      height: 36px;
-      border-radius: 8px;
-      background: rgba(255,255,255,0.05);
-      border: none;
-      color: var(--text);
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: all 0.3s ease;
-    }
-
-    .modal-close:hover {
-      background: rgba(255,255,255,0.1);
-    }
-
-    .modal-body {
-      padding: 24px;
-      overflow-y: auto;
-    }
-
-    .sunc-warning {
-      background: rgba(245, 158, 11, 0.15);
-      border: 1px solid rgba(245, 158, 11, 0.3);
-      border-radius: 12px;
-      padding: 16px;
-      margin-bottom: 24px;
-      display: flex;
-      gap: 12px;
-    }
-
-    .sunc-warning strong {
-      color: #FBBF24;
-    }
-
-    .sunc-stats-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 16px;
-      margin-bottom: 24px;
-    }
-
-    .sunc-stat-box {
-      background: rgba(255,255,255,0.03);
-      border: 1px solid var(--line);
-      border-radius: 12px;
-      padding: 20px;
-      text-align: center;
-    }
-
-    .sunc-stat-number {
-      font-size: 48px;
-      font-weight: 700;
-      line-height: 1;
-      margin-bottom: 8px;
-    }
-
-    .sunc-stat-number.green {
-      color: var(--green);
-    }
-
-    .sunc-stat-number.red {
-      color: var(--red);
-    }
-
-    .sunc-stat-label {
-      font-size: 13px;
-      color: var(--muted);
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-    }
-
-    .sunc-circle {
-      width: 200px;
-      height: 200px;
-      margin: 0 auto 24px;
-      position: relative;
-    }
-
-    .sunc-circle svg {
-      transform: rotate(-90deg);
-    }
-
-    .sunc-circle-bg {
-      fill: none;
-      stroke: rgba(255,255,255,0.05);
-      stroke-width: 12;
-    }
-
-    .sunc-circle-progress {
-      fill: none;
-      stroke: var(--green);
-      stroke-width: 12;
-      stroke-linecap: round;
-      transition: stroke-dashoffset 1s ease;
-    }
-
-    .sunc-circle-text {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      text-align: center;
-    }
-
-    .sunc-circle-percentage {
-      font-size: 48px;
-      font-weight: 700;
-      line-height: 1;
-    }
-
-    .sunc-circle-subtitle {
-      font-size: 13px;
-      color: var(--muted);
-      margin-top: 8px;
-    }
-
-    .sunc-functions-list {
-      max-height: 400px;
-      overflow-y: auto;
-      background: rgba(255,255,255,0.02);
-      border: 1px solid var(--line);
-      border-radius: 12px;
-      padding: 12px;
-    }
-
-    .sunc-function-item {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 12px;
-      margin-bottom: 8px;
-      background: rgba(255,255,255,0.03);
-      border-radius: 8px;
-      transition: all 0.3s ease;
-    }
-
-    .sunc-function-item:hover {
-      background: rgba(255,255,255,0.06);
-    }
-
-    .sunc-function-name {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      font-weight: 600;
-    }
-
-    .sunc-function-status {
-      width: 20px;
-      height: 20px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .sunc-function-status.passed {
-      background: rgba(16, 185, 129, 0.2);
-      color: var(--green);
-    }
-
-    .sunc-function-status.failed {
-      background: rgba(239, 68, 68, 0.2);
-      color: var(--red);
-    }
-
-    .sunc-function-category {
-      padding: 4px 12px;
-      background: rgba(255,255,255,0.08);
-      border-radius: 6px;
-      font-size: 12px;
-    }
+    /* sUNC Modal Styles - Kept same */
+    .modal-overlay { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0, 0, 0, 0.85); z-index: 1000; backdrop-filter: blur(8px); animation: fadeIn 0.3s ease; }
+    .modal-overlay.active { display: flex; align-items: center; justify-content: center; padding: 20px; }
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    .modal-content { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); width: 100%; max-width: 1000px; max-height: 90vh; overflow: hidden; display: flex; flex-direction: column; animation: slideUp 0.3s ease; }
+    @keyframes slideUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+    .modal-header { display: flex; justify-content: space-between; align-items: center; padding: 24px; border-bottom: 1px solid var(--line); }
+    .modal-header h3 { font-size: 24px; margin: 0; }
+    .modal-close { width: 36px; height: 36px; border-radius: 8px; background: rgba(255,255,255,0.05); border: none; color: var(--text); cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.3s ease; }
+    .modal-close:hover { background: rgba(255,255,255,0.1); }
+    .modal-body { padding: 24px; overflow-y: auto; }
+    .sunc-warning { background: rgba(245, 158, 11, 0.15); border: 1px solid rgba(245, 158, 11, 0.3); border-radius: 12px; padding: 16px; margin-bottom: 24px; display: flex; gap: 12px; }
+    .sunc-warning strong { color: #FBBF24; }
+    .sunc-stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 16px; margin-bottom: 24px; }
+    .sunc-stat-box { background: rgba(255,255,255,0.03); border: 1px solid var(--line); border-radius: 12px; padding: 20px; text-align: center; }
+    .sunc-stat-number { font-size: 48px; font-weight: 700; line-height: 1; margin-bottom: 8px; }
+    .sunc-stat-number.green { color: var(--green); }
+    .sunc-stat-number.red { color: var(--red); }
+    .sunc-stat-label { font-size: 13px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.1em; }
+    .sunc-circle { width: 200px; height: 200px; margin: 0 auto 24px; position: relative; }
+    .sunc-circle svg { transform: rotate(-90deg); }
+    .sunc-circle-bg { fill: none; stroke: rgba(255,255,255,0.05); stroke-width: 12; }
+    .sunc-circle-progress { fill: none; stroke: var(--green); stroke-width: 12; stroke-linecap: round; transition: stroke-dashoffset 1s ease; }
+    .sunc-circle-text { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center; }
+    .sunc-circle-percentage { font-size: 48px; font-weight: 700; line-height: 1; }
+    .sunc-circle-subtitle { font-size: 13px; color: var(--muted); margin-top: 8px; }
+    .sunc-functions-list { max-height: 400px; overflow-y: auto; background: rgba(255,255,255,0.02); border: 1px solid var(--line); border-radius: 12px; padding: 12px; }
+    .sunc-function-item { display: flex; justify-content: space-between; align-items: center; padding: 12px; margin-bottom: 8px; background: rgba(255,255,255,0.03); border-radius: 8px; transition: all 0.3s ease; }
+    .sunc-function-item:hover { background: rgba(255,255,255,0.06); }
+    .sunc-function-name { display: flex; align-items: center; gap: 12px; font-weight: 600; }
+    .sunc-function-status { width: 20px; height: 20px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+    .sunc-function-status.passed { background: rgba(16, 185, 129, 0.2); color: var(--green); }
+    .sunc-function-status.failed { background: rgba(239, 68, 68, 0.2); color: var(--red); }
+    .sunc-function-category { padding: 4px 12px; background: rgba(255,255,255,0.08); border-radius: 6px; font-size: 12px; }
 
     @media (max-width: 980px){
       .stats{grid-template-columns:repeat(2, 1fr)}
-
       .links{display:none}
       .mobile-menu-toggle{display:flex}
-
-      .hero {
-        padding: 60px 0 40px;
-      }
-
-      section {
-        padding: 40px 0;
-      }
+      .hero { padding: 60px 0 40px; }
+      section { padding: 40px 0; }
     }
 
     @media (max-width: 768px) {
       .stats{grid-template-columns:1fr}
-
-      .title {
-        font-size: 28px;
-      }
-
-      .hero {
-        padding: 40px 0 30px;
-      }
-
-      .subtitle {
-        font-size: 12px;
-        padding: 0 10px;
-      }
-
-      .stat-number {
-        font-size: 28px;
-      }
-
-      .platform-toggle {
-        gap: 8px;
-      }
-
-      .platform-btn {
-        padding: 10px 18px;
-        font-size: 13px;
-      }
-
-      .executor-top {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-
-      .executor-badges {
-        width: 100%;
-      }
+      .version-tracker { gap: 12px; }
+      .version-card { width: 100%; min-width: 0; }
+      .title { font-size: 28px; }
+      .hero { padding: 40px 0 30px; }
+      .subtitle { font-size: 12px; padding: 0 10px; }
+      .stat-number { font-size: 28px; }
+      .platform-toggle { gap: 8px; }
+      .platform-btn { padding: 10px 18px; font-size: 13px; }
+      .executor-top { flex-direction: column; align-items: flex-start; }
+      .executor-badges { width: 100%; }
     }
   </style>
 </head>
@@ -1054,6 +449,37 @@
         <div class="stat-label">Avg UNC %</div>
       </div>
     </div>
+
+    <div class="version-tracker">
+      <div class="version-card windows">
+        <div class="version-icon-wrapper">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="14" x="2" y="3" rx="2"/><line x1="8" x2="16" y1="21" y2="21"/><line x1="12" x2="12" y1="17" y2="21"/></svg>
+        </div>
+        <div class="version-info">
+          <div class="version-label">
+            <div class="live-dot"></div>
+            Windows
+          </div>
+          <span class="version-number" id="winVersion">Loading...</span>
+          <span class="version-date" id="winDate"></span>
+        </div>
+      </div>
+
+      <div class="version-card mac">
+        <div class="version-icon-wrapper">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6v12a3 3 0 1 0 3-3H6a3 3 0 1 0 3 3V6a3 3 0 1 0-3 3h12a3 3 0 1 0-3-3"/></svg>
+        </div>
+        <div class="version-info">
+          <div class="version-label">
+            <div class="live-dot"></div>
+            Mac
+          </div>
+          <span class="version-number" id="macVersion">Loading...</span>
+          <span class="version-date" id="macDate"></span>
+        </div>
+      </div>
+    </div>
+
   </header>
 
   <section id="executors">
@@ -1099,7 +525,6 @@
     </div>
   </footer>
 
-  <!-- sUNC Modal -->
   <div class="modal-overlay" id="suncModal">
     <div class="modal-content">
       <div class="modal-header">
@@ -1160,7 +585,6 @@
         try {
           console.log('Attempting fetch from:', baseUrl + url);
           const response = await fetch(baseUrl + url);
-          console.log('Response status:', response.status);
           
           if (response.ok) {
             return response;
@@ -1180,10 +604,31 @@
       try {
         const response = await tryFetch('/versions/current');
         const data = await response.json();
-        currentVersion = data.clientVersionUpload || data.version || 'Unknown';
+        
+        // Update internal variable
+        currentVersion = data.Windows || data.clientVersionUpload || data.version || 'Unknown';
+
+        // Update UI Elements for Version Tracker
+        const winVerEl = document.getElementById('winVersion');
+        const macVerEl = document.getElementById('macVersion');
+        const winDateEl = document.getElementById('winDate');
+        const macDateEl = document.getElementById('macDate');
+
+        if (winVerEl) {
+          winVerEl.textContent = data.Windows || 'Unknown';
+          if (data.WindowsDate) winDateEl.textContent = getTimeAgo(data.WindowsDate);
+        }
+        
+        if (macVerEl) {
+          macVerEl.textContent = data.Mac || 'Unknown';
+          if (data.MacDate) macDateEl.textContent = getTimeAgo(data.MacDate);
+        }
+
         return currentVersion;
       } catch (error) {
         console.error('Error fetching versions:', error);
+        document.getElementById('winVersion').textContent = 'Error';
+        document.getElementById('macVersion').textContent = 'Error';
         return 'Unknown';
       }
     }
@@ -1192,26 +637,6 @@
       try {
         const response = await tryFetch('/status/exploits');
         const data = await response.json();
-        console.log('Raw API response:', data);
-        console.log('Response type:', typeof data, 'Is array:', Array.isArray(data));
-        
-        if (Array.isArray(data)) {
-          console.log('Number of executors received:', data.length);
-          data.forEach((ex, i) => {
-            console.log(`Executor ${i}:`, {
-              title: ex.title,
-              platform: ex.platform,
-              extype: ex.extype,
-              updateStatus: ex.updateStatus,
-              detected: ex.detected,
-              free: ex.free,
-              cost: ex.cost,
-              keysystem: ex.keysystem,
-              uncStatus: ex.uncStatus
-            });
-          });
-        }
-        
         return Array.isArray(data) ? data : [];
       } catch (error) {
         console.error('Error fetching all executors:', error);
@@ -1220,11 +645,10 @@
     }
 
     function getTimeAgo(dateString) {
-      if (!dateString || dateString === 'Unknown') return 'Unknown';
+      if (!dateString || dateString === 'Unknown') return '';
       
       try {
         let date;
-        
         if (dateString.includes(' at ')) {
           const [datePart, timePart] = dateString.split(' at ');
           const [month, day, year] = datePart.split('/');
@@ -1244,35 +668,25 @@
         const diffMinutes = Math.floor(diffSeconds / 60);
         const diffHours = Math.floor(diffMinutes / 60);
         const diffDays = Math.floor(diffHours / 24);
-        const diffWeeks = Math.floor(diffDays / 7);
-        const diffMonths = Math.floor(diffDays / 30);
 
-        if (diffSeconds < 60) return 'Just now';
-        if (diffMinutes < 60) return `${diffMinutes} minute${diffMinutes !== 1 ? 's' : ''} ago`;
-        if (diffHours < 24) return `${diffHours} hour${diffHours !== 1 ? 's' : ''} ago`;
-        if (diffDays < 7) return `${diffDays} day${diffDays !== 1 ? 's' : ''} ago`;
-        if (diffWeeks < 4) return `${diffWeeks} week${diffWeeks !== 1 ? 's' : ''} ago`;
-        return `${diffMonths} month${diffMonths !== 1 ? 's' : ''} ago`;
+        if (diffSeconds < 60) return 'Updated just now';
+        if (diffMinutes < 60) return `Updated ${diffMinutes}m ago`;
+        if (diffHours < 24) return `Updated ${diffHours}h ago`;
+        return `Updated ${diffDays}d ago`;
       } catch (e) {
-        console.error('Error parsing date:', dateString, e);
-        return dateString;
+        return '';
       }
     }
 
     async function fetchExecutorData() {
       try {
+        // Fetch versions first to update tracker
         const version = await fetchVersions();
         const executors = await fetchAllExecutors();
-
-        console.log('Executors raw:', executors);
         
         allExecutors = executors.filter(ex => 
           ex && ex.title && ALLOWED_EXECUTORS.includes(ex.title.toLowerCase())
         );
-
-        console.log('Filtered executors:', allExecutors);
-        console.log('Working count:', allExecutors.filter(e => e.updateStatus === true).length);
-        console.log('Down count:', allExecutors.filter(e => e.updateStatus !== true).length);
 
         updateStats(allExecutors, version);
         updateWarningBanner(allExecutors);
@@ -1367,27 +781,20 @@
       const grid = document.getElementById('executorGrid');
 
       if (currentPlatform === 'mobile') {
-        // Mobile view shows both Android and iOS sections
         const androidExecutors = executors.filter(ex => {
           const platform = ex.platform ? ex.platform.toLowerCase() : '';
           const extype = ex.extype ? ex.extype.toLowerCase() : '';
-          // Check for Android platform OR mexecutor/aexecutor type
           return platform === 'android' || extype === 'aexecutor' || extype === 'android';
         });
         
         const iosExecutors = executors.filter(ex => {
           const platform = ex.platform ? ex.platform.toLowerCase() : '';
           const extype = ex.extype ? ex.extype.toLowerCase() : '';
-          // Check for iOS platform OR iexecutor type
           return platform === 'ios' || extype === 'iexecutor' || extype === 'ios';
         });
         
-        console.log('Android executors:', androidExecutors.map(e => e.title));
-        console.log('iOS executors:', iosExecutors.map(e => e.title));
-        
         let html = '';
         
-        // Android Section
         if (androidExecutors.length > 0) {
           html += `
             <h3 style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px; margin-top: 0;">
@@ -1400,7 +807,6 @@
           `;
         }
         
-        // iOS Section
         if (iosExecutors.length > 0) {
           html += `
             <h3 style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
@@ -1418,12 +824,9 @@
         }
         
         grid.innerHTML = html;
-        
-        // Add click handlers
         attachExecutorClickHandlers([...androidExecutors, ...iosExecutors]);
         
       } else {
-        // Windows or Mac view
         let filteredExecutors = executors.filter(ex => {
           const platform = ex.platform ? ex.platform.toLowerCase() : '';
           const extype = ex.extype ? ex.extype.toLowerCase() : '';
@@ -1454,27 +857,34 @@
         let statusText = isWorking ? 'Updated' : 'Not Updated';
         let statusBadgeClass = isWorking ? 'updated' : 'not-updated';
         
-        console.log(`${ex.title}: updateStatus=${ex.updateStatus}, detected=${ex.detected}, isWorking=${isWorking}, statusText=${statusText}`);
-        
-        const timeAgo = getTimeAgo(ex.updatedDate);
+        // Reuse existing getTimeAgo logic but format specifically for list item
+        let timeAgo = '';
+        if (ex.updatedDate) {
+            try {
+                 // Simple parse since we just want the string in the box
+                 let d = new Date(ex.updatedDate);
+                 if(isNaN(d.getTime()) && ex.updatedDate.includes(' at ')) {
+                     const parts = ex.updatedDate.split(' at ');
+                     d = new Date(parts[0]);
+                 }
+                 // Recalculate simple ago
+                 const diff = (new Date() - d) / 1000;
+                 if(diff < 3600) timeAgo = 'Just now';
+                 else if(diff < 86400) timeAgo = Math.floor(diff/3600) + 'h ago';
+                 else timeAgo = Math.floor(diff/86400) + 'd ago';
+            } catch(e) { timeAgo = 'Unknown'; }
+        }
+
         const exploitLink = ex.websitelink || ex.purchaselink || '#';
         
         let badges = [];
-        
-        if (ex.version) {
-          badges.push(`<span class="badge version">${ex.version}</span>`);
-        }
-        
+        if (ex.version) badges.push(`<span class="badge version">${ex.version}</span>`);
         if (ex.uncStatus && ex.sunc) {
           const suncKey = ex.sunc.suncKey || '';
           const suncScrap = ex.sunc.suncScrap || '';
           badges.push(`<span class="badge unc" onclick="event.stopPropagation(); event.preventDefault(); showSuncModal('${ex.title.replace(/'/g, "\\'")}', '${suncKey}', '${suncScrap}'); return false;" style="cursor: pointer;">sUNC</span>`);
         }
-        
-        if (ex.title.toLowerCase() === 'volcano') {
-          badges.push(`<span class="badge unsupported">Not Fully Supported</span>`);
-        }
-        
+        if (ex.title.toLowerCase() === 'volcano') badges.push(`<span class="badge unsupported">Not Fully Supported</span>`);
         if (ex.free === true) {
           badges.push(`<span class="badge free">Free${ex.keysystem ? ' (Key System)' : ''}</span>`);
         } else if (ex.cost) {
@@ -1497,7 +907,7 @@
               </div>
             </div>
             <div class="executor-bottom">
-              Last updated: ${timeAgo}
+              Last updated: ${timeAgo || 'Unknown'}
             </div>
           </div>
         `;
@@ -1508,13 +918,9 @@
       document.querySelectorAll('.executor-item').forEach((item, index) => {
         const executor = executors[index];
         if (!executor) return;
-        
         const link = executor.websitelink || executor.purchaselink || '#';
-        
         item.addEventListener('click', function(e) {
-          if (e.target.closest('.badge') || e.target.closest('.executor-name-link')) {
-            return;
-          }
+          if (e.target.closest('.badge') || e.target.closest('.executor-name-link')) return;
           window.open(link, '_blank');
         });
       });
@@ -1525,44 +931,29 @@
       particle.className = `particle particle-${Math.floor(Math.random() * 4) + 1}`;
       particle.style.left = Math.random() * 100 + '%';
       particle.style.animationDelay = '0s';
-
       const bgAnimation = document.querySelector('.bg-animation');
       if (bgAnimation) {
         bgAnimation.appendChild(particle);
-
-        setTimeout(() => {
-          if (particle.parentNode) {
-            particle.parentNode.removeChild(particle);
-          }
-        }, 35000);
+        setTimeout(() => { if (particle.parentNode) particle.parentNode.removeChild(particle); }, 35000);
       }
     }
 
     setInterval(createParticle, 3000);
-
     fetchExecutorData();
     setInterval(fetchExecutorData, 30000);
 
-    // sUNC Modal Functions
+    // sUNC Modal Functions (Same as before)
     function showSuncModal(executorName, suncKey, suncScrap) {
       const modal = document.getElementById('suncModal');
       const modalBody = document.getElementById('suncModalBody');
-      
       modal.classList.add('active');
       document.body.style.overflow = 'hidden';
-      
       modalBody.innerHTML = `
         <div class="loading">
-          <div class="loader">
-            <div class="loader-dot"></div>
-            <div class="loader-dot"></div>
-            <div class="loader-dot"></div>
-          </div>
+          <div class="loader"><div class="loader-dot"></div><div class="loader-dot"></div><div class="loader-dot"></div></div>
           <p>Loading sUNC data...</p>
         </div>
       `;
-      
-      // Fetch sUNC data
       fetchSuncData(executorName, suncKey, suncScrap);
     }
 
@@ -1572,95 +963,50 @@
       document.body.style.overflow = '';
     }
 
-    // Close modal on overlay click
-    document.getElementById('suncModal').addEventListener('click', function(e) {
-      if (e.target === this) {
-        closeSuncModal();
-      }
-    });
-
-    // Close modal on escape key
-    document.addEventListener('keydown', function(e) {
-      if (e.key === 'Escape') {
-        closeSuncModal();
-      }
-    });
+    document.getElementById('suncModal').addEventListener('click', function(e) { if (e.target === this) closeSuncModal(); });
+    document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeSuncModal(); });
 
     async function fetchSuncData(executorName, suncKey, suncScrap) {
       try {
-        console.log('Fetching sUNC data for:', executorName, 'Key:', suncKey, 'Scrap:', suncScrap);
-        
-        // Try multiple sUNC API endpoints
         let data = null;
         let version = 'v2.1.0';
-        
-        // First try: Direct Numelon API
         try {
           const numelonResponse = await fetch(`https://sunc.numelon.com/api/v1/results/${suncKey}/${suncScrap}`);
-          if (numelonResponse.ok) {
-            data = await numelonResponse.json();
-            console.log('sUNC data from Numelon:', data);
-          }
-        } catch (e) {
-          console.log('Numelon API failed:', e);
-        }
+          if (numelonResponse.ok) data = await numelonResponse.json();
+        } catch (e) {}
         
-        // Second try: WEAO API proxy (if first failed)
         if (!data) {
           try {
             for (const baseUrl of BASE_URLS) {
               try {
                 const weaoResponse = await fetch(`${baseUrl}/sunc/${suncKey}/${suncScrap}`);
-                if (weaoResponse.ok) {
-                  data = await weaoResponse.json();
-                  console.log('sUNC data from WEAO:', data);
-                  break;
-                }
-              } catch (e) {
-                console.log('WEAO attempt failed:', e);
-                continue;
-              }
+                if (weaoResponse.ok) { data = await weaoResponse.json(); break; }
+              } catch (e) { continue; }
             }
-          } catch (e) {
-            console.log('All WEAO attempts failed:', e);
-          }
+          } catch (e) {}
         }
         
-        // Third try: Construct from executor data if available
         if (!data) {
-          // Find executor data
           const executor = allExecutors.find(ex => ex.title.toLowerCase() === executorName.toLowerCase());
           if (executor && executor.suncPercentage !== undefined) {
-            console.log('Using executor sUNC percentage data:', executor.suncPercentage);
-            // Create minimal data structure
-            data = {
-              version: 'v2.1.0',
-              results: [] // We'll show percentage only
-            };
+            data = { version: 'v2.1.0', results: [] };
           }
         }
         
-        if (!data) {
-          throw new Error('Could not fetch sUNC data from any source');
-        }
+        if (!data) throw new Error('Could not fetch sUNC data');
         
         const modalBody = document.getElementById('suncModalBody');
-        
-        // If we have detailed results
         if (data.results && data.results.length > 0) {
           const passed = data.results.filter(r => r.state === 'passed').length;
           const failed = data.results.filter(r => r.state === 'failed').length;
           const total = data.results.length;
           const percentage = Math.round((passed / total) * 100);
-          
           const circumference = 2 * Math.PI * 90;
           const offset = circumference - (percentage / 100) * circumference;
           
           const functionsByCategory = {};
           data.results.forEach(func => {
-            if (!functionsByCategory[func.category]) {
-              functionsByCategory[func.category] = [];
-            }
+            if (!functionsByCategory[func.category]) functionsByCategory[func.category] = [];
             functionsByCategory[func.category].push(func);
           });
           
@@ -1670,119 +1016,22 @@
               const statusIcon = func.state === 'passed' 
                 ? '<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>'
                 : '<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>';
-              
-              functionsHTML += `
-                <div class="sunc-function-item">
-                  <div class="sunc-function-name">
-                    <div class="sunc-function-status ${func.state}">
-                      ${statusIcon}
-                    </div>
-                    ${func.function}
-                  </div>
-                  <div class="sunc-function-category">${func.category}</div>
-                </div>
-              `;
+              functionsHTML += `<div class="sunc-function-item"><div class="sunc-function-name"><div class="sunc-function-status ${func.state}">${statusIcon}</div>${func.function}</div><div class="sunc-function-category">${func.category}</div></div>`;
             });
           });
           
           modalBody.innerHTML = `
-            <div class="sunc-warning">
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0; margin-top: 2px;"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg>
-              <div>
-                <strong>Important:</strong> Failed tests don't always mean functions won't work. They just indicate that the functions didn't pass sUNC's specific compatibility checks.
-              </div>
-            </div>
-            
-            <div style="display: flex; gap: 24px; margin-bottom: 24px; flex-wrap: wrap;">
-              <div style="flex: 1; min-width: 200px;">
-                <div class="sunc-circle">
-                  <svg width="200" height="200" viewBox="0 0 200 200">
-                    <circle class="sunc-circle-bg" cx="100" cy="100" r="90"/>
-                    <circle class="sunc-circle-progress" cx="100" cy="100" r="90" 
-                      stroke-dasharray="${circumference}" 
-                      stroke-dashoffset="${offset}"/>
-                  </svg>
-                  <div class="sunc-circle-text">
-                    <div class="sunc-circle-percentage">${percentage}%</div>
-                    <div class="sunc-circle-subtitle">${passed}/${total}</div>
-                  </div>
-                </div>
-                <h4 style="text-align: center; margin-bottom: 8px;">${executorName}</h4>
-                <p style="text-align: center; color: var(--muted); font-size: 13px;">sUNC ${data.version || 'v2.1.0'}</p>
-              </div>
-              
-              <div style="flex: 1; min-width: 300px;">
-                <div class="sunc-stats-grid">
-                  <div class="sunc-stat-box">
-                    <div class="sunc-stat-number green">${passed}</div>
-                    <div class="sunc-stat-label">Passed</div>
-                  </div>
-                  <div class="sunc-stat-box">
-                    <div class="sunc-stat-number red">${failed}</div>
-                    <div class="sunc-stat-label">Failed</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            
-            <h4 style="margin-bottom: 16px;">Functions</h4>
-            <div class="sunc-functions-list">
-              ${functionsHTML}
-            </div>
-            
-            <div style="margin-top: 16px; text-align: center; padding-top: 16px; border-top: 1px solid var(--line);">
-              <p style="font-size: 12px; color: var(--muted);">Powered by <a href="https://sunc.numelon.com" target="_blank" style="color: var(--green);">Numelon</a></p>
-            </div>
-          `;
+            <div class="sunc-warning"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0; margin-top: 2px;"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg><div><strong>Important:</strong> Failed tests don't always mean functions won't work.</div></div>
+            <div style="display: flex; gap: 24px; margin-bottom: 24px; flex-wrap: wrap;"><div style="flex: 1; min-width: 200px;"><div class="sunc-circle"><svg width="200" height="200" viewBox="0 0 200 200"><circle class="sunc-circle-bg" cx="100" cy="100" r="90"/><circle class="sunc-circle-progress" cx="100" cy="100" r="90" stroke-dasharray="${circumference}" stroke-dashoffset="${offset}"/></svg><div class="sunc-circle-text"><div class="sunc-circle-percentage">${percentage}%</div><div class="sunc-circle-subtitle">${passed}/${total}</div></div></div><h4 style="text-align: center; margin-bottom: 8px;">${executorName}</h4><p style="text-align: center; color: var(--muted); font-size: 13px;">sUNC ${data.version}</p></div><div style="flex: 1; min-width: 300px;"><div class="sunc-stats-grid"><div class="sunc-stat-box"><div class="sunc-stat-number green">${passed}</div><div class="sunc-stat-label">Passed</div></div><div class="sunc-stat-box"><div class="sunc-stat-number red">${failed}</div><div class="sunc-stat-label">Failed</div></div></div></div></div><h4 style="margin-bottom: 16px;">Functions</h4><div class="sunc-functions-list">${functionsHTML}</div><div style="margin-top: 16px; text-align: center; padding-top: 16px; border-top: 1px solid var(--line);"><p style="font-size: 12px; color: var(--muted);">Powered by <a href="https://sunc.numelon.com" target="_blank" style="color: var(--green);">Numelon</a></p></div>`;
         } else {
-          // Fallback: Show percentage only from executor data
           const executor = allExecutors.find(ex => ex.title.toLowerCase() === executorName.toLowerCase());
           const percentage = executor ? (executor.suncPercentage || 0) : 0;
-          
           const circumference = 2 * Math.PI * 90;
           const offset = circumference - (percentage / 100) * circumference;
-          
-          modalBody.innerHTML = `
-            <div class="sunc-warning">
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0; margin-top: 2px;"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg>
-              <div>
-                <strong>Note:</strong> Detailed sUNC results are not available. Showing percentage score only.
-              </div>
-            </div>
-            
-            <div style="display: flex; justify-content: center; margin: 40px 0;">
-              <div>
-                <div class="sunc-circle">
-                  <svg width="200" height="200" viewBox="0 0 200 200">
-                    <circle class="sunc-circle-bg" cx="100" cy="100" r="90"/>
-                    <circle class="sunc-circle-progress" cx="100" cy="100" r="90" 
-                      stroke-dasharray="${circumference}" 
-                      stroke-dashoffset="${offset}"/>
-                  </svg>
-                  <div class="sunc-circle-text">
-                    <div class="sunc-circle-percentage">${percentage}%</div>
-                    <div class="sunc-circle-subtitle">sUNC Score</div>
-                  </div>
-                </div>
-                <h4 style="text-align: center; margin-top: 16px; margin-bottom: 8px;">${executorName}</h4>
-                <p style="text-align: center; color: var(--muted); font-size: 13px;">sUNC ${version}</p>
-              </div>
-            </div>
-            
-            <div style="margin-top: 16px; text-align: center; padding-top: 16px; border-top: 1px solid var(--line);">
-              <p style="font-size: 12px; color: var(--muted);">Powered by <a href="https://sunc.numelon.com" target="_blank" style="color: var(--green);">Numelon</a></p>
-            </div>
-          `;
+          modalBody.innerHTML = `<div class="sunc-warning"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0; margin-top: 2px;"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg><div><strong>Note:</strong> Detailed sUNC results not available. Showing percentage only.</div></div><div style="display: flex; justify-content: center; margin: 40px 0;"><div><div class="sunc-circle"><svg width="200" height="200" viewBox="0 0 200 200"><circle class="sunc-circle-bg" cx="100" cy="100" r="90"/><circle class="sunc-circle-progress" cx="100" cy="100" r="90" stroke-dasharray="${circumference}" stroke-dashoffset="${offset}"/></svg><div class="sunc-circle-text"><div class="sunc-circle-percentage">${percentage}%</div><div class="sunc-circle-subtitle">sUNC Score</div></div></div><h4 style="text-align: center; margin-top: 16px; margin-bottom: 8px;">${executorName}</h4><p style="text-align: center; color: var(--muted); font-size: 13px;">sUNC ${version}</p></div></div>`;
         }
       } catch (error) {
-        console.error('Error fetching sUNC data:', error);
-        const modalBody = document.getElementById('suncModalBody');
-        modalBody.innerHTML = `
-          <div class="loading">
-            <p style="color: #EF4444;">Failed to load sUNC data. Please try again later.</p>
-            <p style="color: var(--muted); font-size: 13px; margin-top: 8px;">Error: ${error.message}</p>
-          </div>
-        `;
+        document.getElementById('suncModalBody').innerHTML = `<div class="loading"><p style="color: #EF4444;">Failed to load sUNC data.</p></div>`;
       }
     }
   </script>
