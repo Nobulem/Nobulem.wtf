@@ -1566,6 +1566,18 @@
       </div>
 
       <div class="games-grid" id="gamesGrid">
+        <div class="game-card reveal delay-1" data-game-id="slipshot" data-status="working" onclick="openGameModal('slipshot')">
+          <img src="https://tr.rbxcdn.com/180DAY-dc2745292fc4bd4ab9eb58d1e1abb324/768/432/Image/Webp/noFilter" alt="SlipShot" class="game-thumbnail">
+          <div class="game-content">
+            <h3 class="game-name">SlipShot</h3>
+            <p class="game-description">Fully working Bullet redirection, ESP</p>
+            <div class="game-status">
+              <span class="status-badge status-working">Working</span>
+              <span class="game-id"># 99693329540396</span>
+            </div>
+          </div>
+        </div>
+
         <div class="game-card" data-game-id="bulked-up" data-status="working" onclick="openGameModal('bulked-up')">
           <img src="https://tr.rbxcdn.com/180DAY-a8d89bbea01c9e153955bd78d872bea0/768/432/Image/Webp/noFilter" alt="Bulked Up" class="game-thumbnail">
           <div class="game-content">
@@ -1788,6 +1800,12 @@
     document.getElementById('year').textContent = new Date().getFullYear();
 
     const gameData = {
+      'slipshot': {
+        name: 'SlipShot',
+        id: '99693329540396',
+        status: 'Working',
+        features: ['Bullet redirection', 'Show fov circle', 'Target line', 'Change fov circle color on target', 'Hitparts', 'Name esp', 'Box esp', 'Tracers esp', '3d box esp', 'OOF arrow']
+      },
       'bulked-up': {
         name: 'Bulked Up',
         id: '6847090259',
