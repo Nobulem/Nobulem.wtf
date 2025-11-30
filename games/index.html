@@ -1566,6 +1566,24 @@
       </div>
 
       <div class="games-grid" id="gamesGrid">
+        <div class="game-card" data-game-id="war-tycoon" data-status="working" onclick="openGameModal('war-tycoon')">
+          <img src="https://tr.rbxcdn.com/180DAY-55c64d61923a9579d8254ecc8192ccb4/768/432/Image/Webp/noFilter" alt="War Tycoon" class="game-thumbnail">
+          <div class="game-content">
+            <h3 class="game-name">War Tycoon</h3>
+            <p class="game-description">Auto farm, Silent aim, Magic bullet, Aimbot</p>
+            <div class="game-status">
+              <span class="status-badge status-working">
+                <i data-lucide="circle-check"></i>
+                Working
+              </span>
+              <span class="game-id">
+                <i data-lucide="hash"></i>
+                4639625707
+              </span>
+            </div>
+          </div>
+        </div>
+
         <div class="game-card reveal delay-1" data-game-id="slipshot" data-status="working" onclick="openGameModal('slipshot')">
           <img src="https://tr.rbxcdn.com/180DAY-dc2745292fc4bd4ab9eb58d1e1abb324/768/432/Image/Webp/noFilter" alt="SlipShot" class="game-thumbnail">
           <div class="game-content">
@@ -1800,6 +1818,12 @@
     document.getElementById('year').textContent = new Date().getFullYear();
 
     const gameData = {
+      'war-tycoon': {
+        name: 'War Tycoon',
+        id: '4639625707',
+        status: 'Working',
+        features: ['Silent Aim', 'Silent Aim Visible Check', 'Silent Aim Ignore Settings', 'Silent Aim Hit Parts', 'Silent Aim FOV Circle', 'Silent Aim Dynamic FOV Color', 'Silent Aim FOV Radius', 'Silent Aim Target Line', 'Silent Aim Target Dot', 'Silent Aim Target Chams', 'Silent Aim Hit Chance', 'Aimbot', 'Aimbot Visible Check', 'Aimbot Ignore Settings', 'Aimbot Hit Parts', 'Aimbot Prediction', 'Aimbot Prediction Amount', 'Aimbot Smoothing', 'Aimbot Smoothness', 'Aimbot FOV Circle', 'Aimbot Dynamic FOV Color', 'Aimbot FOV Radius', 'Aimbot Target Line', 'Aimbot Target Dot', 'Aimbot Target Chams', 'Aimbot Hit Chance', 'Magic Bullet RPG', 'Loop Kill Selected Player', 'Kill All Players', 'Select Player Dropdown', 'Fly', 'Fly Speed', 'CFrame Walkspeed', 'CFrame Speed', 'Noclip', 'Auto Complete Tycoon', 'Farming Speed Mode', 'Farming Priority', 'Purchase Order', 'Farming Time Display', 'Cash Display', 'Next Buy Display', 'Notify On Skipping Non-Cash Item', 'Notify On Attempt To Buy', 'Notify On Successful Purchase', 'Notify On Farming Completion', 'Enemy ESP', 'Box ESP', 'Box Fill', 'Health Bar', 'Health Text', 'Name ESP', 'Distance ESP', 'Weapon ESP', 'Tracers', 'Tracer Origin', '3D Box ESP', 'Chams', 'Chams Visible Only', 'Off-Screen Arrows', 'Arrow Size', 'Arrow Radius', 'Text Size', 'Limit ESP Distance', 'ESP Max Distance', 'Prioritize Player Highlight', 'Whitelist Players', 'Ambient Color', 'Outdoor Ambient Color', 'Color Shift Top', 'Color Shift Bottom', 'Time Of Day', 'Saturation', 'Brightness', 'Tint Color', 'Copy JobId', 'Copy GameId', 'Copy Join Script', 'Rejoin Server', 'Join New Server', 'Max Players Filter', 'Menu Keybind', 'Open Keybind Menu', 'Custom Cursor', 'Unload', 'Theme Manager', 'Save Manager', 'Global Search', 'Notifications System', 'Total Executions Counter']
+      },
       'slipshot': {
         name: 'SlipShot',
         id: '99693329540396',
