@@ -572,8 +572,10 @@
     document.getElementById('year').textContent = new Date().getFullYear();
 
     const BASE_URLS = [
-      'https://executorapi.nobulemv2.workers.dev/?url=http://farts.fadedis.xyz:25505/api',
-      'https://executorapi.nobulemv2.workers.dev/?url=https://farts.fadedis.xyz:25505/api'
+        'https://weao.xyz/api',
+        'https://whatexpsare.online/api',
+        'https://weao.gg/api',
+        'https://whatexploitsaretra.sh/api'
     ];
     let currentVersion = null;
     let allExecutors = [];
@@ -581,23 +583,27 @@
     const ALLOWED_EXECUTORS = ['bunni.lol', 'swift', 'potassium', 'wave', 'volt', 'volcano', 'valex', 'delta', 'codex', 'cryptic', 'hydrogen', 'macsploit', 'seliware', 'chocosploit'];
 
     async function tryFetch(url) {
-      for (const baseUrl of BASE_URLS) {
-        try {
-          console.log('Attempting fetch from:', baseUrl + url);
-          const response = await fetch(baseUrl + url);
-          
-          if (response.ok) {
-            return response;
-          } else if (response.status === 429) {
-            console.log('Rate limited, trying next URL...');
-            continue;
-          }
-        } catch (error) {
-          console.log(`Failed with ${baseUrl}:`, error);
-          continue;
+        for (const baseUrl of BASE_URLS) {
+            try {
+                console.log('Attempting fetch from:', baseUrl + url);
+                const response = await fetch(baseUrl + url, {
+                    headers: {
+                        'User-Agent': 'WEAO-3PService'
+                    }
+                });
+                
+                if (response.ok) {
+                    return response;
+                } else if (response.status === 429) {
+                    console.log('Rate limited, trying next URL...');
+                    continue;
+                }
+            } catch (error) {
+                console.log(`Failed with ${baseUrl}:`, error);
+                continue;
+            }
         }
-      }
-      throw new Error('All fetch attempts failed - possible rate limit or API issue');
+        throw new Error('All fetch attempts failed - possible rate limit or API issue');
     }
 
     async function fetchVersions() {
