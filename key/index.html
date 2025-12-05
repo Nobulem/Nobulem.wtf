@@ -5,19 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Get Your Key</title>
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23e0e0e0' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><circle cx='7.5' cy='15.5' r='5.5'/><path d='m21 2-9.6 9.6'/><path d='m15.5 7.5 3 3L22 7l-3-3'/></svg>">
-  <style><!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Get Your Key</title>
   <style>
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
     }
-
     body {
       min-height: 100vh;
       display: flex;
@@ -28,35 +21,45 @@
       font-family: ui-sans-serif, -apple-system, system-ui, sans-serif;
       padding: 20px;
     }
-
     .container {
       text-align: center;
-      max-width: 600px;
+      max-width: 800px;
       width: 100%;
     }
-
     h1 {
       font-size: clamp(32px, 5vw, 48px);
       font-weight: 700;
       margin-bottom: 60px;
       color: #ffffff;
     }
-
     .buttons-wrapper {
       display: flex;
       flex-direction: column;
       gap: 32px;
       align-items: center;
     }
-
-    .button-container {
+    .top-button {
       width: 100%;
       max-width: 400px;
       display: flex;
       flex-direction: column;
       align-items: center;
     }
-
+    .bottom-row {
+      display: flex;
+      gap: 24px;
+      justify-content: center;
+      width: 100%;
+      flex-wrap: wrap;
+    }
+    .button-container {
+      flex: 1;
+      min-width: 280px;
+      max-width: 350px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
     .key-button {
       padding: 20px 40px;
       background: #151515;
@@ -73,50 +76,56 @@
       gap: 12px;
       text-decoration: none;
       white-space: nowrap;
+      width: 100%;
     }
-
     .key-button:hover {
       background: #1a1a1a;
       border-color: #333333;
       transform: translateY(-2px);
       box-shadow: 0 8px 24px rgba(0,0,0,0.4);
     }
-
     .button-logo {
       height: 24px;
       width: auto;
     }
-
     .button-note {
       margin-top: 8px;
       font-size: 13px;
       color: #666666;
       text-align: center;
     }
-
+    @media (max-width: 768px) {
+      .bottom-row {
+        flex-direction: column;
+        align-items: center;
+      }
+      .button-container {
+        max-width: 400px;
+        width: 100%;
+      }
+    }
     @media (max-width: 600px) {
       h1 {
         margin-bottom: 40px;
         font-size: 28px;
       }
-
       .buttons-wrapper {
         gap: 28px;
       }
-
       .key-button {
         padding: 16px 32px;
         font-size: 15px;
         gap: 10px;
       }
-
       .button-logo {
         height: 20px;
       }
-
       .button-note {
         font-size: 12px;
         margin-top: 6px;
+      }
+      .button-container {
+        min-width: 100%;
       }
     }
   </style>
@@ -124,23 +133,32 @@
 <body>
   <div class="container">
     <h1>Get Your Key</h1>
-
     <div class="buttons-wrapper">
-      <div class="button-container">
+      <div class="top-button">
         <a href="https://ads.luarmor.net/get_key?for=Nobulem_Key-oenewJdIjiwE" class="key-button" target="_blank">
           <img src="https://linkvertise.com/assets/img/linkvertise_logo_big.svg" alt="Linkvertise" class="button-logo">
           <span>Get Key</span>
         </a>
         <p class="button-note">(Fast and reliable)</p>
-        <p class="button-note">(If you get the one hour wait, please use Lootlabs.)</p>
+        <p class="button-note">(If you get the one hour wait, please use alternatives)</p>
       </div>
-
-      <div class="button-container">
-        <a href="https://ads.luarmor.net/get_key?for=Nobulem_Key_LOOTLABS-muokEPxVrKxo" class="key-button" target="_blank">
-          <img src="https://i.ibb.co/1t0KDWtB/image-removebg-preview.png" alt="Lootlabs" class="button-logo">
-          <span>Get Key</span>
-        </a>
-        <p class="button-note">(Alternative method)</p>
+      
+      <div class="bottom-row">
+        <div class="button-container">
+          <a href="https://ads.luarmor.net/get_key?for=Nobulem_Key_LOOTLABS-muokEPxVrKxo" class="key-button" target="_blank">
+            <img src="https://i.ibb.co/1t0KDWtB/image-removebg-preview.png" alt="Lootlabs" class="button-logo">
+            <span>Get Key</span>
+          </a>
+          <p class="button-note">(Alternative method)</p>
+        </div>
+        
+        <div class="button-container">
+          <a href="https://ads.luarmor.net/get_key?for=Nobulem_Key_Workink-JltYYAPFJpQZ" class="key-button" target="_blank">
+            <img src="https://work.ink/logo-light.svg" alt="Work.ink" class="button-logo">
+            <span>Get Key</span>
+          </a>
+          <p class="button-note">(Alternative method)</p>
+        </div>
       </div>
     </div>
   </div>
