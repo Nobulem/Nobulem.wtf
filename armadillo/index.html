@@ -115,7 +115,7 @@
         }
 
         .enter-text {
-            font-size: clamp(2.5rem, 6vw, 5rem);
+            font-size: clamp(2rem, 5vw, 4rem);
             color: #b19cd9;
             font-weight: bold;
             text-transform: uppercase;
@@ -292,12 +292,22 @@
             border-radius: 12px;
             margin-bottom: 1rem;
             transition: all 0.3s ease;
+            text-decoration: none;
+            color: inherit;
         }
 
         .social-item:hover {
             background: rgba(107, 91, 122, 0.2);
             border-color: rgba(139, 123, 154, 0.5);
             transform: translateX(8px);
+        }
+
+        .social-item.clickable {
+            cursor: pointer;
+        }
+
+        .social-item:not(.clickable) {
+            cursor: default;
         }
 
         .social-icon {
@@ -431,11 +441,11 @@
         }
 
         .section-title {
-            font-size: 2rem;
+            font-size: 1.75rem;
             color: #e5d5f0;
-            margin-bottom: 2rem;
+            margin-bottom: 1.5rem;
             font-weight: bold;
-            padding-bottom: 1rem;
+            padding-bottom: 0.75rem;
             border-bottom: 2px solid rgba(107, 91, 122, 0.3);
         }
 
@@ -485,8 +495,8 @@
 
         .grid-3 {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1.2rem;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
         }
 
         .info-card {
@@ -617,15 +627,15 @@
                 </div>
             </div>
 
-            <div class="social-item">
+            <a href="https://open.spotify.com/user/ckmsyina41ysuaxzi3wsz0qqo" target="_blank" class="social-item clickable">
                 <div class="social-icon">
                     <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></svg>
                 </div>
                 <div class="social-content">
                     <div class="social-label">Spotify</div>
-                    <a href="https://open.spotify.com/user/ckmsyina41ysuaxzi3wsz0qqo" target="_blank" class="social-link">Ace</a>
+                    <div class="social-link">Ace</div>
                 </div>
-            </div>
+            </a>
 
             <div class="social-item">
                 <div class="social-icon">
@@ -637,35 +647,35 @@
                 </div>
             </div>
 
-            <div class="social-item">
+            <a href="https://x.com/AceDoesntLeave" target="_blank" class="social-item clickable">
                 <div class="social-icon">
                     <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
                 </div>
                 <div class="social-content">
                     <div class="social-label">Twitter</div>
-                    <a href="https://x.com/AceDoesntLeave" target="_blank" class="social-link">@AceDoesntLeave</a>
+                    <div class="social-link">@AceDoesntLeave</div>
                 </div>
-            </div>
+            </a>
 
-            <div class="social-item">
+            <a href="https://instagram.com/armadillosace" target="_blank" class="social-item clickable">
                 <div class="social-icon">
                     <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="currentColor"><path d="M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4a5.8 5.8 0 0 1-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8A5.8 5.8 0 0 1 7.8 2m-.2 2A3.6 3.6 0 0 0 4 7.6v8.8C4 18.39 5.61 20 7.6 20h8.8a3.6 3.6 0 0 0 3.6-3.6V7.6C20 5.61 18.39 4 16.4 4H7.6m9.65 1.5a1.25 1.25 0 0 1 1.25 1.25A1.25 1.25 0 0 1 17.25 8 1.25 1.25 0 0 1 16 6.75a1.25 1.25 0 0 1 1.25-1.25M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3z"/></svg>
                 </div>
                 <div class="social-content">
                     <div class="social-label">Instagram</div>
-                    <a href="https://instagram.com/armadillosace" target="_blank" class="social-link">@ArmadillosAce</a>
+                    <div class="social-link">@ArmadillosAce</div>
                 </div>
-            </div>
+            </a>
 
-            <div class="social-item">
+            <a href="https://github.com/Armadilloh" target="_blank" class="social-item clickable">
                 <div class="social-icon">
                     <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
                 </div>
                 <div class="social-content">
                     <div class="social-label">GitHub</div>
-                    <a href="https://github.com/Armadilloh" target="_blank" class="social-link">Armadilloh</a>
+                    <div class="social-link">Armadilloh</div>
                 </div>
-            </div>
+            </a>
         </div>
     </div>
 
@@ -682,11 +692,11 @@
                     <h1>Ace (@ac.me)</h1>
                     <div class="status">
                         <div class="status-indicator"></div>
-                        <span>i wish i knew what a fuck was for me to give it!</span>
+                        <span>and if you ask me to daddys gonna buy you a mockingbird, ima give you the world.</span>
                     </div>
                 </div>
             </div>
-            <div class="bio">15, Arab, Smarter than you.</div>
+            <div class="bio">hey im ace, i do alot of stuff, im 15 currently</div>
         </div>
 
         <div class="section">
