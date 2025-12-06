@@ -563,7 +563,67 @@
             transform: translateX(8px);
         }
 
+        .poems-section {
+            margin-top: 2rem;
+        }
+
+        .poems-container {
+            display: flex;
+            gap: 2rem;
+            overflow-x: auto;
+            padding: 1rem 0;
+            scroll-snap-type: x mandatory;
+        }
+
+        .poem-card {
+            min-width: 400px;
+            max-width: 400px;
+            background: rgba(26, 22, 37, 0.6);
+            border: 1px solid rgba(107, 91, 122, 0.3);
+            border-radius: 12px;
+            padding: 2rem;
+            scroll-snap-align: start;
+            position: relative;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+        }
+
+        .poem-header {
+            text-align: center;
+            font-size: 1.3rem;
+            color: #e5d5f0;
+            margin-bottom: 1.5rem;
+            font-weight: bold;
+            border-bottom: 2px solid rgba(107, 91, 122, 0.3);
+            padding-bottom: 1rem;
+        }
+
+        .poem-lines {
+            background: 
+                repeating-linear-gradient(
+                    transparent,
+                    transparent 29px,
+                    rgba(107, 91, 122, 0.3) 29px,
+                    rgba(107, 91, 122, 0.3) 30px
+                );
+            padding: 1rem 0;
+            min-height: 300px;
+        }
+
+        .poem-line {
+            line-height: 30px;
+            height: 30px;
+            color: #c4b5d0;
+            font-size: 0.95rem;
+            text-align: center;
+            padding: 0 1rem;
+        }
+
         @media (max-width: 768px) {
+            .poem-card {
+                min-width: 300px;
+                max-width: 300px;
+            }
+
             .profile-section {
                 flex-direction: column;
                 text-align: center;
@@ -596,7 +656,7 @@
     </div>
 
     <audio id="bgMusic" loop>
-        <source src="Schubert%20-%20Serenade%20(arr.%20Liszt).mp3" type="audio/mpeg">
+        <source src="Schubert - Serenade (arr. Liszt).mp3" type="audio/mpeg">
     </audio>
 
     <div class="control-buttons">
@@ -692,11 +752,11 @@
                     <h1>Ace (@ac.me)</h1>
                     <div class="status">
                         <div class="status-indicator"></div>
-                        <span>and if you ask me to daddys gonna buy you a mockingbird, ima give you the world.</span>
+                        <span>wish i knew what a fuck was for me to give it!</span>
                     </div>
                 </div>
             </div>
-            <div class="bio">hey im ace, i do alot of stuff, im 15 currently</div>
+            <div class="bio">15, Arab, Smarter than you.</div>
         </div>
 
         <div class="section">
@@ -715,28 +775,28 @@
             <h2 class="section-title">About Me</h2>
             <div class="grid-3">
                 <div class="info-card">
+                    <strong>Age</strong>
+                    <p>15</p>
+                </div>
+                <div class="info-card">
                     <strong>Location</strong>
-                    <p>Somewhere in the Universe (Egypt)</p>
+                    <p>Egypt</p>
                 </div>
                 <div class="info-card">
                     <strong>Pronouns</strong>
                     <p>He/Him</p>
                 </div>
                 <div class="info-card">
-                    <strong>Interested in</strong>
-                    <p>I play the piano, i do not practice much not really feeling like it, i love Space so much, Stargazing is beautiful, Programming (i suck at python and html but im teaching myself), you 🌹(no not really i fucking hate you whoever you are)</p>
-                </div>
-                <div class="info-card">
-                    <strong>Favorite Music Genre's</strong>
-                    <p>Rap Rock, Hardcore hip hop, Pop.</p>
-                </div>
-                <div class="info-card">
-                    <strong>Things i hate:</strong>
-                    <p>MAX CHARACTER LIMIT REACHED, CANNOT DISPLAY. (not really)</p>
-                </div>
-                <div class="info-card">
                     <strong>Star Sign</strong>
                     <p>Virgo ♍</p>
+                </div>
+                <div class="info-card">
+                    <strong>Hobbies</strong>
+                    <p>Piano, Stargazing, Programming</p>
+                </div>
+                <div class="info-card">
+                    <strong>Music</strong>
+                    <p>Rap Rock, Hardcore Hip Hop, Pop</p>
                 </div>
             </div>
         </div>
@@ -757,8 +817,62 @@
                 <div class="fun-fact">☕ did someone say tea? no?</div>
             </div>
         </div>
+
+        <div class="section poems-section">
+            <h2 class="section-title">Poems</h2>
+            <div class="poems-container" id="poemsContainer">
+                <!-- Poem cards will be inserted here -->
+                <!-- Example poem structure:
+                <div class="poem-card">
+                    <div class="poem-header">Poem Title Here</div>
+                    <div class="poem-lines">
+                        <div class="poem-line">First line of poem</div>
+                        <div class="poem-line">Second line of poem</div>
+                        <div class="poem-line">Third line of poem</div>
+                    </div>
+                </div>
+                -->
+                                <div class="poem-card">
+                    <div class="poem-header">All in</div>
+                    <div class="poem-lines">
+                        <div class="poem-line">Of Quiet Birds And Restless Hearts</div>
+                        <div class="poem-line">Only You Could Play Me Like a Card</div>
+                        <div class="poem-line">You Leaving Me Was Hard Back Then</div>
+                        <div class="poem-line">Convincing Me You Had a Heart I'd Win</div>
+                        <div class="poem-line">If I Ever Had to Bet On You, I'd Go All In.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
+<div class="poem-card">
+    <div class="poem-header">Greif./div>
+    <div class="poem-lines">
+        <div class="poem-line">A Grief That Was Never Finished</div>
+        <div class="poem-line">A Song that was never sung;</div>
+        <div class="poem-line">A Bell That Was Hit,</div>
+        <div class="poem-line">but never Rung,</div>
+
+        <div class="poem-line">A Fault i Can't Mourn</div>
+        <div class="poem-line">A Thought that wasnt Born</div>
+        <div class="poem-line">for all the Sorrow i see</div>
+        <div class="poem-line">it's like cutting down a tree</div>
+        <div class="poem-line">Nothing Remains of what stood tall</div>
+        <div class="poem-line">Everything Will Fall,</div>
+
+        <div class="poem-line">All my Grief is in the past</div>
+        <div class="poem-line">And with my future I do not concern</div>
+        <div class="poem-line">For I am A Human in the end</div>
+        <div class="poem-line">who From His Past Mistakes learn,</div>
+
+        <div class="poem-line">They say Grief has 5 stages</div>
+        <div class="poem-line">and this is often true,</div>
+        <div class="poem-line">But The Real thing to Grief upon,</div>
+        <div class="poem-line">is what remains of you.</div>
+    </div>
+</div>
+    
     <script>
         const splashTexts = [
             "hey its me Ace",
@@ -796,11 +910,14 @@
         
         pressToEnter.addEventListener('click', function() {
             pressToEnter.classList.add('hidden');
+            // Try to play music when entering
+            bgMusic.play().catch(function(err) {
+                console.log('Autoplay blocked, will play on next interaction');
+            });
         });
 
         const bgMusic = document.getElementById('bgMusic');
         const muteButton = document.getElementById('muteButton');
-        const muteIcon = document.getElementById('muteIcon');
         const muteTooltip = document.getElementById('muteTooltip');
         let isMuted = false;
 
@@ -808,13 +925,14 @@
             isMuted = !isMuted;
             bgMusic.muted = isMuted;
             
-            if (isMuted) {
-                muteIcon.setAttribute('data-lucide', 'volume-x');
-                muteTooltip.textContent = 'Unmute';
-            } else {
-                muteIcon.setAttribute('data-lucide', 'volume-2');
-                muteTooltip.textContent = 'Mute';
-            }
+            // Replace the entire icon element
+            const iconContainer = muteButton.querySelector('i');
+            const newIcon = document.createElement('i');
+            newIcon.id = 'muteIcon';
+            newIcon.setAttribute('data-lucide', isMuted ? 'volume-x' : 'volume-2');
+            iconContainer.replaceWith(newIcon);
+            
+            muteTooltip.textContent = isMuted ? 'Unmute' : 'Mute';
             lucide.createIcons();
         });
 
@@ -840,19 +958,17 @@
         setTimeout(function() {
             document.getElementById('loading-screen').classList.add('hidden');
             document.getElementById('main-content').classList.add('visible');
-            
-            bgMusic.play().catch(function(err) {
-                console.log('Autoplay blocked');
-            });
         }, 2000);
 
         document.addEventListener('click', function playOnClick() {
             if (bgMusic.paused && !isMuted) {
-                bgMusic.play().catch(function(err) {
+                bgMusic.play().then(function() {
+                    console.log('Music started playing');
+                }).catch(function(err) {
                     console.log('Error playing audio:', err);
                 });
             }
-        });
+        }, { once: false });
 
         const SPOTIFY_CLIENT_ID = '211a95f3715a49afa15efe564ab0d471';
         const SPOTIFY_CLIENT_SECRET = '2441754df7394b95b8b5a06def3f1df8';
@@ -920,6 +1036,101 @@
 
         updateSpotifyData();
         setInterval(updateSpotifyData, 20000);
+
+        // ============================================
+        // POEMS SYSTEM - Add your poems below
+        // ============================================
+        const poems = [
+            {
+                title: "Sample Poem",
+                lines: [
+                    "This is the first line",
+                    "Here's another line",
+                    "And one more line",
+                    "Poetry in motion"
+                ]
+            },
+            // Add more poems here following the same format
+        ];
+
+        function renderPoems() {
+            const container = document.getElementById('poemsContainer');
+            container.innerHTML = '';
+            
+            // Render poems in reverse order (newest first/rightmost)
+            poems.slice().reverse().forEach(poem => {
+                const poemCard = document.createElement('div');
+                poemCard.className = 'poem-card';
+                
+                const header = document.createElement('div');
+                header.className = 'poem-header';
+                header.textContent = poem.title;
+                
+                const linesContainer = document.createElement('div');
+                linesContainer.className = 'poem-lines';
+                
+                poem.lines.forEach(lineText => {
+                    const line = document.createElement('div');
+                    line.className = 'poem-line';
+                    line.textContent = lineText;
+                    linesContainer.appendChild(line);
+                });
+                
+                poemCard.appendChild(header);
+                poemCard.appendChild(linesContainer);
+                container.appendChild(poemCard);
+            });
+        }
+
+        renderPoems();
     </script>
 </body>
 </html>
+
+<!-- 
+================================================
+HOW TO ADD A NEW POEM:
+================================================
+
+1. Find the "poems" array above (around line 20 of the script section)
+2. Add a new poem object at the END of the array like this:
+
+{
+    title: "Your Poem Title",
+    lines: [
+        "First line of your poem",
+        "Second line of your poem",
+        "Third line of your poem",
+        "Add as many lines as you want"
+    ]
+},
+
+EXAMPLE:
+--------
+const poems = [
+    {
+        title: "Sample Poem",
+        lines: [
+            "This is the first line",
+            "Here's another line"
+        ]
+    },
+    {
+        title: "My New Poem",
+        lines: [
+            "Roses are red",
+            "Violets are blue",
+            "Add your poem here",
+            "Line by line"
+        ]
+    },
+];
+
+IMPORTANT: 
+- Don't forget the comma after each poem object
+- The newest poem you add will appear on the RIGHT
+- Older poems will shift to the LEFT
+- Each line should be in quotes
+- Lines are automatically centered
+================================================
+-->
