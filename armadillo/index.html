@@ -832,47 +832,6 @@
                     </div>
                 </div>
                 -->
-                                <div class="poem-card">
-                    <div class="poem-header">All in</div>
-                    <div class="poem-lines">
-                        <div class="poem-line">Of Quiet Birds And Restless Hearts</div>
-                        <div class="poem-line">Only You Could Play Me Like a Card</div>
-                        <div class="poem-line">You Leaving Me Was Hard Back Then</div>
-                        <div class="poem-line">Convincing Me You Had a Heart I'd Win</div>
-                        <div class="poem-line">If I Ever Had to Bet On You, I'd Go All In.</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-<div class="poem-card">
-    <div class="poem-header">Greif./div>
-    <div class="poem-lines">
-        <div class="poem-line">A Grief That Was Never Finished</div>
-        <div class="poem-line">A Song that was never sung;</div>
-        <div class="poem-line">A Bell That Was Hit,</div>
-        <div class="poem-line">but never Rung,</div>
-
-        <div class="poem-line">A Fault i Can't Mourn</div>
-        <div class="poem-line">A Thought that wasnt Born</div>
-        <div class="poem-line">for all the Sorrow i see</div>
-        <div class="poem-line">it's like cutting down a tree</div>
-        <div class="poem-line">Nothing Remains of what stood tall</div>
-        <div class="poem-line">Everything Will Fall,</div>
-
-        <div class="poem-line">All my Grief is in the past</div>
-        <div class="poem-line">And with my future I do not concern</div>
-        <div class="poem-line">For I am A Human in the end</div>
-        <div class="poem-line">who From His Past Mistakes learn,</div>
-
-        <div class="poem-line">They say Grief has 5 stages</div>
-        <div class="poem-line">and this is often true,</div>
-        <div class="poem-line">But The Real thing to Grief upon,</div>
-        <div class="poem-line">is what remains of you.</div>
-    </div>
-</div>
-    
     <script>
         const splashTexts = [
             "hey its me Ace",
@@ -1040,18 +999,45 @@
         // ============================================
         // POEMS SYSTEM - Add your poems below
         // ============================================
-        const poems = [
-            {
-                title: "Sample Poem",
-                lines: [
-                    "This is the first line",
-                    "Here's another line",
-                    "And one more line",
-                    "Poetry in motion"
-                ]
-            },
-            // Add more poems here following the same format
-        ];
+const poems = [
+    {
+        title: "All in",
+        lines: [
+            "Of Quiet Birds And Restless Hearts",
+            "Only You Could Play Me Like a Card",
+            "You Leaving Me Was Hard Back Then",
+            "Convincing Me You Had a Heart I'd Win",
+            "If I Ever Had to Bet On You, I'd Go All In."
+        ]
+    },
+
+    {
+        title: "Grief",
+        lines: [
+            "A Grief That Was Never Finished",
+            "A Song that was never sung;",
+            "A Bell That Was Hit,",
+            "but never Rung,",
+
+            "A Fault i Can't Mourn",
+            "A Thought that wasnt Born",
+            "for all the Sorrow i see",
+            "it's like cutting down a tree",
+            "Nothing Remains of what stood tall",
+            "Everything Will Fall,",
+
+            "All my Grief is in the past",
+            "And with my future I do not concern",
+            "For I am A Human in the end",
+            "who From His Past Mistakes learn,",
+
+            "They say Grief has 5 stages",
+            "and this is often true,",
+            "But The Real thing to Grief upon,",
+            "is what remains of you."
+        ]
+    }
+];
 
         function renderPoems() {
             const container = document.getElementById('poemsContainer');
