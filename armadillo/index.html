@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -656,10 +655,11 @@
             </div>
             <div class="bio">hey im ace, i do alot of stuff, im 15 currently</div>
         </div>
-        <div class="glass-card">
+
+        <div class="section">
             <h2 class="section-title">Now Playing</h2>
             <div class="spotify-card" id="now-playing">
-                <img src="https://via.placeholder.com/80" alt="Album Art" class="album-art" id="album-art">
+                <img src="https://via.placeholder.com/90" alt="Album Art" class="album-art" id="album-art">
                 <div class="song-info">
                     <h3 id="song-title">Not currently playing</h3>
                     <p id="song-artist">Not playing any songs...</p>
@@ -668,64 +668,55 @@
             <div id="spotify-player-container"></div>
         </div>
 
-        <div class="glass-card">
+        <div class="section">
             <h2 class="section-title">About Me</h2>
-            <div class="wide-grid">
-                <div class="info-item">
+            <div class="grid-3">
+                <div class="info-card">
                     <strong>Location</strong>
                     <p>Somewhere in the Universe (Egypt)</p>
                 </div>
-                <div class="info-item">
+                <div class="info-card">
                     <strong>Pronouns</strong>
                     <p>He/Him</p>
                 </div>
-                <div class="info-item">
+                <div class="info-card">
                     <strong>Interested in</strong>
-                    <p>I play the piano, i do not practice much not really feeling like it, 
-                        
-                        i love Space so much, Stargazing is beautiful, 
-                        
-                        Programming (i suck at python and html but im teaching myself), 
-                        
-                        you 🌹(no not really i fucking hate you whoever you are)</p>
+                    <p>I play the piano, i do not practice much not really feeling like it, i love Space so much, Stargazing is beautiful, Programming (i suck at python and html but im teaching myself), you 🌹(no not really i fucking hate you whoever you are)</p>
                 </div>
-                <div class="info-item">
+                <div class="info-card">
                     <strong>Favorite Music Genre's</strong>
                     <p>Rap Rock, Hardcore hip hop, Pop.</p>
                 </div>
-                <div class="info-item">
+                <div class="info-card">
                     <strong>Things i hate:</strong>
                     <p>MAX CHARACTER LIMIT REACHED, CANNOT DISPLAY. (not really)</p>
                 </div>
-                <div class="info-item">
+                <div class="info-card">
                     <strong>Star Sign</strong>
                     <p>Virgo ♍</p>
                 </div>
             </div>
         </div>
 
-        <div class="two-col-grid">
-            <div class="glass-card">
+        <div class="grid-2">
+            <div class="section">
                 <h2 class="section-title">Favorite Songs</h2>
                 <div class="song-item"><strong>1.</strong> World we knew (over and over) - Frank Sinatra</div>
                 <div class="song-item"><strong>2.</strong> Cleaning out my closet - Eminem</div>
                 <div class="song-item"><strong>3.</strong> Unshaken - D'Angelo</div>
             </div>
 
-            <div class="glass-card">
+            <div class="section">
                 <h2 class="section-title">Fun Facts</h2>
-                <div class="fun-facts">
-                    <p>💫 top 10 yapper rated worldwide</p>
-                    <p>🔎 i HATE dumb people</p>
-                    <p>🌙 im basically nocturnal at this point??</p>
-                    <p>☕ did someone say tea? no?</p>
-                </div>
+                <div class="fun-fact">💫 top 10 yapper rated worldwide</div>
+                <div class="fun-fact">🔎 i HATE dumb people</div>
+                <div class="fun-fact">🌙 im basically nocturnal at this point??</div>
+                <div class="fun-fact">☕ did someone say tea? no?</div>
             </div>
         </div>
     </div>
 
     <script>
-        // Splash text
         const splashTexts = [
             "hey its me Ace",
             "hi ghost",
@@ -742,10 +733,21 @@
 
         document.getElementById('splash-text').textContent = splashTexts[Math.floor(Math.random() * splashTexts.length)];
 
-        // Initialize Lucide icons
+        // Create infinite scrolling border text
+        function createBorderText() {
+            const textString = "BURN IN HELL ✦ BURN IN HEAVEN ✦ ";
+            const repeatCount = 50;
+            
+            document.getElementById('borderTop').textContent = textString.repeat(repeatCount);
+            document.getElementById('borderBottom').textContent = textString.repeat(repeatCount);
+            document.getElementById('borderLeft').textContent = textString.repeat(repeatCount);
+            document.getElementById('borderRight').textContent = textString.repeat(repeatCount);
+        }
+
+        createBorderText();
+
         lucide.createIcons();
 
-        // Mute button functionality
         const bgMusic = document.getElementById('bgMusic');
         const muteButton = document.getElementById('muteButton');
         const muteIcon = document.getElementById('muteIcon');
@@ -766,7 +768,6 @@
             lucide.createIcons();
         });
 
-        // Socials modal functionality
         const socialsButton = document.getElementById('socialsButton');
         const modalOverlay = document.getElementById('modalOverlay');
         const closeModal = document.getElementById('closeModal');
@@ -786,46 +787,23 @@
             }
         });
 
-        // Create rain effect
-        function createRain() {
-            const rainContainer = document.getElementById('rain-container');
-            for (let i = 0; i < 100; i++) {
-                const drop = document.createElement('div');
-                drop.className = 'raindrop';
-                drop.style.left = Math.random() * 100 + '%';
-                drop.style.animationDuration = (Math.random() * 1 + 0.5) + 's';
-                drop.style.animationDelay = Math.random() * 2 + 's';
-                rainContainer.appendChild(drop);
-            }
-        }
-
-        createRain();
-
-        // Loading screen - simple timeout
         setTimeout(function() {
             document.getElementById('loading-screen').classList.add('hidden');
             document.getElementById('main-content').classList.add('visible');
             
-            // Try to play music immediately
-            bgMusic.play().then(function() {
-                console.log('Music playing successfully!');
-            }).catch(function(err) {
-                console.log('Autoplay blocked - click anywhere to play music');
+            bgMusic.play().catch(function(err) {
+                console.log('Autoplay blocked');
             });
         }, 2000);
 
-        // Backup: play music on any user interaction
         document.addEventListener('click', function playOnClick() {
             if (bgMusic.paused && !isMuted) {
-                bgMusic.play().then(function() {
-                    console.log('Music started after user interaction');
-                }).catch(function(err) {
+                bgMusic.play().catch(function(err) {
                     console.log('Error playing audio:', err);
                 });
             }
         });
 
-        // Spotify API
         const SPOTIFY_CLIENT_ID = '211a95f3715a49afa15efe564ab0d471';
         const SPOTIFY_CLIENT_SECRET = '2441754df7394b95b8b5a06def3f1df8';
         const SPOTIFY_REFRESH_TOKEN = 'AQAygJQ_reRZP2d255pm3kbmmEmG_glXzcWPCX-dOS8cRG7WpM9BnFEgCP6ImVsJ0hgd8DUMLthHuvMIgs_GDlyhsS1dX9BmJ3uBUW22X-YKbQ5Jmk0zZKqRAMFyGjNThdA';
@@ -870,7 +848,7 @@
             if (nowPlaying && nowPlaying.item) {
                 document.getElementById('song-title').textContent = nowPlaying.item.name;
                 document.getElementById('song-artist').textContent = nowPlaying.item.artists.map(a => a.name).join(', ');
-                document.getElementById('album-art').src = nowPlaying.item.album.images[0]?.url || 'https://via.placeholder.com/80';
+                document.getElementById('album-art').src = nowPlaying.item.album.images[0]?.url || 'https://via.placeholder.com/90';
 
                 const trackId = nowPlaying.item.id;
                 const progressMs = nowPlaying.progress_ms || 0;
@@ -891,7 +869,7 @@
         }
 
         updateSpotifyData();
-        setInterval(updateSpotifyData, 20000); // Update every 20 seconds
+        setInterval(updateSpotifyData, 20000);
     </script>
 </body>
 </html>
